@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio of Karuna Ketan, a Game Designer specializing in system design, level design, and player psychology.">
     <title>Karuna Ketan | Game Designer</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <header class="minimal-header">
         <div class="header-content">
-            <a href="index.html" class="logo">KK<span class="dot">.</span></a>
-            <nav>
+            <a href="index.html" class="logo">KARUNA KETAN</a>
+            <nav aria-label="Main Navigation">
                 <ul class="nav-links">
                     <li><a href="#projects">Projects</a></li>
                     <li><a href="documents.html">Docs</a></li>
                     <li><a href="#process">Process</a></li>
-                    <li><a href="#contact">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
                     <li><a href="resume.pdf" target="_blank" class="resume-btn">RESUME</a></li>
                 </ul>
             </nav>
@@ -27,109 +28,147 @@
     <main class="main-container">
 
         <section class="intro-section">
-            <h1 class="intro-title">GAME DESIGNER</h1>
-            <div class="intro-text">
-                <p>Hello, I'm <strong>Karuna Ketan</strong>.</p>
-                <p>
-                    I am a Game Designer and final-year CSE student. I focus on <strong>System Design</strong>, <strong>Level Design</strong>, and <strong>Player Psychology</strong>. My goal is to craft balanced gameplay loops and immersive experiences in Unreal Engine 5.
+            <div class="intro-content">
+                <h2 class="section-label-small"><b>About me</b></h2>
+                <h1 class="intro-title">Hello, I’m Karuna Ketan, a game designer.</h1>
+                <p class="intro-bio">
+                    I’m a game designer and final year CSE student. I focus on <strong>player psychology</strong>, <strong>system design</strong> and <strong>level design</strong>, with a strong technical background. I am driven by creating balanced gameplay loops and immersive experiences that feel intentional and engaging to play.
                 </p>
-                <p>
-                    <a href="resume.pdf" target="_blank" class="text-link">View Resume ↗</a>
-                </p>
+                <a href="resume.pdf" target="_blank" class="text-link">View resume</a>
             </div>
+            
+            <figure class="profile-img-container">
+                <img src="assets/profile.jpeg" alt="Portrait of Karuna Ketan" class="profile-img">
+            </figure>
         </section>
 
         <section id="projects" class="projects-section">
-            <h2 class="section-label">SELECTED PROJECTS</h2>
+            <h2 class="projects-title">Projects</h2>
             
             <div class="projects-list">
                 
-                <div class="project-row project-card">
-                    <a href="eof.html" class="row-image">
-                        <img src="assets/EOF.png" alt="Eclipse of Fear">
-                        <div class="card-overlay"><span class="view-btn">View Case Study</span></div>
+                <article class="project-row">
+                    <a href="eof.html" class="row-image" aria-label="View Eclipse of Fear project details">
+                        <img src="assets/Horror/EOF.png" alt="Screenshot from Eclipse of Fear game" loading="lazy">
                     </a>
                     <div class="row-content">
-                        <span class="row-meta">Horror / Level Design</span>
-                        <h3 class="row-title">ECLIPSE OF FEAR</h3>
+                        <span class="row-date">Horror</span>
+                        <h3 class="row-title">Eclipse of Fear</h3>
                         <p class="row-desc">
-                            A stealth-horror prototype exploring dynamic difficulty. I designed a "Safety in Shadows" system where light intensity directly dictates AI detection speeds.
+                            A short first-person survival horror set on a college campus after midnight, where finishing simple paperwork turns into a fight for survival and every completed task makes the world more dangerous.
                         </p>
-                        <a href="eof.html" class="row-btn">View Case Study</a>
+                        <a href="eof.html" class="pill-btn">View project</a>
                     </div>
-                </div>
+                </article>
 
-                <div class="project-row project-card">
-                    <a href="scttv.html" class="row-image">
-                        <img src="assets/SCTTV.png" alt="Shattered Charms">
-                        <div class="card-overlay"><span class="view-btn">View Case Study</span></div>
+                <article class="project-row">
+                    <a href="scttv.html" class="row-image" aria-label="View Shattered Charms project details">
+                        <img src="assets/RPG/SCTTV.png" alt="Screenshot from Shattered Charms game" loading="lazy">
                     </a>
                     <div class="row-content">
-                        <span class="row-meta">RPG / System Design</span>
-                        <h3 class="row-title">SHATTERED CHARMS</h3>
+                        <span class="row-date">RPG</span>
+                        <h3 class="row-title">Shattered Charms</h3>
                         <p class="row-desc">
                             Solving ludonarrative dissonance in a turn-based RPG. I engineered a narrative-combat affinity system where dialogue choices procedurally unlock statistical buffs.
                         </p>
-                        <a href="scttv.html" class="row-btn">View Case Study</a>
+                        <a href="scttv.html" class="pill-btn">View project</a>
                     </div>
-                </div>
+                </article>
 
-                <div class="project-row project-card">
-                    <a href="ps.html" class="row-image">
-                        <img src="assets/PS.png" alt="Project Singularity">
-                        <div class="card-overlay"><span class="view-btn">View Case Study</span></div>
+                <article class="project-row">
+                    <a href="ps.html" class="row-image" aria-label="View Project Singularity project details">
+                        <img src="assets/Action-adv/PS.png" alt="Screenshot from Project Singularity game" loading="lazy">
                     </a>
                     <div class="row-content">
-                        <span class="row-meta">Action / Combat Design</span>
-                        <h3 class="row-title">PROJECT SINGULARITY</h3>
+                        <span class="row-date">Action-adventure</span>
+                        <h3 class="row-title">Project Singularity</h3>
                         <p class="row-desc">
                             A high-octane shooter focused on "Game Feel." I fixed floaty mechanics by implementing a procedural recoil system and visceral feedback loops.
                         </p>
-                        <a href="ps.html" class="row-btn">View Case Study</a>
+                        <a href="ps.html" class="pill-btn">View project</a>
                     </div>
-                </div>
+                </article>
 
-                <div class="project-row project-card">
-                    <a href="tlou.html" class="row-image">
-                        <img src="assets/TLOU.png" alt="TLOU Analysis">
-                        <div class="card-overlay"><span class="view-btn">Read Analysis</span></div>
+                <article class="project-row">
+                    <a href="tlou.html" class="row-image" aria-label="View The Last of Us Analysis">
+                        <img src="assets/Game Deconstruction/TLOU.png" alt="The Last of Us Part I cover art" loading="lazy">
                     </a>
                     <div class="row-content">
-                        <span class="row-meta">Game Deconstruction</span>
-                        <h3 class="row-title">THE LAST OF US: PART I</h3>
+                        <span class="row-date">Game Deconstruction</span>
+                        <h3 class="row-title">The Last of Us: Part I</h3>
                         <p class="row-desc">
                             A deep dive analysis into Naughty Dog's level design philosophy. I breakdown their use of "Pacing Pockets" and environmental storytelling.
                         </p>
-                        <a href="tlou.html" class="row-btn">Read Analysis ↗</a>
+                        <a href="tlou.html" class="pill-btn">Read Analysis</a>
                     </div>
-                </div>
+                </article>
 
             </div>
         </section>
 
         <section id="process" class="process-section">
-            <h2 class="section-label">MY PROCESS</h2>
-            <div class="process-grid-detailed">
-                <div class="process-card"><div class="process-icon">🔍</div><h3>RESEARCH</h3><p>I conduct deep Game Deconstructions of reference titles.</p></div>
-                <div class="process-card"><div class="process-icon">📝</div><h3>BRIEF</h3><p>Establishing clear Design Pillars early on.</p></div>
-                <div class="process-card"><div class="process-icon">💡</div><h3>IDEATION</h3><p>Paper Prototyping math and logic to fail fast.</p></div>
-                <div class="process-card"><div class="process-icon">📖</div><h3>DOCS</h3><p>Creating Live GDDs and functional specs.</p></div>
-                <div class="process-card"><div class="process-icon">⚙️</div><h3>PROTOTYPE</h3><p>Building "ugly but functional" systems in Unreal 5.</p></div>
-                <div class="process-card"><div class="process-icon">🎮</div><h3>TESTING</h3><p>Regular playtests to tune difficulty curves.</p></div>
-                <div class="process-card"><div class="process-icon">🚀</div><h3>RELEASE</h3><p>Shipping polished builds to Itch.io.</p></div>
-                <div class="process-card"><div class="process-icon">📊</div><h3>ANALYSIS</h3><p>Digging through data and writing Post-Mortems.</p></div>
+            <h2 class="projects-title">My Process</h2>
+            <div class="process-grid">
+                
+                <div class="process-card">
+                    <div class="process-icon" aria-hidden="true">🔍</div>
+                    <h3>Research</h3>
+                    <p>I conduct deep Game Deconstructions of reference titles to understand their economy loops and pacing.</p>
+                </div>
+
+                <div class="process-card">
+                    <div class="process-icon" aria-hidden="true">📝</div>
+                    <h3>Brief</h3>
+                    <p>Establishing clear Design Pillars early on to ensure mechanics align with the core player fantasy.</p>
+                </div>
+
+                <div class="process-card">
+                    <div class="process-icon" aria-hidden="true">💡</div>
+                    <h3>Ideation</h3>
+                    <p>From brainstorming to Paper Prototyping. I test math and logic on paper to fail fast before coding.</p>
+                </div>
+
+                <div class="process-card">
+                    <div class="process-icon" aria-hidden="true">📖</div>
+                    <h3>Docs</h3>
+                    <p>Creating Live GDDs. I know when to write detailed specs and when to make quick flowcharts.</p>
+                </div>
+
+                <div class="process-card">
+                    <div class="process-icon" aria-hidden="true">⚙️</div>
+                    <h3>Prototype</h3>
+                    <p>Jumping into Unreal Engine 5 using Blueprints to build "ugly but functional" mechanics to test Game Feel.</p>
+                </div>
+
+                <div class="process-card">
+                    <div class="process-icon" aria-hidden="true">🎮</div>
+                    <h3>Testing</h3>
+                    <p>Regular playtests to tune difficulty curves. Gathering feedback is my bread and butter.</p>
+                </div>
+
+                <div class="process-card">
+                    <div class="process-icon" aria-hidden="true">🚀</div>
+                    <h3>Release</h3>
+                    <p>Packaging and shipping builds to Itch.io, ensuring the "First Time User Experience" is frictionless.</p>
+                </div>
+
+                <div class="process-card">
+                    <div class="process-icon" aria-hidden="true">📊</div>
+                    <h3>Analysis</h3>
+                    <p>Digging through playtest data and writing Post-Mortems to understand what went right and what broke.</p>
+                </div>
+
             </div>
         </section>
 
-        <section id="contact" class="contact-section">
-            <h2 class="section-label">CONTACT</h2>
-            <div class="contact-links">
-                <a href="mailto:gamesbykarunaket@gmail.com">gamesbykarunaket@gmail.com</a>
-                <a href="https://www.linkedin.com/in/karunaket/" target="_blank">LinkedIn</a>
-                <a href="https://github.com/karunaket" target="_blank">GitHub</a>
+        <footer id="contact" class="footer-section">
+            <div class="footer-links">
+                <a href="mailto:gamesbykarunaket@gmail.com" aria-label="Email Karuna Ketan">Email</a>
+                <a href="https://www.linkedin.com/in/karunaket/" target="_blank" rel="noopener noreferrer" aria-label="Visit Karuna Ketan's LinkedIn">LinkedIn</a>
+                <a href="https://github.com/karunaket" target="_blank" rel="noopener noreferrer" aria-label="Visit Karuna Ketan's GitHub">GitHub</a>
             </div>
-            <p class="copyright">© 2025 Karuna Ketan.</p>
-        </section>
+            <p style="margin-top: 1rem; color: #888; font-size: 0.8rem;">© 2025 Karuna Ketan.</p>
+        </footer>
 
     </main>
 

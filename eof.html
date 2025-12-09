@@ -5,67 +5,383 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eclipse of Fear | Karuna Ketan</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <header class="minimal-header">
         <div class="header-content">
             <a href="index.html" class="logo">KK<span class="dot">.</span></a>
-            <nav><ul class="nav-links"><li><a href="index.html#projects">Back to Projects</a></li></ul></nav>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html#projects">Back to Home</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
-    <section class="project-hero">
-        <div class="hero-bg"><img src="assets/EOF.png" class="hero-img"><div class="hero-overlay"></div></div>
-        <div class="project-title-block">
-            <h1 class="project-title-large">ECLIPSE OF FEAR</h1>
-            <div class="project-meta">
-                <span class="meta-item"><strong>ROLE:</strong> AI & Level Designer</span>
-                <span class="meta-item"><strong>ENGINE:</strong> Unreal Engine 5</span>
-                <span class="meta-item"><strong>GENRE:</strong> Stealth / Horror</span>
+    <div class="top-slider-section">
+        <div class="slider-container full-width-slider">
+            <div class="slider-wrapper">
+                <div class="slide"><img src="assets/Horror/Images/1.png" alt="Main Menu"></div>
+                <div class="slide"><img src="assets/Horror/Images/2.jpg" alt="Intro"></div>
+                <div class="slide"><img src="assets/Horror/Images/3.jpg" alt="Flashlight"></div>
+                <div class="slide"><img src="assets/Horror/Images/4.jpg" alt="Hostel"></div>
+                <div class="slide"><img src="assets/Horror/Images/5.jpg" alt="Corridor"></div>
+                <div class="slide"><img src="assets/Horror/Images/6.jpg" alt="Gate"></div>
+                <div class="slide"><img src="assets/Horror/Images/7.jpg" alt="Gun"></div>
+                <div class="slide"><img src="assets/Horror/Images/8.jpg" alt="CSE"></div>
+                <div class="slide"><img src="assets/Horror/Images/9.jpg" alt="Gameplay"></div>
+                <div class="slide"><img src="assets/Horror/Images/10.jpg" alt="Office"></div>
+                <div class="slide"><img src="assets/Horror/Images/11.jpg" alt="Enemy"></div>
+                <div class="slide"><img src="assets/Horror/Images/12.jpg" alt="Key"></div>
+                <div class="slide"><img src="assets/Horror/Images/13.jpg" alt="HOD"></div>
+                <div class="slide"><img src="assets/Horror/Images/14.jpg" alt="Darkness"></div>
+            </div>
+            <button class="slider-btn prev">&#10094;</button>
+            <button class="slider-btn next">&#10095;</button>
+            <div class="slider-dots-container" id="dotsContainer"></div>
+        </div>
+    </div>
+
+    <section class="project-header-compact">
+        <h1 class="case-title">ECLIPSE OF FEAR</h1>
+        
+        <div class="project-stats-grid">
+            <div class="stat-box">
+                <span class="label">ROLE</span>
+                <span class="value">Director, Game Designer & Developer</span>
+            </div>
+            <div class="stat-box">
+                <span class="label">ENGINE</span>
+                <span class="value">Unreal Engine 5</span>
+            </div>
+            <div class="stat-box">
+                <span class="label">GENRE</span>
+                <span class="value">Survival Horror</span>
+            </div>
+            <div class="stat-box">
+                <span class="label">DURATION</span>
+                <span class="value">1 Month</span>
             </div>
         </div>
+
+        <div class="header-actions">
+            <a href="https://karuna-ketan.itch.io/eclipse-of-fear" target="_blank" class="resume-btn">PLAY ON ITCH.IO ↗</a>
+        </div>
+        
+        <p class="team-credit">3D Prop Artist: <strong>Abhinav Das</strong> | Design & Devevelopment: <strong>Karuna Ketan</strong></p>
     </section>
 
-    <div class="case-study-container">
-        <section class="case-section">
-            <h2 class="section-heading">01. THE DESIGN CHALLENGE</h2>
-            <div class="text-block">
-                <p><strong>The Problem:</strong> Stealth games often feel unfair when players are detected instantly.</p>
-                <p><strong>The Goal:</strong> Create a "Telegraphing System" using dynamic lighting cues instead of UI.</p>
-            </div>
-        </section>
-
-        <section class="case-section">
-            <h2 class="section-heading">02. THE SOLUTION</h2>
-            <div class="text-block">
-                <p><strong>The Mechanic:</strong> I implemented an AI Perception component that calculates light intensity on the player mesh.</p>
-            </div>
-            <div class="media-grid">
-                <div class="media-item"><img src="assets/EOF.png"></div>
-                <div class="media-item"><img src="assets/EOF.png"></div>
-            </div>
-        </section>
-
-        <section class="case-section pdf-section">
-            <h2 class="section-heading">03. DOCUMENTATION</h2>
-            <div class="text-block"><p>Read the full Game Design Document below covering AI behavior trees and level layouts.</p></div>
-            
-            <div class="pdf-container">
-                <iframe src="assets/EOF_GDD.pdf" class="pdf-frame"></iframe>
-            </div>
-
-            <div class="doc-actions">
-                <a href="assets/EOF_GDD.pdf" download class="download-btn">DOWNLOAD GDD (PDF) ↓</a>
-            </div>
-        </section>
+    <div class="case-study-content">
         
-        <section class="case-section">
-            <h2 class="section-heading">04. RETROSPECTIVE</h2>
-             <div class="text-block">
-                <p><strong>What worked:</strong> The lighting system successfully communicated danger without needing a HUD.</p>
+        <section class="content-block split-section">
+            <div class="split-text">
+                <h2 class="block-title">Game Overview</h2>
+                <p class="block-text">
+                    What creates more anxiety: Ghosts or Paperwork? <br><br>
+                    <em>Eclipse of Fear</em> is a first-person survival horror prototype set in a college campus after midnight. What begins as a simple, relatable student task of submitting mandatory leave forms escalates into a tense survival experience as enemies, resources, and the environment itself grow increasingly hostile.
+                </p>
+                <p class="block-text">
+                    The project focuses on creating fear through <strong>pressure, pacing, and systemic escalation</strong> rather than scripted jump scares or inflated enemy counts.
+                </p>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/paz1Ce8xFJc?si=r0EaVXEInvIp4H69" 
+                        title="YouTube video player" frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                </iframe>
             </div>
         </section>
+
+        <section class="content-block">
+            <div class="split-grid">
+                <div class="text-col">
+                    <h3 class="sub-title">Why This Project Exists</h3>
+                    <ul class="clean-list">
+                        <li>First complete survival horror project built fully from scratch</li>
+                        <li>Unreal Engine 5 learning project shipped as a playable prototype</li>
+                        <li>System-driven horror experiment focused on mechanics over spectacle</li>
+                        <li>End-to-end ownership from concept, tuning, and documentation to public release</li>
+                    </ul>
+                </div>
+                <div class="text-col">
+                    <h3 class="sub-title">Primary Design Goals</h3>
+                    <ul class="clean-list">
+                        <li><strong>Ground the Horror:</strong> Use a real college campus so players read space based on intuition, not waypoints.</li>
+                        <li><strong>Invisible Tutorials:</strong> Teach mechanics through lighting and inner thoughts to avoid immersion breaks.</li>
+                        <li><strong>Systemic Tension:</strong> Increase difficulty based on player progression, not random spikes.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2 class="block-title">Design Pillars</h2>
+            <div class="four-col-grid">
+                <div class="small-card">
+                    <h4>1. Grounded Horror</h4>
+                    <p>A realistic college campus becomes unsettling through lighting, sound, and scarcity, making players uneasy without relying on monsters.</p>
+                </div>
+                <div class="small-card">
+                    <h4>2. Lives as Papers</h4>
+                    <p>Traditional health was replaced with three physical leave forms. Each death burns one paper, making failure feel narrative and emotional.</p>
+                </div>
+                <div class="small-card">
+                    <h4>3. Inner Thoughts</h4>
+                    <p>Tutorials are replaced with the protagonist’s thoughts, subtly teaching mechanics while maintaining total immersion.</p>
+                </div>
+                <div class="small-card">
+                    <h4>4. Escalation</h4>
+                    <p>Completing objectives makes the world more dangerous instead of safer. Success triggers tension, not relief.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2 class="block-title">Game Aesthetic & Progression</h2>
+            <p class="lead-text">
+                I start off by setting a clear experience pillar: <strong>Fear through Pressure.</strong>
+            </p>
+            <p class="block-text">
+                This became my "why" for every design decision. I wanted to avoid the power fantasy typical of shooters. Instead, I focused on vulnerability. <br><br> The aesthetic is one of Academic Horror—dark corridors, locked faculty offices, and the oppressive silence of a campus at night. I adopted a top-down approach: defining the emotional curve (Curiosity → Anxiety → Panic → Relief) and building systems to service that curve.
+            </p>
+        </section>
+
+        <section class="content-block">
+            <h2 class="block-title">Narrative Structure</h2>
+            <div class="pacing-timeline">
+                <div class="pacing-step">
+                    <strong>ACT I: Setup</strong>
+                    <p>Hostel Zone. Teaches movement safely. Introduces the Flashlight as a necessity. Intrigue is placed about the forms.</p>
+                </div>
+                <div class="pacing-step">
+                    <strong>ACT II: Pressure</strong>
+                    <p>Academic Block. Exploration opens up. Finding the Gun triggers the first Minion wave. The genre shifts to survival.</p>
+                </div>
+                <div class="pacing-step">
+                    <strong>ACT III: Climax</strong>
+                    <p>Key Hunt. The Boss ("The Eclipse") appears. The final run back to the hostel tests every mechanic learned under maximum pressure.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2 class="block-title">Characters & Enemies</h2>
+            
+            <div class="split-section" style="margin-bottom: 3rem;">
+                <div class="split-text">
+                    <h3 class="sub-title">The Minions (Pressure Builders)</h3>
+                    <p class="block-text">Designed in 4 waves to escalate tension.</p>
+                    <ul class="clean-list">
+                        <li><strong>Wave 1:</strong> Slow, low damage (Learning).</li>
+                        <li><strong>Wave 2:</strong> Faster movement (Pressure).</li>
+                        <li><strong>Wave 3:</strong> Aggressive (Panic).</li>
+                        <li><strong>Wave 4:</strong> Peak speed (Desperation).</li>
+                    </ul>
+                    <p class="block-text"><em>Sensing Interval: 0.05s</em> (Alert but fair, relative to player movement speed).</p>
+                </div>
+                <div class="split-image">
+                    <img src="assets/Horror/Images/Minion.jpg" alt="Minion Enemy Design">
+                </div>
+            </div>
+
+            <div class="split-section">
+                <div class="split-image">
+                    <img src="assets/Horror/Images/Boss.jpg" alt="The Eclipse Boss Design">
+                </div>
+                <div class="split-text">
+                    <h3 class="sub-title">The Eclipse (Inevitability)</h3>
+                    <p class="block-text">
+                        Represents the looming deadline. A relentless force that cannot be easily stopped.
+                    </p>
+                    <ul class="clean-list">
+                        <li><strong>Behavior:</strong> Stalks the player globally.</li>
+                        <li><strong>Stats:</strong> High health, low damage output per hit, but relentless tracking.</li>
+                        <li><strong>Goal:</strong> To drain resources (ammo/stamina) and force movement.</li>
+                    </ul>
+                    <p class="block-text"><em>Sensing Interval: 0.02s</em> (Feels smarter/faster than minions).</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-block split-section">
+            <div class="split-text">
+                <h2 class="block-title">Core Gameplay Loop</h2>
+                <p class="block-text">
+                    The core loop is designed to oscillate between tension and short moments of relief to prevent fatigue while maintaining fear.
+                </p>
+                <ul class="clean-list" style="font-weight: 500; font-size: 1.1rem; line-height: 1.8;">
+                    <li>➔ Explore</li>
+                    <li>➔ Avoid or Confront Enemies</li>
+                    <li>➔ Manage Light, Stamina & Ammo</li>
+                    <li>➔ Identify Objectives</li>
+                    <li>➔ Deliver Forms (Escalation Trigger)</li>
+                    <li>➔ Survive the Exit</li>
+                </ul>
+            </div>
+            <div class="split-image">
+                <img src="assets/Horror/Images/GameplayLoop.png" alt="Core Gameplay Loop Diagram">
+            </div>
+        </section>
+
+        <section class="content-block split-section">
+            <div class="split-text">
+                <h2 class="block-title">Level Design: Semi-Open World</h2>
+                <p class="block-text">
+                    The campus is designed as a <strong>Semi-Open World</strong>. Unlike a linear corridor shooter, the layout features interconnected buildings (Main Building, Resource Buildings, Hostel) with gated paths.
+                </p>
+                <p class="block-text">
+                    I designed the flow to force players to criss-cross dangerous open areas to reach specific buildings (MB1, MB2), increasing the risk of encounters with every objective completed.
+                </p>
+            </div>
+            <div class="split-image">
+                <img src="assets/Horror/Images/LD.png" alt="Level Top-Down Map">
+                <p class="caption">Top-down view of the campus showing interconnected buildings and gated paths.</p>
+            </div>
+        </section>
+
+        <section class="content-block split-section">
+            <div class="split-image">
+                <img src="assets/Horror/Images/LD_1.jpeg" alt="Lighting as Guidance Diagram">
+                <p class="caption">Visual language of light guiding the player.</p>
+            </div>
+            <div class="split-text">
+                <h2 class="block-title">Navigation by Light</h2>
+                <p class="block-text">
+                    Inspired by <em>The Last of Us</em> and <em>Resident Evil 4</em>, I defined a strict visual language using light to guide players without UI markers.
+                </p>
+                <ul class="clean-list">
+                    <li>• <strong>Yellow Light:</strong> Critical Objectives (Ammo, Keys, Forms).</li>
+                    <li>• <strong>White Light:</strong> Safe paths and accessible doors.</li>
+                    <li>• <strong>Red Light:</strong> Danger zones and locked areas.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2 class="block-title">System Breakdowns</h2>
+            
+            <div class="system-box">
+                <h3>System 1: Enemy Wave Escalation</h3>
+                <p class="block-text">I designed a 4-wave progression system where difficulty scales via Speed and Behavior rather than just health pools.</p>
+                <ul class="clean-list">
+                    <li><strong>Wave 1 (Tutorial):</strong> Slow movement, Low damage. Purpose is to teach aiming and spacing.</li>
+                    <li><strong>Wave 2 (Pressure):</strong> Faster movement. Purpose is to test reaction time under mild stress.</li>
+                    <li><strong>Wave 3 (Tension):</strong> Aggressive behavior. Purpose is to force snap decisions between Fight or Flight.</li>
+                    <li><strong>Wave 4 (Climax):</strong> Peak speed, minimal error margin. Purpose is to force resource dumping or perfect stealth.</li>
+                </ul>
+                    <h4>The system escalates emotion through behavior changes rather than raw stats.</h4>
+            </div>
+
+            <div class="system-box">
+                <h3>System 2: Diegetic Health & HUD</h3>
+                <div class="split-section" style="gap: 2rem; margin-top: 1rem;">
+                    <div class="split-image">
+                        <img src="assets/Horror/Images/LD_4.jpeg" alt="Circular HUD and Paper Lives System">
+                    </div>
+                    <div class="split-text">
+                        <p class="block-text">To maintain immersion, I replaced standard "hearts" with UI Forms. Hearts didn't make sense for a horror game.</p>
+                        <ul class="clean-list">
+                            <li><strong>Concept:</strong> The 3 paper icons in the UI represent the player's 3 lives.</li>
+                            <li><strong>Mechanic:</strong> The circular gauge tracks immediate Health (Red). If it hits zero, the player "dies," and one of the UI forms burns away to trigger a respawn.</li>
+                            <li><strong>Psychology:</strong> Watching your life (form) physically burn creates a stronger sense of loss than a generic game-over counter.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="system-box">
+                <h3>System 3: Inner Thoughts (Navigation)</h3>
+                <div class="split-section" style="gap: 2rem; margin-top: 1rem;">
+                    <div class="split-text">
+                        <p class="block-text">Contextual hints triggered by invisible volumes replace UI markers. This keeps the player in the world.</p>
+                        <ul class="clean-list">
+                            <li><strong>Narrative Hint:</strong> "It’s too dark. I need some light..." prompts the player to use the Flashlight.</li>
+                            <li><strong>Teaching Hint:</strong> "I can't fight them like this... the old security station in the <strong>H5 block</strong>." prompts the player to find the weapon.</li>
+                        </ul>
+                    </div>
+                    <div class="split-image">
+                        <img src="assets/Horror/Images/LD_3.jpeg" alt="Inner Monologue pointing to H5 Block">
+                        <p class="caption">Diegetic guidance: The thought guides the player to the H5 sign.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2 class="block-title">Design Pivot: Fear Lockdown</h2>
+            <div class="process-card" style="border-left: 5px solid var(--red-accent); padding: 2.5rem;">
+                <h3>Why I Cut My Favorite Feature</h3>
+                <p class="lead-text">
+                    I originally designed a system called "Fear Lockdown." The concept was that completing an objective didn't make you safe—it made the world hostile.
+                </p>
+                <p class="lead-text">
+                    Every time you delivered a form, the environment would permanently change: lights would flicker and die, alarms would scream, and new enemy spawns would trigger in previously safe rooms. The goal was to make the player <strong>fear their own success</strong>.
+                </p>
+                <p class="block-text" style="margin-top: 1.5rem;">
+                    <strong>Decision:</strong> Due to time constraints, I cut this to focus on polishing the core AI waves. 
+                    <br><strong>Lesson:</strong> Strong ideas are only valuable if they support completion. Cutting features is a design decision, not a failure. It allowed me to ship a stable core loop instead of a buggy mess.
+                </p>
+                <div style="margin-top: 2rem; text-align: center;">
+                    <button class="big-doc-btn" onclick="openPDF('assets/Horror/Feature Document_Fear Lockdown.pdf')">VIEW FEATURE DOC (PDF)</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2 class="block-title">Post-Mortem</h2>
+            <div class="three-col-grid">
+                <div class="pm-card green">
+                    <h4>What Went Right</h4>
+                    <ul>
+                        <li>Atmosphere successfully communicates danger.</li>
+                        <li>Game feels complete with a start, middle, and end.</li>
+                        <li>"Lives as Papers" mechanic resonated emotionally.</li>
+                    </ul>
+                </div>
+                <div class="pm-card red">
+                    <h4>What Went Wrong</h4>
+                    <ul>
+                        <li>AI pathfinding struggled in narrow corridors under peak enemy clustering.</li>
+                        <li>Early scope creep: focused on assets before verifying mechanics.</li>
+                    </ul>
+                </div>
+                <div class="pm-card yellow">
+                    <h4>What I Learned</h4>
+                    <ul>
+                        <li>Prototype core loops before polishing details.</li>
+                        <li>Small numeric changes dramatically impact emotion.</li>
+                        <li>Progress visibility is critical for solo motivation.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="docs" class="content-block pdf-section">
+            <h2 class="block-title">Documentation</h2>
+            <p class="block-text">The complete GDD includes system breakdowns, AI behavior trees, and level flow layouts.</p>
+            <p class="block-text" style="font-style: italic; color: #666; font-size: 0.95rem;">This document is intended for skimming. Key sections include systems, AI logic, and level flow.</p>
+            
+            <div class="doc-actions">
+                <button class="big-doc-btn" onclick="openPDF('assets/Horror/EOF_GDD.pdf')">VIEW FULL GDD (PDF)</button>
+            </div>
+        </section>
+
     </div>
+
+    <footer class="footer-section">
+        <p class="copyright">© 2025 Karuna Ketan.</p>
+    </footer>
+
+    <div id="viewer">
+        <div class="controls">
+            <button onclick="closePDF()">❌ Close</button>
+        </div>
+        <iframe id="pdfFrame"></iframe>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
