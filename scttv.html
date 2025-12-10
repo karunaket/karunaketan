@@ -5,62 +5,458 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shattered Charms | Karuna Ketan</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Gallery Grid */
+        .raw-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .raw-gallery-item {
+            width: 100%;
+            height: 260px;
+            overflow: hidden;
+            border-radius: 4px;
+            border: 1px solid #e5e5e5;
+            background: #f9f9f9;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            position: relative;
+        }
+        .raw-gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        /* Hover Effect: Zoom and "Expand" Icon hint */
+        .raw-gallery-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        .raw-gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Lightbox (Full Screen Image Viewer) */
+        #imageViewer {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 3000; /* Higher than PDF viewer */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.95);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        /* The Big Image */
+        #fullImage {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            animation: zoomIn 0.3s ease;
+        }
+
+        /* Close Button (Cross) */
+        .close-img-btn {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: var(--font-heading);
+            line-height: 1;
+        }
+        .close-img-btn:hover {
+            color: var(--red-accent);
+            transform: scale(1.1);
+        }
+
+        @keyframes zoomIn {
+            from {transform: scale(0.9); opacity: 0;}
+            to {transform: scale(1); opacity: 1;}
+        }
+    </style>
 </head>
 <body>
+
     <header class="minimal-header">
         <div class="header-content">
             <a href="index.html" class="logo">KK<span class="dot">.</span></a>
-            <nav><ul class="nav-links"><li><a href="index.html#projects">Back to Projects</a></li></ul></nav>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html#projects">Back to Home</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
-    <section class="project-hero">
-        <div class="hero-bg"><img src="assets/SCTTV.png" class="hero-img"><div class="hero-overlay"></div></div>
-        <div class="project-title-block">
-            <h1 class="project-title-large">SHATTERED CHARMS</h1>
-            <div class="project-meta">
-                <span class="meta-item"><strong>ROLE:</strong> Systems Designer</span>
-                <span class="meta-item"><strong>ENGINE:</strong> Unreal Engine 5</span>
-                <span class="meta-item"><strong>GENRE:</strong> Turn-Based RPG</span>
+    <div class="top-slider-section">
+        <div class="slider-container full-width-slider">
+            <div class="slider-wrapper">
+                <div class="slide"><img src="assets/RPG/Images/1.png" alt="Shattered Charms Title Screen"></div>
+                <div class="slide"><img src="assets/RPG/Images/3.png" alt="Forest Path Atmosphere"></div>
+                <div class="slide"><img src="assets/RPG/Images/5.png" alt="Market Hub Environment"></div>
+                <div class="slide"><img src="assets/RPG/Images/10.png" alt="Dark Temple Interior"></div>
+                <div class="slide"><img src="assets/RPG/Images/8.jpg" alt="Charm System UI"></div>
+                <div class="slide"><img src="assets/RPG/Images/9.png" alt="Combat and VFX"></div>
+                <div class="slide"><img src="assets/RPG/Images/11.png" alt="Exploration Zone"></div>
+                <div class="slide"><img src="assets/RPG/Images/16.png" alt="Final Boss Arena"></div>
+            </div>
+            <button class="slider-btn prev">&#10094;</button>
+            <button class="slider-btn next">&#10095;</button>
+            <div class="slider-dots-container" id="dotsContainer"></div>
+        </div>
+    </div>
+
+    <section class="project-header-compact">
+        <h1 class="case-title">SHATTERED CHARMS: THROUGH THE VEIL</h1>
+        
+        <div class="project-stats-grid">
+            <div class="stat-box">
+                <span class="label">ROLE</span>
+                <span class="value">Game Designer & Developer</span>
+            </div>
+            <div class="stat-box">
+                <span class="label">ENGINE</span>
+                <span class="value">Unreal Engine 5</span>
+            </div>
+            <div class="stat-box">
+                <span class="label">GENRE</span>
+                <span class="value">Action RPG</span>
+            </div>
+            <div class="stat-box">
+                <span class="label">FOCUS</span>
+                <span class="value">Mechanics & Economy</span>
             </div>
         </div>
+
+        <div class="header-actions">
+            <a href="#" class="resume-btn">PLAY PROTOTYPE ↗</a> 
+        </div>
+        
+        <p class="team-credit">Design & Development: <strong>Karuna Ketan</strong></p>
     </section>
 
-    <div class="case-study-container">
-        <section class="case-section">
-            <h2 class="section-heading">01. THE DESIGN CHALLENGE</h2>
-            <div class="text-block">
-                <p><strong>The Problem:</strong> In many RPGs, dialogue choices feel disconnected from gameplay. Players can be rude to an NPC but still fight perfectly alongside them.</p>
-                <p><strong>The Goal:</strong> Solve "Ludonarrative Dissonance" by making social choices impact combat stats.</p>
-            </div>
-        </section>
-
-        <section class="case-section">
-            <h2 class="section-heading">02. THE SOLUTION</h2>
-            <div class="text-block">
-                <p><strong>The Mechanic:</strong> I engineered a Data Table system where every dialogue choice carries a hidden "Affinity Value." High affinity unlocks "Synergy Buffs" (+20% Dmg) in combat.</p>
-            </div>
-            <div class="media-grid">
-                <div class="media-item"><img src="assets/SCTTV.png"></div>
-                <div class="media-item"><img src="assets/SCTTV.png"></div>
-            </div>
-        </section>
-
-        <section class="case-section">
-            <h2 class="section-heading">03. DOCUMENTATION</h2>
-            <div class="gdd-box">
-                <div class="gdd-info"><h3>Game Design Document</h3><p>Breakdown of Economy, Classes, and Narrative Branching.</p></div>
-                <a href="assets/SCTTV_GDD.pdf" target="_blank" class="download-btn">READ GDD (PDF) ↗</a>
-            </div>
-        </section>
+    <div class="case-study-content">
         
-         <section class="case-section">
-            <h2 class="section-heading">04. RETROSPECTIVE</h2>
-             <div class="text-block">
-                <p><strong>What worked:</strong> Players paid significantly more attention to dialogue when they knew it affected combat.</p>
+        <section class="content-block split-section">
+            <div class="split-text">
+                <h2 class="block-title">Game Overview</h2>
+                <p class="lead-text">
+                    What if progression was earned through understanding systems, not leveling numbers?
+                </p>
+                <p class="block-text">
+                    <em>Shattered Charms: Through the Veil</em> is a third-person Action RPG prototype focused on modular combat design and economy-driven progression. Set in a world fractured by a mysterious event known as The Shattering, players explore a small hub-centered region to discover Charms that fundamentally change how they fight, survive, and progress.<br><br>
+
+                    Rather than relying on experience points or traditional skill trees, progression is driven by experimentation, discovery, and an economy-gated upgrade loop. Understanding how Charms interact becomes the primary path to survival and advancement, reinforcing both the narrative and the gameplay.
+                </p>
+            </div>
+            <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/UN2SuTjeI8M?si=ttZcZI4nz_s_fA-d" 
+                        title="YouTube video player" frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                </iframe>
             </div>
         </section>
+
+        <section class="content-block split-section">
+            <div class="split-text">
+                <h2 class="block-title">The Design Challenge</h2>
+                <p class="block-text">
+                    <strong>How do you encourage meaningful build variety in a short RPG prototype?</strong><br>
+                    Most action RPGs rely on deep skill trees that take hours to fully unfold. For a 20–30 minute vertical slice, that approach often results in shallow or unfinished progression.
+                    <br><br>
+                    My core challenge was to design a system that encourages experimentation immediately, makes player choices feel distinct, and rewards curiosity over raw stats. The solution became a modular Charm system combined with an economy-gated progression loop.
+                </p>
+            </div>
+            <div class="split-image">
+                <img src="assets/RPG/GIF_Vids/Combat_Loop.gif" alt="Combat variety driven by Charm loadouts">
+                <p class="caption">Combat variety is driven by Charm loadouts rather than class selection.</p>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <div class="split-grid">
+                <div class="text-col">
+                    <h3 class="sub-title">Project Scope</h3>
+                    <ul class="clean-list">
+                        <li><strong>World:</strong> Hub-and-Spoke semi-open structure.</li>
+                        <li><strong>Core System:</strong> Dual-Slot Charm Fusion (Passive + Active).</li>
+                        <li><strong>Progression:</strong> Economy-gated weapon purification.</li>
+                        <li><strong>AI:</strong> Behavior Tree driven boss encounter.</li>
+                        <li><strong>Result:</strong> A complete vertical slice with exploration, combat, economy, and climax.</li>
+                    </ul>
+                </div>
+                <div class="text-col">
+                    <h3 class="sub-title">Design Pillars</h3>
+                    <ul class="clean-list">
+                        <li><strong>Strategic Loadout:</strong> Limited Charm slots force trade-offs between offense and defense, preventing dominant meta builds.</li>
+                        <li><strong>Gated Progression:</strong> The final boss cannot be rushed, making combat and exploration mandatory for success.</li>
+                        <li><strong>Visual Clarity:</strong> Lighting communicates gameplay states so players intuitively read spaces without HUD markers.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-block split-section">
+            <div class="split-text">
+                <h2 class="block-title">Core Gameplay Loop</h2>
+                <p class="block-text">
+                    The loop is designed to create a dependency between <strong>Exploration</strong> (finding Jewels) and <strong>Progression</strong> (unlocking the boss).
+                </p>
+                <ul class="clean-list">
+                    <li><strong>1. Explore:</strong> Navigate the "Spokes" (Cave, Farm, Temple) to find loot and chests.</li>
+                    <li><strong>2. Survive:</strong> Combat enemies using Charms to earn Jewels.</li>
+                    <li><strong>3. Loot:</strong> Collect Jewels from enemies and chests.</li>
+                    <li><strong>4. Upgrade:</strong> Purify the weapon through Shrines using Jewels.</li>
+                    <li><strong>5. Progress:</strong> Unlock access to the final Boss Arena.</li>
+                </ul>
+            </div>
+            <div class="split-image">
+                <img src="assets/RPG/Images/GameplayLoop.png" alt="Core Gameplay Loop Diagram">
+                <p class="caption">The economy loop ties combat directly to progression.</p>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2 class="block-title">Level Design: Hub-and-Spoke</h2>
+            <div class="split-section" style="margin-top: 2rem; align-items: start;">
+                <div class="split-text">
+                    <p class="lead-text">
+                        The world is built on a "Pacing Loop" of Safety → Tension → Relief.
+                    </p>
+                    <p class="block-text">
+                        I structured the map around a central <strong>Market Hub</strong> connected to distinct "Spoke" zones. This layout serves two purposes: it allows players to choose their own difficulty path, and it creates a psychological "return to safety" after every expedition.
+                    </p>
+                    
+                    <h3 style="margin-top: 2rem; margin-bottom: 0.8rem; font-family: var(--font-heading); font-size: 1.4rem; font-weight: 700;">Visual Language & Navigation</h3>
+                    <p class="block-text">
+                        Navigation is guided by lighting rather than UI markers. 
+                        The <strong>Hub</strong> is bathed in warm, inviting orange tones (Safety). 
+                        As players cross the threshold into a <strong>Spoke</strong>, the palette shifts immediately to cold blues and sickly purples (Danger). This visual shift acts as a subconscious warning system for the player.
+                    </p>
+
+                    <ul class="clean-list" style="margin-top: 1rem;">
+                        <li><strong>The Hub (Market):</strong> Safe zone containing Vendors and Quest Givers.</li>
+                        <li><strong>Spoke 1 (Cave):</strong> Linear combat-heavy dungeon leading to the Shrine.</li>
+                        <li><strong>Spoke 2 (Farm):</strong> Open combat arena rewarding an Active Charm.</li>
+                        <li><strong>Spoke 3 (Boss Arena):</strong> Locked behind progression checks.</li>
+                    </ul>
+                </div>
+                <div class="split-image">
+                    <img src="assets/RPG/Images/LD.png" alt="Top Down Map Layout">
+                    <p class="caption">Top-down view showing the Central Market Hub connecting to the Farm, Cave, and Temple.</p>
+                    
+                    <img src="assets/RPG/GIF_Vids/Level_Transition.gif" style="margin-top: 2rem;" alt="Visual Transition from Hub to Spoke">
+                    <p class="caption">Crossing the threshold: Lighting shifts communicate the transition from the Safe Hub to the Dangerous Spokes.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2 class="block-title">System 1: The Charm Matrix</h2>
+            <div class="split-section">
+                <div class="split-image">
+                    <img src="assets/RPG/GIF_Vids/Charm_UI.gif" alt="Charm Inventory Drag and Drop System">
+                    <p class="caption">The Inventory UI allowing players to drag-and-drop charms to discover Fused abilities.</p>
+                </div>
+                <div class="split-text">
+                    <h3 class="sub-title">Dual-Slot Charm System</h3>
+                    <p class="block-text">
+                        Traditional RPG skill trees were replaced with a Dual-Slot Charm system.
+                    </p>
+                    <ul class="clean-list">
+                        <li><strong>Normal Slot:</strong> Holds a Passive or Active Charm.</li>
+                        <li><strong>Fused Slot:</strong> Unlocks only when specific combinations are equipped.</li>
+                        <li><strong>Example:</strong> Pairing <em>Veil Harmony</em> (Defense) with <em>Veil Burst</em> (Attack) unlocks <strong>Veil Shatter Burst</strong>—a fused ability that grants temporary shielding while dealing area damage.</li>
+                    </ul>
+                    <p class="block-text" style="margin-top: 1rem; font-style: italic;">
+                        This system shifts progression from stat optimization to discovery, turning equipment choice into a design puzzle rather than a math problem.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2 class="block-title">System 2: The Purification Economy</h2>
+            
+            <div class="split-section">
+                <div class="split-image">
+                    <img src="assets/RPG/GIF_Vids/Sword_Upgrade.gif" alt="Sword Upgrade Interaction">
+                    <p class="caption">Spending Jewels at the Shrine upgrades the weapon, serving as a progression gate.</p>
+                </div>
+                <div class="split-text">
+                    <h3 class="sub-title">Hard Progression Gating</h3>
+                    <p class="block-text">
+                        <strong>The Problem:</strong> Players often rush to bosses in RPGs, skipping exploration and combat depth.
+                    </p>
+                    <p class="block-text">
+                        <strong>The Solution:</strong> I implemented a hard progression gate tied directly to the economy. The final boss is immune to the starting weapon. Players must Purify their sword at Shrines, costing Jewels earned only through combat.
+                    </p>
+                    <p class="block-text" style="margin-top: 1rem;">
+                        <strong>Result:</strong> Loot has meaning, combat feeds progression, and exploration is never optional.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-block split-section">
+            <div class="split-text">
+                <h2 class="block-title">System 3: AI & Boss Design</h2>
+                <p class="block-text">
+                    Enemies are designed to teach mechanics through behavior, not tutorials.
+                </p>
+                <ul class="clean-list">
+                    <li><strong>Enemy Tier 1:</strong> Swarm enemies that teach crowd control.</li>
+                    <li><strong>Enemy Tier 2:</strong> Armored enemies that encourage dodging and spacing.</li>
+                    <li><strong>The Guardian (Boss):</strong> Uses a Behavior Tree to shift between multiple states: Melee aggression, Ranged cosmic attacks, and Teleportation/Self-healing when low on health.</li>
+                </ul>
+                <p class="block-text" style="margin-top: 1rem;">
+                    The boss behavior tree is designed to punish passive play, forcing players to reposition, spend resources, and adapt their Charm loadout mid-fight.
+                </p>
+            </div>
+            <div class="split-image">
+                <img src="assets/RPG/GIF_Vids/Boss_AI.gif" alt="Boss Behavior Tree Gameplay">
+                <p class="caption">The Boss AI switches phases dynamically based on player proximity and health.</p>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2 class="block-title">Post-Mortem</h2>
+            <div class="three-col-grid">
+                <div class="pm-card green">
+                    <h4>What Went Right</h4>
+                    <ul>
+                        <li>Charm Fusion encouraged experimentation and curiosity.</li>
+                        <li>Hub-and-Spoke layout created clear pacing and flow.</li>
+                        <li>Visual feedback clearly communicated power progression.</li>
+                    </ul>
+                </div>
+                <div class="pm-card red">
+                    <h4>What Went Wrong</h4>
+                    <ul>
+                        <li>Camera issues in tight cave encounters.</li>
+                        <li>Scope creep from an abandoned board-game style side feature.</li>
+                    </ul>
+                </div>
+                <div class="pm-card yellow">
+                    <h4>What I Learned</h4>
+                    <ul>
+                        <li>Data Tables are essential for scalable RPG systems.</li>
+                        <li>Economy balance requires iteration and spreadsheets.</li>
+                        <li>These lessons directly informed how I approached economy balance and scope control in later projects.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="docs" class="content-block pdf-section">
+            <h2 class="block-title">Documentation</h2>
+            <p class="block-text">Comprehensive technical documents covering system mechanics and level design.</p>
+            <p class="block-text" style="font-style: italic; color: #666; font-size: 0.95rem; margin-bottom: 2rem;">These documents are designed for quick skimming, focused on systems architecture, economy balancing, and spatial flow.</p>
+            
+            <div class="split-grid">
+                <div class="doc-box">
+                    <h3 class="sub-title">Game Design Document (GDD)</h3>
+                    <p class="block-text" style="font-size: 0.9rem;">Deep dive into the <strong>Charm Matrix mathematics</strong>, economy tuning sheets, and the core progression loop logic.</p>
+                    <button class="big-doc-btn" onclick="openPDF('assets/RPG/SCTTV_GDD.pdf')">VIEW GDD (PDF)</button>
+                </div>
+
+                <div class="doc-box">
+                    <h3 class="sub-title">Level Design Document (LDD)</h3>
+                    <p class="block-text" style="font-size: 0.9rem;">Detailed breakdown of the <strong>Hub-and-Spoke layout</strong>, encounter pacing curves, and blocked-out map flows.</p>
+                    <button class="big-doc-btn" onclick="openPDF('assets/RPG/SCTTV_LDD.pdf')">VIEW LEVEL DOC (PDF)</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2 class="block-title">Process: From Paper to Engine</h2>
+            <p class="block-text">Before entering the engine, every system—from the Charm Matrix to the Economy Flow—was iterated on paper. These sketches document the logic behind the mechanics.</p>
+            
+            <div class="raw-gallery-grid">
+                <div class="raw-gallery-item"><img src="assets/RPG/RAW/1.jpeg" onclick="openImage(this.src)" alt="Design Sketch 1" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/RPG/RAW/2.jpeg" onclick="openImage(this.src)" alt="Design Sketch 2" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/RPG/RAW/14.jpeg" onclick="openImage(this.src)" alt="Design Sketch 14" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/RPG/RAW/15.jpeg" onclick="openImage(this.src)" alt="Design Sketch 15" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/RPG/RAW/3.jpeg" onclick="openImage(this.src)" alt="Design Sketch 3" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/RPG/RAW/4.jpeg" onclick="openImage(this.src)" alt="Design Sketch 4" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/RPG/RAW/5.jpeg" onclick="openImage(this.src)" alt="Design Sketch 5" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/RPG/RAW/6.jpeg" onclick="openImage(this.src)" alt="Design Sketch 6" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/RPG/RAW/7.jpeg" onclick="openImage(this.src)" alt="Design Sketch 7" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/RPG/RAW/8.jpeg" onclick="openImage(this.src)" alt="Design Sketch 8" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/RPG/RAW/9.jpeg" onclick="openImage(this.src)" alt="Design Sketch 9" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/RPG/RAW/10.jpeg" onclick="openImage(this.src)" alt="Design Sketch 10" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/RPG/RAW/11.jpeg" onclick="openImage(this.src)" alt="Design Sketch 11" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/RPG/RAW/12.jpeg" onclick="openImage(this.src)" alt="Design Sketch 12" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/RPG/RAW/13.jpeg" onclick="openImage(this.src)" alt="Design Sketch 13" loading="lazy"></div>
+            </div>
+        </section>
+
     </div>
+
+    <footer class="footer-section">
+        <p class="copyright">© 2025 Karuna Ketan.</p>
+    </footer>
+
+    <div id="viewer">
+        <div class="controls">
+            <button onclick="closePDF()">❌ Close</button>
+        </div>
+        <iframe id="pdfFrame"></iframe>
+    </div>
+
+    <div id="imageViewer" onclick="closeImage()">
+        <span class="close-img-btn">&times;</span>
+        <img id="fullImage" onclick="event.stopPropagation()"> </div>
+
+    <script src="script.js"></script>
+
+    <script>
+        function openImage(src) {
+            const viewer = document.getElementById('imageViewer');
+            const fullImg = document.getElementById('fullImage');
+            
+            // Set source and show
+            fullImg.src = src;
+            viewer.style.display = 'flex';
+            
+            // Trigger animation
+            setTimeout(() => {
+                viewer.style.opacity = '1';
+            }, 10);
+            
+            // Disable scroll
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeImage() {
+            const viewer = document.getElementById('imageViewer');
+            
+            // Fade out
+            viewer.style.opacity = '0';
+            
+            // Hide after transition
+            setTimeout(() => {
+                viewer.style.display = 'none';
+                document.getElementById('fullImage').src = "";
+                document.body.style.overflow = 'auto'; // Restore scroll
+            }, 300);
+        }
+    </script>
 </body>
 </html>

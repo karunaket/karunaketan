@@ -50,7 +50,7 @@
         <div class="project-stats-grid">
             <div class="stat-box">
                 <span class="label">ROLE</span>
-                <span class="value">Director, Game Designer & Developer</span>
+                <span class="value">Game Designer & Developer</span>
             </div>
             <div class="stat-box">
                 <span class="label">ENGINE</span>
@@ -86,12 +86,8 @@
                     The project focuses on creating fear through <strong>pressure, pacing, and systemic escalation</strong> rather than scripted jump scares or inflated enemy counts.
                 </p>
             </div>
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/paz1Ce8xFJc?si=r0EaVXEInvIp4H69" 
-                        title="YouTube video player" frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-                </iframe>
+            <div class="split-image">
+                <img src="assets/Horror/GIF_Vids/Game_Overview.gif" alt="Flashlight Atmosphere Gameplay" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
             </div>
         </section>
 
@@ -183,13 +179,13 @@
                     <p class="block-text"><em>Sensing Interval: 0.05s</em> (Alert but fair, relative to player movement speed).</p>
                 </div>
                 <div class="split-image">
-                    <img src="assets/Horror/Images/Minion.jpg" alt="Minion Enemy Design">
+                    <img src="assets/Horror/GIF_Vids/Minions.gif" alt="Minion Combat Gameplay" style="width: 100%; border-radius: 8px;">
                 </div>
             </div>
 
             <div class="split-section">
                 <div class="split-image">
-                    <img src="assets/Horror/Images/Boss.jpg" alt="The Eclipse Boss Design">
+                    <img src="assets/Horror/GIF_Vids/Boss_Eclipse_Chase.gif" alt="The Eclipse Boss Chase" style="width: 100%; border-radius: 8px;">
                 </div>
                 <div class="split-text">
                     <h3 class="sub-title">The Eclipse (Inevitability)</h3>
@@ -279,7 +275,7 @@
                 <h3>System 2: Diegetic Health & HUD</h3>
                 <div class="split-section" style="gap: 2rem; margin-top: 1rem;">
                     <div class="split-image">
-                        <img src="assets/Horror/Images/LD_4.jpeg" alt="Circular HUD and Paper Lives System">
+                        <img src="assets/Horror/GIF_Vids/Paper_Lives_Burn.gif" alt="Paper Lives Burning UI Animation" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
                     </div>
                     <div class="split-text">
                         <p class="block-text">To maintain immersion, I replaced standard "hearts" with UI Forms. Hearts didn't make sense for a horror game.</p>
@@ -300,11 +296,12 @@
                         <ul class="clean-list">
                             <li><strong>Narrative Hint:</strong> "It’s too dark. I need some light..." prompts the player to use the Flashlight.</li>
                             <li><strong>Teaching Hint:</strong> "I can't fight them like this... the old security station in the <strong>H5 block</strong>." prompts the player to find the weapon.</li>
+                            <li><strong>Technical:</strong> Implemented via overlap triggers that cast to the HUD widget to spawn floating text at the actor's location.</li>
                         </ul>
                     </div>
                     <div class="split-image">
-                        <img src="assets/Horror/Images/LD_3.jpeg" alt="Inner Monologue pointing to H5 Block">
-                        <p class="caption">Diegetic guidance: The thought guides the player to the H5 sign.</p>
+                        <img src="assets/Horror/GIF_Vids/Inner_Thoughts_Mechanic.gif" alt="Inner Thoughts Mechanic Gameplay" style="width: 100%; border-radius: 8px;">
+                        <p class="caption">Diegetic guidance: The text floats in 3D space near the trigger.</p>
                     </div>
                 </div>
             </div>
