@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Process | Karuna Ketan</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Process Layout */
+        .process-container {
+            padding: 2rem 2rem 6rem 2rem;
+            max-width: 1800px; /* Wide container to fit more images */
+            margin: 0 auto;
+        }
+
+        .project-group {
+            margin-bottom: 5rem;
+        }
+
+        /* Clean Headers */
+        .group-header {
+            border-bottom: 2px solid #111;
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .group-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #111;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* AUTO-FILL GRID: Fits as many as possible */
+        .raw-grid {
+            display: grid;
+            /* This line creates the "As many as suits" behavior */
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 1.5rem;
+        }
+
+        /* Raw Image Item */
+        .raw-item {
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid #eee;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            background: #f4f4f4;
+            height: 250px; /* Fixed height for uniformity */
+            position: relative;
+        }
+
+        .raw-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-color: #ccc;
+            z-index: 2;
+        }
+
+        .raw-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures image fills the square without distortion */
+            display: block;
+        }
+
+        /* Lightbox */
+        #imageViewer { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; }
+        #fullImage { max-width: 95%; max-height: 95%; border-radius: 4px; box-shadow: 0 0 20px rgba(0,0,0,0.5); animation: zoomIn 0.3s ease; }
+        .close-img-btn { position: absolute; top: 30px; right: 40px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s; font-family: var(--font-heading); line-height: 1; }
+        .close-img-btn:hover { color: var(--red-accent); transform: scale(1.1); }
+        @keyframes zoomIn { from {transform: scale(0.9); opacity: 0;} to {transform: scale(1); opacity: 1;} }
+
+        /* 1. Header Resume Button */
+        .header-resume-btn {
+            background-color: #111;
+            color: #fff !important; /* Force white text */
+            padding: 0.5rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid #111;
+        }
+
+        .header-resume-btn:hover {
+            background-color: transparent;
+            color: #111 !important;
+        }
+
+        .hero-resume-btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2.5rem;
+            background-color: #111; /* Strong black background */
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            letter-spacing: 0.05em;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Drop shadow for depth */
+            transition: all 0.3s ease;
+            border: 2px solid #111;
+        }
+
+        .hero-resume-btn:hover {
+            background-color: transparent;
+            color: #111;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="minimal-header">
+        <div class="header-content">
+            <a href="index.html" class="logo">KARUNA KETAN</a>
+            <nav aria-label="Main Navigation">
+                <ul class="nav-links">
+                    <li><a href="index.html#projects">Projects</a></li>
+                    <li><a href="documents.html">Docs</a></li>
+                    <li><a href="process.html" class="active-link">Process</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="resume.pdf" target="_blank" class="header-resume-btn">RESUME</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-container">
+        
+        <section class="intro-section" style="padding-bottom: 2rem;">
+            <div class="intro-content">
+                <h1>The Design Process</h1>
+                <p>A visual archive of my raw notes, whiteboard sessions, and paper prototypes. This is where the engineering and problem-solving happens before the engine is ever opened.</p>
+            </div>
+        </section>
+
+        <div class="process-container">
+
+            <div class="project-group">
+                <div class="group-header"><h2 class="group-title">Eclipse of Fear (Horror)</h2></div>
+                <div class="raw-grid">
+                    <div class="raw-item"><img src="assets/Horror/RAW/1.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Horror/RAW/2.png" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Horror/RAW/3.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Horror/RAW/4.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Horror/RAW/5.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Horror/RAW/6.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Horror/RAW/7.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Horror/RAW/8.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Horror/RAW/9.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
+                </div>
+            </div>
+
+            <div class="project-group">
+                <div class="group-header"><h2 class="group-title">Shattered Charms: Through The Veil (RPG)</h2></div>
+                <div class="raw-grid">
+                    <div class="raw-item"><img src="assets/RPG/RAW/1.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/RPG/RAW/2.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/RPG/RAW/3.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/RPG/RAW/4.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/RPG/RAW/5.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/RPG/RAW/6.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
+                </div>
+            </div>
+
+            <div class="project-group">
+                <div class="group-header"><h2 class="group-title">Project Singularity (Action-Adventure)</h2></div>
+                <div class="raw-grid">
+                    <div class="raw-item"><img src="assets/Action-adv/RAW/LD_Paper_prototype.jpg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Action-adv/RAW/M_1.png" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Action-adv/RAW/M_2.png" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Action-adv/RAW/M_3.png" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Action-adv/RAW/M_4.png" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Action-adv/RAW/1.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Action-adv/RAW/2.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Action-adv/RAW/3.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Action-adv/RAW/4.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Action-adv/RAW/5.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Action-adv/RAW/6.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Action-adv/RAW/7.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Action-adv/RAW/8.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Action-adv/RAW/9.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Action-adv/RAW/10.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
+                </div>
+            </div>
+
+            <div class="project-group">
+                <div class="group-header"><h2 class="group-title">Game Deconstruction (The Last of Us)</h2></div>
+                <div class="raw-grid">
+                    <div class="raw-item"><img src="assets/Game Deconstruction/RAW/1.jpg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Game Deconstruction/RAW/2.jpg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Game Deconstruction/RAW/3.jpg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Game Deconstruction/RAW/4.jpg" onclick="openImage(this.src)" loading="lazy"></div>
+                    <div class="raw-item"><img src="assets/Game Deconstruction/RAW/5.jpg" onclick="openImage(this.src)" loading="lazy"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="footer-section">
+        <p class="copyright">© 2025 Karuna Ketan.</p>
+    </footer>
+
+    <div id="imageViewer" onclick="closeImage()">
+        <span class="close-img-btn">&times;</span>
+        <img id="fullImage" onclick="event.stopPropagation()"> 
+    </div>
+
+    <script>
+        function openImage(src) {
+            const viewer = document.getElementById('imageViewer');
+            const fullImg = document.getElementById('fullImage');
+            fullImg.src = src;
+            viewer.style.display = 'flex';
+            setTimeout(() => { viewer.style.opacity = '1'; }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+        function closeImage() {
+            const viewer = document.getElementById('imageViewer');
+            viewer.style.opacity = '0';
+            setTimeout(() => {
+                viewer.style.display = 'none';
+                document.getElementById('fullImage').src = "";
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+    </script>
+</body>
+</html>

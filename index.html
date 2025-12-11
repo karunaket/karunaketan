@@ -7,6 +7,127 @@
     <title>Karuna Ketan | Game Designer</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS for structural separation */
+        .projects-section {
+            padding-bottom: 4rem;
+        }
+        
+        /* Sub-header style for Deconstruction */
+        .section-sub-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #111;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Divider Line */
+        .sub-divider {
+            border: 0;
+            height: 1px;
+            background: #e5e5e5;
+            margin: 4rem 0;
+        }
+        
+        /* Ensure layout consistency */
+        .projects-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+        }
+
+        /* --- STYLES FOR BUTTONS, TITLES & LABELS --- */
+
+        /* Enhanced Genre Labels */
+        .row-date {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #444;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Project "View" Buttons (Black Pill) */
+        .pill-btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: #111;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid #111;
+            margin-top: 1rem;
+        }
+
+        .pill-btn:hover {
+            background-color: transparent;
+            color: #111;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* Clickable Project Titles */
+        .row-title a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s ease;
+        }
+        
+        .row-title a:hover {
+            color: #555;
+        }
+
+        /* --- NEW: HIGHLIGHTED RESUME BUTTONS --- */
+
+        /* 1. Header Resume Button */
+        .header-resume-btn {
+            background-color: #111;
+            color: #fff !important; /* Force white text */
+            padding: 0.5rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid #111;
+        }
+
+        .header-resume-btn:hover {
+            background-color: transparent;
+            color: #111 !important;
+        }
+
+        /* 2. Intro/Hero Large Resume Button */
+        .hero-resume-btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2.5rem;
+            background-color: #111; /* Strong black background */
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            letter-spacing: 0.05em;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Drop shadow for depth */
+            transition: all 0.3s ease;
+            border: 2px solid #111;
+        }
+
+        .hero-resume-btn:hover {
+            background-color: transparent;
+            color: #111;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+    </style>
 </head>
 <body>
 
@@ -17,9 +138,9 @@
                 <ul class="nav-links">
                     <li><a href="#projects">Projects</a></li>
                     <li><a href="documents.html">Docs</a></li>
-                    <li><a href="#process">Process</a></li>
+                    <li><a href="process.html">Process</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    <li><a href="resume.pdf" target="_blank" class="resume-btn">RESUME</a></li>
+                    <li><a href="resume.pdf" target="_blank" class="header-resume-btn">RESUME</a></li>
                 </ul>
             </nav>
         </div>
@@ -34,7 +155,7 @@
                 <p class="intro-bio">
                     I’m a game designer and final year CSE student. I focus on <strong>player psychology</strong>, <strong>system design</strong> and <strong>level design</strong>, with a strong technical background. I am driven by creating balanced gameplay loops and immersive experiences that feel intentional and engaging to play.
                 </p>
-                <a href="resume.pdf" target="_blank" class="text-link">View resume</a>
+                <a href="resume.pdf" target="_blank" class="hero-resume-btn">VIEW RESUME</a>
             </div>
             
             <figure class="profile-img-container">
@@ -53,7 +174,7 @@
                     </a>
                     <div class="row-content">
                         <span class="row-date">Horror</span>
-                        <h3 class="row-title">Eclipse of Fear</h3>
+                        <h3 class="row-title"><a href="eof.html">Eclipse of Fear</a></h3>
                         <p class="row-desc">
                             A short first-person survival horror set on a college campus after midnight, where finishing simple paperwork turns into a fight for survival and every completed task makes the world more dangerous.
                         </p>
@@ -67,7 +188,7 @@
                     </a>
                     <div class="row-content">
                         <span class="row-date">RPG</span>
-                        <h3 class="row-title">Shattered Charms: Through The Veil</h3>
+                        <h3 class="row-title"><a href="scttv.html">Shattered Charms: Through The Veil</a></h3>
                         <p class="row-desc">
                             A third-person Action RPG where you cross corrupted, fractured lands, gather forgotten Charms, and experiment with modular abilities while fighting the echoes of another world to save your sister in a realm torn apart by The Shattering.
                         </p>
@@ -81,7 +202,7 @@
                     </a>
                     <div class="row-content">
                         <span class="row-date">Action-adventure</span>
-                        <h3 class="row-title">Project Singularity</h3>
+                        <h3 class="row-title"><a href="ps.html">Project Singularity</a></h3>
                         <p class="row-desc">
                             A third-person action-adventure game where players control a soldier protecting a scientist from a space pirate invasion while gathering key parts and solving puzzles to escape the Earth!
                         </p>
@@ -89,21 +210,28 @@
                     </div>
                 </article>
 
+            </div>
+
+            <hr class="sub-divider">
+
+            <h2 class="section-sub-title">Game Deconstruction</h2>
+            
+            <div class="projects-list">
                 <article class="project-row">
                     <a href="tlou.html" class="row-image" aria-label="View The Last of Us Analysis">
                         <img src="assets/Game Deconstruction/TLOU.png" alt="The Last of Us Part I cover art" loading="lazy">
                     </a>
                     <div class="row-content">
-                        <span class="row-date">Game Deconstruction</span>
-                        <h3 class="row-title">The Last of Us: Part I</h3>
+                        <span class="row-date">Analysis</span>
+                        <h3 class="row-title"><a href="tlou.html">The Last of Us: Part I</a></h3>
                         <p class="row-desc">
-                            A deep dive analysis into Naughty Dog's level design philosophy. I breakdown their use of "Pacing Pockets" and environmental storytelling.
+                            A deep dive analysis into Naughty Dog's level design philosophy. I breakdown their use of "Pacing Pockets", environmental storytelling, and how scarcity mechanics manipulate player psychology.
                         </p>
                         <a href="tlou.html" class="pill-btn">Read Analysis</a>
                     </div>
                 </article>
-
             </div>
+
         </section>
 
         <section id="process" class="process-section">
@@ -164,6 +292,7 @@
         <footer id="contact" class="footer-section">
             <div class="footer-links">
                 <a href="mailto:gamesbykarunaket@gmail.com" aria-label="Email Karuna Ketan">Email</a>
+                <a href="https://wa.me/917764870529" target="_blank" rel="noopener noreferrer" aria-label="Chat with Karuna Ketan on WhatsApp">+91 7764870529</a>
                 <a href="https://www.linkedin.com/in/karunaket/" target="_blank" rel="noopener noreferrer" aria-label="Visit Karuna Ketan's LinkedIn">LinkedIn</a>
                 <a href="https://github.com/karunaket" target="_blank" rel="noopener noreferrer" aria-label="Visit Karuna Ketan's GitHub">GitHub</a>
             </div>

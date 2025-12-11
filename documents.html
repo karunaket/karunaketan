@@ -3,22 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentation | Karuna Ketan</title>
+    <title>Documentation Library | Karuna Ketan</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Document Library Layout */
+        .docs-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Switched to Flexbox for perfect centering of orphan items */
+        .docs-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Card Styling */
+        .doc-card {
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            /* Fixed width for flex consistency, but responsive */
+            width: 350px; 
+            max-width: 100%;
+            position: relative;
+        }
+
+        .doc-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+            border-color: #d0d0d0;
+        }
+
+        .doc-thumb {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            background: #f0f0f0;
+            position: relative;
+        }
+
+        .doc-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .doc-card:hover .doc-thumb img {
+            transform: scale(1.05);
+        }
+
+        /* Type Badge (e.g. GDD, LDD) */
+        .type-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #fff;
+            color: #111;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        /* Format Badge (PDF) */
+        .format-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0,0,0,0.7);
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .doc-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-name {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #888;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+
+        .doc-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #111;
+            line-height: 1.3;
+        }
+
+        .doc-desc {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .doc-btn {
+            display: block;
+            text-align: center;
+            background-color: #111;
+            color: #fff;
+            text-decoration: none;
+            padding: 0.8rem;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .doc-btn:hover {
+            background-color: #333;
+        }
+
+        /* Intro Text */
+        .intro-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #111;
+        }
+        .intro-text p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+        }
+        
+        /* Section Divider */
+        .section-divider {
+            width: 100%; /* Forces a line break in Flexbox */
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+            color: #111;
+            text-align: left;
+        }
+
+        /* 1. Header Resume Button */
+        .header-resume-btn {
+            background-color: #111;
+            color: #fff !important; /* Force white text */
+            padding: 0.5rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid #111;
+        }
+
+        .header-resume-btn:hover {
+            background-color: transparent;
+            color: #111 !important;
+        }
+
+        .hero-resume-btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2.5rem;
+            background-color: #111; /* Strong black background */
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            letter-spacing: 0.05em;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Drop shadow for depth */
+            transition: all 0.3s ease;
+            border: 2px solid #111;
+        }
+
+        .hero-resume-btn:hover {
+            background-color: transparent;
+            color: #111;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+    </style>
 </head>
 <body>
 
     <header class="minimal-header">
         <div class="header-content">
-            <a href="index.html" class="logo">KK<span class="dot">.</span></a>
+            <a href="index.html" class="logo">KARUNA KETAN</a>
             <nav>
                 <ul class="nav-links">
                     <li><a href="index.html#projects">Projects</a></li>
                     <li><a href="documents.html" class="active-link">Docs</a></li>
-                    <li><a href="index.html#process">Process</a></li>
-                    <li><a href="index.html#contact">About</a></li>
-                    <li><a href="resume.pdf" target="_blank" class="resume-btn">RESUME</a></li>
+                    <li><a href="process.html">Process</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="resume.pdf" target="_blank" class="header-resume-btn">RESUME</a></li>
                 </ul>
             </nav>
         </div>
@@ -26,48 +224,132 @@
 
     <main class="main-container">
         
-        <section class="intro-section">
+        <section class="intro-section" style="padding-bottom: 0;">
             <div class="intro-text">
-                <h1>Documentation Archive.</h1>
-                <p>A collection of my <strong>Game Design Documents (GDDs)</strong> and technical specifications.</p>
+                <h1>Documentation Archive</h1>
+                <p>A comprehensive library of my technical specifications, system breakdowns, and design documents. These files bridge the gap between creative vision and engine implementation.</p>
             </div>
         </section>
 
         <section class="docs-section">
-            <div class="docs-list">
+            <div class="docs-grid">
                 
-                <div class="doc-item">
-                    <div class="doc-icon">📄</div>
-                    <div class="doc-info">
-                        <h3>Eclipse of Fear</h3>
-                        <p class="doc-meta">Level Design & AI Spec</p>
-                        <p class="doc-desc">Covers AI state machines and lighting-based stealth mechanics.</p>
-                    </div>
-                    <a href="assets/Horror/EOF_GDD.pdf" target="_blank" class="doc-btn">View PDF</a>
-                </div>
+                <div class="section-divider">Eclipse of Fear (Horror)</div>
 
-                <div class="doc-item">
-                    <div class="doc-icon">📄</div>
-                    <div class="doc-info">
-                        <h3>Shattered Charms</h3>
-                        <p class="doc-meta">System Design Spec</p>
-                        <p class="doc-desc">Breakdown of the "Charm System" math and narrative branching.</p>
+                <article class="doc-card">
+                    <div class="doc-thumb">
+                        <img src="assets/Horror/EOF.png" alt="Eclipse of Fear Art">
+                        <div class="type-badge">GDD</div>
+                        <div class="format-badge">PDF</div>
                     </div>
-                    <a href="assets/RPG/SCTTV_GDD.pdf" target="_blank" class="doc-btn">View PDF</a>
-                </div>
+                    <div class="doc-content">
+                        <span class="project-name">Eclipse of Fear</span>
+                        <h3 class="doc-title">Game Design Document</h3>
+                        <p class="doc-desc">
+                            The master blueprint covering core loops, "Lives as Papers" health mechanics, AI stalker behavior trees, and the lighting-based navigation logic.
+                        </p>
+                        <a href="assets/Horror/EOF_GDD.pdf" target="_blank" class="doc-btn">View Document ↗</a>
+                    </div>
+                </article>
 
-                <div class="doc-item">
-                    <div class="doc-icon">📄</div>
-                    <div class="doc-info">
-                        <h3>Project Singularity</h3>
-                        <p class="doc-meta">Combat Design Spec</p>
-                        <p class="doc-desc">Technical specs for weapon recoil, camera shake, and inputs.</p>
+                <article class="doc-card">
+                    <div class="doc-thumb">
+                        <img src="assets/Horror/Images/11.jpg" alt="Enemy Data Art">
+                        <div class="type-badge">Data Sheet</div>
+                        <div class="format-badge">PDF</div>
                     </div>
-                    <a href="assets/Action-adv/PS_GDD.pdf" target="_blank" class="doc-btn">View PDF</a>
-                </div>
+                    <div class="doc-content">
+                        <span class="project-name">Eclipse of Fear</span>
+                        <h3 class="doc-title">Technical Data Sheets</h3>
+                        <p class="doc-desc">
+                            Raw balancing tables for player movement speeds, weapon fire rates, and enemy damage scaling across the 4-wave escalation system.
+                        </p>
+                        <a href="assets/Horror/EOF_Datas.pdf" target="_blank" class="doc-btn">View Document ↗</a>
+                    </div>
+                </article>
+
+                <article class="doc-card">
+                    <div class="doc-thumb">
+                        <img src="assets/Horror/Images/14.jpg" alt="Dark Atmosphere Art">
+                        <div class="type-badge">Feature Spec</div>
+                        <div class="format-badge">PDF</div>
+                    </div>
+                    <div class="doc-content">
+                        <span class="project-name">Eclipse of Fear</span>
+                        <h3 class="doc-title">Feature: Fear Lockdown</h3>
+                        <p class="doc-desc">
+                            A specific breakdown of the cut "Fear Lockdown" mechanic, detailing how the environment was intended to shift states after objective completion.
+                        </p>
+                        <a href="assets/Horror/Feature Document_Fear Lockdown.pdf" target="_blank" class="doc-btn">View Document ↗</a>
+                    </div>
+                </article>
+
+
+                <div class="section-divider">Shattered Charms: Through The Veil (RPG)</div>
+
+                <article class="doc-card">
+                    <div class="doc-thumb">
+                        <img src="assets/RPG/SCTTV.png" alt="Shattered Charms Art">
+                        <div class="type-badge">GDD</div>
+                        <div class="format-badge">PDF</div>
+                    </div>
+                    <div class="doc-content">
+                        <span class="project-name">Shattered Charms</span>
+                        <h3 class="doc-title">Game Design Document</h3>
+                        <p class="doc-desc">
+                            Deep dive into the "Charm Matrix" mathematics, economy tuning sheets, narrative branching structures, and the core progression loop logic.
+                        </p>
+                        <a href="assets/RPG/SCTTV_GDD.pdf" target="_blank" class="doc-btn">View Document ↗</a>
+                    </div>
+                </article>
+
+                <article class="doc-card">
+                    <div class="doc-thumb">
+                        <img src="assets/RPG/Images/LD.png" alt="Level Design Map">
+                        <div class="type-badge">LDD</div>
+                        <div class="format-badge">PDF</div>
+                    </div>
+                    <div class="doc-content">
+                        <span class="project-name">Shattered Charms</span>
+                        <h3 class="doc-title">Level Design Document</h3>
+                        <p class="doc-desc">
+                            Detailed breakdown of the Hub-and-Spoke world layout, encounter pacing curves, blocked-out map flows, and quest integration zones.
+                        </p>
+                        <a href="assets/RPG/SCTTV_Level_Doc.pdf" target="_blank" class="doc-btn">View Document ↗</a>
+                    </div>
+                </article>
+
+
+                <div class="section-divider">Project Singularity (Action-Adventure)</div>
+
+                <article class="doc-card">
+                    <div class="doc-thumb">
+                        <img src="assets/Action-adv/PS.png" alt="Project Singularity Art">
+                        <div class="type-badge">GDD</div>
+                        <div class="format-badge">PDF</div>
+                    </div>
+                    <div class="doc-content">
+                        <span class="project-name">Project Singularity</span>
+                        <h3 class="doc-title">Game Design Document</h3>
+                        <p class="doc-desc">
+                            Technical specifications for the Teleportation mechanic, weapon recoil curves, camera shake implementation, and vertical slice scope definitions.
+                        </p>
+                        <a href="assets/Action-adv/PS_GDD.pdf" target="_blank" class="doc-btn">View Document ↗</a>
+                    </div>
+                </article>
 
             </div>
         </section>
+
+        <footer id="contact" class="footer-section">
+            <div class="footer-links">
+                <a href="mailto:gamesbykarunaket@gmail.com" aria-label="Email Karuna Ketan">Email</a>
+                <a href="https://wa.me/917764870529" target="_blank" rel="noopener noreferrer" aria-label="Chat with Karuna Ketan on WhatsApp">+91 7764870529</a>
+                <a href="https://www.linkedin.com/in/karunaket/" target="_blank" rel="noopener noreferrer" aria-label="Visit Karuna Ketan's LinkedIn">LinkedIn</a>
+                <a href="https://github.com/karunaket" target="_blank" rel="noopener noreferrer" aria-label="Visit Karuna Ketan's GitHub">GitHub</a>
+            </div>
+            <p style="margin-top: 1rem; color: #888; font-size: 0.8rem;">© 2025 Karuna Ketan.</p>
+        </footer>
 
     </main>
 </body>
