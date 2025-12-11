@@ -5,63 +5,339 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Singularity | Karuna Ketan</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Lightbox Styles */
+        #imageViewer { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; }
+        #fullImage { max-width: 90%; max-height: 90%; border-radius: 4px; box-shadow: 0 0 20px rgba(0,0,0,0.5); animation: zoomIn 0.3s ease; }
+        .close-img-btn { position: absolute; top: 30px; right: 40px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s; font-family: var(--font-heading); line-height: 1; }
+        .close-img-btn:hover { color: var(--red-accent); transform: scale(1.1); }
+        @keyframes zoomIn { from {transform: scale(0.9); opacity: 0;} to {transform: scale(1); opacity: 1;} }
+        
+        /* Gallery Grid */
+        .raw-gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .raw-gallery-item { width: 100%; height: 260px; overflow: hidden; border-radius: 4px; border: 1px solid #e5e5e5; background: #f9f9f9; cursor: pointer; transition: transform 0.2s ease; position: relative; }
+        .raw-gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+        .raw-gallery-item:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+        .raw-gallery-item:hover img { transform: scale(1.05); }
+    </style>
 </head>
 <body>
+
     <header class="minimal-header">
         <div class="header-content">
             <a href="index.html" class="logo">KK<span class="dot">.</span></a>
-            <nav><ul class="nav-links"><li><a href="index.html#projects">Back to Projects</a></li></ul></nav>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html#projects">Back to Home</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
-    <section class="project-hero">
-        <div class="hero-bg"><img src="assets/PS.png" class="hero-img"><div class="hero-overlay"></div></div>
-        <div class="project-title-block">
-            <h1 class="project-title-large">PROJECT SINGULARITY</h1>
-            <div class="project-meta">
-                <span class="meta-item"><strong>ROLE:</strong> Combat Designer</span>
-                <span class="meta-item"><strong>ENGINE:</strong> Unreal Engine 5</span>
-                <span class="meta-item"><strong>GENRE:</strong> Action / TPS</span>
+    <div class="top-slider-section">
+        <div class="slider-container full-width-slider">
+            <div class="slider-wrapper">
+                <div class="slide"><img src="assets/Action-adv/Images/1.png" alt="Combat Overview"></div>
+                <div class="slide"><img src="assets/Action-adv/Images/2.png" alt="Level Blockout Top Down"></div>
+                <div class="slide"><img src="assets/Action-adv/Images/3.png" alt="Shooting Mechanics"></div>
+                <div class="slide"><img src="assets/Action-adv/Images/4.png" alt="Level Environment"></div>
+                <div class="slide"><img src="assets/Action-adv/Images/5.png" alt="Environment Art"></div>
+            </div>
+            <button class="slider-btn prev">&#10094;</button>
+            <button class="slider-btn next">&#10095;</button>
+            <div class="slider-dots-container" id="dotsContainer"></div>
+        </div>
+    </div>
+
+    <section class="project-header-compact">
+        <h1 class="case-title">PROJECT SINGULARITY</h1>
+        
+        <div class="project-stats-grid">
+            <div class="stat-box">
+                <span class="label">ROLE</span>
+                <span class="value">Game & Level Designer</span>
+            </div>
+            <div class="stat-box">
+                <span class="label">ENGINE</span>
+                <span class="value">Unreal Engine 5</span>
+            </div>
+            <div class="stat-box">
+                <span class="label">GENRE</span>
+                <span class="value">Action Shooter</span>
+            </div>
+            <div class="stat-box">
+                <span class="label">STATUS</span>
+                <span class="value">Ongoing Vertical Slice</span>
             </div>
         </div>
+        
+        <p class="team-credit" style="margin-top: 1.5rem; line-height: 1.6;">
+            Game & Level Design: <strong>Karuna Ketan</strong> <br> 
+            Programming: <strong>Sujal Uprety</strong> | 3D Art: <strong>Criticaa Subedi</strong>
+        </p>
     </section>
 
-    <div class="case-study-container">
-        <section class="case-section">
-            <h2 class="section-heading">01. THE DESIGN CHALLENGE</h2>
-            <div class="text-block">
-                <p><strong>The Pivot:</strong> Originally envisioned as an open-world survival game, I pivoted early to a single-arena shooter to focus entirely on perfecting the "3Cs" (Character, Camera, Control).</p>
-                <p><strong>The Goal:</strong> To engineer a "Visceral Feedback Loop" where every shot is communicated through Procedural Animation.</p>
+    <div class="case-study-content">
+        
+        <section class="content-block split-section">
+            <div class="split-text">
+                <h2 class="block-title">Game Overview</h2>
+                <p class="block-text">
+                    <strong>Project Singularity</strong> is a third-person action-adventure game where players control a soldier protecting a scientist from a space pirate invasion while gathering key parts and solving puzzles to escape the Earth!
+                </p>
+                <p class="block-text">
+                    In production terms, the game functions as a <strong>training-oriented vertical slice</strong>. The focus is on achieving polished "Game Feel," readable level design, and responsive combat systems before expanding into full production.
+                </p>
+            </div>
+            <div class="split-image">
+                <img src="assets/Action-adv/GIF_Vids/Game_Overview.gif" alt="Project Singularity Combat Loop" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
             </div>
         </section>
 
-        <section class="case-section">
-            <h2 class="section-heading">02. THE SOLUTION</h2>
-            <div class="text-block">
-                <p><strong>The Mechanic:</strong> I built a custom Weapon Class in C++ that handles procedural recoil. I also implemented "Hit Stop" frames to emphasize impact.</p>
-            </div>
-            <div class="media-grid">
-                <div class="media-item"><img src="assets/PS.png"></div>
-                <div class="media-item"><img src="assets/PS.png"></div>
-            </div>
-        </section>
-
-        <section class="case-section">
-            <h2 class="section-heading">03. DOCUMENTATION</h2>
-            <div class="gdd-box">
-                <div class="gdd-info"><h3>Game Design Document</h3><p>Details on Weapon Balancing and AI Behavior Trees.</p></div>
-                <a href="assets/PS_GDD.pdf" target="_blank" class="download-btn">READ GDD (PDF) ↗</a>
+        <section class="content-block">
+            <h2 class="block-title">Core Design Intent</h2>
+            <div class="four-col-grid">
+                <div class="small-card">
+                    <h4>Mechanical Depth</h4>
+                    <p>Ensuring shooting, movement, and traversal feel right before creating larger missions.</p>
+                </div>
+                <div class="small-card">
+                    <h4>Combat Readability</h4>
+                    <p>Enemies, sightlines, and arenas are designed for clarity and quick decision making.</p>
+                </div>
+                <div class="small-card">
+                    <h4>Strong Game Feel</h4>
+                    <p>Fixing floaty movement by introducing responsive feedback, camera response, and hit reactions.</p>
+                </div>
+                <div class="small-card">
+                    <h4>Collaborative Pipeline</h4>
+                    <p>Working with a programmer and artist to create a scalable workflow for future expansion.</p>
+                </div>
             </div>
         </section>
         
-        <section class="case-section">
-            <h2 class="section-heading">04. RETROSPECTIVE</h2>
-             <div class="text-block">
-                <p><strong>What worked:</strong> The procedural recoil made the gunplay feel significantly more modern and heavy.</p>
-                <p><strong>What didn't:</strong> I initially over-scoped the AI. I had to simplify the behavior tree to ensure performance.</p>
+        <section class="content-block split-section">
+            <div class="split-image">
+                <img src="assets/Action-adv/PS.png" alt="Project Singularity Key Art" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+            </div>
+            <div class="split-text">
+                <h2 class="block-title">The Mission Context</h2>
+                <p class="block-text">
+                    While the focus is mechanical, the narrative drives the gameplay objectives. The dynamic between the <strong>Soldier (Player)</strong> and the <strong>Scientist (NPC)</strong> dictates the pacing.
+                </p>
+                <ul class="clean-list">
+                    <li><strong>The Soldier:</strong> Provides combat capability and traversal tools (Teleportation).</li>
+                    <li><strong>The Scientist:</strong> Cannot fight, but is required to unlock doors and decipher the alien tech needed to escape.</li>
+                    <li><strong>The Threat:</strong> Space Pirates act as aggressive pressure, forcing the player to balance personal survival with protecting the objective.</li>
+                </ul>
             </div>
         </section>
+
+        <section class="content-block split-section">
+            <div class="split-text">
+                <h2 class="block-title">Core Gameplay Loop</h2>
+                <p class="block-text">
+                    The gameplay is built on a "Combat-Puzzle-Escort" cycle. This ensures the player utilizes their full kit—shooting for defense, teleporting for traversal, and interaction for progression.
+                </p>
+                <ul class="clean-list" style="font-weight: 500; font-size: 1.1rem; line-height: 1.8;">
+                    <li>➔ <strong>Identify Threat:</strong> Scan area for Pirates.</li>
+                    <li>➔ <strong>Engage & Eliminate:</strong> Use cover and Teleport flanking.</li>
+                    <li>➔ <strong>Secure Area:</strong> Signal Scientist to advance.</li>
+                    <li>➔ <strong>Solve Blockers:</strong> Gather parts/Interact with panels.</li>
+                    <li>➔ <strong>Advance:</strong> Move to next sector.</li>
+                </ul>
+            </div>
+            <div class="split-image">
+                <img src="assets/Action-adv/Images/GameplayLoop.png" alt="Core Gameplay Loop Flowchart" style="width: 100%; border-radius: 8px;">
+                <p class="caption">Visualizing the flow between Combat, Exploration, and Protection.</p>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2 class="block-title">Implemented Features</h2>
+
+            <div class="system-box">
+                <h3>1. Teleportation Ability</h3>
+                <div class="split-section" style="gap: 2rem; margin-top: 1rem;">
+                    <div class="split-image">
+                        <img src="assets/Action-adv/GIF_Vids/Teleport_Mechanic.gif" alt="Teleportation Ability" style="width: 100%; border-radius: 8px;">
+                    </div>
+                    <div class="split-text">
+                        <p class="block-text">
+                            A short-range traversal tool created to deepen combat movement and puzzle navigation.
+                        </p>
+                        <ul class="clean-list">
+                            <li><strong>Combat Utility:</strong> Designed for repositioning during firefights.</li>
+                            <li><strong>Balance:</strong> Cooldowns maintain tension; it is not free mobility.</li>
+                            <li><strong>Integration:</strong> Integrates into environmental design (gaps, hazards, verticality).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="system-box">
+                <h3>2. Level Design & Blockouts (≈50% Complete)</h3>
+                <div class="split-section" style="gap: 2rem; margin-top: 1rem;">
+                    <div class="split-text">
+                        <p class="block-text">
+                            The blockout phase focuses on designing a clear, navigable combat space.
+                        </p>
+                        <ul class="clean-list">
+                            <li><strong>Vertical Arenas:</strong> Features flanking routes and vantage points.</li>
+                            <li><strong>Readable Sightlines:</strong> Designed to help players track threats instantly.</li>
+                            <li><strong>Pacing Beats:</strong> Alternates between tight corridors (tension) and broad arenas (release).</li>
+                            <li><strong>Environmental Storytelling:</strong> Uses layout hints and silhouette shapes.</li>
+                        </ul>
+                    </div>
+                    <div class="split-image">
+                        <img src="assets/Action-adv/Images/5.png" alt="Level Design Blockout" style="width: 100%; border-radius: 8px;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2 class="block-title">Collaborative Workflow</h2>
+            <div class="three-col-grid">
+                <div class="pm-card" style="background: #f9f9f9; border-top: 4px solid #333;">
+                    <h4>1. Design & Layout</h4>
+                    <p style="font-size: 0.95rem;">
+                        I define the mechanics and block out the level geometry (Grayboxing). I set the requirements for AI behavior and weapon stats.
+                    </p>
+                </div>
+                <div class="pm-card" style="background: #f9f9f9; border-top: 4px solid var(--accent-color);">
+                    <h4>2. Programming Implementation</h4>
+                    <p style="font-size: 0.95rem;">
+                        The Programmer implements the modular systems for recoil and AI state machines based on my GDD specs, which I then tune in-engine.
+                    </p>
+                </div>
+                <div class="pm-card" style="background: #f9f9f9; border-top: 4px solid #666;">
+                    <h4>3. Art & Polish</h4>
+                    <p style="font-size: 0.95rem;">
+                        Once gameplay is validated, the Artist replaces blockouts with assets. We iterate to ensure art doesn't break player navigation or sightlines.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2 class="block-title">Design Responsibilities</h2>
+            <div class="split-grid">
+                <div class="text-col">
+                    <ul class="clean-list" style="list-style-type: circle;">
+                        <li>Defined overall gameplay vision and mechanical goals.</li>
+                        <li>Designed shooting feel, recoil behavior, and combat pacing.</li>
+                        <li>Created level layouts focused on combat readability.</li>
+                    </ul>
+                </div>
+                <div class="text-col">
+                    <ul class="clean-list" style="list-style-type: circle;">
+                        <li>Directed iteration based on playtesting feedback.</li>
+                        <li>Coordinated design decisions with programming and art pipelines.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2 class="block-title">Why This Project Matters</h2>
+            <div class="process-card" style="border-left: 5px solid var(--accent-color); padding: 2rem;">
+                <p class="lead-text" style="font-size: 1.1rem; margin-bottom: 1rem;">
+                    Project Singularity shows my approach to:
+                </p>
+                <ul class="clean-list" style="font-size: 1rem; line-height: 1.8; list-style-type: disc; padding-left: 1.5rem;">
+                    <li><strong>Building solid systems</strong> before expanding content.</li>
+                    <li><strong>Solving feel-related issues</strong> through mechanics, not just effects.</li>
+                    <li><strong>Designing clear, readable levels</strong> that support the combat style.</li>
+                    <li><strong>Working collaboratively</strong> in a small, agile team.</li>
+                    <li><strong>Delivering a vertical slice with polish</strong> instead of an unfinished wide scope.</li>
+                </ul>
+                <p class="block-text" style="margin-top: 1.5rem; font-weight: 500;">
+                    This project is intentionally scoped to ensure clarity, iteration, and strong foundational gameplay before moving into full production.
+                </p>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2 class="block-title">Project Status</h2>
+            <div class="stat-box" style="background: #eef; border: 1px solid #ccd; padding: 1.5rem; text-align: center;">
+                <h3 style="margin: 0; color: #333;">IN DEVELOPMENT</h3>
+                <p style="margin-top: 0.5rem; color: #666;">Current Focus: Training Section, Combat Feel Validation, Expanded Blockouts</p>
+            </div>
+        </section>
+
+        <section id="docs" class="content-block pdf-section">
+            <h2 class="block-title">Documentation</h2>
+            <p class="block-text">Technical documentation outlining the game's mechanics, AI behaviors, and level flow requirements.</p>
+            
+            <div class="doc-actions">
+                <button class="big-doc-btn" onclick="openPDF('assets/Action-adv/PS_GDD.pdf')">VIEW FULL GDD (PDF)</button>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2 class="block-title">Process: From Paper to Engine</h2>
+            <p class="block-text">Before entering the engine, the level flow, enemy placements, and save systems were planned on paper. These raw sketches show the early thinking process.</p>
+            
+            <div class="raw-gallery-grid">
+                <div class="raw-gallery-item"><img src="assets/Action-adv/RAW/1.jpeg" onclick="openImage(this.src)" alt="Design Sketch 1" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/Action-adv/RAW/8.jpeg" onclick="openImage(this.src)" alt="Design Sketch 8" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/Action-adv/RAW/9.jpeg" onclick="openImage(this.src)" alt="Design Sketch 9" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/Action-adv/RAW/2.jpeg" onclick="openImage(this.src)" alt="Design Sketch 2" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/Action-adv/RAW/3.jpeg" onclick="openImage(this.src)" alt="Design Sketch 3" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/Action-adv/RAW/10.jpeg" onclick="openImage(this.src)" alt="Design Sketch 10" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/Action-adv/RAW/4.jpeg" onclick="openImage(this.src)" alt="Design Sketch 4" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/Action-adv/RAW/5.jpeg" onclick="openImage(this.src)" alt="Design Sketch 5" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/Action-adv/RAW/6.jpeg" onclick="openImage(this.src)" alt="Design Sketch 6" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/Action-adv/RAW/7.jpeg" onclick="openImage(this.src)" alt="Design Sketch 7" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/Action-adv/RAW/M_1.png" onclick="openImage(this.src)" alt="Miro Board Reference 1" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/Action-adv/RAW/M_2.png" onclick="openImage(this.src)" alt="Miro Board Reference 2" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/Action-adv/RAW/M_3.png" onclick="openImage(this.src)" alt="Miro Board Reference 3" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/Action-adv/RAW/M_4.png" onclick="openImage(this.src)" alt="Miro Board Reference 4" loading="lazy"></div>
+                <div class="raw-gallery-item"><img src="assets/Action-adv/RAW/LD_Paper_prototype.jpg" onclick="openImage(this.src)" alt="Level Design Prototype" loading="lazy"></div>
+            </div>
+        </section>
+
     </div>
+
+    <footer class="footer-section">
+        <p class="copyright">© 2025 Karuna Ketan.</p>
+    </footer>
+
+    <div id="imageViewer" onclick="closeImage()">
+        <span class="close-img-btn">&times;</span>
+        <img id="fullImage" onclick="event.stopPropagation()"> 
+    </div>
+
+    <div id="viewer">
+        <div class="controls">
+            <button onclick="closePDF()">❌ Close</button>
+        </div>
+        <iframe id="pdfFrame"></iframe>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+        function openImage(src) {
+            const viewer = document.getElementById('imageViewer');
+            const fullImg = document.getElementById('fullImage');
+            fullImg.src = src;
+            viewer.style.display = 'flex';
+            setTimeout(() => { viewer.style.opacity = '1'; }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+        function closeImage() {
+            const viewer = document.getElementById('imageViewer');
+            viewer.style.opacity = '0';
+            setTimeout(() => {
+                viewer.style.display = 'none';
+                document.getElementById('fullImage').src = "";
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+    </script>
 </body>
 </html>
