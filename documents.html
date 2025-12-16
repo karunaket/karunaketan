@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentation Library | Karuna Ketan</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     
     <style>
         /* Document Library Layout */
@@ -33,7 +32,6 @@
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
-            /* Fixed width for flex consistency, but responsive */
             width: 350px; 
             max-width: 100%;
             position: relative;
@@ -64,33 +62,22 @@
             transform: scale(1.05);
         }
 
-        /* Type Badge (e.g. GDD, LDD) */
+        /* Type Badge */
         .type-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: #fff;
-            color: #111;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            position: absolute; top: 15px; left: 15px;
+            background: #fff; color: #111;
+            padding: 4px 10px; border-radius: 4px;
+            font-size: 0.7rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.05em;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
 
-        /* Format Badge (PDF) */
+        /* Format Badge */
         .format-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(0,0,0,0.7);
-            color: #fff;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 600;
+            position: absolute; top: 15px; right: 15px;
+            background: rgba(0,0,0,0.7); color: #fff;
+            padding: 4px 8px; border-radius: 4px;
+            font-size: 0.7rem; font-weight: 600;
         }
 
         .doc-content {
@@ -101,107 +88,122 @@
         }
 
         .project-name {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            color: #888;
-            font-weight: 600;
-            margin-bottom: 0.4rem;
+            font-size: 0.8rem; text-transform: uppercase;
+            color: #888; font-weight: 600; margin-bottom: 0.4rem;
         }
 
         .doc-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-            color: #111;
-            line-height: 1.3;
+            font-size: 1.2rem; font-weight: 700;
+            margin-bottom: 0.75rem; color: #111; line-height: 1.3;
         }
 
         .doc-desc {
-            font-size: 0.9rem;
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-            flex-grow: 1;
+            font-size: 0.9rem; color: #555;
+            line-height: 1.6; margin-bottom: 1.5rem; flex-grow: 1;
         }
 
         .doc-btn {
-            display: block;
-            text-align: center;
-            background-color: #111;
-            color: #fff;
-            text-decoration: none;
-            padding: 0.8rem;
-            border-radius: 6px;
-            font-weight: 500;
+            display: block; text-align: center;
+            background-color: #111; color: #fff;
+            text-decoration: none; padding: 0.8rem;
+            border-radius: 6px; font-weight: 500;
             transition: background 0.2s;
         }
 
-        .doc-btn:hover {
-            background-color: #333;
-        }
+        .doc-btn:hover { background-color: #333; }
 
         /* Intro Text */
-        .intro-text h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #111;
-        }
-        .intro-text p {
-            font-size: 1.1rem;
-            color: #666;
-            max-width: 600px;
-        }
+        .intro-text h1 { font-size: 2.5rem; margin-bottom: 1rem; color: #111; }
+        .intro-text p { font-size: 1.1rem; color: #666; max-width: 600px; }
         
         /* Section Divider */
         .section-divider {
-            width: 100%; /* Forces a line break in Flexbox */
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-top: 3rem;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #eee;
-            color: #111;
-            text-align: left;
+            width: 100%; font-size: 1.5rem; font-weight: 700;
+            margin-top: 3rem; margin-bottom: 1rem;
+            padding-bottom: 1rem; border-bottom: 1px solid #eee;
+            color: #111; text-align: left;
         }
 
-        /* 1. Header Resume Button */
+        /* Header Resume Button */
         .header-resume-btn {
-            background-color: #111;
-            color: #fff !important; /* Force white text */
-            padding: 0.5rem 1.2rem;
-            border-radius: 6px;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            background-color: #111; color: #fff !important;
+            padding: 0.5rem 1.2rem; border-radius: 6px;
+            font-weight: 600; transition: all 0.3s ease;
             border: 2px solid #111;
         }
-
-        .header-resume-btn:hover {
-            background-color: transparent;
-            color: #111 !important;
-        }
+        .header-resume-btn:hover { background-color: transparent; color: #111 !important; }
 
         .hero-resume-btn {
-            display: inline-block;
-            margin-top: 2rem;
-            padding: 1rem 2.5rem;
-            background-color: #111; /* Strong black background */
-            color: #fff;
-            font-size: 1rem;
-            font-weight: 700;
-            text-decoration: none;
-            border-radius: 50px;
-            letter-spacing: 0.05em;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Drop shadow for depth */
-            transition: all 0.3s ease;
-            border: 2px solid #111;
+            display: inline-block; margin-top: 2rem; padding: 1rem 2.5rem;
+            background-color: #111; color: #fff; font-size: 1rem;
+            font-weight: 700; text-decoration: none; border-radius: 50px;
+            letter-spacing: 0.05em; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease; border: 2px solid #111;
+        }
+        .hero-resume-btn:hover {
+            background-color: transparent; color: #111;
+            transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
-        .hero-resume-btn:hover {
-            background-color: transparent;
-            color: #111;
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        /* --- MOBILE SIDEBAR & RESPONSIVENESS --- */
+        .menu-toggle {
+            display: none; flex-direction: column; justify-content: space-between;
+            width: 30px; height: 21px; background: transparent; border: none;
+            cursor: pointer; z-index: 2000;
+        }
+        .menu-toggle .bar {
+            width: 100%; height: 3px; background-color: #000;
+            transition: 0.3s; border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            /* 1. Show Sidebar Trigger */
+            .menu-toggle { display: flex !important; }
+            
+            /* 2. Sliding Sidebar Logic */
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 100%; /* Full screen on mobile */
+                height: 100vh;
+                background-color: #fff;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2.5rem;
+                z-index: 1500;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                
+                /* ANIMATION PROPERTIES */
+                transform: translateX(100%); /* Start hidden off-screen */
+                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth slide */
+            }
+            
+            /* Class added by JS to slide it in */
+            .nav-links.active {
+                transform: translateX(0); /* Slide to visible position */
+                display: flex;
+            }
+            
+            .nav-links a { font-size: 1.5rem; font-weight: 700; color: #000; }
+            
+            /* Hamburger Animation */
+            .menu-toggle.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+            .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
+            .menu-toggle.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+            /* 3. Page Structure Fixes */
+            .intro-text h1 { font-size: 2rem; }
+            .intro-text p { font-size: 1rem; }
+            .docs-section { padding: 2rem 1.5rem; }
+            .doc-card { width: 100%; max-width: 450px; }
+            .docs-grid { flex-direction: column; align-items: center; gap: 2.5rem; }
+            .section-divider { text-align: center; font-size: 1.3rem; margin-top: 2rem; }
+
+            /* 4. Footer Fix */
+            .footer-links { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+            .footer-links a { margin: 0; display: block; }
         }
     </style>
 </head>
@@ -210,11 +212,19 @@
     <header class="minimal-header">
         <div class="header-content">
             <a href="index.html" class="logo">KARUNA KETAN</a>
+            
+            <button class="menu-toggle" aria-label="Toggle Navigation">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+
             <nav>
                 <ul class="nav-links">
                     <li><a href="index.html#projects">Projects</a></li>
-                    <li><a href="documents.html" class="active-link">Docs</a></li>
+                    <li><a href="documents.html">Docs</a></li>
                     <li><a href="process.html">Process</a></li>
+                    <li><a href="about.html">About</a></li>
                     <li><a href="index.html#contact">Contact</a></li>
                     <li><a href="resume.pdf" target="_blank" class="header-resume-btn">RESUME</a></li>
                 </ul>
@@ -352,5 +362,7 @@
         </footer>
 
     </main>
+
+    <script src="script.js"></script>
 </body>
 </html>

@@ -3,36 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shattered Charms | Karuna Ketan</title>
+    <title>Shattered Charms: Through The Veil | Karuna Ketan</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Gallery Grid */
+        /* --- MASONRY GRID (Improved Structure) --- */
         .raw-gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
+            column-count: 3;
+            column-gap: 1.5rem;
             margin-top: 2rem;
         }
         .raw-gallery-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
             width: 100%;
-            height: 260px;
-            overflow: hidden;
             border-radius: 4px;
             border: 1px solid #e5e5e5;
             background: #f9f9f9;
             cursor: pointer;
             transition: transform 0.2s ease;
-            position: relative;
+            overflow: hidden;
         }
         .raw-gallery-item img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto; /* Natural height */
+            display: block;
             transition: transform 0.3s ease;
         }
-        /* Hover Effect: Zoom and "Expand" Icon hint */
+        /* Hover Effect */
         .raw-gallery-item:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(0,0,0,0.12);
@@ -41,52 +40,41 @@
             transform: scale(1.05);
         }
 
-        /* Lightbox (Full Screen Image Viewer) */
+        /* --- LIGHTBOX --- */
         #imageViewer {
-            display: none; /* Hidden by default */
-            position: fixed;
-            z-index: 3000; /* Higher than PDF viewer */
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.95);
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            display: none; position: fixed; z-index: 3000; left: 0; top: 0;
+            width: 100%; height: 100%; background-color: rgba(0,0,0,0.95);
+            justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease;
         }
-        
-        /* The Big Image */
         #fullImage {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 4px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            animation: zoomIn 0.3s ease;
+            max-width: 90%; max-height: 90%; border-radius: 4px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5); animation: zoomIn 0.3s ease;
         }
-
-        /* Close Button (Cross) */
         .close-img-btn {
-            position: absolute;
-            top: 30px;
-            right: 40px;
-            color: #fff;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            font-family: var(--font-heading);
-            line-height: 1;
+            position: absolute; top: 30px; right: 40px; color: #fff;
+            font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s;
+            font-family: var(--font-heading); line-height: 1;
         }
-        .close-img-btn:hover {
-            color: var(--red-accent);
-            transform: scale(1.1);
+        .close-img-btn:hover { color: var(--red-accent); transform: scale(1.1); }
+        @keyframes zoomIn { from {transform: scale(0.9); opacity: 0;} to {transform: scale(1); opacity: 1;} }
+
+        /* --- RESPONSIVE FIXES --- */
+
+        /* Layout Adjustments */
+        @media (max-width: 900px) {
+            .case-study-content { padding: 0 1.5rem 4rem 1.5rem; }
+            .split-section { grid-template-columns: 1fr; gap: 2rem; }
+            .split-image { order: -1; }
+            .raw-gallery-grid { column-count: 2; }
+            .project-stats-grid { flex-wrap: wrap; gap: 1.5rem; }
+            .stat-box { min-width: 40%; }
         }
 
-        @keyframes zoomIn {
-            from {transform: scale(0.9); opacity: 0;}
-            to {transform: scale(1); opacity: 1;}
+        @media (max-width: 600px) {
+            .case-title { font-size: 2.2rem; line-height: 1.2; }
+            .raw-gallery-grid { column-count: 1; }
+            .project-header-compact { margin-top: 2rem; padding: 0 1rem; }
+            .video-wrapper { margin-top: 1.5rem; }
         }
     </style>
 </head>
@@ -95,11 +83,6 @@
     <header class="minimal-header">
         <div class="header-content">
             <a href="index.html" class="logo">KK<span class="dot">.</span></a>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="index.html#projects">Back to Home</a></li>
-                </ul>
-            </nav>
         </div>
     </header>
 
@@ -125,30 +108,15 @@
         <h1 class="case-title">SHATTERED CHARMS: THROUGH THE VEIL</h1>
         
         <div class="project-stats-grid">
-            <div class="stat-box">
-                <span class="label">ROLE</span>
-                <span class="value">Game Designer & Developer</span>
-            </div>
-            <div class="stat-box">
-                <span class="label">ENGINE</span>
-                <span class="value">Unreal Engine 5</span>
-            </div>
-            <div class="stat-box">
-                <span class="label">GENRE</span>
-                <span class="value">Action RPG</span>
-            </div>
-            <div class="stat-box">
-                <span class="label">FOCUS</span>
-                <span class="value">Mechanics & Economy</span>
-            </div>
-            <div class="stat-box">
-                <span class="label">DURATION</span>
-                <span class="value">3 Months</span>
-            </div>
+            <div class="stat-box"><span class="label">ROLE</span><span class="value">Game Designer & Developer</span></div>
+            <div class="stat-box"><span class="label">ENGINE</span><span class="value">Unreal Engine 5</span></div>
+            <div class="stat-box"><span class="label">GENRE</span><span class="value">Action RPG</span></div>
+            <div class="stat-box"><span class="label">FOCUS</span><span class="value">Mechanics & Economy</span></div>
+            <div class="stat-box"><span class="label">DURATION</span><span class="value">3 Months</span></div>
         </div>
 
         <div class="header-actions">
-            <a href="https://karuna-ketan.itch.io/shattered-charms-through-the-veil" target="_blank" class="resume-btn">PLAY ON ITCH.IO ↗</a> 
+            <a href="https://karuna-ketan.itch.io/shattered-charms-through-the-veil" target="_blank" class="resume-btn pill-btn" style="border: 2px solid #111;">PLAY ON ITCH.IO ↗</a> 
         </div>
         
         <p class="team-credit">Design & Development: <strong>Karuna Ketan</strong></p>
@@ -164,16 +132,11 @@
                 </p>
                 <p class="block-text">
                     <em>Shattered Charms: Through the Veil</em> is a third-person Action RPG prototype focused on modular combat design and economy-driven progression. Set in a world fractured by a mysterious event known as The Shattering, players explore a small hub-centered region to discover Charms that fundamentally change how they fight, survive, and progress.<br><br>
-
                     Rather than relying on experience points or traditional skill trees, progression is driven by experimentation, discovery, and an economy-gated upgrade loop. Understanding how Charms interact becomes the primary path to survival and advancement, reinforcing both the narrative and the gameplay.
                 </p>
             </div>
             <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/_CrbB9irnxE" 
-                        title="YouTube video player" frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-                </iframe>
+                <iframe src="https://www.youtube.com/embed/_CrbB9irnxE" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
             </div>
         </section>
 
@@ -209,7 +172,7 @@
                     <h3 class="sub-title">Design Pillars</h3>
                     <ul class="clean-list">
                         <li><strong>Strategic Loadout:</strong> Limited Charm slots force trade-offs between offense and defense, preventing dominant meta builds.</li>
-                        <li><strong>Gated Progression:</strong> The final boss cannot be rushed, making combat and exploration mandatory for success.</li>
+                        <li><strong>Gated Progression:</strong> The final boss cannot be rushed, making combat mandatory.</li>
                         <li><strong>Visual Clarity:</strong> Lighting communicates gameplay states so players intuitively read spaces without HUD markers.</li>
                     </ul>
                 </div>
@@ -219,11 +182,8 @@
         <section class="content-block split-section">
             <div class="split-text">
                 <h2 class="block-title">Core Gameplay Loop</h2>
-                <p class="block-text">
-                    The loop is designed to create a dependency between <strong>Exploration</strong> (finding Jewels) and <strong>Progression</strong> (unlocking the boss).
-                </p>
                 <ul class="clean-list">
-                    <li><strong>1. Explore:</strong> Navigate the "Spokes" (Cave, Farm, Temple) to find loot and chests.</li>
+                    <li><strong>1. Explore:</strong> Navigate the "Spokes" (Cave, Farm, Temple) to find loot.</li>
                     <li><strong>2. Survive:</strong> Combat enemies using Charms to earn Jewels.</li>
                     <li><strong>3. Loot:</strong> Collect Jewels from enemies and chests.</li>
                     <li><strong>4. Upgrade:</strong> Purify the weapon through Shrines using Jewels.</li>
@@ -247,7 +207,7 @@
                         I structured the map around a central <strong>Market Hub</strong> connected to distinct "Spoke" zones. This layout serves two purposes: it allows players to choose their own difficulty path, and it creates a psychological "return to safety" after every expedition.
                     </p>
                     
-                    <h3 style="margin-top: 2rem; margin-bottom: 0.8rem; font-family: var(--font-heading); font-size: 1.4rem; font-weight: 700;">Visual Language & Navigation</h3>
+                    <h3 style="margin-top: 2rem; margin-bottom: 0.8rem; font-family: 'Oswald', sans-serif; font-size: 1.4rem; font-weight: 700;">Visual Language & Navigation</h3>
                     <p class="block-text">
                         Navigation is guided by lighting rather than UI markers. 
                         The <strong>Hub</strong> is bathed in warm, inviting orange tones (Safety). 
@@ -297,7 +257,6 @@
 
         <section class="content-block">
             <h2 class="block-title">System 2: The Purification Economy</h2>
-            
             <div class="split-section">
                 <div class="split-image">
                     <img src="assets/RPG/GIF_Vids/Sword_Upgrade.gif" alt="Sword Upgrade Interaction">
@@ -417,48 +376,26 @@
         <p class="copyright">© 2025 Karuna Ketan.</p>
     </footer>
 
-    <div id="viewer">
-        <div class="controls">
-            <button onclick="closePDF()">❌ Close</button>
-        </div>
-        <iframe id="pdfFrame"></iframe>
-    </div>
-
-    <div id="imageViewer" onclick="closeImage()">
-        <span class="close-img-btn">&times;</span>
-        <img id="fullImage" onclick="event.stopPropagation()"> </div>
+    <div id="viewer"><div class="controls"><button onclick="closePDF()">❌ Close</button></div><iframe id="pdfFrame"></iframe></div>
+    <div id="imageViewer" onclick="closeImage()"><span class="close-img-btn">&times;</span><img id="fullImage" onclick="event.stopPropagation()"></div>
 
     <script src="script.js"></script>
-
     <script>
         function openImage(src) {
             const viewer = document.getElementById('imageViewer');
             const fullImg = document.getElementById('fullImage');
-            
-            // Set source and show
             fullImg.src = src;
             viewer.style.display = 'flex';
-            
-            // Trigger animation
-            setTimeout(() => {
-                viewer.style.opacity = '1';
-            }, 10);
-            
-            // Disable scroll
+            setTimeout(() => { viewer.style.opacity = '1'; }, 10);
             document.body.style.overflow = 'hidden';
         }
-
         function closeImage() {
             const viewer = document.getElementById('imageViewer');
-            
-            // Fade out
             viewer.style.opacity = '0';
-            
-            // Hide after transition
             setTimeout(() => {
                 viewer.style.display = 'none';
                 document.getElementById('fullImage').src = "";
-                document.body.style.overflow = 'auto'; // Restore scroll
+                document.body.style.overflow = 'auto';
             }, 300);
         }
     </script>

@@ -4,23 +4,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Singularity | Karuna Ketan</title>
+    
     <link rel="stylesheet" href="style.css">
+    
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Lightbox Styles */
-        #imageViewer { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; }
-        #fullImage { max-width: 90%; max-height: 90%; border-radius: 4px; box-shadow: 0 0 20px rgba(0,0,0,0.5); animation: zoomIn 0.3s ease; }
-        .close-img-btn { position: absolute; top: 30px; right: 40px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s; font-family: var(--font-heading); line-height: 1; }
-        .close-img-btn:hover { color: var(--red-accent); transform: scale(1.1); }
-        @keyframes zoomIn { from {transform: scale(0.9); opacity: 0;} to {transform: scale(1); opacity: 1;} }
+        /* --- MASONRY GRID (Improved Structure) --- */
+        /* Switched from Grid to Columns to prevent cropping */
+        .raw-gallery-grid {
+            column-count: 3;
+            column-gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .raw-gallery-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+            width: 100%;
+            border-radius: 4px;
+            border: 1px solid #e5e5e5;
+            background: #f9f9f9;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            overflow: hidden;
+        }
+        .raw-gallery-item img {
+            width: 100%;
+            height: auto; /* Natural height */
+            display: block;
+            transition: transform 0.3s ease;
+        }
         
-        /* Gallery Grid */
-        .raw-gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-        .raw-gallery-item { width: 100%; height: 260px; overflow: hidden; border-radius: 4px; border: 1px solid #e5e5e5; background: #f9f9f9; cursor: pointer; transition: transform 0.2s ease; position: relative; }
-        .raw-gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
-        .raw-gallery-item:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
-        .raw-gallery-item:hover img { transform: scale(1.05); }
+        /* Hover Effect */
+        .raw-gallery-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        .raw-gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* --- LIGHTBOX --- */
+        #imageViewer {
+            display: none; position: fixed; z-index: 3000; left: 0; top: 0;
+            width: 100%; height: 100%; background-color: rgba(0,0,0,0.95);
+            justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease;
+        }
+        #fullImage {
+            max-width: 90%; max-height: 90%; border-radius: 4px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5); animation: zoomIn 0.3s ease;
+        }
+        .close-img-btn {
+            position: absolute; top: 30px; right: 40px; color: #fff;
+            font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s;
+            font-family: 'Oswald', sans-serif; line-height: 1;
+        }
+        .close-img-btn:hover { color: #ff3b30; transform: scale(1.1); }
+        @keyframes zoomIn { from {transform: scale(0.9); opacity: 0;} to {transform: scale(1); opacity: 1;} }
+
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+        @media (max-width: 900px) {
+            /* Layout Stacking */
+            .case-study-content { padding: 0 1.5rem 4rem 1.5rem; }
+            .split-section { grid-template-columns: 1fr; gap: 2rem; }
+            .split-image { order: -1; } /* Image on top */
+            
+            /* Grids */
+            .raw-gallery-grid { column-count: 2; }
+            .four-col-grid { grid-template-columns: 1fr 1fr; }
+            .project-stats-grid { flex-wrap: wrap; gap: 1.5rem; }
+            .stat-box { min-width: 40%; }
+        }
+
+        @media (max-width: 768px) {
+            /* Header Fix: Ensure "Back to Home" is visible */
+            .header-content { display: flex; justify-content: space-between; align-items: center; }
+            .nav-links { display: flex; gap: 1rem; }
+            .nav-links li a { font-size: 0.9rem; font-weight: 600; }
+        }
+
+        @media (max-width: 600px) {
+            .case-title { font-size: 2.2rem; line-height: 1.2; }
+            .raw-gallery-grid { column-count: 1; } /* 1 Column Masonry on Mobile */
+            .four-col-grid { grid-template-columns: 1fr; } /* Stack core design intent */
+            .project-header-compact { margin-top: 2rem; padding: 0 1rem; }
+            .video-wrapper { margin-top: 1.5rem; }
+        }
     </style>
 </head>
 <body>
@@ -28,11 +97,6 @@
     <header class="minimal-header">
         <div class="header-content">
             <a href="index.html" class="logo">KK<span class="dot">.</span></a>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="index.html#projects">Back to Home</a></li>
-                </ul>
-            </nav>
         </div>
     </header>
 
@@ -55,22 +119,10 @@
         <h1 class="case-title">PROJECT SINGULARITY</h1>
         
         <div class="project-stats-grid">
-            <div class="stat-box">
-                <span class="label">ROLE</span>
-                <span class="value">Game & Level Designer</span>
-            </div>
-            <div class="stat-box">
-                <span class="label">ENGINE</span>
-                <span class="value">Unreal Engine 5</span>
-            </div>
-            <div class="stat-box">
-                <span class="label">GENRE</span>
-                <span class="value">Action Shooter</span>
-            </div>
-            <div class="stat-box">
-                <span class="label">STATUS</span>
-                <span class="value">Ongoing Vertical Slice</span>
-            </div>
+            <div class="stat-box"><span class="label">ROLE</span><span class="value">Game & Level Designer</span></div>
+            <div class="stat-box"><span class="label">ENGINE</span><span class="value">Unreal Engine 5</span></div>
+            <div class="stat-box"><span class="label">GENRE</span><span class="value">Action Shooter</span></div>
+            <div class="stat-box"><span class="label">STATUS</span><span class="value">Ongoing Vertical Slice</span></div>
         </div>
         
         <p class="team-credit" style="margin-top: 1.5rem; line-height: 1.6;">

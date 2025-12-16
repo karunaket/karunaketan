@@ -1,5 +1,33 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. SMOOTH SCROLLING
+    
+    // 1. MOBILE MENU TOGGLE
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            
+            // Prevent scrolling when menu is open
+            if (navLinks.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Close menu when a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+    }
+
+    // 2. SMOOTH SCROLLING
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             if (this.getAttribute('href').startsWith("#")) {
@@ -10,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 2. IMAGE SLIDER (AUTO PLAY)
+    // 3. IMAGE SLIDER
     const slides = document.querySelectorAll('.slide');
     const dotsContainer = document.getElementById('dotsContainer');
     const prevBtn = document.querySelector('.prev');
@@ -68,15 +96,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// 3. PDF VIEWER LOGIC
+// 4. GLOBAL PDF & IMAGE VIEWER FUNCTIONS
 function openPDF(file) {
-    document.getElementById("viewer").style.display = "block";
-    document.getElementById("pdfFrame").src = file;
-    document.body.style.overflow = "hidden"; // Stop background scroll
+    const viewer = document.getElementById("viewer");
+    if(viewer) {
+        viewer.style.display = "block";
+        document.getElementById("pdfFrame").src = file;
+        document.body.style.overflow = "hidden";
+    }
 }
 
 function closePDF() {
-    document.getElementById("viewer").style.display = "none";
-    document.getElementById("pdfFrame").src = "";
-    document.body.style.overflow = "auto"; // Restore background scroll
+    const viewer = document.getElementById("viewer");
+    if(viewer) {
+        viewer.style.display = "none";
+        document.getElementById("pdfFrame").src = "";
+        document.body.style.overflow = "auto";
+    }
+}
+
+function openImage(src) {
+    const viewer = document.getElementById('imageViewer');
+    const fullImg = document.getElementById('fullImage');
+    if(viewer && fullImg) {
+        fullImg.src = src;
+        viewer.style.display = 'flex';
+        setTimeout(() => { viewer.style.opacity = '1'; }, 10);
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeImage() {
+    const viewer = document.getElementById('imageViewer');
+    if(viewer) {
+        viewer.style.opacity = '0';
+        setTimeout(() => {
+            viewer.style.display = 'none';
+            document.getElementById('fullImage').src = "";
+            document.body.style.overflow = 'auto';
+        }, 300);
+    }
 }

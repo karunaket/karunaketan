@@ -4,44 +4,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eclipse of Fear | Karuna Ketan</title>
+    
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Gallery Grid - Same style as SCTTV */
+        /* --- PAGE SPECIFIC STYLES (Restored & Enhanced) --- */
+
+        /* 1. Masonry Gallery (Pinterest Style) - Replaces the basic grid */
         .raw-gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
+            column-count: 3;
+            column-gap: 1.5rem;
             margin-top: 2rem;
         }
+        
         .raw-gallery-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
             width: 100%;
-            height: 260px;
-            overflow: hidden;
             border-radius: 4px;
             border: 1px solid #e5e5e5;
             background: #f9f9f9;
             cursor: pointer;
             transition: transform 0.2s ease;
-            position: relative;
+            overflow: hidden;
         }
+        
         .raw-gallery-item img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto; /* Maintains natural aspect ratio */
+            display: block;
             transition: transform 0.3s ease;
         }
-        /* Hover Effect */
+        
         .raw-gallery-item:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(0,0,0,0.12);
         }
+        
         .raw-gallery-item:hover img {
             transform: scale(1.05);
         }
 
-        /* Lightbox (Full Screen Image Viewer) */
+        /* 2. Narrative Timeline (Connected Steps) */
+        .pacing-timeline {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #eee;
+            padding-top: 2rem;
+            counter-reset: timeline-counter;
+        }
+
+        .pacing-step {
+            flex: 1;
+            position: relative;
+            padding: 1.5rem;
+            background: #f9f9f9;
+            border-left: 4px solid #111; /* Accent Line */
+        }
+
+        /* Auto-Numbering (01, 02, 03) */
+        .pacing-step::before {
+            counter-increment: timeline-counter;
+            content: "0" counter(timeline-counter);
+            font-family: 'Oswald', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #e0e0e0;
+            position: absolute;
+            top: 0;
+            right: 1rem;
+            line-height: 1;
+            z-index: 0;
+        }
+
+        .pacing-step strong {
+            display: block;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #111;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pacing-step p {
+            font-size: 0.95rem;
+            color: #444;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 3. Lightbox (Full Screen Image Viewer) */
         #imageViewer {
             display: none;
             position: fixed;
@@ -74,17 +129,77 @@
             font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
-            font-family: var(--font-heading);
+            font-family: 'Oswald', sans-serif;
             line-height: 1;
         }
         .close-img-btn:hover {
-            color: var(--red-accent);
+            color: #ff3b30;
             transform: scale(1.1);
         }
 
         @keyframes zoomIn {
             from {transform: scale(0.9); opacity: 0;}
             to {transform: scale(1); opacity: 1;}
+        }
+
+        /* 4. MOBILE RESPONSIVENESS (The Critical Fixes) */
+        @media (max-width: 900px) {
+            /* Add breathing room on sides */
+            .case-study-content {
+                padding: 0 1.5rem 4rem 1.5rem;
+            }
+
+            /* Stack Content Vertically */
+            .split-section {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
+
+            /* Fix Image/Text Order */
+            .split-image {
+                order: -1; /* Image first */
+            }
+            .split-text {
+                padding-right: 0;
+            }
+
+            /* Stack Timeline */
+            .pacing-timeline {
+                flex-direction: column;
+            }
+
+            /* Masonry Gallery to 2 Columns */
+            .raw-gallery-grid {
+                column-count: 2;
+            }
+
+            /* Fix Stats Grid */
+            .project-stats-grid {
+                flex-wrap: wrap;
+                gap: 1.5rem;
+            }
+            .stat-box {
+                min-width: 40%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            /* Header & Fonts */
+            .case-title { font-size: 2.2rem !important; line-height: 1.2; }
+            .project-header-compact { padding: 0 1rem; margin-top: 2rem; }
+            
+            /* Masonry to 1 Column */
+            .raw-gallery-grid { column-count: 1; }
+            
+            /* Buttons Full Width */
+            .header-actions .resume-btn {
+                width: 100%;
+                text-align: center;
+                display: block;
+            }
+            
+            /* Video Container Margin */
+            .video-wrapper { margin-top: 1.5rem; }
         }
     </style>
 </head>
@@ -148,10 +263,10 @@
         </div>
 
         <div class="header-actions">
-            <a href="https://karuna-ketan.itch.io/eclipse-of-fear" target="_blank" class="resume-btn">PLAY ON ITCH.IO ↗</a>
+            <a href="https://karuna-ketan.itch.io/eclipse-of-fear" target="_blank" class="resume-btn pill-btn">PLAY ON ITCH.IO ↗</a>
         </div>
         
-        <p class="team-credit">3D Prop Artist: <strong>Abhinav Das</strong> | Design & Devevelopment: <strong>Karuna Ketan</strong></p>
+        <p class="team-credit">3D Prop Artist: <strong>Abhinav Das</strong> | Design & Development: <strong>Karuna Ketan</strong></p>
     </section>
 
     <div class="case-study-content">
@@ -264,13 +379,13 @@
                     <p class="block-text"><em>Sensing Interval: 0.05s</em> (Alert but fair, relative to player movement speed).</p>
                 </div>
                 <div class="split-image">
-                    <img src="assets/Horror/GIF_Vids/Minions.gif" alt="Minion Combat Gameplay" style="width: 100%; border-radius: 8px;">
+                    <img src="assets/Horror/GIF_Vids/Minions.gif" alt="Minion Combat Gameplay">
                 </div>
             </div>
 
             <div class="split-section">
                 <div class="split-image">
-                    <img src="assets/Horror/GIF_Vids/Boss_Eclipse_Chase.gif" alt="The Eclipse Boss Chase" style="width: 100%; border-radius: 8px;">
+                    <img src="assets/Horror/GIF_Vids/Boss_Eclipse_Chase.gif" alt="The Eclipse Boss Chase">
                 </div>
                 <div class="split-text">
                     <h3 class="sub-title">The Eclipse (Inevitability)</h3>
@@ -360,7 +475,7 @@
                 <h3>System 2: Diegetic Health & HUD</h3>
                 <div class="split-section" style="gap: 2rem; margin-top: 1rem;">
                     <div class="split-image">
-                        <img src="assets/Horror/GIF_Vids/Paper_Lives_Burn.gif" alt="Paper Lives Burning UI Animation" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+                        <img src="assets/Horror/GIF_Vids/Paper_Lives_Burn.gif" alt="Paper Lives Burning UI Animation">
                     </div>
                     <div class="split-text">
                         <p class="block-text">To maintain immersion, I replaced standard "hearts" with UI Forms. Hearts didn't make sense for a horror game.</p>
@@ -385,7 +500,7 @@
                         </ul>
                     </div>
                     <div class="split-image">
-                        <img src="assets/Horror/GIF_Vids/Inner_Thoughts_Mechanic.gif" alt="Inner Thoughts Mechanic Gameplay" style="width: 100%; border-radius: 8px;">
+                        <img src="assets/Horror/GIF_Vids/Inner_Thoughts_Mechanic.gif" alt="Inner Thoughts Mechanic Gameplay">
                         <p class="caption">Diegetic guidance: The text floats in 3D space near the trigger.</p>
                     </div>
                 </div>

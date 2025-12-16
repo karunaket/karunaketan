@@ -5,128 +5,198 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Portfolio of Karuna Ketan, a Game Designer specializing in system design, level design, and player psychology.">
     <title>Karuna Ketan | Game Designer</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* CSS for structural separation */
-        .projects-section {
-            padding-bottom: 4rem;
-        }
-        
-        /* Sub-header style for Deconstruction */
-        .section-sub-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            color: #111;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+        /* --- 1. RESET & VARIABLES --- */
+        :root {
+            --bg-color: #ffffff;      
+            --text-color: #0a0a0a;    
+            --text-dim: #333333;      
+            --border-color: #e5e5e5;  
+            --red-accent: #ff3b30;    
+            
+            /* Fonts */
+            --font-heading: 'Oswald', sans-serif;
+            --font-body: 'Montserrat', sans-serif;
         }
 
-        /* Divider Line */
-        .sub-divider {
-            border: 0;
-            height: 1px;
-            background: #e5e5e5;
-            margin: 4rem 0;
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-body);
+            line-height: 1.75;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
-        
-        /* Ensure layout consistency */
-        .projects-list {
-            display: flex;
+
+        a { text-decoration: none; color: inherit; transition: 0.2s; }
+        ul { list-style: none; }
+
+        /* --- 2. HEADER & NAVIGATION --- */
+        .minimal-header {
+            padding: 1.5rem 2rem;
+            background: rgba(255,255,255,0.98);
+            position: sticky; top: 0; z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .header-content {
+            max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo { font-family: var(--font-heading); font-weight: 700; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-color); }
+
+        /* Desktop Nav */
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a { font-family: var(--font-heading); font-size: 0.85rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
+        .nav-links a:hover { color: var(--text-color); }
+
+        /* Mobile Hamburger Button */
+        .menu-toggle {
+            display: none;
             flex-direction: column;
-            gap: 4rem;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 2000;
+        }
+        .menu-toggle .bar {
+            width: 100%; height: 3px; background-color: var(--text-color); transition: 0.3s; border-radius: 2px;
         }
 
-        /* --- STYLES FOR BUTTONS, TITLES & LABELS --- */
+        /* --- 3. SIDEBAR NAVIGATION (MOBILE) --- */
+        @media (max-width: 768px) {
+            .menu-toggle { display: flex; }
+            
+            /* The Sidebar itself */
+            .nav-links {
+                position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
+                background-color: #fff; flex-direction: column; justify-content: center; align-items: center;
+                gap: 2.5rem; transition: 0.3s ease-in-out; z-index: 1500;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            }
+            /* When Active, slide in */
+            .nav-links.active { right: 0; }
+            
+            .nav-links li { opacity: 0; transform: translateY(20px); transition: 0.3s ease forwards; }
+            .nav-links.active li { opacity: 1; transform: translateY(0); }
+            .nav-links li:nth-child(1) { transition-delay: 0.1s; }
+            .nav-links li:nth-child(2) { transition-delay: 0.2s; }
+            .nav-links li:nth-child(3) { transition-delay: 0.3s; }
+            .nav-links li:nth-child(4) { transition-delay: 0.4s; }
+            .nav-links li:nth-child(5) { transition-delay: 0.5s; }
 
-        /* Enhanced Genre Labels */
-        .row-date {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #444;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            display: block;
-            margin-bottom: 0.5rem;
+            .nav-links a { font-size: 1.5rem; font-weight: 700; }
+            
+            .menu-toggle.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+            .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
+            .menu-toggle.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
         }
 
-        /* Project "View" Buttons (Black Pill) */
+        /* --- 4. BUTTONS --- */
         .pill-btn {
-            display: inline-block;
-            padding: 0.8rem 1.5rem;
-            background-color: #111;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: 2px solid #111;
-            margin-top: 1rem;
+            display: inline-block; padding: 0.8rem 1.5rem; background-color: #111;
+            color: #fff; border-radius: 50px; font-weight: 500; border: 2px solid #111; margin-top: 1rem;
+            transition: all 0.3s ease; text-decoration: none; font-size: 0.9rem; font-family: var(--font-heading);
         }
-
         .pill-btn:hover {
-            background-color: transparent;
-            color: #111;
-            transform: translateY(-2px);
+            background-color: transparent; color: #111; transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
-        /* Clickable Project Titles */
-        .row-title a {
-            text-decoration: none;
-            color: inherit;
-            transition: color 0.2s ease;
-        }
-        
-        .row-title a:hover {
-            color: #555;
-        }
-
-        /* --- NEW: HIGHLIGHTED RESUME BUTTONS --- */
-
-        /* 1. Header Resume Button */
         .header-resume-btn {
-            background-color: #111;
-            color: #fff !important; /* Force white text */
-            padding: 0.5rem 1.2rem;
-            border-radius: 6px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: 2px solid #111;
+            background-color: #111; color: #fff !important; padding: 0.5rem 1.2rem;
+            border-radius: 6px; font-weight: 600; border: 2px solid #111; transition: all 0.3s ease;
         }
+        .header-resume-btn:hover { background-color: transparent; color: #111 !important; }
 
-        .header-resume-btn:hover {
-            background-color: transparent;
-            color: #111 !important;
-        }
-
-        /* 2. Intro/Hero Large Resume Button */
         .hero-resume-btn {
-            display: inline-block;
-            margin-top: 2rem;
-            padding: 1rem 2.5rem;
-            background-color: #111; /* Strong black background */
-            color: #fff;
-            font-size: 1rem;
-            font-weight: 700;
-            text-decoration: none;
-            border-radius: 50px;
-            letter-spacing: 0.05em;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Drop shadow for depth */
-            transition: all 0.3s ease;
-            border: 2px solid #111;
+            display: inline-block; margin-top: 2rem; padding: 1rem 2.5rem;
+            background-color: #111; color: #fff; font-size: 1rem; font-weight: 700;
+            text-decoration: none; border-radius: 50px; letter-spacing: 0.05em;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s ease; border: 2px solid #111;
+            font-family: var(--font-heading);
         }
-
         .hero-resume-btn:hover {
-            background-color: transparent;
-            color: #111;
-            transform: translateY(-4px);
+            background-color: transparent; color: #111; transform: translateY(-4px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
+        /* --- 5. LAYOUT --- */
+        .main-container { max-width: 1000px; margin: 0 auto; padding: 0 2rem; }
+
+        .intro-section { padding: 8rem 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 4rem; }
+        .intro-content { flex: 1; max-width: 550px; }
+        .section-label-small { font-family: var(--font-heading); font-size: 1.5rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem; }
+        .intro-title { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 500; line-height: 1.2; margin-bottom: 1.5rem; color: var(--text-color); }
+        .intro-bio { font-size: 1rem; color: var(--text-dim); margin-bottom: 2rem; }
+        .profile-img-container { width: 300px; height: 300px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+        .profile-img { width: 100%; height: 100%; object-fit: cover; }
+
+        .projects-section { padding-bottom: 4rem; padding-top: 6rem; }
+        .projects-title { font-family: var(--font-heading); font-size: 2rem; margin-bottom: 4rem; text-transform: uppercase; }
+        .projects-list { display: flex; flex-direction: column; gap: 6rem; }
+
+        .project-row { display: flex; align-items: flex-start; gap: 4rem; }
+        .row-image { flex: 1.4; aspect-ratio: 16 / 9; overflow: hidden; background: #f4f4f4; border-radius: 4px; border: 1px solid #eee; position: relative; }
+        .row-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .row-image:hover img { transform: scale(1.03); }
+        .card-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.3s; }
+        .row-image:hover .card-overlay { opacity: 1; }
+
+        .row-content { flex: 1; padding-top: 0.5rem; }
+        .row-title { font-family: var(--font-heading); font-size: 1.8rem; font-weight: 600; margin-bottom: 1rem; line-height: 1.1; }
+        .row-title a { text-decoration: none; color: inherit; transition: color 0.2s ease; }
+        .row-title a:hover { color: #555; }
+        .row-date { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: #444; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 0.5rem; }
+        .row-desc { font-size: 0.95rem; color: var(--text-dim); margin-bottom: 1rem; }
+
+        .section-sub-title { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem; color: #111; display: flex; align-items: center; gap: 1rem; text-transform: uppercase; }
+        .sub-divider { border: 0; height: 1px; background: #e5e5e5; margin: 4rem 0; }
+
+        .process-section { padding: 6rem 0; border-top: 1px solid var(--border-color); }
+        .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-top: 3rem; }
+        .process-card { padding: 1.5rem; background: #f9f9f9; border-radius: 4px; transition: transform 0.2s; }
+        .process-card:hover { transform: translateY(-3px); }
+        .process-icon { font-size: 1.5rem; margin-bottom: 1rem; }
+        .process-card h3 { font-family: var(--font-heading); font-size: 0.9rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px; }
+        .process-card p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.6; }
+
+        .footer-section { padding: 4rem 0; border-top: 1px solid var(--border-color); text-align: center; margin-top: 4rem; }
+        .footer-links a { margin: 0 1.5rem; font-family: var(--font-heading); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); }
+        .footer-links a:hover { color: var(--text-color); }
+
+        /* --- 6. MOBILE RESPONSIVENESS (Integrated) --- */
+        @media (max-width: 900px) {
+            .intro-section {
+                padding: 4rem 0;
+                flex-direction: column-reverse; /* Puts image on top */
+                text-align: center;
+                gap: 2rem;
+            }
+            .intro-content { max-width: 100%; }
+            .intro-title { font-size: 2.5rem; }
+            .profile-img-container { width: 280px; height: 280px; margin: 0 auto 1rem auto; }
+            .project-row { flex-direction: column; gap: 2rem; }
+            .row-image { width: 100%; aspect-ratio: 16/9; }
+            .process-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .header-content { padding: 0; }
+            .intro-title { font-size: 2rem; line-height: 1.2; }
+            .section-label-small { font-size: 1.2rem; }
+            .hero-resume-btn { width: 100%; text-align: center; }
+            .projects-title { font-size: 1.8rem; margin-bottom: 2rem; }
+            .row-title { font-size: 1.6rem; }
+            .process-grid { grid-template-columns: 1fr; }
+            .pill-btn { width: 100%; text-align: center; margin-top: 1.5rem; }
+            .footer-links { display: flex; flex-direction: column; gap: 1rem; }
+        }
     </style>
 </head>
 <body>
@@ -134,12 +204,20 @@
     <header class="minimal-header">
         <div class="header-content">
             <a href="index.html" class="logo">KARUNA KETAN</a>
-            <nav aria-label="Main Navigation">
+            
+            <button class="menu-toggle" aria-label="Toggle Navigation">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+
+            <nav>
                 <ul class="nav-links">
-                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="index.html#projects">Projects</a></li>
                     <li><a href="documents.html">Docs</a></li>
                     <li><a href="process.html">Process</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
                     <li><a href="resume.pdf" target="_blank" class="header-resume-btn">RESUME</a></li>
                 </ul>
             </nav>
@@ -222,12 +300,12 @@
                         <img src="assets/Game Deconstruction/TLOU.png" alt="The Last of Us Part I cover art" loading="lazy">
                     </a>
                     <div class="row-content">
-                        <span class="row-date">Analysis</span>
+                        <span class="row-date">Game Deconstruction</span>
                         <h3 class="row-title"><a href="tlou.html">The Last of Us: Part I</a></h3>
                         <p class="row-desc">
-                            A deep dive analysis into Naughty Dog's level design philosophy. I breakdown their use of "Pacing Pockets", environmental storytelling, and how scarcity mechanics manipulate player psychology.
+                            A deep dive Deconstruction into Naughty Dog's level design philosophy. I breakdown their use of "Pacing Pockets", environmental storytelling, and how scarcity mechanics manipulate player psychology.
                         </p>
-                        <a href="tlou.html" class="pill-btn">Read Analysis</a>
+                        <a href="tlou.html" class="pill-btn">Read Deconstruction</a>
                     </div>
                 </article>
             </div>
