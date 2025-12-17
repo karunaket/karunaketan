@@ -1,138 +1,307 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About | Karuna Ketan</title>
-    
+
     <link rel="stylesheet" href="style.css">
-    
+
     <style>
         /* --- HEADER & NAVIGATION --- */
         .minimal-header {
             padding: 1.5rem 2rem;
-            background: rgba(255,255,255,0.98);
-            position: sticky; top: 0; z-index: 1000;
+            background: rgba(255, 255, 255, 0.98);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
             border-bottom: 1px solid #e5e5e5;
         }
+
         .header-content {
-            max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .logo { 
-            font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 1.2rem; 
-            text-transform: uppercase; letter-spacing: 1px; color: #0a0a0a; text-decoration: none; 
+
+        .logo {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #0a0a0a;
+            text-decoration: none;
         }
 
         /* --- SIDEBAR MENU (MOBILE) --- */
         /* Hamburger Button - Hidden on Desktop */
         .menu-toggle {
-            display: none; 
-            flex-direction: column; justify-content: space-between;
-            width: 30px; height: 21px; background: transparent; border: none; 
-            cursor: pointer; z-index: 2000; /* Stays on top */
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            background: transparent;
+            margin-left: 100px;
+            border: none;
+            cursor: pointer;
+            z-index: 2000;
+            /* Stays on top */
         }
+
         .menu-toggle .bar {
-            width: 100%; height: 3px; background-color: #000; 
-            transition: 0.3s; border-radius: 2px;
+            width: 100%;
+            height: 3px;
+            background-color: #000;
+            transition: 0.3s;
+            border-radius: 2px;
         }
 
         /* Sidebar Container */
-        .nav-links { display: flex; gap: 2rem; align-items: center; list-style: none; }
-        .nav-links a { 
-            font-family: 'Oswald', sans-serif; font-size: 0.85rem; color: #444; 
-            text-transform: uppercase; letter-spacing: 1px; font-weight: 500; text-decoration: none;
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            list-style: none;
         }
-        .nav-links a:hover { color: #000; }
+
+        .nav-links a {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.85rem;
+            color: #444;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .nav-links a:hover {
+            color: #000;
+        }
 
         /* --- MOBILE MEDIA QUERY --- */
         @media (max-width: 768px) {
+
             /* Show Hamburger */
-            .menu-toggle { display: flex !important; }
-            
+            .menu-toggle {
+                display: flex !important;
+            }
+
             /* Sidebar Logic */
             .nav-links {
-                position: fixed; top: 0; right: 0;
-                width: 100%; height: 100vh;
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 100%;
+                height: 100vh;
                 background-color: #fff;
-                flex-direction: column; justify-content: center; align-items: center;
-                gap: 2.5rem; 
-                z-index: 1500; /* Stays under the hamburger button */
-                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-                
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2.5rem;
+                z-index: 1500;
+                /* Stays under the hamburger button */
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+
                 /* Start hidden off-screen */
-                transform: translateX(100%); 
+                transform: translateX(100%);
                 transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             }
-            
+
             /* SLIDE IN CLASS */
-            .nav-links.active { transform: translateX(0); }
-            
+            .nav-links.active {
+                transform: translateX(0);
+            }
+
             /* Bigger Text for Mobile Menu */
-            .nav-links a { font-size: 1.5rem; font-weight: 700; color: #000; }
-            
+            .nav-links a {
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: #000;
+            }
+
             /* X Animation for Hamburger */
-            .menu-toggle.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
-            .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
-            .menu-toggle.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+            .menu-toggle.active .bar:nth-child(1) {
+                transform: translateY(9px) rotate(45deg);
+            }
+
+            .menu-toggle.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-toggle.active .bar:nth-child(3) {
+                transform: translateY(-9px) rotate(-45deg);
+            }
         }
 
         /* --- BUTTONS --- */
         .header-resume-btn {
-            background-color: #111 !important; color: #fff !important; 
-            padding: 0.6rem 1.5rem; border-radius: 4px; font-weight: 600; 
-            border: 2px solid #111; transition: all 0.3s ease;
+            background-color: #111 !important;
+            color: #fff !important;
+            padding: 0.6rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            border: 2px solid #111;
+            transition: all 0.3s ease;
         }
-        .header-resume-btn:hover { background-color: transparent !important; color: #111 !important; }
+
+        .header-resume-btn:hover {
+            background-color: transparent !important;
+            color: #111 !important;
+        }
 
         .hero-resume-btn {
-            display: inline-block; padding: 1rem 2.5rem; background-color: #111; color: #fff;
-            font-size: 1rem; font-weight: 700; text-decoration: none; border-radius: 50px;
-            transition: all 0.3s ease; font-family: 'Oswald', sans-serif; letter-spacing: 0.05em;
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: #111;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-family: 'Oswald', sans-serif;
+            letter-spacing: 0.05em;
         }
+
         .hero-resume-btn:hover {
-            background-color: transparent; color: #111; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border: 2px solid #111; padding: calc(1rem - 2px) calc(2.5rem - 2px);
+            background-color: transparent;
+            color: #111;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid #111;
+            padding: calc(1rem - 2px) calc(2.5rem - 2px);
         }
 
         /* --- CONTENT LAYOUT --- */
-        .about-container { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; }
-        .bio-section { margin-bottom: 4rem; border-bottom: 1px solid #eee; padding-bottom: 3rem; }
-        .bio-title { font-family: 'Oswald', sans-serif; font-size: 2.5rem; margin-bottom: 1.5rem; color: #111; text-transform: uppercase; }
-        .bio-text { font-family: 'Montserrat', sans-serif; font-size: 1.1rem; line-height: 1.8; color: #444; margin-bottom: 2rem; }
-        
+        .about-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .bio-section {
+            margin-bottom: 4rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 3rem;
+        }
+
+        .bio-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #111;
+            text-transform: uppercase;
+        }
+
+        .bio-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 2rem;
+        }
+
         .section-header {
-            font-family: 'Oswald', sans-serif; font-size: 1.5rem; margin-bottom: 1.5rem;
-            text-transform: uppercase; border-left: 4px solid #111; padding-left: 1rem; margin-top: 3rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            border-left: 4px solid #111;
+            padding-left: 1rem;
+            margin-top: 3rem;
         }
 
         .grid-list {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
-        .grid-item {
-            background: #f9f9f9; padding: 1rem; border-radius: 4px; font-weight: 500;
-            border: 1px solid #eee; text-align: center; transition: transform 0.2s; font-size: 0.95rem; font-family: 'Inter', sans-serif;
-        }
-        .grid-item:hover { transform: translateY(-2px); border-color: #ccc; }
 
-        .experience-item { margin-bottom: 2.5rem; padding-left: 1.5rem; border-left: 2px solid #eee; }
-        .role-title { font-weight: 700; font-size: 1.1rem; color: #111; font-family: 'Oswald', sans-serif; letter-spacing: 0.05em; }
-        .company-name { font-weight: 600; color: #666; margin-bottom: 0.2rem; display: block; font-size: 0.95rem; font-family: 'Inter', sans-serif; }
-        .exp-date { font-size: 0.85rem; color: #888; margin-bottom: 0.8rem; display: block; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 500; font-family: 'Inter', sans-serif; }
-        .exp-desc { font-size: 0.95rem; color: #444; line-height: 1.6; font-family: 'Inter', sans-serif; }
+        .grid-item {
+            background: #f9f9f9;
+            padding: 1rem;
+            border-radius: 4px;
+            font-weight: 500;
+            border: 1px solid #eee;
+            text-align: center;
+            transition: transform 0.2s;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .grid-item:hover {
+            transform: translateY(-2px);
+            border-color: #ccc;
+        }
+
+        .experience-item {
+            margin-bottom: 2.5rem;
+            padding-left: 1.5rem;
+            border-left: 2px solid #eee;
+        }
+
+        .role-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #111;
+            font-family: 'Oswald', sans-serif;
+            letter-spacing: 0.05em;
+        }
+
+        .company-name {
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 0.2rem;
+            display: block;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .exp-date {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 0.8rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .exp-desc {
+            font-size: 0.95rem;
+            color: #444;
+            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
+        }
 
         @media (max-width: 768px) {
-            .bio-title { font-size: 2rem; }
-            .about-container { padding: 2rem 1.5rem; }
-            .grid-list { grid-template-columns: 1fr; }
+            .bio-title {
+                font-size: 2rem;
+            }
+
+            .about-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .grid-list {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <header class="minimal-header">
         <div class="header-content">
             <a href="index.html" class="logo">KARUNA KETAN</a>
-            
+
             <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Navigation">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -153,13 +322,17 @@
     </header>
 
     <main class="about-container">
-        
+
         <section class="bio-section">
             <h1 class="bio-title">About Me</h1>
             <p class="bio-text">
                 Hi, I'm <strong>Karuna Ketan</strong>, a Game Designer based in Tamil Nadu, India.
                 <br><br>
-                I specialize in <strong>Player Psychology</strong>, <strong>System Design</strong>, and <strong>Level Design</strong>, with a focus on crafting strong gameplay loops and immersive player experiences. I have experience translating creative pillars into actionable Game Design Documents (GDDs) and validating mechanics through iterative playtesting. My goal is to design spatial layouts and progression systems that drive player engagement.
+                I specialize in <strong>Player Psychology</strong>, <strong>System Design</strong>, and <strong>Level
+                    Design</strong>, with a focus on crafting strong gameplay loops and immersive player experiences. I
+                have experience translating creative pillars into actionable Game Design Documents (GDDs) and validating
+                mechanics through iterative playtesting. My goal is to design spatial layouts and progression systems
+                that drive player engagement.
             </p>
         </section>
 
@@ -191,13 +364,16 @@
 
         <section>
             <h2 class="section-header">Experience</h2>
-            
+
             <div class="experience-item">
                 <div class="role-title">President</div>
                 <span class="company-name">Game Development Club (College)</span>
                 <span class="exp-date">2024 - Present</span>
                 <p class="exp-desc">
-                    Grew the community to 200+ active members and mentored student teams to ship 5 portfolio-ready prototypes using Unreal Engine 5 workflows. Directed the club's annual flagship event "FIESTAA" and delivered 10+ technical workshops on Level Design, bridging the gap between student developers and industry standards.
+                    Grew the community to 200+ active members and mentored student teams to ship 5 portfolio-ready
+                    prototypes using Unreal Engine 5 workflows. Directed the club's annual flagship event "FIESTAA" and
+                    delivered 10+ technical workshops on Level Design, bridging the gap between student developers and
+                    industry standards.
                 </p>
             </div>
 
@@ -206,7 +382,9 @@
                 <span class="company-name">Akiyam Solutions</span>
                 <span class="exp-date">Jan 2024 - Jul 2024</span>
                 <p class="exp-desc">
-                    Collaborated with the core team to design readable level blockouts and optimize navigation. Reduced level iteration loops by 20% by authoring precise One-Page Feature Briefs and Flowcharts, preventing design misinterpretations by the art team.
+                    Collaborated with the core team to design readable level blockouts and optimize navigation. Reduced
+                    level iteration loops by 20% by authoring precise One-Page Feature Briefs and Flowcharts, preventing
+                    design misinterpretations by the art team.
                 </p>
             </div>
         </section>
@@ -224,9 +402,12 @@
 
     <footer class="footer-section" style="text-align: center; padding: 4rem 0; border-top: 1px solid #e5e5e5;">
         <div style="margin-bottom: 1rem;">
-            <a href="mailto:gamesbykarunaket@gmail.com" style="margin: 0 1rem; font-weight: 600; color: #333; text-decoration: none;">Email</a>
-            <a href="https://www.linkedin.com/in/karunaket/" target="_blank" style="margin: 0 1rem; font-weight: 600; color: #333; text-decoration: none;">LinkedIn</a>
-            <a href="https://karuna-ketan.itch.io/" target="_blank" style="margin: 0 1rem; font-weight: 600; color: #333; text-decoration: none;">Itch.io</a>
+            <a href="mailto:gamesbykarunaket@gmail.com"
+                style="margin: 0 1rem; font-weight: 600; color: #333; text-decoration: none;">Email</a>
+            <a href="https://www.linkedin.com/in/karunaket/" target="_blank"
+                style="margin: 0 1rem; font-weight: 600; color: #333; text-decoration: none;">LinkedIn</a>
+            <a href="https://karuna-ketan.itch.io/" target="_blank"
+                style="margin: 0 1rem; font-weight: 600; color: #333; text-decoration: none;">Itch.io</a>
         </div>
         <p style="color: #888; font-size: 0.9rem;">© 2025 Karuna Ketan.</p>
     </footer>
@@ -236,7 +417,7 @@
             const menuBtn = document.getElementById('mobile-menu-btn');
             const nav = document.getElementById('nav-links');
 
-            if(menuBtn && nav) {
+            if (menuBtn && nav) {
                 menuBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     nav.classList.toggle('active');
@@ -254,4 +435,5 @@
         });
     </script>
 </body>
+
 </html>
