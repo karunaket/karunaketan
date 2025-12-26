@@ -394,3 +394,27 @@ a { text-decoration: none; color: inherit; transition: 0.2s; }
 @media (max-width: 768px) {
     .comparison-grid { grid-template-columns: 1fr; } /* Stack on mobile */
 }
+
+/* Add this to style.css */
+.row-desc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.row-desc li {
+    position: relative;
+    padding-left: 1.2rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+}
+
+.row-desc li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--red-accent); /* Adds a nice pop of color */
+    font-weight: bold;
+}

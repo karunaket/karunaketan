@@ -64,7 +64,6 @@
             border: none;
             cursor: pointer;
             z-index: 2000;
-            /* Stays on top */
         }
         .menu-toggle .bar {
             width: 100%; height: 3px; background-color: var(--text-color); transition: 0.3s; border-radius: 2px;
@@ -74,14 +73,12 @@
         @media (max-width: 768px) {
             .menu-toggle { display: flex; }
             
-            /* The Sidebar itself */
             .nav-links {
                 position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
                 background-color: #fff; flex-direction: column; justify-content: center; align-items: center;
                 gap: 2.5rem; transition: 0.3s ease-in-out; z-index: 1500;
                 box-shadow: -5px 0 15px rgba(0,0,0,0.1);
             }
-            /* When Active, slide in */
             .nav-links.active { right: 0; }
             
             .nav-links li { opacity: 0; transform: translateY(20px); transition: 0.3s ease forwards; }
@@ -155,7 +152,12 @@
         .row-title a { text-decoration: none; color: inherit; transition: color 0.2s ease; }
         .row-title a:hover { color: #555; }
         .row-date { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: #444; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 0.5rem; }
-        .row-desc { font-size: 0.95rem; color: var(--text-dim); margin-bottom: 1rem; }
+        
+        /* Updated Row Description for Bullet Points */
+        .row-desc { margin-bottom: 1.5rem; }
+        .row-desc ul { list-style: none; padding: 0; margin: 0; }
+        .row-desc li { position: relative; padding-left: 1.2rem; margin-bottom: 0.5rem; font-size: 0.95rem; color: var(--text-dim); line-height: 1.5; }
+        .row-desc li::before { content: "•"; position: absolute; left: 0; color: var(--red-accent); font-weight: bold; }
 
         .section-sub-title { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem; color: #111; display: flex; align-items: center; gap: 1rem; text-transform: uppercase; }
         .sub-divider { border: 0; height: 1px; background: #e5e5e5; margin: 4rem 0; }
@@ -172,14 +174,9 @@
         .footer-links a { margin: 0 1.5rem; font-family: var(--font-heading); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); }
         .footer-links a:hover { color: var(--text-color); }
 
-        /* --- 6. MOBILE RESPONSIVENESS (Integrated) --- */
+        /* --- 6. MOBILE RESPONSIVENESS --- */
         @media (max-width: 900px) {
-            .intro-section {
-                padding: 4rem 0;
-                flex-direction: column-reverse; /* Puts image on top */
-                text-align: center;
-                gap: 2rem;
-            }
+            .intro-section { padding: 4rem 0; flex-direction: column-reverse; text-align: center; gap: 2rem; }
             .intro-content { max-width: 100%; }
             .intro-title { font-size: 2.5rem; }
             .profile-img-container { width: 280px; height: 280px; margin: 0 auto 1rem auto; }
@@ -249,43 +246,55 @@
             <div class="projects-list">
                 
                 <article class="project-row">
-                    <a href="eof.html" class="row-image" aria-label="View Eclipse of Fear project details">
-                        <img src="assets/Horror/EOF.png" alt="Screenshot from Eclipse of Fear game" loading="lazy">
+                    <a href="eof.html" class="row-image" aria-label="View Eclipse of Fear details">
+                        <img src="assets/Horror/EOF.png" alt="Eclipse of Fear Screenshot" loading="lazy">
                     </a>
                     <div class="row-content">
                         <span class="row-date">Survival Horror</span>
                         <h3 class="row-title"><a href="eof.html">Eclipse of Fear</a></h3>
-                        <p class="row-desc">
-                            A short first-person survival horror set on a college campus after midnight, where finishing simple paperwork turns into a fight for survival and every completed task makes the world more dangerous.
-                        </p>
+                        <div class="row-desc">
+                            <ul>
+                                <li>Designed the diegetic <strong>"Lives as Papers"</strong> health system, where losing a life physically burns a mandatory quest item.</li>
+                                <li>Balanced 4 distinct enemy waves using <strong>Data Sheets</strong>, tuning speed and detection radius to create an escalating difficulty curve.</li>
+                                <li>Scripted a dynamic <strong>Intensity Director</strong> that alters lighting states and enemy aggression based on objective completion.</li>
+                            </ul>
+                        </div>
                         <a href="eof.html" class="pill-btn">View project</a>
                     </div>
                 </article>
 
                 <article class="project-row">
-                    <a href="scttv.html" class="row-image" aria-label="View Shattered Charms project details">
-                        <img src="assets/RPG/SCTTV.png" alt="Screenshot from Shattered Charms game" loading="lazy">
+                    <a href="scttv.html" class="row-image" aria-label="View Shattered Charms details">
+                        <img src="assets/RPG/SCTTV.png" alt="Shattered Charms Screenshot" loading="lazy">
                     </a>
                     <div class="row-content">
                         <span class="row-date">RPG</span>
                         <h3 class="row-title"><a href="scttv.html">Shattered Charms: Through The Veil</a></h3>
-                        <p class="row-desc">
-                            A third-person Action RPG where you cross corrupted, fractured lands, gather forgotten Charms, and experiment with modular abilities while fighting the echoes of another world to save your sister in a realm torn apart by The Shattering.
-                        </p>
+                        <div class="row-desc">
+                            <ul>
+                                <li>Designed the <strong>"Charm Matrix"</strong>, a slot-based progression system allowing players to discover new abilities through specific <strong>Charm Fusions</strong>.</li>
+                                <li>Modeled a <strong>Purification Economy</strong> in Excel, balancing Jewel drop rates to enforce exploration before the final boss.</li>
+                                <li>Architected a <strong>Hub-and-Spoke</strong> world layout to control pacing, utilizing lighting cues to signal transitions between Safety and Tension.</li>
+                            </ul>
+                        </div>
                         <a href="scttv.html" class="pill-btn">View project</a>
                     </div>
                 </article>
 
                 <article class="project-row">
-                    <a href="ps.html" class="row-image" aria-label="View Project Singularity project details">
-                        <img src="assets/Action-adv/PS.png" alt="Screenshot from Project Singularity game" loading="lazy">
+                    <a href="ps.html" class="row-image" aria-label="View Project Singularity details">
+                        <img src="assets/Action-adv/PS.png" alt="Project Singularity Screenshot" loading="lazy">
                     </a>
                     <div class="row-content">
                         <span class="row-date">Action-adventure</span>
                         <h3 class="row-title"><a href="ps.html">Project Singularity</a></h3>
-                        <p class="row-desc">
-                            A third-person action-adventure game where players control a soldier protecting a scientist from a space pirate invasion while gathering key parts and solving puzzles to escape the Earth!
-                        </p>
+                        <div class="row-desc">
+                            <ul>
+                                <li>Designed the <strong>Teleportation Mechanic</strong> as a dual-purpose tool for both environmental traversal puzzles and combat flanking.</li>
+                                <li>Prioritized <strong>"Game Feel"</strong> validation, iterating on camera shake and hit-stop feedback loops to ensure combat responsiveness.</li>
+                                <li>Defined <strong>Spatial Metrics</strong> for level blockouts to accommodate the Scientist NPC escort mechanics and vertical combat encounters.</li>
+                            </ul>
+                        </div>
                         <a href="ps.html" class="pill-btn">View project</a>
                     </div>
                 </article>
@@ -302,11 +311,15 @@
                         <img src="assets/Game Deconstruction/TLOU.png" alt="The Last of Us Part I cover art" loading="lazy">
                     </a>
                     <div class="row-content">
-                        <span class="row-date">Game Deconstruction</span>
+                        <span class="row-date">Analysis</span>
                         <h3 class="row-title"><a href="tlou.html">The Last of Us: Part I</a></h3>
-                        <p class="row-desc">
-                            A deep dive Deconstruction into Naughty Dog's level design philosophy. I breakdown their use of "Pacing Pockets", environmental storytelling, and how scarcity mechanics manipulate player psychology.
-                        </p>
+                        <div class="row-desc">
+                            <ul>
+                                <li>Analyzed Naughty Dog's use of <strong>"Pacing Pockets"</strong> to balance tension.</li>
+                                <li>Deconstructed how scarcity mechanics (ammo, crafting) are tuned to force defensive play.</li>
+                                <li>Mapped environmental storytelling techniques that guide navigation without UI.</li>
+                            </ul>
+                        </div>
                         <a href="tlou.html" class="pill-btn">Read Deconstruction</a>
                     </div>
                 </article>
@@ -321,13 +334,13 @@
                 <div class="process-card">
                     <div class="process-icon" aria-hidden="true">🔍</div>
                     <h3>Research</h3>
-                    <p>I conduct deep Game Deconstructions and design breakdowns of reference titles to understand their design pillars, game loops and pacing.</p>
+                    <p>I conduct deep Game Deconstructions to understand design pillars, game loops, and pacing.</p>
                 </div>
 
                 <div class="process-card">
                     <div class="process-icon" aria-hidden="true">📝</div>
                     <h3>Brief</h3>
-                    <p>Establishing clear Design Pillars early on to ensure mechanics align with the core player fantasy.</p>
+                    <p>Establishing clear Design Pillars early to ensure mechanics align with the core player fantasy.</p>
                 </div>
 
                 <div class="process-card">
