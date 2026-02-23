@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>That's My Scrap! | Karuna Ketan</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Specific Canva-Inspired Design Cards */
+        .gds-framework-card {
+            background: #fff;
+            border-left: 5px solid var(--red-accent);
+            padding: 2rem;
+            margin-top: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .gds-row { margin-bottom: 1.5rem; }
+        .gds-row:last-child { margin-bottom: 0; }
+        
+        .gds-label {
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--red-accent);
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+        
+        .gds-text { font-size: 1rem; color: var(--text-dim); line-height: 1.6; }
+        .gds-text strong { color: var(--text-color); }
+
+        /* Typographic Grid for Text-Heavy Systems */
+        .typo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .typo-card {
+            background: #f9f9f9;
+            padding: 2rem;
+            border-top: 3px solid #111;
+            border-radius: 4px;
+        }
+
+        .typo-card h4 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #111;
+        }
+
+        .pill-tag {
+            display: inline-block;
+            background: #eee;
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="minimal-header">
+        <div class="header-content">
+            <a href="index.html" class="logo">KK<span class="dot">.</span></a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html#projects">Back to Home</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="top-slider-section">
+        <div class="slider-container full-width-slider" style="aspect-ratio: 21/9; background: #000;">
+            <div class="slider-wrapper">
+                <div class="slide">
+                    <img src="assets/fcp/hero_gameplay.gif" alt="That's My Scrap Gameplay Action" style="opacity: 0.8;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="project-header-compact">
+        <div class="pro-badge" style="position: relative; display: inline-block; top: 0; left: 0; margin-bottom: 1rem;">INDUSTRY WORK</div>
+        <h1 class="case-title">THAT'S MY SCRAP!</h1>
+        
+        <div class="project-stats-grid">
+            <div class="stat-box"><span class="label">ROLE</span><span class="value">Contract Game Designer</span></div>
+            <div class="stat-box"><span class="label">STUDIO</span><span class="value">FatCatPlay</span></div>
+            <div class="stat-box"><span class="label">ENGINE</span><span class="value">Unreal Engine 5</span></div>
+            <div class="stat-box"><span class="label">GENRE</span><span class="value">4-Player Co-op</span></div>
+        </div>
+        
+        <div class="header-actions">
+            <a href="YOUR_YOUTUBE_LINK_HERE" target="_blank" class="resume-btn pill-btn" style="border: 2px solid #111;">▶ WATCH REVEAL TEASER</a> 
+        </div>
+        <p class="team-credit" style="margin-top: 1.5rem; font-style: italic; color: #888; font-size: 0.9rem;">*Note: Internal GDDs and source files are protected under NDA. This case study focuses purely on system design logic.*</p>
+    </section>
+
+    <div class="case-study-content">
+        
+        <section class="content-block split-section">
+            <div class="split-text">
+                <h2 class="block-title">Game Overview</h2>
+                <p class="lead-text">
+                    Take your flying factory into space, strip a sector for scrap, process it on-board, sell it, and try to survive capitalism.
+                </p>
+                <p class="block-text">
+                    <em>That's My Scrap!</em> is a physics-driven, 4-player co-op asteroid mining simulator. Players pilot individual spacecraft (R.I.G.s) while collectively managing a massive shared cargo carrier (the FORGE). 
+                </p>
+                <p class="block-text">
+                    The core challenge is not combat, but <strong>coordination under pressure</strong>. The galaxy doesn't care who worked harder; it only remembers who sold first.
+                </p>
+            </div>
+            <div class="split-image">
+                <img src="assets/fcp/Poster.png" alt="That's My Scrap Poster" style="width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2 class="block-title">System 1: The Co-op Dependency</h2>
+            <div class="split-section" style="align-items: start;">
+                <div class="split-image">
+                    <img src="assets/fcp/coop_gravity_beam.gif" alt="Players using Gravity Beam" style="width: 100%; border-radius: 8px;">
+                    <p class="caption">The Gravity Gun strictly enforces team play through physics.</p>
+                </div>
+                <div class="split-text">
+                    <div class="gds-framework-card">
+                        <div class="gds-row">
+                            <span class="gds-label">The Problem</span>
+                            <p class="gds-text">In early co-op tests, a single skilled player could dominate the session by doing everything themselves, leaving other players feeling like spectators.</p>
+                        </div>
+                        <div class="gds-row">
+                            <span class="gds-label">The Solution (Gravity Gun Rule)</span>
+                            <p class="gds-text">I implemented a strict dependency mechanic: <strong>1 Player holding cargo = Very slow movement. 2+ Players holding cargo = Fast movement.</strong></p>
+                        </div>
+                        <div class="gds-row">
+                            <span class="gds-label">The Result</span>
+                            <p class="gds-text">This simple physics constraint acts as the signature co-op mechanic. It creates dramatic "wait for me" moments under time pressure, punishes lone-wolf play, and enforces communication.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2 class="block-title">System 2: Emergent Tool Synergies</h2>
+            <p class="block-text">Rather than giving players specific keys for specific locks, we designed a sandbox of tools. Depth comes from coordination, not complexity.</p>
+            
+            <div class="typo-grid">
+                <div class="typo-card">
+                    <span class="pill-tag">Grappling Hook + Pulse Pusher</span>
+                    <h4>The "Cinematic Chaos" Move</h4>
+                    <p class="block-text">Player A grapples cargo; Player B blasts it across space with the Pusher. <br><br><strong>Design Goal:</strong> Extremely fast but hard to control. Great for last-second saves under time pressure, but risky for hazardous cargo.</p>
+                </div>
+
+                <div class="typo-card">
+                    <span class="pill-tag">Laser Cutter + Time Choice</span>
+                    <h4>The "Cut vs. Carry" Dilemma</h4>
+                    <p class="block-text">Players can carry a massive object whole (slow, but full payout) or cut it into pieces (fast, but reduces value). <br><br><strong>Design Goal:</strong> Player-made difficulty scaling. It forces smart decision-making under pressure.</p>
+                </div>
+
+                <div class="typo-card">
+                    <span class="pill-tag">Charged Gun + Gravity Beam</span>
+                    <h4>The "Smuggler's Run"</h4>
+                    <p class="block-text">Charged gun enables interaction with rare illegal cargo, but loses charge constantly, requiring map travel. Gravity gun transports it.<br><br><strong>Design Goal:</strong> Forces players outside the safe paths. Makes the map feel dangerous and meaningful.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-block">
+            <h2 class="block-title">System 3: The Quota & Heat Economy</h2>
+            <div class="split-section" style="align-items: start;">
+                <div class="split-text">
+                    <p class="block-text">The overarching game loop is driven by the <strong>Quota System</strong>. Players are not grinding for traditional skill trees; they are trying to pay off their "hafta" (debt) to the space market to survive the day.</p>
+                    
+                    <div class="gds-framework-card" style="border-left-color: #f1c40f;">
+                        <div class="gds-row">
+                            <span class="gds-label">The Risk/Reward Mechanic</span>
+                            <p class="gds-text">I mapped out a <strong>Cleanliness vs. Wanted</strong> economy to manipulate player greed.</p>
+                            <ul class="clean-list" style="margin-top: 0.5rem;">
+                                <li>• <strong>Cleaning Space Scrap:</strong> Safe, increases sector cleanliness, but pays low.</li>
+                                <li>• <strong>Smuggling Illegal Cargo:</strong> Pays massive credits but rapidly increases the sector's "Heat" level.</li>
+                            </ul>
+                        </div>
+                        <div class="gds-row">
+                            <span class="gds-label">The Escalation</span>
+                            <p class="gds-text">Stay too long or smuggle too much, and Space COPS arrive. The danger comes from time pressure, physics positioning, and escape—not from combat shooting.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="split-image">
+                    <img src="assets/fcp/CoreLoop.png" alt="Core Gameplay Loop" style="width: 100%; border-radius: 8px;">
+                    <p class="caption">The core loop flowchart balancing safe mining against illegal smuggling.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-block" style="margin-top: 4rem;">
+            <h2 class="block-title">System 4: Textless Onboarding & Level Architecture</h2>
+            
+            <div class="typo-grid" style="grid-template-columns: 1fr 1fr;">
+                <div class="typo-card" style="border-top-color: #2ecc71;">
+                    <h4>Environmental Affordances</h4>
+                    <p class="block-text">Forced tutorials ruin party-game pacing. I designed a system that teaches through visual language:</p>
+                    <ul class="clean-list">
+                        <li>• <strong>No Text Dumps:</strong> A central Announcement Speaker explains context audibly: <em>"Mine asteroids. Meet quota. Smuggle if you dare."</em></li>
+                        <li>• <strong>Visual Cues:</strong> Mineable asteroids emit soft glows. Contextual UI (like "Throw") <em>only</em> appears when the player's crosshair is over the Smelter feed point.</li>
+                        <li>• <strong>In-World Manuals:</strong> Physical manuals sit on desks. If a player wants to read them, they can, but it is never forced.</li>
+                    </ul>
+                </div>
+
+                <div class="typo-card" style="border-top-color: var(--text-color);">
+                    <h4>Hub-and-Spoke Topology</h4>
+                    <p class="block-text">To manage production scope and create clear psychological pacing, levels are separated into standalone "Spokes" connected to a safe Hub.</p>
+                    <ul class="clean-list">
+                        <li>• <strong>The Hub:</strong> 100% safe. Start/end point. Players check quotas and drop off cargo here. Acts as the "breathing room."</li>
+                        <li>• <strong>Standard Spokes:</strong> Normal debris, time pressure, scattered cargo.</li>
+                        <li>• <strong>Smuggling Spokes:</strong> High-risk, glowing green cargo, tight navigation spaces, and police patrols.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="footer-section">
+        <p class="copyright">© 2026 Karuna Ketan.</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
