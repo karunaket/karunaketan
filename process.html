@@ -45,22 +45,24 @@
             column-gap: 1.5rem;
         }
 
+        /* ONLY THESE TWO CLASSES WERE UPGRADED */
         .raw-item {
             break-inside: avoid;
             margin-bottom: 1.5rem;
             border-radius: 4px;
             overflow: hidden;
             border: 1px solid #eee;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border-bottom: 4px solid #111; /* Added premium border */
+            transition: all 0.3s ease; /* Smoothed transition */
             cursor: pointer;
-            background: #f4f4f4;
+            background: #fff; /* Brightened to make images pop */
             position: relative;
         }
 
         .raw-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            border-color: #ccc;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border-bottom-color: var(--red-accent); /* Glows red on hover */
             z-index: 2;
         }
 
@@ -263,8 +265,17 @@
 
     </main>
 
-    <footer class="footer-section">
-        <p class="copyright">© 2025 Karuna Ketan.</p>
+    <footer id="contact" class="footer-section">
+        <div class="footer-links">
+            <a href="mailto:gamesbykarunaket@gmail.com" aria-label="Email Karuna Ketan">Email</a>
+            <a href="https://wa.me/917764870529" target="_blank" rel="noopener noreferrer"
+                aria-label="Chat with Karuna Ketan on WhatsApp">+91 7764870529</a>
+            <a href="https://www.linkedin.com/in/karunaket/" target="_blank" rel="noopener noreferrer"
+                aria-label="Visit Karuna Ketan's LinkedIn">LinkedIn</a>
+            <a href="https://karuna-ketan.itch.io/" target="_blank" rel="noopener noreferrer"
+                aria-label="Visit Karuna Ketan's itch.io Profile">itch.io</a>
+        </div>
+        <p style="margin-top: 1rem; color: #888; font-size: 0.8rem;">© 2026 Karuna Ketan.</p>
     </footer>
 
     <div id="imageViewer" onclick="closeImage()">

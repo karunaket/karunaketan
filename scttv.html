@@ -8,7 +8,76 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- MASONRY GRID (Improved Structure) --- */
+        /* --- 1. MINIMAL PROJECT HEADER --- */
+        .project-minimal-header {
+            padding: 1.5rem 2rem;
+            background: #fff;
+            border-bottom: 1px solid #e5e5e5;
+            position: sticky; 
+            top: 0; 
+            z-index: 2000;
+        }
+        
+        .project-header-content {
+            max-width: 1400px; 
+            margin: 0 auto;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+        }
+        
+        .project-logo {
+            font-family: var(--font-heading); 
+            font-size: 1.5rem; 
+            font-weight: 700;
+            color: #111; 
+            letter-spacing: 2px; 
+            text-decoration: none; 
+            line-height: 1;
+        }
+        
+        .project-back-link {
+            font-family: var(--font-heading); 
+            font-size: 0.95rem; 
+            font-weight: 600;
+            color: #555; 
+            letter-spacing: 1.5px; 
+            text-transform: uppercase; 
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .project-back-link:hover { 
+            color: var(--red-accent); 
+        }
+
+        /* --- 2. PREMIUM GDS CARDS --- */
+        .gds-framework-card {
+            background: #fff;
+            border-left: 5px solid var(--red-accent);
+            padding: 2.5rem;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.06);
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        
+        .gds-label {
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--red-accent);
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .gds-text { font-size: 1.05rem; color: var(--text-dim); line-height: 1.7; }
+        .gds-text strong { color: var(--text-color); font-weight: 700; }
+
+        /* --- 3. PAGE SPECIFIC STYLES (Restored & Enhanced) --- */
+
+        /* Masonry Grid (Improved Structure) */
         .raw-gallery-grid {
             column-count: 3;
             column-gap: 1.5rem;
@@ -27,11 +96,10 @@
         }
         .raw-gallery-item img {
             width: 100%;
-            height: auto; /* Natural height */
+            height: auto; 
             display: block;
             transition: transform 0.3s ease;
         }
-        /* Hover Effect */
         .raw-gallery-item:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(0,0,0,0.12);
@@ -40,7 +108,7 @@
             transform: scale(1.05);
         }
 
-        /* --- LIGHTBOX --- */
+        /* Lightbox (Full Screen Image Viewer) */
         #imageViewer {
             display: none; position: fixed; z-index: 3000; left: 0; top: 0;
             width: 100%; height: 100%; background-color: rgba(0,0,0,0.95);
@@ -53,17 +121,15 @@
         .close-img-btn {
             position: absolute; top: 30px; right: 40px; color: #fff;
             font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s;
-            font-family: var(--font-heading); line-height: 1;
+            font-family: 'Oswald', sans-serif; line-height: 1;
         }
         .close-img-btn:hover { color: var(--red-accent); transform: scale(1.1); }
         @keyframes zoomIn { from {transform: scale(0.9); opacity: 0;} to {transform: scale(1); opacity: 1;} }
 
-        /* --- RESPONSIVE FIXES --- */
-
-        /* Layout Adjustments */
+        /* RESPONSIVE FIXES */
         @media (max-width: 900px) {
             .case-study-content { padding: 0 1.5rem 4rem 1.5rem; }
-            .split-section { grid-template-columns: 1fr; gap: 2rem; }
+            .split-section { grid-template-columns: 1fr !important; gap: 2rem !important; }
             .split-image { order: -1; }
             .raw-gallery-grid { column-count: 2; }
             .project-stats-grid { flex-wrap: wrap; gap: 1.5rem; }
@@ -71,18 +137,21 @@
         }
 
         @media (max-width: 600px) {
-            .case-title { font-size: 2.2rem; line-height: 1.2; }
+            .case-title { font-size: 2.2rem !important; line-height: 1.2; }
             .raw-gallery-grid { column-count: 1; }
             .project-header-compact { margin-top: 2rem; padding: 0 1rem; }
+            .header-actions .resume-btn { width: 100%; text-align: center; display: block; }
             .video-wrapper { margin-top: 1.5rem; }
+            .project-header-content { padding: 0 1rem; }
         }
     </style>
 </head>
 <body>
 
-    <header class="minimal-header">
-        <div class="header-content">
-            <a href="index.html" class="logo">KK<span class="dot">.</span></a>
+    <header class="project-minimal-header">
+        <div class="project-header-content">
+            <a href="index.html" class="project-logo">KK.</a>
+            <a href="index.html#projects" class="project-back-link" style="font-family: 'Oswald', sans-serif; font-size: 0.85rem; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none; transition: color 0.2s ease;" onmouseover="this.style.color='#111'" onmouseout="this.style.color='#555'">BACK TO HOME</a>
         </div>
     </header>
 
@@ -144,14 +213,14 @@
             <div class="split-text">
                 <h2 class="block-title">The Design Challenge</h2>
                 <p class="block-text">
-                    <strong>How do you encourage meaningful build variety in a short RPG prototype?</strong><br>
+                    <strong>How do you encourage meaningful build variety in a short RPG prototype?</strong><br><br>
                     Most action RPGs rely on deep skill trees that take hours to fully unfold. For a 20–30 minute vertical slice, that approach often results in shallow or unfinished progression.
                     <br><br>
                     My core challenge was to design a system that encourages experimentation immediately, makes player choices feel distinct, and rewards curiosity over raw stats. The solution became a modular Charm system combined with an economy-gated progression loop.
                 </p>
             </div>
             <div class="split-image">
-                <img src="assets/RPG/GIF_Vids/Combat_Loop.gif" alt="Combat variety driven by Charm loadouts">
+                <img src="assets/RPG/GIF_Vids/Combat_Loop.gif" alt="Combat variety driven by Charm loadouts" style="cursor: pointer;" onclick="openImage(this.src)">
                 <p class="caption">Combat variety is driven by Charm loadouts rather than class selection.</p>
             </div>
         </section>
@@ -161,19 +230,19 @@
                 <div class="text-col">
                     <h3 class="sub-title">Project Scope</h3>
                     <ul class="clean-list">
-                        <li><strong>World:</strong> Hub-and-Spoke semi-open structure.</li>
-                        <li><strong>Core System:</strong> Dual-Slot Charm Fusion (Passive + Active).</li>
-                        <li><strong>Progression:</strong> Economy-gated weapon purification.</li>
-                        <li><strong>AI:</strong> Behavior Tree driven boss encounter.</li>
-                        <li><strong>Result:</strong> A complete vertical slice with exploration, combat, economy, and climax.</li>
+                        <li>• <strong>World:</strong> Hub-and-Spoke semi-open structure.</li>
+                        <li>• <strong>Core System:</strong> Dual-Slot Charm Fusion (Passive + Active).</li>
+                        <li>• <strong>Progression:</strong> Economy-gated weapon purification.</li>
+                        <li>• <strong>AI:</strong> Behavior Tree driven boss encounter.</li>
+                        <li>• <strong>Result:</strong> A complete vertical slice with exploration, combat, economy, and climax.</li>
                     </ul>
                 </div>
                 <div class="text-col">
                     <h3 class="sub-title">Design Pillars</h3>
                     <ul class="clean-list">
-                        <li><strong>Strategic Loadout:</strong> Limited Charm slots force trade-offs between offense and defense, preventing dominant meta builds.</li>
-                        <li><strong>Gated Progression:</strong> The final boss cannot be rushed, making combat mandatory.</li>
-                        <li><strong>Visual Clarity:</strong> Lighting communicates gameplay states so players intuitively read spaces without HUD markers.</li>
+                        <li>• <strong>Strategic Loadout:</strong> Limited Charm slots force trade-offs between offense and defense, preventing dominant meta builds.</li>
+                        <li>• <strong>Gated Progression:</strong> The final boss cannot be rushed, making combat mandatory.</li>
+                        <li>• <strong>Visual Clarity:</strong> Lighting communicates gameplay states so players intuitively read spaces without HUD markers.</li>
                     </ul>
                 </div>
             </div>
@@ -191,30 +260,30 @@
                 </ul>
             </div>
             <div class="split-image">
-                <img src="assets/RPG/Images/GameplayLoop.png" alt="Core Gameplay Loop Diagram">
+                <img src="assets/RPG/Images/GameplayLoop.png" alt="Core Gameplay Loop Diagram" style="cursor: pointer;" onclick="openImage(this.src)">
                 <p class="caption">The economy loop ties combat directly to progression.</p>
             </div>
         </section>
 
         <section class="content-block" style="margin-top: 3rem;">
-    <h2 class="block-title">World Building: Paper to Proxy</h2>
-    <p class="block-text">
-        The Hub-and-Spoke design required clear visual distinctness between the safe "Market" and the dangerous "Wilds." I mapped these transitions on paper to verify travel times before building the environment.
-    </p>
+            <h2 class="block-title">World Building: Paper to Proxy</h2>
+            <p class="block-text">
+                The Hub-and-Spoke design required clear visual distinctness between the safe "Market" and the dangerous "Wilds." I mapped these transitions on paper to verify travel times before building the environment.
+            </p>
 
-    <div class="comparison-grid">
-        <div class="compare-card">
-            <span class="compare-label label-before">Phase 1: Paper Map</span>
-            <img src="assets/RPG/RAW/14.jpeg" alt="Paper Map Design" onclick="openImage(this.src)">
-        </div>
+            <div class="comparison-grid">
+                <div class="compare-card">
+                    <span class="compare-label label-before">Phase 1: Paper Map</span>
+                    <img src="assets/RPG/RAW/14.jpeg" alt="Paper Map Design" onclick="openImage(this.src)">
+                </div>
 
-        <div class="compare-card">
-            <span class="compare-label label-after">Phase 2: Final Hub</span>
-            <img src="assets/RPG/Images/LD.png" alt="Final Market Hub Environment" onclick="openImage(this.src)">
-        </div>
-    </div>
-    <p class="caption">Translating the "Safe Zone" concept from a 2D topology sketch to the final warm-lit hub area.</p>
-</section>
+                <div class="compare-card">
+                    <span class="compare-label label-after">Phase 2: Final Hub</span>
+                    <img src="assets/RPG/Images/LD.png" alt="Final Market Hub Environment" onclick="openImage(this.src)">
+                </div>
+            </div>
+            <p class="caption">Translating the "Safe Zone" concept from a 2D topology sketch to the final warm-lit hub area.</p>
+        </section>
 
         <section class="content-block">
             <h2 class="block-title">Level Design: Hub-and-Spoke</h2>
@@ -235,86 +304,75 @@
                     </p>
 
                     <ul class="clean-list" style="margin-top: 1rem;">
-                        <li><strong>The Hub (Market):</strong> Safe zone containing Vendors and Quest Givers.</li>
-                        <li><strong>Spoke 1 (Cave):</strong> Linear combat-heavy dungeon leading to the Shrine.</li>
-                        <li><strong>Spoke 2 (Farm):</strong> Open combat arena rewarding an Active Charm.</li>
-                        <li><strong>Spoke 3 (Boss Arena):</strong> Locked behind progression checks.</li>
+                        <li>• <strong>The Hub (Market):</strong> Safe zone containing Vendors and Quest Givers.</li>
+                        <li>• <strong>Spoke 1 (Cave):</strong> Linear combat-heavy dungeon leading to the Shrine.</li>
+                        <li>• <strong>Spoke 2 (Farm):</strong> Open combat arena rewarding an Active Charm.</li>
+                        <li>• <strong>Spoke 3 (Boss Arena):</strong> Locked behind progression checks.</li>
                     </ul>
                 </div>
                 <div class="split-image">
-                    <img src="assets/RPG/Images/LD.png" alt="Top Down Map Layout">
+                    <img src="assets/RPG/Images/LD.png" alt="Top Down Map Layout" style="cursor: pointer;" onclick="openImage(this.src)">
                     <p class="caption">Top-down view showing the Central Market Hub connecting to the Farm, Cave, and Temple.</p>
                     
-                    <img src="assets/RPG/GIF_Vids/Level_Transition.gif" style="margin-top: 2rem;" alt="Visual Transition from Hub to Spoke">
+                    <img src="assets/RPG/GIF_Vids/Level_Transition.gif" style="margin-top: 2rem; cursor: pointer;" alt="Visual Transition from Hub to Spoke" onclick="openImage(this.src)">
                     <p class="caption">Crossing the threshold: Lighting shifts communicate the transition from the Safe Hub to the Dangerous Spokes.</p>
                 </div>
             </div>
         </section>
 
-        <section class="content-block">
-            <h2 class="block-title">System 1: The Charm Matrix</h2>
-            <div class="split-section">
-                <div class="split-image">
-                    <img src="assets/RPG/GIF_Vids/Charm_UI.gif" alt="Charm Inventory Drag and Drop System">
-                    <p class="caption">The Inventory UI allowing players to drag-and-drop charms to discover Fused abilities.</p>
-                </div>
-                <div class="split-text">
-                    <h3 class="sub-title">Dual-Slot Charm System</h3>
-                    <p class="block-text">
-                        Traditional RPG skill trees were replaced with a Dual-Slot Charm system.
-                    </p>
-                    <ul class="clean-list">
-                        <li><strong>Normal Slot:</strong> Holds a Passive or Active Charm.</li>
-                        <li><strong>Fused Slot:</strong> Unlocks only when specific combinations are equipped.</li>
-                        <li><strong>Example:</strong> Pairing <em>Veil Harmony</em> (Defense) with <em>Veil Burst</em> (Attack) unlocks <strong>Veil Shatter Burst</strong>—a fused ability that grants temporary shielding while dealing area damage.</li>
-                    </ul>
-                    <p class="block-text" style="margin-top: 1rem; font-style: italic;">
-                        This system shifts progression from stat optimization to discovery, turning equipment choice into a design puzzle rather than a math problem.
-                    </p>
+        <section class="content-block" style="margin-top: 5rem;">
+            <h2 class="block-title">System Breakdowns</h2>
+            
+            <div class="gds-framework-card" style="margin-bottom: 3rem;">
+                <span class="gds-label">System 1: The Charm Matrix</span>
+                <div class="split-section" style="gap: 2rem; margin-top: 1rem; align-items: center;">
+                    <div class="split-text">
+                        <p class="gds-text">Traditional RPG skill trees were replaced with a modular Dual-Slot Charm system that rewards active discovery over passive leveling.</p>
+                        <ul class="clean-list" style="margin-top: 1rem;">
+                            <li><strong>Normal Slot:</strong> Holds a base Passive or Active Charm.</li>
+                            <li><strong>Fused Slot:</strong> Unlocks exclusively when specific combinations are equipped together.</li>
+                            <li><strong>Example:</strong> Pairing <em>Veil Harmony</em> (Defense) with <em>Veil Burst</em> (Attack) unlocks <strong>Veil Shatter Burst</strong>—a fused ability that grants temporary shielding while dealing massive area damage.</li>
+                        </ul>
+                    </div>
+                    <div class="split-image">
+                        <img src="assets/RPG/GIF_Vids/Charm_UI.gif" alt="Charm Inventory Drag and Drop System" style="border-radius: 4px;">
+                        <p class="caption">Drag-and-drop inventory enabling real-time build swapping.</p>
+                    </div>
                 </div>
             </div>
-        </section>
 
-        <section class="content-block">
-            <h2 class="block-title">System 2: The Purification Economy</h2>
-            <div class="split-section">
-                <div class="split-image">
-                    <img src="assets/RPG/GIF_Vids/Sword_Upgrade.gif" alt="Sword Upgrade Interaction">
-                    <p class="caption">Spending Jewels at the Shrine upgrades the weapon, serving as a progression gate.</p>
-                </div>
-                <div class="split-text">
-                    <h3 class="sub-title">Hard Progression Gating</h3>
-                    <p class="block-text">
-                        <strong>The Problem:</strong> Players often rush to bosses in RPGs, skipping exploration and combat depth.
-                    </p>
-                    <p class="block-text">
-                        <strong>The Solution:</strong> I implemented a hard progression gate tied directly to the economy. The final boss is immune to the starting weapon. Players must Purify their sword at Shrines, costing Jewels earned only through combat.
-                    </p>
-                    <p class="block-text" style="margin-top: 1rem;">
-                        <strong>Result:</strong> Loot has meaning, combat feeds progression, and exploration is never optional.
-                    </p>
+            <div class="gds-framework-card" style="margin-bottom: 3rem; border-left-color: #f1c40f;">
+                <span class="gds-label" style="color: #f1c40f;">System 2: The Purification Economy</span>
+                <div class="split-section" style="gap: 2rem; margin-top: 1rem; align-items: center;">
+                    <div class="split-image">
+                        <img src="assets/RPG/GIF_Vids/Sword_Upgrade.gif" alt="Sword Upgrade Interaction" style="border-radius: 4px;">
+                        <p class="caption">Spending Jewels at the Shrine to bypass the hard progression gate.</p>
+                    </div>
+                    <div class="split-text">
+                        <p class="gds-text"><strong>The Problem:</strong> In short prototypes, players often sprint past side content directly to the boss, ignoring the core combat loops.</p>
+                        <p class="gds-text" style="margin-top: 0.8rem;"><strong>The Solution:</strong> I implemented a hard economy gate. The final boss is 100% immune to the starting weapon. Players must Purify their sword at Shrines, costing Jewels that drop exclusively from side-content enemies and chests.</p>
+                        <p class="gds-text" style="margin-top: 0.8rem;"><strong>The Result:</strong> Loot gains immediate meaning, combat feeds progression directly, and exploration becomes mandatory rather than optional.</p>
+                    </div>
                 </div>
             </div>
-        </section>
 
-        <section class="content-block split-section">
-            <div class="split-text">
-                <h2 class="block-title">System 3: AI & Boss Design</h2>
-                <p class="block-text">
-                    Enemies are designed to teach mechanics through behavior, not tutorials.
-                </p>
-                <ul class="clean-list">
-                    <li><strong>Enemy Tier 1:</strong> Swarm enemies that teach crowd control.</li>
-                    <li><strong>Enemy Tier 2:</strong> Armored enemies that encourage dodging and spacing.</li>
-                    <li><strong>The Guardian (Boss):</strong> Uses a Behavior Tree to shift between multiple states: Melee aggression, Ranged cosmic attacks, and Teleportation/Self-healing when low on health.</li>
-                </ul>
-                <p class="block-text" style="margin-top: 1rem;">
-                    The boss behavior tree is designed to punish passive play, forcing players to reposition, spend resources, and adapt their Charm loadout mid-fight.
-                </p>
-            </div>
-            <div class="split-image">
-                <img src="assets/RPG/GIF_Vids/Boss_AI.gif" alt="Boss Behavior Tree Gameplay">
-                <p class="caption">The Boss AI switches phases dynamically based on player proximity and health.</p>
+            <div class="gds-framework-card" style="border-left-color: #2ecc71;">
+                <span class="gds-label" style="color: #2ecc71;">System 3: AI & Boss Design</span>
+                <div class="split-section" style="gap: 2rem; margin-top: 1rem; align-items: center;">
+                    <div class="split-text">
+                        <p class="gds-text">Enemies are designed to teach combat mechanics organically through their behavior patterns.</p>
+                        <ul class="clean-list" style="margin-top: 1rem;">
+                            <li><strong>Tier 1 (Swarmers):</strong> Forces the player to learn crowd control and spacing.</li>
+                            <li><strong>Tier 2 (Armored):</strong> Teaches precise dodging and vulnerability windows.</li>
+                            <li><strong>The Boss (Guardian):</strong> Driven by a dynamic Behavior Tree that shifts states. He uses melee aggression up close, cosmic ranged attacks at a distance, and teleports to heal if the player tries to kite him.</li>
+                        </ul>
+                        <p class="gds-text" style="margin-top: 0.8rem;"><strong>The Result:</strong> The AI severely punishes passive play, forcing players to constantly adapt their positioning and Charm loadouts mid-fight.</p>
+                    </div>
+                    <div class="split-image">
+                        <img src="assets/RPG/GIF_Vids/Boss_AI.gif" alt="Boss Behavior Tree Gameplay" style="border-radius: 4px;">
+                        <p class="caption">The Guardian AI switching phases dynamically.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -366,17 +424,23 @@
             <p class="block-text">Comprehensive technical documents covering system mechanics and level design.</p>
             <p class="block-text" style="font-style: italic; color: #666; font-size: 0.95rem; margin-bottom: 2rem;">These documents are designed for quick skimming, focused on systems architecture, economy balancing, and spatial flow.</p>
             
-            <div class="split-grid">
-                <div class="doc-box">
-                    <h3 class="sub-title">Game Design Document (GDD)</h3>
-                    <p class="block-text" style="font-size: 0.9rem;">Deep dive into the <strong>Charm Matrix mathematics</strong>, economy tuning sheets, and the core progression loop logic.</p>
-                    <button class="big-doc-btn" onclick="openPDF('assets/RPG/SCTTV_GDD.pdf')">VIEW GDD (PDF)</button>
+            <div class="three-col-grid">
+                <div class="doc-box" style="display: flex; flex-direction: column;">
+                    <h3 class="sub-title">Game Design Document</h3>
+                    <p class="block-text" style="font-size: 0.9rem; flex-grow: 1;">Deep dive into the <strong>Charm Matrix logic</strong>, narrative branching structures, and core progression.</p>
+                    <button class="big-doc-btn" style="padding: 1rem; width: 100%; font-size: 0.9rem; text-align: center;" onclick="openPDF('assets/RPG/SCTTV_GDD.pdf')">VIEW GDD (PDF)</button>
                 </div>
 
-                <div class="doc-box">
-                    <h3 class="sub-title">Level Design Document (LDD)</h3>
-                    <p class="block-text" style="font-size: 0.9rem;">Detailed breakdown of the <strong>Hub-and-Spoke layout</strong>, encounter pacing curves, and blocked-out map flows.</p>
-                    <button class="big-doc-btn" onclick="openPDF('assets/RPG/SCTTV_LDD.pdf')">VIEW LEVEL DOC (PDF)</button>
+                <div class="doc-box" style="display: flex; flex-direction: column;">
+                    <h3 class="sub-title">Level Design Document</h3>
+                    <p class="block-text" style="font-size: 0.9rem; flex-grow: 1;">Detailed breakdown of the <strong>Hub-and-Spoke layout</strong>, encounter pacing curves, and blocked-out map flows.</p>
+                    <button class="big-doc-btn" style="padding: 1rem; width: 100%; font-size: 0.9rem; text-align: center;" onclick="openPDF('assets/RPG/SCTTV_LDD.pdf')">VIEW LDD (PDF)</button>
+                </div>
+
+                <div class="doc-box" style="display: flex; flex-direction: column;">
+                    <h3 class="sub-title">Technical Data Sheets</h3>
+                    <p class="block-text" style="font-size: 0.9rem; flex-grow: 1;">Raw balancing tables covering the <strong>Purification Economy</strong>, weapon scaling, and Jewel drop rates.</p>
+                    <button class="big-doc-btn" style="padding: 1rem; width: 100%; font-size: 0.9rem; text-align: center;" onclick="openPDF('assets/RPG/SCTTV - Datas.pdf')">VIEW DATA (PDF)</button>
                 </div>
             </div>
         </section>
@@ -407,11 +471,18 @@
     </div>
 
     <footer class="footer-section">
-        <p class="copyright">© 2025 Karuna Ketan.</p>
+        <p class="copyright">© 2026 Karuna Ketan.</p>
     </footer>
 
-    <div id="viewer"><div class="controls"><button onclick="closePDF()">❌ Close</button></div><iframe id="pdfFrame"></iframe></div>
-    <div id="imageViewer" onclick="closeImage()"><span class="close-img-btn">&times;</span><img id="fullImage" onclick="event.stopPropagation()"></div>
+    <div id="viewer">
+        <div class="controls"><button onclick="closePDF()">❌ Close</button></div>
+        <iframe id="pdfFrame"></iframe>
+    </div>
+    
+    <div id="imageViewer" onclick="closeImage()">
+        <span class="close-img-btn">&times;</span>
+        <img id="fullImage" onclick="event.stopPropagation()">
+    </div>
 
     <script src="script.js"></script>
     <script>

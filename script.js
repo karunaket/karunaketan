@@ -1,11 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // 1. MOBILE MENU TOGGLE
+    // 1. MOBILE MENU TOGGLE (With click-outside fixes applied)
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
 
     if (menuToggle && navLinks) {
-        menuToggle.addEventListener('click', () => {
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevents instant closing
             menuToggle.classList.toggle('active');
             navLinks.classList.toggle('active');
             
@@ -13,6 +14,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (navLinks.classList.contains('active')) {
                 document.body.style.overflow = 'hidden';
             } else {
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Close menu when clicking anywhere outside of it
+        document.addEventListener('click', (e) => {
+            if (navLinks.classList.contains('active') && !navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
                 document.body.style.overflow = 'auto';
             }
         });

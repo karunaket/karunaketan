@@ -6,12 +6,79 @@
     <title>Project Singularity | Karuna Ketan</title>
     
     <link rel="stylesheet" href="style.css">
-    
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- MASONRY GRID (Improved Structure) --- */
-        /* Switched from Grid to Columns to prevent cropping */
+        /* --- 1. MINIMAL PROJECT HEADER --- */
+        .project-minimal-header {
+            padding: 1.5rem 2rem;
+            background: #fff;
+            border-bottom: 1px solid #e5e5e5;
+            position: sticky; 
+            top: 0; 
+            z-index: 2000;
+        }
+        
+        .project-header-content {
+            max-width: 1400px; 
+            margin: 0 auto;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+        }
+        
+        .project-logo {
+            font-family: var(--font-heading); 
+            font-size: 1.5rem; 
+            font-weight: 700;
+            color: #111; 
+            letter-spacing: 2px; 
+            text-decoration: none; 
+            line-height: 1;
+        }
+        
+        .project-back-link {
+            font-family: var(--font-heading); 
+            font-size: 0.95rem; 
+            font-weight: 600;
+            color: #555; 
+            letter-spacing: 1.5px; 
+            text-transform: uppercase; 
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .project-back-link:hover { 
+            color: var(--red-accent); 
+        }
+
+        /* --- 2. PREMIUM GDS CARDS --- */
+        .gds-framework-card {
+            background: #fff;
+            border-left: 5px solid var(--red-accent);
+            padding: 2.5rem;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.06);
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        
+        .gds-label {
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--red-accent);
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .gds-text { font-size: 1.05rem; color: var(--text-dim); line-height: 1.7; }
+        .gds-text strong { color: var(--text-color); font-weight: 700; }
+
+        /* --- 3. PAGE SPECIFIC STYLES --- */
+
+        /* Masonry Grid */
         .raw-gallery-grid {
             column-count: 3;
             column-gap: 1.5rem;
@@ -30,12 +97,10 @@
         }
         .raw-gallery-item img {
             width: 100%;
-            height: auto; /* Natural height */
+            height: auto; 
             display: block;
             transition: transform 0.3s ease;
         }
-        
-        /* Hover Effect */
         .raw-gallery-item:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(0,0,0,0.12);
@@ -44,7 +109,7 @@
             transform: scale(1.05);
         }
 
-        /* --- LIGHTBOX --- */
+        /* Lightbox */
         #imageViewer {
             display: none; position: fixed; z-index: 3000; left: 0; top: 0;
             width: 100%; height: 100%; background-color: rgba(0,0,0,0.95);
@@ -64,39 +129,32 @@
 
         /* --- RESPONSIVE MEDIA QUERIES --- */
         @media (max-width: 900px) {
-            /* Layout Stacking */
             .case-study-content { padding: 0 1.5rem 4rem 1.5rem; }
-            .split-section { grid-template-columns: 1fr; gap: 2rem; }
-            .split-image { order: -1; } /* Image on top */
-            
-            /* Grids */
+            .split-section { grid-template-columns: 1fr !important; gap: 2rem !important; }
+            .split-image { order: -1; } 
+            .split-text { padding-right: 0; }
             .raw-gallery-grid { column-count: 2; }
             .four-col-grid { grid-template-columns: 1fr 1fr; }
             .project-stats-grid { flex-wrap: wrap; gap: 1.5rem; }
             .stat-box { min-width: 40%; }
         }
 
-        @media (max-width: 768px) {
-            /* Header Fix: Ensure "Back to Home" is visible */
-            .header-content { display: flex; justify-content: space-between; align-items: center; }
-            .nav-links { display: flex; gap: 1rem; }
-            .nav-links li a { font-size: 0.9rem; font-weight: 600; }
-        }
-
         @media (max-width: 600px) {
-            .case-title { font-size: 2.2rem; line-height: 1.2; }
-            .raw-gallery-grid { column-count: 1; } /* 1 Column Masonry on Mobile */
-            .four-col-grid { grid-template-columns: 1fr; } /* Stack core design intent */
+            .case-title { font-size: 2.2rem !important; line-height: 1.2; }
+            .raw-gallery-grid { column-count: 1; } 
+            .four-col-grid { grid-template-columns: 1fr; }
             .project-header-compact { margin-top: 2rem; padding: 0 1rem; }
             .video-wrapper { margin-top: 1.5rem; }
+            .project-header-content { padding: 0 1rem; }
         }
     </style>
 </head>
 <body>
 
-    <header class="minimal-header">
-        <div class="header-content">
-            <a href="index.html" class="logo">KK<span class="dot">.</span></a>
+    <header class="project-minimal-header">
+        <div class="project-header-content">
+            <a href="index.html" class="project-logo">KK.</a>
+            <a href="index.html#projects" class="project-back-link" style="font-family: 'Oswald', sans-serif; font-size: 0.85rem; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none; transition: color 0.2s ease;" onmouseover="this.style.color='#111'" onmouseout="this.style.color='#555'">BACK TO HOME</a>
         </div>
     </header>
 
@@ -122,12 +180,12 @@
             <div class="stat-box"><span class="label">ROLE</span><span class="value">Game & Level Designer</span></div>
             <div class="stat-box"><span class="label">ENGINE</span><span class="value">Unreal Engine 5</span></div>
             <div class="stat-box"><span class="label">GENRE</span><span class="value">Action Shooter</span></div>
-            <div class="stat-box"><span class="label">STATUS</span><span class="value">Ongoing Vertical Slice</span></div>
+            <div class="stat-box"><span class="label">STATUS</span><span class="value">Vertical Slice</span></div>
         </div>
         
         <p class="team-credit" style="margin-top: 1.5rem; line-height: 1.6;">
             Game & Level Design: <strong>Karuna Ketan</strong> <br> 
-            Programming: <strong>Sujal Uprety</strong> | 3D Art: <strong>Kritika Subedi</strong>
+            Programming: <strong>Sujal Uprety</strong>
         </p>
     </section>
 
@@ -144,7 +202,7 @@
                 </p>
             </div>
             <div class="split-image">
-                <img src="assets/Action-adv/GIF_Vids/Game_Overview.gif" alt="Project Singularity Combat Loop" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+                <img src="assets/Action-adv/GIF_Vids/Game_Overview.gif" alt="Project Singularity Combat Loop" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); cursor: pointer;" onclick="openImage(this.src)">
             </div>
         </section>
 
@@ -172,7 +230,7 @@
         
         <section class="content-block split-section">
             <div class="split-image">
-                <img src="assets/Action-adv/PS.png" alt="Project Singularity Key Art" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                <img src="assets/Action-adv/PS.png" alt="Project Singularity Key Art" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); cursor: pointer;" onclick="openImage(this.src)">
             </div>
             <div class="split-text">
                 <h2 class="block-title">The Mission Context</h2>
@@ -180,9 +238,9 @@
                     While the focus is mechanical, the narrative drives the gameplay objectives. The dynamic between the <strong>Soldier (Player)</strong> and the <strong>Scientist (NPC)</strong> dictates the pacing.
                 </p>
                 <ul class="clean-list">
-                    <li><strong>The Soldier:</strong> Provides combat capability and traversal tools (Teleportation).</li>
-                    <li><strong>The Scientist:</strong> Cannot fight, but is required to unlock doors and decipher the alien tech needed to escape.</li>
-                    <li><strong>The Threat:</strong> Space Pirates act as aggressive pressure, forcing the player to balance personal survival with protecting the objective.</li>
+                    <li>• <strong>The Soldier:</strong> Provides combat capability and traversal tools (Teleportation).</li>
+                    <li>• <strong>The Scientist:</strong> Cannot fight, but is required to unlock doors and decipher the alien tech needed to escape.</li>
+                    <li>• <strong>The Threat:</strong> Space Pirates act as aggressive pressure, forcing the player to balance personal survival with protecting the objective.</li>
                 </ul>
             </div>
         </section>
@@ -202,49 +260,49 @@
                 </ul>
             </div>
             <div class="split-image">
-                <img src="assets/Action-adv/Images/GameplayLoop.png" alt="Core Gameplay Loop Flowchart" style="width: 100%; border-radius: 8px;">
+                <img src="assets/Action-adv/Images/GameplayLoop.png" alt="Core Gameplay Loop Flowchart" style="width: 100%; border-radius: 8px; cursor: pointer;" onclick="openImage(this.src)">
                 <p class="caption">Visualizing the flow between Combat, Exploration, and Protection.</p>
             </div>
         </section>
 
-        <section class="content-block">
+        <section class="content-block" style="margin-top: 5rem;">
             <h2 class="block-title">Implemented Features</h2>
 
-            <div class="system-box">
-                <h3>1. Teleportation Ability</h3>
-                <div class="split-section" style="gap: 2rem; margin-top: 1rem;">
+            <div class="gds-framework-card" style="margin-bottom: 3rem;">
+                <span class="gds-label">1. Teleportation Ability</span>
+                <div class="split-section" style="gap: 2rem; margin-top: 1rem; align-items: center;">
                     <div class="split-image">
-                        <img src="assets/Action-adv/GIF_Vids/Teleport_Mechanic.gif" alt="Teleportation Ability" style="width: 100%; border-radius: 8px;">
+                        <img src="assets/Action-adv/GIF_Vids/Teleport_Mechanic.gif" alt="Teleportation Ability" style="border-radius: 8px;">
                     </div>
                     <div class="split-text">
-                        <p class="block-text">
+                        <p class="gds-text">
                             A short-range traversal tool created to deepen combat movement and puzzle navigation.
                         </p>
-                        <ul class="clean-list">
-                            <li><strong>Combat Utility:</strong> Designed for repositioning during firefights.</li>
-                            <li><strong>Balance:</strong> Cooldowns maintain tension; it is not free mobility.</li>
-                            <li><strong>Integration:</strong> Integrates into environmental design (gaps, hazards, verticality).</li>
+                        <ul class="clean-list" style="margin-top: 1rem;">
+                            <li><strong>Combat Utility:</strong> Designed specifically for aggressive flanking and repositioning during firefights.</li>
+                            <li><strong>Balance Constraints:</strong> Strict cooldowns maintain tension; it is a tactical choice, not free mobility.</li>
+                            <li><strong>Level Integration:</strong> Heavily incorporated into the environmental design (gaps, hazards, verticality) to serve dual purposes.</li>
                         </ul>
                     </div>
                 </div>
             </div>
 
-            <div class="system-box">
-                <h3>2. Level Design & Blockouts (≈50% Complete)</h3>
-                <div class="split-section" style="gap: 2rem; margin-top: 1rem;">
+            <div class="gds-framework-card" style="border-left-color: #2ecc71;">
+                <span class="gds-label" style="color: #2ecc71;">2. Level Design & Blockouts (≈50% Complete)</span>
+                <div class="split-section" style="gap: 2rem; margin-top: 1rem; align-items: center;">
                     <div class="split-text">
-                        <p class="block-text">
-                            The blockout phase focuses on designing a clear, navigable combat space.
+                        <p class="gds-text">
+                            The blockout phase focuses purely on designing a clear, navigable combat space before introducing final 3D art assets.
                         </p>
-                        <ul class="clean-list">
-                            <li><strong>Vertical Arenas:</strong> Features flanking routes and vantage points.</li>
-                            <li><strong>Readable Sightlines:</strong> Designed to help players track threats instantly.</li>
+                        <ul class="clean-list" style="margin-top: 1rem;">
+                            <li><strong>Vertical Arenas:</strong> Features extensive flanking routes and vantage points for the teleport mechanic.</li>
+                            <li><strong>Readable Sightlines:</strong> Designed to help players instantly track threats and plan cover-to-cover movement.</li>
                             <li><strong>Pacing Beats:</strong> Alternates between tight corridors (tension) and broad arenas (release).</li>
-                            <li><strong>Environmental Storytelling:</strong> Uses layout hints and silhouette shapes.</li>
+                            <li><strong>Environmental Storytelling:</strong> Uses core layout hints and silhouette shapes to naturally guide the player.</li>
                         </ul>
                     </div>
                     <div class="split-image">
-                        <img src="assets/Action-adv/Images/5.png" alt="Level Design Blockout" style="width: 100%; border-radius: 8px;">
+                        <img src="assets/Action-adv/Images/5.png" alt="Level Design Blockout" style="border-radius: 8px; cursor: pointer;" onclick="openImage(this.src)">
                     </div>
                 </div>
             </div>
@@ -259,7 +317,7 @@
                         I define the mechanics and block out the level geometry (Grayboxing). I set the requirements for AI behavior and weapon stats.
                     </p>
                 </div>
-                <div class="pm-card" style="background: #f9f9f9; border-top: 4px solid var(--accent-color);">
+                <div class="pm-card" style="background: #f9f9f9; border-top: 4px solid var(--red-accent);">
                     <h4>2. Programming Implementation</h4>
                     <p style="font-size: 0.95rem;">
                         The Programmer implements the modular systems for recoil and AI state machines based on my GDD specs, which I then tune in-engine.
@@ -295,7 +353,7 @@
 
         <section class="content-block">
             <h2 class="block-title">Why This Project Matters</h2>
-            <div class="process-card" style="border-left: 5px solid var(--accent-color); padding: 2rem;">
+            <div class="process-card" style="border-left: 5px solid #111; padding: 2rem;">
                 <p class="lead-text" style="font-size: 1.1rem; margin-bottom: 1rem;">
                     Project Singularity shows my approach to:
                 </p>
@@ -320,16 +378,16 @@
             </div>
         </section>
 
-        <section id="docs" class="content-block pdf-section">
+        <section id="docs" class="content-block pdf-section" style="margin-top: 5rem;">
             <h2 class="block-title">Documentation</h2>
             <p class="block-text">Documentation outlining the game's mechanics, AI behaviors, Story, design Pillars, game loop and many more.</p>
             
-            <div class="doc-actions">
+            <div class="doc-actions" style="margin-top: 1.5rem;">
                 <button class="big-doc-btn" onclick="openPDF('assets/Action-adv/PS_GDD.pdf')">VIEW FULL GDD (PDF)</button>
             </div>
         </section>
 
-        <section class="content-block">
+        <section class="content-block" style="margin-top: 5rem;">
             <h2 class="block-title">Process: From Paper to Engine</h2>
             <p class="block-text">Before entering the engine, the level flow, enemy placements, and save systems were planned on paper. These raw sketches show the early thinking process.</p>
             
@@ -355,7 +413,7 @@
     </div>
 
     <footer class="footer-section">
-        <p class="copyright">© 2025 Karuna Ketan.</p>
+        <p class="copyright">© 2026 Karuna Ketan.</p>
     </footer>
 
     <div id="imageViewer" onclick="closeImage()">

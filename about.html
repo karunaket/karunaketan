@@ -9,36 +9,14 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* --- HEADER & NAVIGATION --- */
-        .minimal-header {
-            padding: 1.5rem 2rem;
-            background: rgba(255, 255, 255, 0.98);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid #e5e5e5;
+        /* --- BUTTONS --- */
+        .header-resume-btn {
+            background-color: #111; color: #fff !important; padding: 0.5rem 1.2rem;
+            border-radius: 6px; font-weight: 600; transition: all 0.3s ease; border: 2px solid #111;
         }
+        .header-resume-btn:hover { background-color: transparent; color: #111 !important; }
 
-        .header-content {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: 'Oswald', sans-serif;
-            font-weight: 700;
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #0a0a0a;
-            text-decoration: none;
-        }
-
-        /* --- SIDEBAR MENU (MOBILE) --- */
-        /* Hamburger Button - Hidden on Desktop */
+        /* --- MOBILE NAVIGATION STYLES --- */
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -50,7 +28,7 @@
             border: none;
             cursor: pointer;
             z-index: 2000;
-            /* Stays on top */
+            position: relative; /* CRITICAL FIX: required for z-index to work! */
         }
 
         .menu-toggle .bar {
@@ -61,122 +39,47 @@
             border-radius: 2px;
         }
 
-        /* Sidebar Container */
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-            list-style: none;
-        }
-
-        .nav-links a {
-            font-family: 'Oswald', sans-serif;
-            font-size: 0.85rem;
-            color: #444;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 500;
-            text-decoration: none;
-        }
-
-        .nav-links a:hover {
-            color: #000;
-        }
-
-        /* --- MOBILE MEDIA QUERY --- */
         @media (max-width: 768px) {
-
-            /* Show Hamburger */
             .menu-toggle {
                 display: flex !important;
             }
 
-            /* Sidebar Logic */
             .nav-links {
                 position: fixed;
                 top: 0;
-                right: 0;
+                right: 0; /* CRITICAL FIX: Set to 0 instead of -100% so transform works */
                 width: 100%;
                 height: 100vh;
                 background-color: #fff;
+                display: flex; /* CRITICAL FIX: Must be flex by default, not just when active */
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
                 gap: 2.5rem;
                 z-index: 1500;
-                /* Stays under the hamburger button */
                 box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-
-                /* Start hidden off-screen */
+                
+                /* Start hidden off-screen to the right */
                 transform: translateX(100%);
                 transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             }
 
-            /* SLIDE IN CLASS */
             .nav-links.active {
-                transform: translateX(0);
+                transform: translateX(0); /* Slide in to view */
             }
 
-            /* Bigger Text for Mobile Menu */
             .nav-links a {
                 font-size: 1.5rem;
                 font-weight: 700;
                 color: #000;
             }
 
-            /* X Animation for Hamburger */
-            .menu-toggle.active .bar:nth-child(1) {
-                transform: translateY(9px) rotate(45deg);
-            }
-
-            .menu-toggle.active .bar:nth-child(2) {
-                opacity: 0;
-            }
-
-            .menu-toggle.active .bar:nth-child(3) {
-                transform: translateY(-9px) rotate(-45deg);
-            }
+            .menu-toggle.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+            .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
+            .menu-toggle.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
         }
 
-        /* --- BUTTONS --- */
-        .header-resume-btn {
-            background-color: #111 !important;
-            color: #fff !important;
-            padding: 0.6rem 1.5rem;
-            border-radius: 4px;
-            font-weight: 600;
-            border: 2px solid #111;
-            transition: all 0.3s ease;
-        }
-
-        .header-resume-btn:hover {
-            background-color: transparent !important;
-            color: #111 !important;
-        }
-
-        .hero-resume-btn {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background-color: #111;
-            color: #fff;
-            font-size: 1rem;
-            font-weight: 700;
-            text-decoration: none;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            font-family: 'Oswald', sans-serif;
-            letter-spacing: 0.05em;
-        }
-
-        .hero-resume-btn:hover {
-            background-color: transparent;
-            color: #111;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            border: 2px solid #111;
-            padding: calc(1rem - 2px) calc(2.5rem - 2px);
-        }
-
-        /* --- CONTENT LAYOUT --- */
+        /* --- CONTENT LAYOUT (About Page Specific) --- */
         .about-container {
             max-width: 900px;
             margin: 0 auto;
@@ -204,93 +107,145 @@
             color: #444;
             margin-bottom: 2rem;
         }
+        
+        .bio-text strong {
+            color: #111;
+            font-weight: 700;
+        }
 
         .section-header {
             font-family: 'Oswald', sans-serif;
             font-size: 1.5rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             text-transform: uppercase;
             border-left: 4px solid #111;
             padding-left: 1rem;
-            margin-top: 3rem;
+            margin-top: 4rem;
+            color: #111;
         }
 
         .grid-list {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 1rem;
+            gap: 1.2rem;
             margin-bottom: 2rem;
         }
 
+        /* Premium Grid Items */
         .grid-item {
-            background: #f9f9f9;
-            padding: 1rem;
-            border-radius: 4px;
-            font-weight: 500;
+            background: #fff;
+            padding: 1.2rem 1rem;
+            border-radius: 6px;
+            font-weight: 600;
             border: 1px solid #eee;
+            border-bottom: 3px solid #111;
             text-align: center;
-            transition: transform 0.2s;
+            transition: all 0.3s ease;
             font-size: 0.95rem;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Montserrat', sans-serif;
+            color: #111;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            cursor: default;
         }
 
         .grid-item:hover {
-            transform: translateY(-2px);
-            border-color: #ccc;
+            transform: translateY(-4px);
+            border-bottom-color: #ff3b30;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
         }
 
+        /* Premium Experience Timeline */
         .experience-item {
-            margin-bottom: 2.5rem;
-            padding-left: 1.5rem;
-            border-left: 2px solid #eee;
+            margin-bottom: 3.5rem;
+            padding-left: 2rem;
+            border-left: 3px solid #eee;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .experience-item:hover {
+            border-left-color: #111;
+        }
+
+        /* Timeline Dots */
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 5px;
+            width: 13px;
+            height: 13px;
+            background: #ccc;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .experience-item:hover::before {
+            background: #ff3b30;
+            transform: scale(1.2);
+            box-shadow: 0 0 10px rgba(255, 59, 48, 0.4);
         }
 
         .role-title {
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: #111;
             font-family: 'Oswald', sans-serif;
             letter-spacing: 0.05em;
+            margin-bottom: 0.3rem;
+            text-transform: uppercase;
         }
 
         .company-name {
             font-weight: 600;
-            color: #666;
-            margin-bottom: 0.2rem;
+            color: #555;
+            margin-bottom: 0.4rem;
             display: block;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-family: 'Inter', sans-serif;
         }
 
         .exp-date {
             font-size: 0.85rem;
             color: #888;
-            margin-bottom: 0.8rem;
-            display: block;
+            margin-bottom: 1rem;
+            display: inline-block;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            font-weight: 500;
+            font-weight: 600;
             font-family: 'Inter', sans-serif;
+            background: #f4f4f4;
+            padding: 4px 10px;
+            border-radius: 4px;
         }
 
         .exp-desc {
             font-size: 0.95rem;
             color: #444;
-            line-height: 1.6;
+            line-height: 1.7;
             font-family: 'Inter', sans-serif;
+        }
+
+        .exp-desc strong {
+            color: #111;
+            font-weight: 600;
         }
 
         @media (max-width: 768px) {
             .bio-title {
                 font-size: 2rem;
             }
-
             .about-container {
                 padding: 2rem 1.5rem;
             }
-
             .grid-list {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid-list {
+                grid-template-columns: 1fr; 
             }
         }
     </style>
@@ -302,14 +257,14 @@
         <div class="header-content">
             <a href="index.html" class="logo">KARUNA KETAN</a>
 
-            <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Navigation">
+            <button class="menu-toggle" aria-label="Toggle Navigation">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
             </button>
 
             <nav>
-                <ul class="nav-links" id="nav-links">
+                <ul class="nav-links">
                     <li><a href="index.html#projects">Projects</a></li>
                     <li><a href="documents.html">Docs</a></li>
                     <li><a href="process.html">Process</a></li>
@@ -328,25 +283,20 @@
             <p class="bio-text">
                 Hi, I'm <strong>Karuna Ketan</strong>, a Game Designer based in Tamil Nadu, India.
                 <br><br>
-                I specialize in <strong>Player Psychology</strong>, <strong>System Design</strong>, and <strong>Level
-                    Design</strong>, with a focus on crafting strong gameplay loops and immersive player experiences. I
-                have experience translating creative pillars into actionable Game Design Documents (GDDs) and validating
-                mechanics through iterative playtesting. My goal is to design spatial layouts and progression systems
-                that drive player engagement.
+                I specialize in <strong>Player Psychology</strong>, <strong>System Design</strong>, <strong>Level Design</strong>, and <strong>Economy Balancing</strong>. Leveraging a strong technical background, I translate creative pillars into actionable <strong>Game Design Documents (GDDs)</strong> and <strong>rapid prototypes</strong>. I am driven by crafting balanced <strong>gameplay loops</strong> and <strong>spatial layouts</strong> that create intentional, deeply engaging player experiences.
             </p>
         </section>
 
         <section>
             <h2 class="section-header">Core Skills</h2>
             <div class="grid-list">
-                <div class="grid-item">System Design & Balancing</div>
-                <div class="grid-item">Rapid Prototyping</div>
-                <div class="grid-item">Economy Design</div>
+                <div class="grid-item">System Design</div>
+                <div class="grid-item">Game Economy & Balancing</div>
+                <div class="grid-item">Level Design</div>
                 <div class="grid-item">Player Psychology</div>
-                <div class="grid-item">Level Design (Blockouts)</div>
                 <div class="grid-item">Mechanic Deconstruction</div>
+                <div class="grid-item">Rapid Prototyping</div>
                 <div class="grid-item">Documentation (GDD, LDD)</div>
-                <div class="grid-item">Combat Design & Game Feel</div>
             </div>
         </section>
 
@@ -354,12 +304,11 @@
             <h2 class="section-header">Prototyping & Tools</h2>
             <div class="grid-list">
                 <div class="grid-item">Unreal Engine 5 (Blueprints)</div>
-                <div class="grid-item">C++ (Beginner)</div>
-                <div class="grid-item">Unity (Basics)</div>
+                <div class="grid-item">Unity</div>
                 <div class="grid-item">Microsoft Excel</div>
-                <div class="grid-item">Git & Perforce (Version Control)</div>
-                <div class="grid-item">Jira & Trello</div>
-                <div class="grid-item">Miro, Notion, Figma</div>
+                <div class="grid-item">Git, Perforce & Diversion</div>
+                <div class="grid-item">Miro, Notion & Figma</div>
+                <div class="grid-item">Google Workspace</div>
             </div>
         </section>
 
@@ -371,19 +320,17 @@
                 <span class="company-name">FatCatPlay Game Studio</span>
                 <span class="exp-date">Dec 2025 - Present</span>
                 <p class="exp-desc">
-                    Collaborated with the development team to design core loops and enemy archetypes for <strong><i>MegaDrift</i> (an IGDC 2024 & 2025 showcase title)</strong> and <strong> an unannounced co-op project.</strong> Authored scalable documentation for progression systems and combat onboarding, ensuring design scope aligned with technical production constraints.
+                    Overhauled and maintained technical Game Design Documents (GDDs) for a 4-player co-op title, structuring the systemic vision and refining the final core loops.<br><br>
+                    Designed and documented physics-based mechanics, risk/reward progression, and cooperative dependencies, successfully aligning the design scope with production constraints.
                 </p>
             </div>
 
             <div class="experience-item">
                 <div class="role-title">President</div>
                 <span class="company-name">Game Development Club (College)</span>
-                <span class="exp-date">May 2024 - Present</span>
+                <span class="exp-date">Jan 2024 - Sep 2025</span>
                 <p class="exp-desc">
-                    Grew community to 200+ active members and shipped 5 student prototypes by mentoring teams in Unreal
-                    Engine 5 workflows. Directed the club's annual flagship event, managing logistics to facilitate
-                    large-scale tournaments and student game showcases. Curated and delivered 10+ technical workshops
-                    covering Unreal Engine 5 and Level Design.
+                    Mentored a 200+ member community, delivering 10+ workshops on rapid prototyping, System Design, and Engine Tools, guiding student teams to ship 5 playable prototypes.
                 </p>
             </div>
 
@@ -392,49 +339,52 @@
                 <span class="company-name">Akiyam Solutions</span>
                 <span class="exp-date">Jan 2024 - Jul 2024</span>
                 <p class="exp-desc">
-                    Collaborated with the core team to design readable level blockouts, optimizing player navigation and
-                    tutorial flow. Reduced level iteration loops by 20% by authoring precise One-Page Feature Briefs and
-                    Flowcharts, preventing design misinterpretations by the art team.
+                    <strong>Pipeline Optimization:</strong> Reduced design iteration loops by 20% using technical flowcharts and One-Page Feature Briefs to align cross-functional teams and prevent misinterpretations.<br><br>
+                    <strong>Level Design:</strong> Designed level blockouts and spatial metrics, significantly improving player navigation and tutorial pacing based on playtest data.
                 </p>
             </div>
         </section>
 
         <section>
             <h2 class="section-header">Education</h2>
-            <div class="experience-item" style="border: none;">
+            <div class="experience-item" style="border: none; padding-bottom: 0; margin-bottom: 0;">
                 <div class="role-title">B.E. Computer Science and Engineering</div>
                 <span class="company-name">KPR Institute of Engineering & Technology</span>
                 <span class="exp-date">2022 - 2026</span>
+                <p class="exp-desc" style="color: #888;">Tamil Nadu, India</p>
             </div>
         </section>
 
     </main>
 
-    <footer class="footer-section" style="text-align: center; padding: 4rem 0; border-top: 1px solid #e5e5e5;">
-        <div style="margin-bottom: 1rem;">
-            <a href="mailto:gamesbykarunaket@gmail.com"
-                style="margin: 0 1rem; font-weight: 600; color: #333; text-decoration: none;">Email</a>
-            <a href="https://www.linkedin.com/in/karunaket/" target="_blank"
-                style="margin: 0 1rem; font-weight: 600; color: #333; text-decoration: none;">LinkedIn</a>
-            <a href="https://karuna-ketan.itch.io/" target="_blank"
-                style="margin: 0 1rem; font-weight: 600; color: #333; text-decoration: none;">Itch.io</a>
+    <footer id="contact" class="footer-section">
+        <div class="footer-links">
+            <a href="mailto:gamesbykarunaket@gmail.com" aria-label="Email Karuna Ketan">Email</a>
+            <a href="https://wa.me/917764870529" target="_blank" rel="noopener noreferrer" aria-label="Chat with Karuna Ketan on WhatsApp">+91 7764870529</a>
+            <a href="https://www.linkedin.com/in/karunaket/" target="_blank" rel="noopener noreferrer" aria-label="Visit Karuna Ketan's LinkedIn">LinkedIn</a>
+            <a href="https://karuna-ketan.itch.io/" target="_blank" rel="noopener noreferrer" aria-label="Visit Karuna Ketan's itch.io Profile">itch.io</a>
         </div>
-        <p style="color: #888; font-size: 0.9rem;">© 2025 Karuna Ketan.</p>
+        <p style="margin-top: 1rem; color: #888; font-size: 0.8rem;">© 2026 Karuna Ketan.</p>
     </footer>
+
+    <script src="script.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const menuBtn = document.getElementById('mobile-menu-btn');
-            const nav = document.getElementById('nav-links');
+            const oldMenuBtn = document.querySelector('.menu-toggle');
+            const nav = document.querySelector('.nav-links');
 
-            if (menuBtn && nav) {
+            if (oldMenuBtn && nav) {
+                // Clone the button to wipe out any broken event listeners from script.js
+                const menuBtn = oldMenuBtn.cloneNode(true);
+                oldMenuBtn.parentNode.replaceChild(menuBtn, oldMenuBtn);
+
                 menuBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     nav.classList.toggle('active');
                     menuBtn.classList.toggle('active');
                 });
 
-                // Close menu when clicking anywhere else
                 document.addEventListener('click', (e) => {
                     if (!nav.contains(e.target) && !menuBtn.contains(e.target)) {
                         nav.classList.remove('active');
@@ -445,5 +395,4 @@
         });
     </script>
 </body>
-
 </html>

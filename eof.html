@@ -6,11 +6,79 @@
     <title>Eclipse of Fear | Karuna Ketan</title>
     
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- PAGE SPECIFIC STYLES (Restored & Enhanced) --- */
+        /* --- 1. MINIMAL PROJECT HEADER --- */
+        .project-minimal-header {
+            padding: 1.5rem 2rem;
+            background: #fff;
+            border-bottom: 1px solid #e5e5e5;
+            position: sticky; 
+            top: 0; 
+            z-index: 2000;
+        }
+        
+        .project-header-content {
+            max-width: 1400px; 
+            margin: 0 auto;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+        }
+        
+        .project-logo {
+            font-family: var(--font-heading); 
+            font-size: 1.5rem; 
+            font-weight: 700;
+            color: #111; 
+            letter-spacing: 2px; 
+            text-decoration: none; 
+            line-height: 1;
+        }
+        
+        .project-back-link {
+            font-family: var(--font-heading); 
+            font-size: 0.95rem; 
+            font-weight: 600;
+            color: #555; 
+            letter-spacing: 1.5px; 
+            text-transform: uppercase; 
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .project-back-link:hover { 
+            color: var(--red-accent); 
+        }
 
-        /* 1. Masonry Gallery (Pinterest Style) - Replaces the basic grid */
+        /* --- 2. PREMIUM GDS CARDS --- */
+        .gds-framework-card {
+            background: #fff;
+            border-left: 5px solid var(--red-accent);
+            padding: 2.5rem;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.06);
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        
+        .gds-label {
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--red-accent);
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .gds-text { font-size: 1.05rem; color: var(--text-dim); line-height: 1.7; }
+        .gds-text strong { color: var(--text-color); font-weight: 700; }
+
+        /* --- 3. PAGE SPECIFIC STYLES (Restored & Enhanced) --- */
+
+        /* Masonry Gallery (Pinterest Style) */
         .raw-gallery-grid {
             column-count: 3;
             column-gap: 1.5rem;
@@ -31,7 +99,7 @@
         
         .raw-gallery-item img {
             width: 100%;
-            height: auto; /* Maintains natural aspect ratio */
+            height: auto; 
             display: block;
             transition: transform 0.3s ease;
         }
@@ -45,7 +113,7 @@
             transform: scale(1.05);
         }
 
-        /* 2. Narrative Timeline (Connected Steps) */
+        /* Narrative Timeline (Upgraded with Hover States) */
         .pacing-timeline {
             display: flex;
             gap: 2rem;
@@ -58,9 +126,17 @@
         .pacing-step {
             flex: 1;
             position: relative;
-            padding: 1.5rem;
+            padding: 2rem 1.5rem;
             background: #f9f9f9;
-            border-left: 4px solid #111; /* Accent Line */
+            border-left: 4px solid #111; 
+            border-radius: 0 8px 8px 0;
+            transition: all 0.3s ease;
+        }
+
+        .pacing-step:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border-left-color: var(--red-accent);
         }
 
         /* Auto-Numbering (01, 02, 03) */
@@ -68,14 +144,19 @@
             counter-increment: timeline-counter;
             content: "0" counter(timeline-counter);
             font-family: 'Oswald', sans-serif;
-            font-size: 3rem;
+            font-size: 4rem;
             font-weight: 700;
             color: #e0e0e0;
             position: absolute;
-            top: 0;
+            top: 0.5rem;
             right: 1rem;
             line-height: 1;
             z-index: 0;
+            transition: color 0.3s ease;
+        }
+
+        .pacing-step:hover::before {
+            color: rgba(255, 59, 48, 0.1);
         }
 
         .pacing-step strong {
@@ -86,6 +167,8 @@
             color: #111;
             position: relative;
             z-index: 1;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .pacing-step p {
@@ -96,7 +179,7 @@
             z-index: 1;
         }
 
-        /* 3. Lightbox (Full Screen Image Viewer) */
+        /* Lightbox (Full Screen Image Viewer) */
         #imageViewer {
             display: none;
             position: fixed;
@@ -142,77 +225,34 @@
             to {transform: scale(1); opacity: 1;}
         }
 
-        /* 4. MOBILE RESPONSIVENESS (The Critical Fixes) */
+        /* MOBILE RESPONSIVENESS */
         @media (max-width: 900px) {
-            /* Add breathing room on sides */
-            .case-study-content {
-                padding: 0 1.5rem 4rem 1.5rem;
-            }
-
-            /* Stack Content Vertically */
-            .split-section {
-                grid-template-columns: 1fr !important;
-                gap: 2rem !important;
-            }
-
-            /* Fix Image/Text Order */
-            .split-image {
-                order: -1; /* Image first */
-            }
-            .split-text {
-                padding-right: 0;
-            }
-
-            /* Stack Timeline */
-            .pacing-timeline {
-                flex-direction: column;
-            }
-
-            /* Masonry Gallery to 2 Columns */
-            .raw-gallery-grid {
-                column-count: 2;
-            }
-
-            /* Fix Stats Grid */
-            .project-stats-grid {
-                flex-wrap: wrap;
-                gap: 1.5rem;
-            }
-            .stat-box {
-                min-width: 40%;
-            }
+            .case-study-content { padding: 0 1.5rem 4rem 1.5rem; }
+            .split-section { grid-template-columns: 1fr !important; gap: 2rem !important; }
+            .split-image { order: -1; } 
+            .split-text { padding-right: 0; }
+            .pacing-timeline { flex-direction: column; }
+            .raw-gallery-grid { column-count: 2; }
+            .project-stats-grid { flex-wrap: wrap; gap: 1.5rem; }
+            .stat-box { min-width: 40%; }
         }
 
         @media (max-width: 600px) {
-            /* Header & Fonts */
             .case-title { font-size: 2.2rem !important; line-height: 1.2; }
             .project-header-compact { padding: 0 1rem; margin-top: 2rem; }
-            
-            /* Masonry to 1 Column */
             .raw-gallery-grid { column-count: 1; }
-            
-            /* Buttons Full Width */
-            .header-actions .resume-btn {
-                width: 100%;
-                text-align: center;
-                display: block;
-            }
-            
-            /* Video Container Margin */
+            .header-actions .resume-btn { width: 100%; text-align: center; display: block; }
             .video-wrapper { margin-top: 1.5rem; }
+            .project-header-content { padding: 0 1rem; }
         }
     </style>
 </head>
 <body>
 
-    <header class="minimal-header">
-        <div class="header-content">
-            <a href="index.html" class="logo">KK<span class="dot">.</span></a>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="index.html#projects">Back to Home</a></li>
-                </ul>
-            </nav>
+    <header class="project-minimal-header">
+        <div class="project-header-content">
+            <a href="index.html" class="project-logo">KK.</a>
+            <a href="index.html#projects" class="project-back-link">BACK TO HOME</a>
         </div>
     </header>
 
@@ -418,29 +458,29 @@
                 </ul>
             </div>
             <div class="split-image">
-                <img src="assets/Horror/Images/GameplayLoop.png" alt="Core Gameplay Loop Diagram">
+                <img src="assets/Horror/Images/GameplayLoop.png" alt="Core Gameplay Loop Diagram" style="cursor: pointer;" onclick="openImage(this.src)">
             </div>
         </section>
 
         <section class="content-block">
-    <h2 class="block-title">Iteration: From Sketch to Atmosphere</h2>
-    <p class="block-text">
-        Following the design pillar of "Grounded Horror," I iterated from 2D paper layouts directly to high-fidelity lighting passes. The goal was to ensure the layout generated anxiety before placing a single enemy.
-    </p>
-    
-    <div class="comparison-grid">
-        <div class="compare-card">
-            <span class="compare-label label-before">Phase 1: Concept</span>
-            <img src="assets/Horror/RAW/2.png" alt="Early Level Layout Sketch" onclick="openImage(this.src)">
-        </div>
+            <h2 class="block-title">Iteration: From Sketch to Atmosphere</h2>
+            <p class="block-text">
+                Following the design pillar of "Grounded Horror," I iterated from 2D paper layouts directly to high-fidelity lighting passes. The goal was to ensure the layout generated anxiety before placing a single enemy.
+            </p>
+            
+            <div class="comparison-grid">
+                <div class="compare-card">
+                    <span class="compare-label label-before">Phase 1: Concept</span>
+                    <img src="assets/Horror/RAW/2.png" alt="Early Level Layout Sketch" onclick="openImage(this.src)">
+                </div>
 
-        <div class="compare-card">
-            <span class="compare-label label-after">Phase 2: Execution</span>
-            <img src="assets/Horror/Images/5.jpg" alt="Final Atmospheric Lighting" onclick="openImage(this.src)">
-        </div>
-    </div>
-    <p class="caption">Comparing the initial layout logic vs. the final atmospheric implementation in UE5.</p>
-</section>
+                <div class="compare-card">
+                    <span class="compare-label label-after">Phase 2: Execution</span>
+                    <img src="assets/Horror/Images/5.jpg" alt="Final Atmospheric Lighting" onclick="openImage(this.src)">
+                </div>
+            </div>
+            <p class="caption">Comparing the initial layout logic vs. the final atmospheric implementation in UE5.</p>
+        </section>
 
         <section class="content-block split-section">
             <div class="split-text">
@@ -453,14 +493,14 @@
                 </p>
             </div>
             <div class="split-image">
-                <img src="assets/Horror/Images/LD.png" alt="Level Top-Down Map">
+                <img src="assets/Horror/Images/LD.png" alt="Level Top-Down Map" style="cursor: pointer;" onclick="openImage(this.src)">
                 <p class="caption">Top-down view of the campus showing interconnected buildings and gated paths.</p>
             </div>
         </section>
 
         <section class="content-block split-section">
             <div class="split-image">
-                <img src="assets/Horror/Images/LD_1.jpeg" alt="Lighting as Guidance Diagram">
+                <img src="assets/Horror/Images/LD_1.jpeg" alt="Lighting as Guidance Diagram" style="cursor: pointer;" onclick="openImage(this.src)">
                 <p class="caption">Visual language of light guiding the player.</p>
             </div>
             <div class="split-text">
@@ -476,52 +516,51 @@
             </div>
         </section>
 
-        <section class="content-block">
+        <section class="content-block" style="margin-top: 5rem;">
             <h2 class="block-title">System Breakdowns</h2>
             
-            <div class="system-box">
-                <h3>System 1: Enemy Wave Escalation</h3>
-                <p class="block-text">I designed a 4-wave progression system where difficulty scales via Speed and Behavior rather than just health pools.</p>
-                <ul class="clean-list">
+            <div class="gds-framework-card" style="margin-bottom: 3rem;">
+                <span class="gds-label">System 1: Enemy Wave Escalation</span>
+                <p class="gds-text" style="margin-bottom: 1rem;">I designed a 4-wave progression system where difficulty scales via <strong>Speed and Behavior</strong> rather than just arbitrary health pools. This ensures the system escalates emotion rather than raw stats.</p>
+                <ul class="clean-list" style="margin-top: 1rem;">
                     <li><strong>Wave 1 (Tutorial):</strong> Slow movement, Low damage. Purpose is to teach aiming and spacing.</li>
                     <li><strong>Wave 2 (Pressure):</strong> Faster movement. Purpose is to test reaction time under mild stress.</li>
                     <li><strong>Wave 3 (Tension):</strong> Aggressive behavior. Purpose is to force snap decisions between Fight or Flight.</li>
                     <li><strong>Wave 4 (Climax):</strong> Peak speed, minimal error margin. Purpose is to force resource dumping or perfect stealth.</li>
                 </ul>
-                    <h4>The system escalates emotion through behavior changes rather than raw stats.</h4>
             </div>
 
-            <div class="system-box">
-                <h3>System 2: Diegetic Health & HUD</h3>
-                <div class="split-section" style="gap: 2rem; margin-top: 1rem;">
+            <div class="gds-framework-card" style="margin-bottom: 3rem; border-left-color: #f1c40f;">
+                <span class="gds-label" style="color: #f1c40f;">System 2: Diegetic Health & HUD</span>
+                <div class="split-section" style="gap: 2rem; margin-top: 1rem; align-items: start;">
+                    <div class="split-text">
+                        <p class="gds-text">To maintain immersion, I replaced standard "hearts" with physical UI Forms. Hearts simply didn't make sense for a grounded horror game.</p>
+                        <ul class="clean-list" style="margin-top: 1rem;">
+                            <li><strong>Concept:</strong> The 3 paper icons in the UI represent the player's 3 lives.</li>
+                            <li><strong>Mechanic:</strong> The circular gauge tracks immediate Health (Red). If it hits zero, the player "dies," and one of the UI forms physically burns away to trigger a respawn.</li>
+                            <li><strong>Psychology:</strong> Watching your quest item visibly burn creates a stronger sense of narrative loss than a generic game-over counter.</li>
+                        </ul>
+                    </div>
                     <div class="split-image">
                         <img src="assets/Horror/GIF_Vids/Paper_Lives_Burn.gif" alt="Paper Lives Burning UI Animation">
-                    </div>
-                    <div class="split-text">
-                        <p class="block-text">To maintain immersion, I replaced standard "hearts" with UI Forms. Hearts didn't make sense for a horror game.</p>
-                        <ul class="clean-list">
-                            <li><strong>Concept:</strong> The 3 paper icons in the UI represent the player's 3 lives.</li>
-                            <li><strong>Mechanic:</strong> The circular gauge tracks immediate Health (Red). If it hits zero, the player "dies," and one of the UI forms burns away to trigger a respawn.</li>
-                            <li><strong>Psychology:</strong> Watching your life (form) physically burn creates a stronger sense of loss than a generic game-over counter.</li>
-                        </ul>
                     </div>
                 </div>
             </div>
 
-            <div class="system-box">
-                <h3>System 3: Inner Thoughts (Navigation)</h3>
-                <div class="split-section" style="gap: 2rem; margin-top: 1rem;">
-                    <div class="split-text">
-                        <p class="block-text">Contextual hints triggered by invisible volumes replace UI markers. This keeps the player in the world.</p>
-                        <ul class="clean-list">
-                            <li><strong>Narrative Hint:</strong> "It’s too dark. I need some light..." prompts the player to use the Flashlight.</li>
-                            <li><strong>Teaching Hint:</strong> "I can't fight them like this... the old security station in the <strong>H5 block</strong>." prompts the player to find the weapon.</li>
-                            <li><strong>Technical Implementation:</strong> Box triggers cast to the player HUD to spawn a 3D Widget component at the actor's location, ensuring the text is always readable regardless of player rotation.</li>
-                        </ul>
-                    </div>
+            <div class="gds-framework-card" style="border-left-color: #2ecc71;">
+                <span class="gds-label" style="color: #2ecc71;">System 3: Inner Thoughts (Navigation)</span>
+                <div class="split-section" style="gap: 2rem; margin-top: 1rem; align-items: start;">
                     <div class="split-image">
                         <img src="assets/Horror/GIF_Vids/Inner_Thoughts_Mechanic.gif" alt="Inner Thoughts Mechanic Gameplay">
                         <p class="caption">Diegetic guidance: The text floats in 3D space near the trigger.</p>
+                    </div>
+                    <div class="split-text">
+                        <p class="gds-text">Contextual hints triggered by invisible volumes replace UI waypoints. This keeps the player actively looking at the world instead of a mini-map.</p>
+                        <ul class="clean-list" style="margin-top: 1rem;">
+                            <li><strong>Narrative Hint:</strong> "It’s too dark. I need some light..." prompts the player to find and use the Flashlight.</li>
+                            <li><strong>Teaching Hint:</strong> "I can't fight them like this... the old security station in the <strong>H5 block</strong>." subtly directs the player to the weapon location.</li>
+                            <li><strong>Implementation:</strong> Box triggers cast to the player HUD to spawn a 3D Widget component at the actor's location, ensuring readability regardless of camera rotation.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -534,7 +573,7 @@
                 <p class="lead-text">
                     I originally designed a system called "Fear Lockdown." The concept was that completing an objective didn't make you safe—it made the world hostile.
                 </p>
-                <p class="lead-text">
+                <p class="block-text">
                     Every time you delivered a form, the environment would permanently change: lights would flicker and die, alarms would scream, and new enemy spawns would trigger in previously safe rooms. The goal was to make the player <strong>fear their own success</strong>.
                 </p>
                 <p class="block-text" style="margin-top: 1.5rem;">
@@ -630,7 +669,7 @@
     </div>
 
     <footer class="footer-section">
-        <p class="copyright">© 2025 Karuna Ketan.</p>
+        <p class="copyright">© 2026 Karuna Ketan.</p>
     </footer>
 
     <div id="viewer">
@@ -652,30 +691,24 @@
             const viewer = document.getElementById('imageViewer');
             const fullImg = document.getElementById('fullImage');
             
-            // Set source and show
             fullImg.src = src;
             viewer.style.display = 'flex';
             
-            // Trigger animation
             setTimeout(() => {
                 viewer.style.opacity = '1';
             }, 10);
             
-            // Disable scroll
             document.body.style.overflow = 'hidden';
         }
 
         function closeImage() {
             const viewer = document.getElementById('imageViewer');
-            
-            // Fade out
             viewer.style.opacity = '0';
             
-            // Hide after transition
             setTimeout(() => {
                 viewer.style.display = 'none';
                 document.getElementById('fullImage').src = "";
-                document.body.style.overflow = 'auto'; // Restore scroll
+                document.body.style.overflow = 'auto';
             }, 300);
         }
     </script>

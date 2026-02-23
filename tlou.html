@@ -6,182 +6,208 @@
     <title>The Last of Us Part I - Game Deconstruction | Karuna Ketan</title>
     
     <link rel="stylesheet" href="style.css">
-    
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Specific Styles for Analysis */
-        .quote-box {
-            border-left: 4px solid var(--accent-color);
-            background: #f9f9f9;
-            padding: 1.5rem;
-            font-style: italic;
-            margin: 2rem 0;
-            color: #555;
+        /* --- 1. MINIMAL PROJECT HEADER --- */
+        .project-minimal-header {
+            padding: 1.5rem 2rem;
+            background: #fff;
+            border-bottom: 1px solid #e5e5e5;
+            position: sticky; 
+            top: 0; 
+            z-index: 2000;
         }
         
-        .analysis-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 1.5rem;
+        .project-header-content {
+            max-width: 1400px; 
+            margin: 0 auto;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+        }
+        
+        .project-logo {
+            font-family: var(--font-heading); 
+            font-size: 1.5rem; 
+            font-weight: 700;
+            color: #111; 
+            letter-spacing: 2px; 
+            text-decoration: none; 
+            line-height: 1;
+        }
+        
+        .project-back-link {
+            font-family: var(--font-heading); 
+            font-size: 0.95rem; 
+            font-weight: 600;
+            color: #555; 
+            letter-spacing: 1.5px; 
+            text-transform: uppercase; 
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .project-back-link:hover { 
+            color: var(--red-accent); 
         }
 
+        /* --- 2. DECONSTRUCTION SPECIFIC UI --- */
+
+        /* Quote Box Upgrade */
+        .quote-box {
+            border-left: 5px solid var(--red-accent);
+            background: #fff;
+            padding: 2.5rem;
+            font-style: italic;
+            font-size: 1.15rem;
+            margin: 2rem 0;
+            color: #111;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.06);
+            border-radius: 0 8px 8px 0;
+            line-height: 1.8;
+        }
+        
+        /* Loop Cards Upgrade */
         .loop-card {
             background: #fff;
             border: 1px solid #eee;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
+            border-left: 4px solid #111;
+            padding: 2rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
         }
         .loop-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateX(5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border-left-color: var(--red-accent);
         }
         .loop-card h4 {
-            color: var(--accent-color);
-            margin-bottom: 0.5rem;
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.1rem;
+            color: #111;
+            margin-bottom: 0.8rem;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
+        .loop-card p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Weapon Table Upgrade */
+        .weapon-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            font-size: 0.95rem;
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+        .weapon-table th, .weapon-table td {
+            border-bottom: 1px solid #eee;
+            padding: 18px 20px;
+            text-align: left;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+        .weapon-table th {
+            background-color: #111;
+            font-weight: 700;
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            font-family: var(--font-heading);
+            border: none;
+        }
+        .weapon-table tr { transition: background-color 0.2s ease; }
+        .weapon-table tr:hover { background-color: #fcfcfc; }
+
+        /* Medium Card Upgrade */
+        .medium-card-container { display: flex; justify-content: center; margin-top: 3rem; text-decoration: none; }
+        .medium-card { 
+            display: flex; background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; 
+            overflow: hidden; width: 100%; max-width: 850px; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+            text-decoration: none; color: inherit; 
+        }
+        .medium-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); border-color: #ccc; }
+        .medium-thumb { width: 350px; object-fit: cover; flex-shrink: 0; }
+        .medium-content { padding: 2.5rem; display: flex; flex-direction: column; justify-content: center; }
+        .medium-logo { font-size: 0.85rem; font-weight: 700; color: #111; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        .medium-title { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 700; margin-bottom: 1rem; color: #111; line-height: 1.2; }
+        .medium-desc { font-size: 1rem; color: #555; margin-bottom: 1.5rem; line-height: 1.6; }
+        .medium-meta { font-size: 0.85rem; color: var(--red-accent); font-weight: 600; text-transform: uppercase; letter-spacing: 1px;}
 
         /* Two-Image Grid for Level Design */
         .image-pair {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-top: 1rem;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
         }
         .image-pair img {
             width: 100%;
             height: auto;
             border-radius: 4px;
-            border: 1px solid #ddd;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        /* Weapon Table Styles */
-        .weapon-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-            font-size: 0.95rem;
-            background: #fff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        .weapon-table th, .weapon-table td {
-            border-bottom: 1px solid #eee;
-            padding: 15px;
-            text-align: left;
-            vertical-align: top;
-        }
-        .weapon-table th {
-            background-color: #f4f4f4;
-            font-weight: 700;
-            color: #333;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.05em;
-        }
-        .weapon-table tr:last-child td {
-            border-bottom: none;
-        }
-        .weapon-table tr:hover {
-            background-color: #fdfdfd;
-        }
-
-        /* Medium Card Styles */
-        .medium-card-container { display: flex; justify-content: center; margin-top: 2rem; text-decoration: none; }
-        .medium-card { display: flex; background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; width: 100%; max-width: 800px; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-decoration: none; color: inherit; }
-        .medium-card:hover { transform: translateY(-2px); box-shadow: 0 8px 15px rgba(0,0,0,0.1); border-color: #333; }
-        .medium-thumb { width: 300px; object-fit: cover; flex-shrink: 0; }
-        .medium-content { padding: 2rem; display: flex; flex-direction: column; justify-content: center; }
-        .medium-logo { font-size: 0.85rem; font-weight: 600; color: #333; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px; }
-        .medium-logo::before { content: ''; display: inline-block; width: 20px; height: 20px; background-image: url('https://cdn-images-1.medium.com/max/1200/1*sHhtYhaCe2Uc3IU0IgKwIQ.png'); background-size: contain; background-repeat: no-repeat; }
-        .medium-title { font-family: 'Oswald', sans-serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.8rem; color: #111; line-height: 1.3; }
-        .medium-desc { font-size: 0.95rem; color: #666; margin-bottom: 1.5rem; line-height: 1.6; }
-        .medium-meta { font-size: 0.85rem; color: #888; font-weight: 500; }
-
-        /* --- MASONRY GRID (Improved Structure) --- */
-        .raw-gallery-grid {
-            column-count: 3;
-            column-gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        .raw-gallery-item {
-            break-inside: avoid;
-            margin-bottom: 1.5rem;
-            width: 100%;
-            border-radius: 4px;
-            border: 1px solid #e5e5e5;
-            background: #f9f9f9;
+            border: 1px solid #eee;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             cursor: pointer;
-            transition: transform 0.2s ease;
-            overflow: hidden;
-        }
-        .raw-gallery-item img {
-            width: 100%;
-            height: auto; /* Natural height to prevent cropping */
-            display: block;
             transition: transform 0.3s ease;
         }
-        .raw-gallery-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-        }
-        .raw-gallery-item:hover img {
-            transform: scale(1.05);
-        }
+        .image-pair img:hover { transform: scale(1.03); }
 
-        /* --- LIGHTBOX --- */
+        /* Masonry Grid */
+        .raw-gallery-grid { column-count: 3; column-gap: 1.5rem; margin-top: 2rem; }
+        .raw-gallery-item { break-inside: avoid; margin-bottom: 1.5rem; width: 100%; border-radius: 4px; border: 1px solid #e5e5e5; background: #f9f9f9; cursor: pointer; transition: transform 0.2s ease; overflow: hidden; }
+        .raw-gallery-item img { width: 100%; height: auto; display: block; transition: transform 0.3s ease; }
+        .raw-gallery-item:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+        .raw-gallery-item:hover img { transform: scale(1.05); }
+
+        /* Lightbox */
         #imageViewer { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; }
         #fullImage { max-width: 90%; max-height: 90%; border-radius: 4px; box-shadow: 0 0 20px rgba(0,0,0,0.5); animation: zoomIn 0.3s ease; }
         .close-img-btn { position: absolute; top: 30px; right: 40px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s; font-family: 'Oswald', sans-serif; line-height: 1; }
         .close-img-btn:hover { color: var(--red-accent); transform: scale(1.1); }
         @keyframes zoomIn { from {transform: scale(0.9); opacity: 0;} to {transform: scale(1); opacity: 1;} }
 
-        /* --- RESPONSIVE MEDIA QUERIES --- */
+        /* RESPONSIVE MEDIA QUERIES */
         @media (max-width: 900px) {
             .case-study-content { padding: 0 1.5rem 4rem 1.5rem; }
-            .split-section { grid-template-columns: 1fr; gap: 2rem; }
+            .split-section { grid-template-columns: 1fr !important; gap: 2rem !important; }
             .split-image { order: -1; }
             .raw-gallery-grid { column-count: 2; }
+            .four-col-grid { grid-template-columns: 1fr 1fr; }
             .project-stats-grid { flex-wrap: wrap; gap: 1.5rem; }
             .stat-box { min-width: 40%; }
-            .four-col-grid { grid-template-columns: 1fr 1fr; }
-        }
-
-        @media (max-width: 768px) {
-            .header-content { display: flex; justify-content: space-between; align-items: center; }
-            .nav-links { display: flex; gap: 1rem; }
-            .nav-links li a { font-size: 0.9rem; font-weight: 600; }
-            
-            /* Specific Components */
-            .medium-card { flex-direction: column; } 
-            .medium-thumb { width: 100%; height: 200px; } 
-            .medium-content { padding: 1.5rem; } 
             .image-pair { grid-template-columns: 1fr; }
-            
-            /* Scrollable Table */
-            .weapon-table { display: block; overflow-x: auto; white-space: nowrap; }
+            .medium-card { flex-direction: column; } 
+            .medium-thumb { width: 100%; height: 250px; } 
         }
 
         @media (max-width: 600px) {
-            .case-title { font-size: 2.2rem; line-height: 1.2; }
+            .case-title { font-size: 2.2rem !important; line-height: 1.2; }
             .raw-gallery-grid { column-count: 1; }
-            .project-header-compact { margin-top: 2rem; padding: 0 1rem; }
             .four-col-grid { grid-template-columns: 1fr; }
+            .project-header-compact { margin-top: 2rem; padding: 0 1rem; }
+            .project-header-content { padding: 0 1rem; }
+            .weapon-table { display: block; overflow-x: auto; white-space: nowrap; }
         }
     </style>
 </head>
 <body>
 
-    <header class="minimal-header">
-        <div class="header-content">
-            <a href="index.html" class="logo">KK<span class="dot">.</span></a>
+    <header class="project-minimal-header">
+        <div class="project-header-content">
+            <a href="index.html" class="project-logo">KK.</a>
+            <a href="index.html#projects" class="project-back-link" style="font-family: 'Oswald', sans-serif; font-size: 0.85rem; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none; transition: color 0.2s ease;" onmouseover="this.style.color='#111'" onmouseout="this.style.color='#555'">BACK TO HOME</a>
         </div>
     </header>
 
@@ -194,6 +220,7 @@
     </div>
 
     <section class="project-header-compact">
+        <div class="industry-badge" style="position: relative; display: inline-block; top: 0; left: 0; margin-bottom: 1rem; box-shadow: none; background: #333;">DECONSTRUCTION</div>
         <h1 class="case-title">THE LAST OF US: PART I</h1>
         
         <div class="project-stats-grid">
@@ -203,7 +230,7 @@
         </div>
 
         <div class="header-actions">
-            <a href="https://medium.com/@karunaket/the-last-of-us-part-i-game-deconstruction-by-karuna-ketan-c0584d9f46e3" target="_blank" class="resume-btn">READ FULL ARTICLE ON MEDIUM ↗</a>
+            <a href="https://medium.com/@karunaket/the-last-of-us-part-i-game-deconstruction-by-karuna-ketan-c0584d9f46e3" target="_blank" class="resume-btn pill-btn" style="border: 2px solid #111;">READ FULL ARTICLE ON MEDIUM ↗</a>
         </div>
         
         <p class="team-credit">Game Deconstruction by: <strong>Karuna Ketan</strong></p>
@@ -225,7 +252,7 @@
                 </div>
             </div>
             <div class="split-image">
-                <img src="assets/Game Deconstruction/TLOU.png" alt="Key Art" style="width: 100%; border-radius: 8px;">
+                <img src="assets/Game Deconstruction/TLOU.png" alt="Key Art" style="width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); cursor: pointer;" onclick="openImage(this.src)">
             </div>
         </section>
 
@@ -255,26 +282,26 @@
             <h2 class="block-title">The Gameplay Loops</h2>
             <p class="block-text">The game is driven by three distinct loops that constantly reinforce survival tension.</p>
             
-            <div class="split-section" style="margin-top: 1.5rem;">
+            <div class="split-section" style="margin-top: 2rem;">
                 <div class="split-text">
-                    <div class="loop-card" style="margin-bottom: 1rem;">
+                    <div class="loop-card" style="margin-bottom: 1.5rem;">
                         <h4>Moment-to-Moment Loop</h4>
-                        <p><strong>Explore → Scavenge → Craft → Plan → Combat → Survive.</strong><br>
+                        <p><strong>Explore → Scavenge → Craft → Plan → Combat → Survive.</strong><br><br>
                         Every cycle creates a rhythm of <em>Tension → Decision → Consequence → Reset</em>. Victory often comes at the cost of resources, creating immediate anxiety for the next encounter.</p>
                     </div>
-                    <div class="loop-card" style="margin-bottom: 1rem;">
+                    <div class="loop-card" style="margin-bottom: 1.5rem;">
                         <h4>Mid-Term Loop (Chapter)</h4>
-                        <p><strong>Narrative Setup → New Area → New Enemy → Strain → Relief.</strong><br>
+                        <p><strong>Narrative Setup → New Area → New Enemy → Strain → Relief.</strong><br><br>
                         Each chapter introduces new mechanics or enemies while delivering key story beats. Pacing alternates between high-tension combat and quiet narrative downtime.</p>
                     </div>
                     <div class="loop-card">
                         <h4>Long-Term Loop (Game)</h4>
-                        <p><strong>Survive → Upgrade → Bond → Face Dilemma.</strong><br>
+                        <p><strong>Survive → Upgrade → Bond → Face Dilemma.</strong><br><br>
                         Upgrades reward perseverance but never eliminate tension. The emotional bond with Ellie is strengthened mechanically over time, leading to the final moral dilemma.</p>
                     </div>
                 </div>
                 <div class="split-image">
-                    <img src="assets/Game Deconstruction/Images/GameplayLoop.webp" alt="Gameplay Loop Diagram" style="width: 100%; border-radius: 8px;">
+                    <img src="assets/Game Deconstruction/Images/GameplayLoop.webp" alt="Gameplay Loop Diagram" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); cursor: pointer;" onclick="openImage(this.src)">
                 </div>
             </div>
         </section>
@@ -282,18 +309,18 @@
         <section class="content-block">
             <h2 class="block-title">Resource Scarcity & Psychology</h2>
             <div class="split-section">
+                <div class="split-image">
+                    <img src="assets/Game Deconstruction/Images/1.webp" alt="Workbench and Inventory System" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); cursor: pointer;" onclick="openImage(this.src)">
+                </div>
                 <div class="split-text">
                     <p class="block-text">
                         Unlike action games where resources empower players, here scarcity constantly disempowers them, making survival feel earned.
                     </p>
-                    <ul class="clean-list">
-                        <li><strong>Crafting Trade-offs:</strong> Medkit vs Molotov? Shiv vs Upgrade? Every decision carries an opportunity cost.</li>
-                        <li><strong>Weapon Tuning:</strong> The Revolver has high damage but slow reload. The Bow is silent but arrows break. Missing a shot is devastating.</li>
-                        <li><strong>Real-Time Inventory:</strong> Crafting happens in real-time (no pause), meaning every menu interaction carries the risk of death.</li>
+                    <ul class="clean-list" style="margin-top: 1.5rem;">
+                        <li>• <strong>Crafting Trade-offs:</strong> Medkit vs Molotov? Shiv vs Upgrade? Every decision carries a stressful opportunity cost.</li>
+                        <li>• <strong>Weapon Tuning:</strong> The Revolver has high damage but slow reload. The Bow is silent but arrows break. Missing a shot is devastating.</li>
+                        <li>• <strong>Real-Time Inventory:</strong> Crafting happens in real-time (no pause), meaning every menu interaction carries the risk of death.</li>
                     </ul>
-                </div>
-                <div class="split-image">
-                    <img src="assets/Game Deconstruction/Images/1.webp" alt="Workbench and Inventory System" style="width: 100%; border-radius: 8px;">
                 </div>
             </div>
         </section>
@@ -303,38 +330,35 @@
             <p class="lead-text">How do you guide a player without a minimap or waypoints?</p>
             
             <div class="system-box">
-                <h3>1. Light & Landmarks</h3>
+                <h3 style="font-family: var(--font-heading); font-size: 1.3rem;">1. Light & Landmarks</h3>
                 <p class="block-text">
                     Naughty Dog uses high-contrast lighting as a natural focal point. A bright exit or a sunlit doorway pulls the player forward through dark, oppressive spaces. Distant landmarks act as long-term orientation points.
                 </p>
                 <div class="image-pair">
-                    <img src="assets/Game Deconstruction/Images/3.png" alt="Lighting Guide Analysis">
-                    <img src="assets/Game Deconstruction/Images/5.png" alt="Landmark Guide Analysis">
+                    <img src="assets/Game Deconstruction/Images/3.png" alt="Lighting Guide Analysis" onclick="openImage(this.src)">
+                    <img src="assets/Game Deconstruction/Images/5.png" alt="Landmark Guide Analysis" onclick="openImage(this.src)">
                 </div>
             </div>
 
             <div class="system-box">
-                <h3>2. Guiding Attention Through Composition</h3>
+                <h3 style="font-family: var(--font-heading); font-size: 1.3rem;">2. Guiding Attention Through Composition</h3>
                 <p class="block-text">
                     Level design uses natural frames, like doorways or archways, to focus the player’s attention on key areas. Light, lines, and object placement work together to make important spaces immediately readable.
                 </p>
                 <div class="image-pair">
-                    <img src="assets/Game Deconstruction/Images/2.png" alt="Framing and Composition">
-                    <img src="assets/Game Deconstruction/Images/4.png" alt="Environmental Pathing">
+                    <img src="assets/Game Deconstruction/Images/2.png" alt="Framing and Composition" onclick="openImage(this.src)">
+                    <img src="assets/Game Deconstruction/Images/4.png" alt="Environmental Pathing" onclick="openImage(this.src)">
                 </div>
             </div>
 
-            <div class="system-box">
-                <h3>3. Directing Players Through Environmental Blockages</h3>
+            <div class="system-box" style="border-bottom: none;">
+                <h3 style="font-family: var(--font-heading); font-size: 1.3rem;">3. Directing Players Through Environmental Blockages</h3>
                 <p class="block-text">
                     The world itself acts as a subtle guide. Fallen trees, debris, wrecked buses, and barricades are not just set dressing but tools for directing players along intended routes. These obstacles feel natural within the post-apocalyptic setting, so players understand the limitation without feeling forced.
                 </p>
-                <p class="block-text">
-                    Barricades like military fencing or natural blockages also tell stories. They hint at past human attempts to control or escape the chaos, deepening immersion.
-                </p>
                 <div class="image-pair">
-                    <img src="assets/Game Deconstruction/Images/6.png" alt="Environmental Blockage 1">
-                    <img src="assets/Game Deconstruction/Images/7.png" alt="Environmental Blockage 2">
+                    <img src="assets/Game Deconstruction/Images/6.png" alt="Environmental Blockage 1" onclick="openImage(this.src)">
+                    <img src="assets/Game Deconstruction/Images/7.png" alt="Environmental Blockage 2" onclick="openImage(this.src)">
                 </div>
             </div>
         </section>
@@ -376,28 +400,28 @@
             </table>
         </section>
 
-        <section class="content-block split-section">
+        <section class="content-block split-section" style="margin-top: 5rem;">
             <div class="split-text">
                 <h2 class="block-title">Holistic Tension Design</h2>
                 <p class="block-text">
                     The Last of Us Part I creates tension on multiple levels, keeping players engaged, alert, and emotionally invested. The game layers different sources of tension that interact to create a rich, immersive experience.
                 </p>
-                <ul class="clean-list">
-                    <li><strong>Environmental:</strong> Dark areas, spores, and water sections limit visibility.</li>
-                    <li><strong>Inventory:</strong> Limited carry capacity creates anxiety about future needs.</li>
-                    <li><strong>Narrative:</strong> Ellie's safety adds emotional stakes; you are protecting a child.</li>
-                    <li><strong>Audio:</strong> Clicker screeches signal danger before you see it.</li>
+                <ul class="clean-list" style="margin-top: 1.5rem;">
+                    <li>• <strong>Environmental:</strong> Dark areas, spores, and water sections limit visibility.</li>
+                    <li>• <strong>Inventory:</strong> Limited carry capacity creates anxiety about future needs.</li>
+                    <li>• <strong>Narrative:</strong> Ellie's safety adds emotional stakes; you are protecting a child.</li>
+                    <li>• <strong>Audio:</strong> Clicker screeches signal danger before you see it.</li>
                 </ul>
             </div>
             <div class="split-image">
-                <img src="assets/Game Deconstruction/Images/Tension.webp" alt="Tension Flowchart" style="width: 55%; border-radius: 8px; display: block; margin: 0 auto; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <img src="assets/Game Deconstruction/Images/Tension.webp" alt="Tension Flowchart" style="width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); cursor: pointer;" onclick="openImage(this.src)">
             </div>
         </section>
 
-        <section class="content-block">
+        <section class="content-block" style="margin-top: 5rem;">
             <h2 class="block-title">Lessons for My Design</h2>
-            <div class="process-card" style="border-left: 5px solid var(--accent-color); padding: 2rem;">
-                <ul class="clean-list" style="line-height: 1.8; list-style-type: disc; padding-left: 1.5rem;">
+            <div class="process-card" style="border-left: 5px solid var(--red-accent); padding: 2.5rem;">
+                <ul class="clean-list" style="line-height: 1.8; list-style-type: disc; padding-left: 1.5rem; margin-bottom: 0;">
                     <li><strong>Scarcity Heightens Tension:</strong> Even in a small prototype, limiting resources makes every decision feel impactful.</li>
                     <li><strong>Environmental Cues Over UI:</strong> Light, framing, and geometry should guide the player first. UI is a last resort.</li>
                     <li><strong>Enemy Archetypes as Tools:</strong> Enemies should force different behaviors (e.g., Clickers force slowness, Runners force speed).</li>
@@ -406,13 +430,13 @@
                 </ul>
             </div>
             
-            <div class="image-pair" style="margin-top: 1.5rem;">
-                <img src="assets/Game Deconstruction/Images/Lesson_1.webp" alt="Lesson Diagram 1">
-                <img src="assets/Game Deconstruction/Images/Lesson_2.webp" alt="Lesson Diagram 2">
+            <div class="image-pair" style="margin-top: 2rem;">
+                <img src="assets/Game Deconstruction/Images/Lesson_1.webp" alt="Lesson Diagram 1" onclick="openImage(this.src)">
+                <img src="assets/Game Deconstruction/Images/Lesson_2.webp" alt="Lesson Diagram 2" onclick="openImage(this.src)">
             </div>
         </section>
 
-        <section class="content-block">
+        <section class="content-block" style="margin-top: 5rem;">
             <h2 class="block-title">Raw Notes & Game Deconstruction</h2>
             <p class="block-text">
                 My personal notes, sketches, and raw observations made during the deconstruction process.
@@ -427,14 +451,14 @@
             </div>
         </section>
 
-        <section class="content-block" style="margin-top: 4rem;">
-            <h2 class="block-title" style="text-align: center;">Read the Full Deconstruction</h2>
+        <section class="content-block" style="margin-top: 5rem; margin-bottom: 2rem;">
+            <h2 class="block-title" style="text-align: center; border: none; padding: 0;">Read the Full Deconstruction</h2>
             
             <a href="https://medium.com/@karunaket/the-last-of-us-part-i-game-deconstruction-by-karuna-ketan-c0584d9f46e3" target="_blank" class="medium-card-container">
                 <article class="medium-card">
                     <img src="assets/Game Deconstruction/TLOU.png" alt="Article Thumbnail" class="medium-thumb">
                     <div class="medium-content">
-                        <div class="medium-logo">MEDIUM</div>
+                        <div class="medium-logo">Medium</div>
                         <h3 class="medium-title">The Last of Us Part I — Game Deconstruction</h3>
                         <p class="medium-desc">
                             A comprehensive deep dive into level pacing, enemy AI behaviors, and how Naughty Dog creates emotional resonance through game mechanics.
@@ -450,7 +474,7 @@
     </div>
 
     <footer class="footer-section">
-        <p class="copyright">© 2025 Karuna Ketan.</p>
+        <p class="copyright">© 2026 Karuna Ketan.</p>
     </footer>
 
     <div id="imageViewer" onclick="closeImage()">

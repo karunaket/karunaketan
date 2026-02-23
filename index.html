@@ -6,53 +6,13 @@
     <meta name="description" content="Portfolio of Karuna Ketan, a Game Designer specializing in system design, level design, and player psychology.">
     <title>Karuna Ketan | Game Designer</title>
     
+    <link rel="stylesheet" href="style.css">
+
     <style>
-        /* --- 1. RESET & VARIABLES --- */
-        :root {
-            --bg-color: #ffffff;      
-            --text-color: #0a0a0a;    
-            --text-dim: #333333;      
-            --border-color: #e5e5e5;  
-            --red-accent: #ff3b30;    
-            
-            /* Fonts */
-            --font-heading: 'Oswald', sans-serif;
-            --font-body: 'Montserrat', sans-serif;
-        }
+        /* --- MOBILE NAVIGATION & RESPONSIVENESS --- */
+        /* Note: All desktop styling is left to your style.css so it doesn't break! */
 
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: var(--font-body);
-            line-height: 1.75;
-            font-size: 16px;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
-        }
-
-        a { text-decoration: none; color: inherit; transition: 0.2s; }
-        ul { list-style: none; }
-
-        /* --- 2. HEADER & NAVIGATION --- */
-        .minimal-header {
-            padding: 1.5rem 2rem;
-            background: rgba(255,255,255,0.98);
-            position: sticky; top: 0; z-index: 1000;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .header-content {
-            max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;
-        }
-        .logo { font-family: var(--font-heading); font-weight: 700; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-color); }
-
-        /* Desktop Nav */
-        .nav-links { display: flex; gap: 2rem; align-items: center; }
-        .nav-links a { font-family: var(--font-heading); font-size: 0.85rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
-        .nav-links a:hover { color: var(--text-color); }
-
-        /* Mobile Hamburger Button */
+        /* Hamburger Button - Hidden on Desktop */
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -60,141 +20,161 @@
             width: 30px;
             height: 21px;
             background: transparent;
-            margin-left: 100px;
             border: none;
             cursor: pointer;
             z-index: 2000;
-        }
-        .menu-toggle .bar {
-            width: 100%; height: 3px; background-color: var(--text-color); transition: 0.3s; border-radius: 2px;
+            position: relative; 
         }
 
-        /* --- 3. SIDEBAR NAVIGATION (MOBILE) --- */
+        .menu-toggle .bar {
+            width: 100%;
+            height: 3px;
+            background-color: #111;
+            transition: 0.3s ease;
+            border-radius: 2px;
+        }
+
+        /* --- MULTI-GIF CROSSFADER --- */
+        .gif-cycler {
+            position: relative;
+            background: #050505; /* Prevents white flashes during transitions */
+        }
+        
+        .gif-cycler img {
+            transition: transform 0.5s ease, opacity 0.8s ease-in-out !important;
+        }
+        
+        /* The first image dictates the container height. The rest sit perfectly on top of it. */
+        .gif-cycler img:not(:first-child) {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .gif-cycler img:not(.active-gif) {
+            opacity: 0;
+            pointer-events: none; /* Prevents hidden layers from capturing clicks */
+        }
+        
+        .gif-cycler img.active-gif {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        /* --- TABLET / SMALL LAPTOP RESPONSIVENESS --- */
+        @media (max-width: 900px) {
+            /* Hero Section Stacks */
+            .intro-section {
+                flex-direction: column !important;
+                text-align: center;
+                gap: 3rem;
+                padding-top: 4rem;
+            }
+            .hero-actions {
+                justify-content: center;
+            }
+            .profile-img-container {
+                margin: 0 auto;
+                width: 80% !important;
+                max-width: 350px;
+            }
+
+            /* Project Rows Stack */
+            .project-row {
+                flex-direction: column !important;
+                gap: 1.5rem !important;
+                padding: 1.5rem !important;
+            }
+            .row-image {
+                max-width: 100% !important;
+            }
+            .row-content {
+                width: 100% !important;
+            }
+            .meta-tags {
+                justify-content: center;
+            }
+            .row-title, .row-date {
+                text-align: center;
+                display: block;
+            }
+            .row-desc ul {
+                padding-left: 0;
+            }
+            .pill-btn {
+                align-self: stretch !important;
+                text-align: center;
+            }
+
+            /* Process Grid 2-Columns */
+            .process-grid {
+                grid-template-columns: 1fr 1fr !important;
+                gap: 1.5rem;
+            }
+        }
+
+        /* --- MOBILE NAVIGATION & PHONES --- */
         @media (max-width: 768px) {
-            .menu-toggle { display: flex; }
+            /* Enable Hamburger */
+            .menu-toggle { 
+                display: flex !important; 
+            }
             
+            /* Slide-out Menu Panel */
             .nav-links {
-                position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
-                background-color: #fff; flex-direction: column; justify-content: center; align-items: center;
-                gap: 2.5rem; transition: 0.3s ease-in-out; z-index: 1500;
+                position: fixed; 
+                top: 0; 
+                right: 0; 
+                width: 100%; 
+                height: 100vh;
+                background-color: #fff; 
+                display: flex; 
+                flex-direction: column !important; 
+                justify-content: center; 
+                align-items: center;
+                gap: 2.5rem; 
+                z-index: 1500;
+                transform: translateX(100%);
+                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
                 box-shadow: -5px 0 15px rgba(0,0,0,0.1);
             }
-            .nav-links.active { right: 0; }
             
-            .nav-links li { opacity: 0; transform: translateY(20px); transition: 0.3s ease forwards; }
-            .nav-links.active li { opacity: 1; transform: translateY(0); }
-            .nav-links li:nth-child(1) { transition-delay: 0.1s; }
-            .nav-links li:nth-child(2) { transition-delay: 0.2s; }
-            .nav-links li:nth-child(3) { transition-delay: 0.3s; }
-            .nav-links li:nth-child(4) { transition-delay: 0.4s; }
-            .nav-links li:nth-child(5) { transition-delay: 0.5s; }
-
-            .nav-links a { font-size: 1.5rem; font-weight: 700; }
+            .nav-links.active { 
+                transform: translateX(0); 
+            }
             
+            .nav-links a { 
+                font-size: 1.5rem !important; 
+                font-weight: 700; 
+                color: #111; 
+            }
+            
+            /* Hamburger Animation */
             .menu-toggle.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
             .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
             .menu-toggle.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+            /* Footer Stacks */
+            .footer-links {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+            }
         }
 
-        /* --- 4. BUTTONS --- */
-        .pill-btn {
-            display: inline-block; padding: 0.8rem 1.5rem; background-color: #111;
-            color: #fff; border-radius: 50px; font-weight: 500; border: 2px solid #111; margin-top: 1rem;
-            transition: all 0.3s ease; text-decoration: none; font-size: 0.9rem; font-family: var(--font-heading);
-        }
-        .pill-btn:hover {
-            background-color: transparent; color: #111; transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .header-resume-btn {
-            background-color: #111; color: #fff !important; padding: 0.5rem 1.2rem;
-            border-radius: 6px; font-weight: 600; border: 2px solid #111; transition: all 0.3s ease;
-        }
-        .header-resume-btn:hover { background-color: transparent; color: #111 !important; }
-
-        .hero-resume-btn {
-            display: inline-block; margin-top: 2rem; padding: 1rem 2.5rem;
-            background-color: #111; color: #fff; font-size: 1rem; font-weight: 700;
-            text-decoration: none; border-radius: 50px; letter-spacing: 0.05em;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: all 0.3s ease; border: 2px solid #111;
-            font-family: var(--font-heading);
-        }
-        .hero-resume-btn:hover {
-            background-color: transparent; color: #111; transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-
-        /* --- 5. LAYOUT --- */
-        .main-container { max-width: 1000px; margin: 0 auto; padding: 0 2rem; }
-
-        .intro-section { padding: 8rem 0; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 4rem; }
-        .intro-content { flex: 1; max-width: 550px; }
-        .section-label-small { font-family: var(--font-heading); font-size: 1.5rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem; }
-        .intro-title { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 500; line-height: 1.2; margin-bottom: 1.5rem; color: var(--text-color); }
-        .intro-bio { font-size: 1rem; color: var(--text-dim); margin-bottom: 2rem; }
-        .profile-img-container { width: 300px; height: 300px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
-        .profile-img { width: 100%; height: 100%; object-fit: cover; }
-
-        .projects-section { padding-bottom: 4rem; padding-top: 6rem; }
-        .projects-title { font-family: var(--font-heading); font-size: 2rem; margin-bottom: 4rem; text-transform: uppercase; }
-        .projects-list { display: flex; flex-direction: column; gap: 6rem; }
-
-        .project-row { display: flex; align-items: flex-start; gap: 4rem; }
-        .row-image { flex: 1.4; aspect-ratio: 16 / 9; overflow: hidden; background: #f4f4f4; border-radius: 4px; border: 1px solid #eee; position: relative; }
-        .row-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .row-image:hover img { transform: scale(1.03); }
-        .card-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.3s; }
-        .row-image:hover .card-overlay { opacity: 1; }
-
-        .row-content { flex: 1; padding-top: 0.5rem; }
-        .row-title { font-family: var(--font-heading); font-size: 1.8rem; font-weight: 600; margin-bottom: 1rem; line-height: 1.1; }
-        .row-title a { text-decoration: none; color: inherit; transition: color 0.2s ease; }
-        .row-title a:hover { color: #555; }
-        .row-date { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: #444; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 0.5rem; }
-        
-        /* Updated Row Description for Bullet Points */
-        .row-desc { margin-bottom: 1.5rem; }
-        .row-desc ul { list-style: none; padding: 0; margin: 0; }
-        .row-desc li { position: relative; padding-left: 1.2rem; margin-bottom: 0.5rem; font-size: 0.95rem; color: var(--text-dim); line-height: 1.5; }
-        .row-desc li::before { content: "•"; position: absolute; left: 0; color: var(--red-accent); font-weight: bold; }
-
-        .section-sub-title { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem; color: #111; display: flex; align-items: center; gap: 1rem; text-transform: uppercase; }
-        .sub-divider { border: 0; height: 1px; background: #e5e5e5; margin: 4rem 0; }
-
-        .process-section { padding: 6rem 0; border-top: 1px solid var(--border-color); }
-        .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-top: 3rem; }
-        .process-card { padding: 1.5rem; background: #f9f9f9; border-radius: 4px; transition: transform 0.2s; }
-        .process-card:hover { transform: translateY(-3px); }
-        .process-icon { font-size: 1.5rem; margin-bottom: 1rem; }
-        .process-card h3 { font-family: var(--font-heading); font-size: 0.9rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px; }
-        .process-card p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.6; }
-
-        .footer-section { padding: 4rem 0; border-top: 1px solid var(--border-color); text-align: center; margin-top: 4rem; }
-        .footer-links a { margin: 0 1.5rem; font-family: var(--font-heading); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); }
-        .footer-links a:hover { color: var(--text-color); }
-
-        /* --- 6. MOBILE RESPONSIVENESS --- */
-        @media (max-width: 900px) {
-            .intro-section { padding: 4rem 0; flex-direction: column-reverse; text-align: center; gap: 2rem; }
-            .intro-content { max-width: 100%; }
-            .intro-title { font-size: 2.5rem; }
-            .profile-img-container { width: 280px; height: 280px; margin: 0 auto 1rem auto; }
-            .project-row { flex-direction: column; gap: 2rem; }
-            .row-image { width: 100%; aspect-ratio: 16/9; }
-            .process-grid { grid-template-columns: 1fr 1fr; }
-        }
-
+        /* --- SMALL PHONES --- */
         @media (max-width: 600px) {
-            .header-content { padding: 0; }
-            .intro-title { font-size: 2rem; line-height: 1.2; }
-            .section-label-small { font-size: 1.2rem; }
-            .hero-resume-btn { width: 100%; text-align: center; }
-            .projects-title { font-size: 1.8rem; margin-bottom: 2rem; }
-            .row-title { font-size: 1.6rem; }
-            .process-grid { grid-template-columns: 1fr; }
-            .pill-btn { width: 100%; text-align: center; margin-top: 1.5rem; }
-            .footer-links { display: flex; flex-direction: column; gap: 1rem; }
+            .intro-title { font-size: 2.5rem !important; }
+            
+            /* Buttons go full width */
+            .hero-actions { flex-direction: column; gap: 1rem; }
+            .btn-primary { width: 100%; text-align: center; }
+            
+            /* Process Grid 1-Column */
+            .process-grid { grid-template-columns: 1fr !important; }
         }
     </style>
 </head>
@@ -204,14 +184,14 @@
         <div class="header-content">
             <a href="index.html" class="logo">KARUNA KETAN</a>
             
-            <button class="menu-toggle" aria-label="Toggle Navigation">
+            <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Navigation">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
             </button>
 
             <nav>
-                <ul class="nav-links">
+                <ul class="nav-links" id="nav-links">
                     <li><a href="index.html#projects">Projects</a></li>
                     <li><a href="documents.html">Docs</a></li>
                     <li><a href="process.html">Process</a></li>
@@ -230,9 +210,12 @@
                 <h2 class="section-label-small"><b>About me</b></h2>
                 <h1 class="intro-title">Hello, I’m Karuna Ketan, a game designer.</h1>
                 <p class="intro-bio">
-                    I’m a game designer and final year Computer Science and Engineering student. I focus on <strong>player psychology</strong>, <strong>system design</strong> and <strong>level design</strong>, with a strong technical background. I am driven by creating balanced gameplay loops and immersive experiences that feel intentional and engaging to play.
+                    I specialize in <strong>Player Psychology</strong>, <strong>System Design</strong>, <strong>Level Design</strong>, and <strong>Economy Balancing</strong>. Leveraging a strong technical background, I translate creative pillars into actionable Game Design Documents and rapid prototypes. I am driven by crafting balanced gameplay loops and spatial layouts that create intentional, deeply engaging player experiences.
                 </p>
-                <a href="resume.pdf" target="_blank" class="hero-resume-btn">VIEW RESUME</a>
+                <div class="hero-actions">
+                    <a href="resume.pdf" target="_blank" class="btn-primary">VIEW RESUME</a>
+                    <!-- <a href="YOUR_YOUTUBE_SHOWREEL_LINK" target="_blank" class="btn-primary btn-outline">▶ WATCH SHOWREEL</a> -->
+                </div>
             </div>
             
             <figure class="profile-img-container">
@@ -241,22 +224,63 @@
         </section>
 
         <section id="projects" class="projects-section">
-            <h2 class="projects-title">Projects</h2>
+            
+            <h2 class="section-divider-title">Professional Work</h2>
+            
+            <article class="project-row premium-card">
+                <div class="industry-badge">In Development</div>
+                <a href="tms.html" class="row-image gif-cycler" aria-label="View That's My Scrap details">
+                    <img src="assets/fcp/GIF_Vids/hero_gameplay.gif" alt="That's My Scrap Gameplay" class="active-gif" loading="lazy">
+                    <img src="assets/fcp/GIF_Vids/coop_gravity_beam.gif" alt="That's My Scrap Co-op Mechanic" loading="lazy">
+                </a>
+                <div class="row-content">
+                    <span class="row-date">FatCatPlay Game Studio</span>
+                    <h3 class="row-title"><a href="tms.html">That's My Scrap!</a></h3>
+                    
+                    <div class="meta-tags">
+                        <span class="tag">Game Designer</span>
+                        <span class="tag">4-Player Co-op</span>
+                        <span class="tag">Unreal Engine 5</span>
+                    </div>
+
+                    <div class="row-desc">
+                        <ul>
+                            <li>Drafted and maintained foundational <strong>Game Design Documents</strong> to establish core loops and system constraints during early production.</li>
+                            <li>Designed textless onboarding sequences using <strong>diegetic visual cues</strong> and environmental affordances to teach mechanics organically.</li>
+                            <li>Engineered physics based tool synergies including a cooperative Gravity Beam rule that forces <strong>emergent team communication</strong>.</li>
+                            <li>Structured early graybox level layouts for the Training Spoke to validate player navigation and spatial metrics.</li>
+                        </ul>
+                    </div>
+                    <a href="tms.html" class="pill-btn">View Case Study</a>
+                </div>
+            </article>
+
+            <h2 class="section-divider-title">Personal Projects</h2>
             
             <div class="projects-list">
                 
                 <article class="project-row">
-                    <a href="eof.html" class="row-image" aria-label="View Eclipse of Fear details">
-                        <img src="assets/Horror/EOF.png" alt="Eclipse of Fear Screenshot" loading="lazy">
+                    <a href="eof.html" class="row-image gif-cycler" aria-label="View Eclipse of Fear details">
+                        <img src="assets/Horror/GIF_Vids/Minions.gif" alt="Eclipse of Fear Enemy Encounters" class="active-gif" loading="lazy">
+                        <img src="assets/Horror/GIF_Vids/Boss_Eclipse_Chase.gif" alt="Eclipse of Fear Boss Chase" loading="lazy">
+                        <img src="assets/Horror/GIF_Vids/Paper_Lives_Burn.gif" alt="Eclipse of Fear UI System" loading="lazy">
+                        <img src="assets/Horror/GIF_Vids/Inner_Thoughts_Mechanic.gif" alt="Eclipse of Fear Navigation" loading="lazy">
                     </a>
                     <div class="row-content">
                         <span class="row-date">Survival Horror</span>
                         <h3 class="row-title"><a href="eof.html">Eclipse of Fear</a></h3>
+                        
+                        <div class="meta-tags">
+                            <span class="tag">Game Designer & Dev</span>
+                            <span class="tag">Unreal Engine 5</span>
+                            <span class="tag">Duration: 1 Month</span>
+                        </div>
+
                         <div class="row-desc">
                             <ul>
-                                <li>Designed the diegetic <strong>"Lives as Papers"</strong> health system, where losing a life physically burns a mandatory quest item.</li>
-                                <li>Balanced 4 distinct enemy waves using <strong>Data Sheets</strong>, tuning speed and detection radius to create an escalating difficulty curve.</li>
-                                <li>Scripted a dynamic <strong>Intensity Director</strong> that alters lighting states and enemy aggression based on objective completion.</li>
+                                <li>Designed the diegetic <strong>"Lives as Papers"</strong> health system where losing a life physically burns a mandatory quest item.</li>
+                                <li>Balanced 4 distinct enemy waves using <strong>Data Sheets</strong> to tune speed and detection radius for an escalating difficulty curve.</li>
+                                <li>Scripted a dynamic <strong>Intensity Director</strong> altering lighting states and enemy aggression based on objective completion.</li>
                             </ul>
                         </div>
                         <a href="eof.html" class="pill-btn">View project</a>
@@ -264,17 +288,27 @@
                 </article>
 
                 <article class="project-row">
-                    <a href="scttv.html" class="row-image" aria-label="View Shattered Charms details">
-                        <img src="assets/RPG/SCTTV.png" alt="Shattered Charms Screenshot" loading="lazy">
+                    <a href="scttv.html" class="row-image gif-cycler" aria-label="View Shattered Charms details">
+                        <img src="assets/RPG/GIF_Vids/Combat_Loop.gif" alt="Shattered Charms Combat" class="active-gif" loading="lazy">
+                        <img src="assets/RPG/GIF_Vids/Charm_UI.gif" alt="Shattered Charms UI Inventory" loading="lazy">
+                        <img src="assets/RPG/GIF_Vids/Sword_Upgrade.gif" alt="Shattered Charms Economy" loading="lazy">
+                        <img src="assets/RPG/GIF_Vids/Boss_AI.gif" alt="Shattered Charms Boss Encounter" loading="lazy">
                     </a>
                     <div class="row-content">
-                        <span class="row-date">RPG</span>
+                        <span class="row-date">Action RPG</span>
                         <h3 class="row-title"><a href="scttv.html">Shattered Charms: Through The Veil</a></h3>
+                        
+                        <div class="meta-tags">
+                            <span class="tag">Game Designer & Dev</span>
+                            <span class="tag">Unreal Engine 5</span>
+                            <span class="tag">Duration: 3 Months</span>
+                        </div>
+
                         <div class="row-desc">
                             <ul>
-                                <li>Designed the <strong>"Charm Matrix"</strong>, a slot-based progression system allowing players to discover new abilities through specific <strong>Charm Fusions</strong>.</li>
-                                <li>Modeled a <strong>Purification Economy</strong> in Excel, balancing Jewel drop rates to enforce exploration before the final boss.</li>
-                                <li>Architected a <strong>Hub-and-Spoke</strong> world layout to control pacing, utilizing lighting cues to signal transitions between Safety and Tension.</li>
+                                <li>Designed the <strong>"Charm Matrix"</strong> progression system allowing players to discover new abilities through specific Charm Fusions.</li>
+                                <li>Modeled a <strong>Purification Economy</strong> in Excel to balance drop rates and enforce exploration before the final boss.</li>
+                                <li>Architected a <strong>Hub and Spoke</strong> world layout using lighting cues to control pacing and signal environmental transitions.</li>
                             </ul>
                         </div>
                         <a href="scttv.html" class="pill-btn">View project</a>
@@ -282,17 +316,25 @@
                 </article>
 
                 <article class="project-row">
-                    <a href="ps.html" class="row-image" aria-label="View Project Singularity details">
-                        <img src="assets/Action-adv/PS.png" alt="Project Singularity Screenshot" loading="lazy">
+                    <a href="ps.html" class="row-image gif-cycler" aria-label="View Project Singularity details">
+                        <img src="assets/Action-adv/GIF_Vids/Game_Overview.gif" alt="Project Singularity Gameplay" class="active-gif" loading="lazy">
+                        <img src="assets/Action-adv/GIF_Vids/Teleport_Mechanic.gif" alt="Project Singularity Teleport" loading="lazy">
                     </a>
                     <div class="row-content">
-                        <span class="row-date">Action-adventure</span>
+                        <span class="row-date">Action Adventure</span>
                         <h3 class="row-title"><a href="ps.html">Project Singularity</a></h3>
+                        
+                        <div class="meta-tags">
+                            <span class="tag">Game & Level Designer</span>
+                            <span class="tag">Unreal Engine 5</span>
+                            <span class="tag">Team Size: 3</span>
+                        </div>
+
                         <div class="row-desc">
                             <ul>
-                                <li>Designed the <strong>Teleportation Mechanic</strong> as a dual-purpose tool for both environmental traversal puzzles and combat flanking.</li>
-                                <li>Prioritized <strong>"Game Feel"</strong> validation, iterating on camera shake and hit-stop feedback loops to ensure combat responsiveness.</li>
-                                <li>Defined <strong>Spatial Metrics</strong> for level blockouts to accommodate the Scientist NPC escort mechanics and vertical combat encounters.</li>
+                                <li>Designed a <strong>Teleportation Mechanic</strong> as a dual purpose tool for environmental puzzles and combat flanking.</li>
+                                <li>Prioritized <strong>"Game Feel"</strong> validation by iterating on camera shake and hit stop feedback loops for responsive combat.</li>
+                                <li>Defined <strong>Spatial Metrics</strong> for level blockouts accommodating NPC escort mechanics and vertical encounters.</li>
                             </ul>
                         </div>
                         <a href="ps.html" class="pill-btn">View project</a>
@@ -301,11 +343,9 @@
 
             </div>
 
-            <hr class="sub-divider">
-
-            <h2 class="section-sub-title">Game Deconstruction</h2>
+            <h2 class="section-divider-title">Game Deconstruction</h2>
             
-            <div class="projects-list">
+            <div class="projects-list" style="gap: 4rem;">
                 <article class="project-row">
                     <a href="tlou.html" class="row-image" aria-label="View The Last of Us Analysis">
                         <img src="assets/Game Deconstruction/TLOU.png" alt="The Last of Us Part I cover art" loading="lazy">
@@ -313,11 +353,18 @@
                     <div class="row-content">
                         <span class="row-date">Analysis</span>
                         <h3 class="row-title"><a href="tlou.html">The Last of Us: Part I</a></h3>
+                        
+                        <div class="meta-tags">
+                            <span class="tag">Level Pacing</span>
+                            <span class="tag">Economy</span>
+                            <span class="tag">Player Psychology</span>
+                        </div>
+
                         <div class="row-desc">
                             <ul>
-                                <li>Analyzed Naughty Dog's use of <strong>"Pacing Pockets"</strong> to balance tension.</li>
-                                <li>Deconstructed how scarcity mechanics (ammo, crafting) are tuned to force defensive play.</li>
-                                <li>Mapped environmental storytelling techniques that guide navigation without UI.</li>
+                                <li>Analyzed the use of <strong>"Pacing Pockets"</strong> to balance gameplay tension and emotional relief.</li>
+                                <li>Deconstructed how resource scarcity mechanics for ammo and crafting force strict defensive play.</li>
+                                <li>Mapped environmental storytelling techniques that successfully guide navigation without UI.</li>
                             </ul>
                         </div>
                         <a href="tlou.html" class="pill-btn">Read Deconstruction</a>
@@ -328,72 +375,72 @@
         </section>
 
         <section id="process" class="process-section">
-            <h2 class="projects-title">My Process</h2>
+            <h2 class="section-divider-title">My Process</h2>
             <div class="process-grid">
-                
-                <div class="process-card">
-                    <div class="process-icon" aria-hidden="true">🔍</div>
-                    <h3>Research</h3>
-                    <p>I conduct deep Game Deconstructions to understand design pillars, game loops, and pacing.</p>
-                </div>
-
-                <div class="process-card">
-                    <div class="process-icon" aria-hidden="true">📝</div>
-                    <h3>Brief</h3>
-                    <p>Establishing clear Design Pillars early to ensure mechanics align with the core player fantasy.</p>
-                </div>
-
-                <div class="process-card">
-                    <div class="process-icon" aria-hidden="true">💡</div>
-                    <h3>Ideation</h3>
-                    <p>From brainstorming to Paper Prototyping. I test math and logic on paper to fail fast before coding.</p>
-                </div>
-
-                <div class="process-card">
-                    <div class="process-icon" aria-hidden="true">📖</div>
-                    <h3>Docs</h3>
-                    <p>Creating Live GDDs. I know when to write detailed specs and when to make quick flowcharts.</p>
-                </div>
-
-                <div class="process-card">
-                    <div class="process-icon" aria-hidden="true">⚙️</div>
-                    <h3>Prototype</h3>
-                    <p>Jumping into Unreal Engine 5 using Blueprints to build "ugly but functional" mechanics to test Game Feel.</p>
-                </div>
-
-                <div class="process-card">
-                    <div class="process-icon" aria-hidden="true">🎮</div>
-                    <h3>Testing</h3>
-                    <p>Regular playtests to tune difficulty curves. Gathering feedback is my bread and butter.</p>
-                </div>
-
-                <div class="process-card">
-                    <div class="process-icon" aria-hidden="true">🚀</div>
-                    <h3>Release</h3>
-                    <p>Packaging and shipping builds, ensuring the "First Time User Experience" is frictionless.</p>
-                </div>
-
-                <div class="process-card">
-                    <div class="process-icon" aria-hidden="true">📊</div>
-                    <h3>Analysis</h3>
-                    <p>Digging through playtest data and writing Post-Mortems to understand what went right and what broke.</p>
-                </div>
-
+                <div class="process-card"><div class="process-icon" aria-hidden="true">🔍</div><h3>Research</h3><p>I conduct deep Game Deconstructions to understand design pillars, game loops, and pacing.</p></div>
+                <div class="process-card"><div class="process-icon" aria-hidden="true">📝</div><h3>Brief</h3><p>Establishing clear Design Pillars early to ensure mechanics align with the core player fantasy.</p></div>
+                <div class="process-card"><div class="process-icon" aria-hidden="true">💡</div><h3>Ideation</h3><p>From brainstorming to Paper Prototyping. I test math and logic on paper to fail fast before coding.</p></div>
+                <div class="process-card"><div class="process-icon" aria-hidden="true">📖</div><h3>Docs</h3><p>Creating Live GDDs. I know when to write detailed specs and when to make quick flowcharts.</p></div>
+                <div class="process-card"><div class="process-icon" aria-hidden="true">⚙️</div><h3>Prototype</h3><p>Jumping into Unreal Engine 5 using Blueprints to build ugly but functional mechanics to test Game Feel.</p></div>
+                <div class="process-card"><div class="process-icon" aria-hidden="true">🎮</div><h3>Testing</h3><p>Regular playtests to tune difficulty curves. Gathering feedback is my bread and butter.</p></div>
+                <div class="process-card"><div class="process-icon" aria-hidden="true">🚀</div><h3>Release</h3><p>Packaging and shipping builds, ensuring the first time user experience is frictionless.</p></div>
+                <div class="process-card"><div class="process-icon" aria-hidden="true">📊</div><h3>Analysis</h3><p>Digging through playtest data and writing Post Mortems to understand what went right and what broke.</p></div>
             </div>
         </section>
 
-        <footer id="contact" class="footer-section">
-            <div class="footer-links">
-                <a href="mailto:gamesbykarunaket@gmail.com" aria-label="Email Karuna Ketan">Email</a>
-                <a href="https://wa.me/917764870529" target="_blank" rel="noopener noreferrer" aria-label="Chat with Karuna Ketan on WhatsApp">+91 7764870529</a>
-                <a href="https://www.linkedin.com/in/karunaket/" target="_blank" rel="noopener noreferrer" aria-label="Visit Karuna Ketan's LinkedIn">LinkedIn</a>
-                <a href="https://karuna-ketan.itch.io/" target="_blank" rel="noopener noreferrer" aria-label="Visit Karuna Ketan's itch.io Profile">itch.io</a>
-            </div>
-            <p style="margin-top: 1rem; color: #888; font-size: 0.8rem;">© 2025 Karuna Ketan.</p>
-        </footer>
-
     </main>
 
-    <script src="script.js"></script>
+    <footer id="contact" class="footer-section">
+        <div class="footer-links">
+            <a href="mailto:gamesbykarunaket@gmail.com" aria-label="Email Karuna Ketan">Email</a>
+            <a href="https://wa.me/917764870529" target="_blank" rel="noopener noreferrer" aria-label="Chat with Karuna Ketan on WhatsApp">+91 7764870529</a>
+            <a href="https://www.linkedin.com/in/karunaket/" target="_blank" rel="noopener noreferrer" aria-label="Visit Karuna Ketan's LinkedIn">LinkedIn</a>
+            <a href="https://karuna-ketan.itch.io/" target="_blank" rel="noopener noreferrer" aria-label="Visit Karuna Ketan's itch.io Profile">itch.io</a>
+        </div>
+        <p style="margin-top: 1rem; color: #888; font-size: 0.8rem;">© 2026 Karuna Ketan.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. HAMBURGER MENU LOGIC
+            const oldMenuBtn = document.querySelector('.menu-toggle');
+            const nav = document.querySelector('.nav-links');
+
+            if (oldMenuBtn && nav) {
+                const menuBtn = oldMenuBtn.cloneNode(true);
+                oldMenuBtn.parentNode.replaceChild(menuBtn, oldMenuBtn);
+
+                menuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    nav.classList.toggle('active');
+                    menuBtn.classList.toggle('active');
+                });
+
+                document.addEventListener('click', (e) => {
+                    if (!nav.contains(e.target) && !menuBtn.contains(e.target)) {
+                        nav.classList.remove('active');
+                        menuBtn.classList.remove('active');
+                    }
+                });
+            }
+
+            // 2. GIF CROSSFADER LOGIC
+            const cyclers = document.querySelectorAll('.gif-cycler');
+            cyclers.forEach(cycler => {
+                const images = cycler.querySelectorAll('img');
+                if (images.length > 1) {
+                    let currentIndex = 0;
+                    // Cycles to the next GIF every 4.5 seconds
+                    setInterval(() => {
+                        images[currentIndex].classList.remove('active-gif');
+                        currentIndex = (currentIndex + 1) % images.length;
+                        images[currentIndex].classList.add('active-gif');
+                    }, 4500); 
+                }
+            });
+
+        });
+    </script>
 </body>
 </html>
