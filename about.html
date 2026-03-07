@@ -16,7 +16,7 @@
         }
         .header-resume-btn:hover { background-color: transparent; color: #111 !important; }
 
-        /* --- MOBILE NAVIGATION STYLES --- */
+        /* --- BULLETPROOF MOBILE NAVIGATION STYLES --- */
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -28,7 +28,7 @@
             border: none;
             cursor: pointer;
             z-index: 2000;
-            position: relative; /* CRITICAL FIX: required for z-index to work! */
+            position: relative; 
         }
 
         .menu-toggle .bar {
@@ -44,39 +44,41 @@
                 display: flex !important;
             }
 
+            /* "Nuclear" CSS to override any style.css conflicts */
             .nav-links {
-                position: fixed;
-                top: 0;
-                right: 0; /* CRITICAL FIX: Set to 0 instead of -100% so transform works */
-                width: 100%;
-                height: 100vh;
-                background-color: #fff;
-                display: flex; /* CRITICAL FIX: Must be flex by default, not just when active */
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 2.5rem;
-                z-index: 1500;
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-                
-                /* Start hidden off-screen to the right */
-                transform: translateX(100%);
-                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                position: fixed !important;
+                top: 0 !important;
+                right: -100% !important; /* Hide completely off-screen */
+                width: 100% !important;
+                height: 100vh !important;
+                background-color: #fff !important;
+                display: flex !important; 
+                flex-direction: column !important;
+                justify-content: center !important;
+                align-items: center !important;
+                gap: 2.5rem !important;
+                z-index: 1500 !important;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1) !important;
+                transition: right 0.4s ease-in-out !important;
+                transform: none !important; /* Remove transforms to prevent clipping bugs */
+                visibility: visible !important;
+                opacity: 1 !important;
             }
 
             .nav-links.active {
-                transform: translateX(0); /* Slide in to view */
+                right: 0 !important; /* Force slide into view */
             }
 
             .nav-links a {
-                font-size: 1.5rem;
-                font-weight: 700;
-                color: #000;
+                font-size: 1.5rem !important;
+                font-weight: 700 !important;
+                color: #000 !important;
+                display: block !important;
             }
 
-            .menu-toggle.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
-            .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
-            .menu-toggle.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+            .menu-toggle.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg) !important; }
+            .menu-toggle.active .bar:nth-child(2) { opacity: 0 !important; }
+            .menu-toggle.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg) !important; }
         }
 
         /* --- CONTENT LAYOUT (About Page Specific) --- */
@@ -318,10 +320,10 @@
             <div class="experience-item">
                 <div class="role-title">Contract Game Designer</div>
                 <span class="company-name">FatCatPlay Game Studio</span>
-                <span class="exp-date">Dec 2025 - Present</span>
+                <span class="exp-date">Dec 2025 - Feb 2026</span>
                 <p class="exp-desc">
-                    Overhauled and maintained technical Game Design Documents (GDDs) for a 4-player co-op title, structuring the systemic vision and refining the final core loops.<br><br>
-                    Designed and documented physics-based mechanics, risk/reward progression, and cooperative dependencies, successfully aligning the design scope with production constraints.
+                    Prepared structured <strong>Game Design Documents (GDDs)</strong> and systems for <strong>AOA: Space Scrap Smugglers</strong>, and designed core loops and enemy archetypes for <strong>MegaDrift</strong> (showcased at IGDC 2024 & 2025).<br><br>
+                    Collaborated with cross-functional teams to design physics-based mechanics and top-down level layouts, heavily iterating on gameplay flow and balance based on internal playtesting feedback.
                 </p>
             </div>
 
@@ -395,4 +397,5 @@
         });
     </script>
 </body>
+
 </html>

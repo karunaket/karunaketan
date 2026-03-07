@@ -38,10 +38,14 @@
         .gif-cycler {
             position: relative;
             background: #050505; /* Prevents white flashes during transitions */
+            display: block;
         }
         
         .gif-cycler img {
             transition: transform 0.5s ease, opacity 0.8s ease-in-out !important;
+            width: 100%;
+            height: auto;
+            display: block;
         }
         
         /* The first image dictates the container height. The rest sit perfectly on top of it. */
@@ -65,50 +69,37 @@
 
         /* --- TABLET / SMALL LAPTOP RESPONSIVENESS --- */
         @media (max-width: 900px) {
-            /* Hero Section Stacks */
             .intro-section {
                 flex-direction: column !important;
                 text-align: center;
                 gap: 3rem;
                 padding-top: 4rem;
             }
-            .hero-actions {
-                justify-content: center;
-            }
+            .hero-actions { justify-content: center; }
             .profile-img-container {
                 margin: 0 auto;
                 width: 80% !important;
                 max-width: 350px;
             }
 
-            /* Project Rows Stack */
             .project-row {
                 flex-direction: column !important;
                 gap: 1.5rem !important;
                 padding: 1.5rem !important;
             }
-            .row-image {
-                max-width: 100% !important;
-            }
-            .row-content {
-                width: 100% !important;
-            }
-            .meta-tags {
-                justify-content: center;
-            }
+            .row-image { max-width: 100% !important; }
+            .row-content { width: 100% !important; }
+            .meta-tags { justify-content: center; }
             .row-title, .row-date {
                 text-align: center;
                 display: block;
             }
-            .row-desc ul {
-                padding-left: 0;
-            }
+            .row-desc ul { padding-left: 0; }
             .pill-btn {
                 align-self: stretch !important;
                 text-align: center;
             }
 
-            /* Process Grid 2-Columns */
             .process-grid {
                 grid-template-columns: 1fr 1fr !important;
                 gap: 1.5rem;
@@ -117,12 +108,8 @@
 
         /* --- MOBILE NAVIGATION & PHONES --- */
         @media (max-width: 768px) {
-            /* Enable Hamburger */
-            .menu-toggle { 
-                display: flex !important; 
-            }
+            .menu-toggle { display: flex !important; }
             
-            /* Slide-out Menu Panel */
             .nav-links {
                 position: fixed; 
                 top: 0; 
@@ -141,22 +128,13 @@
                 box-shadow: -5px 0 15px rgba(0,0,0,0.1);
             }
             
-            .nav-links.active { 
-                transform: translateX(0); 
-            }
+            .nav-links.active { transform: translateX(0); }
+            .nav-links a { font-size: 1.5rem !important; font-weight: 700; color: #111; }
             
-            .nav-links a { 
-                font-size: 1.5rem !important; 
-                font-weight: 700; 
-                color: #111; 
-            }
-            
-            /* Hamburger Animation */
             .menu-toggle.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
             .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
             .menu-toggle.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 
-            /* Footer Stacks */
             .footer-links {
                 display: flex;
                 flex-direction: column;
@@ -168,12 +146,8 @@
         /* --- SMALL PHONES --- */
         @media (max-width: 600px) {
             .intro-title { font-size: 2.5rem !important; }
-            
-            /* Buttons go full width */
             .hero-actions { flex-direction: column; gap: 1rem; }
             .btn-primary { width: 100%; text-align: center; }
-            
-            /* Process Grid 1-Column */
             .process-grid { grid-template-columns: 1fr !important; }
         }
     </style>
@@ -214,8 +188,7 @@
                 </p>
                 <div class="hero-actions">
                     <a href="resume.pdf" target="_blank" class="btn-primary">VIEW RESUME</a>
-                    <!-- <a href="YOUR_YOUTUBE_SHOWREEL_LINK" target="_blank" class="btn-primary btn-outline">▶ WATCH SHOWREEL</a> -->
-                </div>
+                    </div>
             </div>
             
             <figure class="profile-img-container">
@@ -229,29 +202,29 @@
             
             <article class="project-row premium-card">
                 <div class="industry-badge">In Development</div>
-                <a href="tms.html" class="row-image gif-cycler" aria-label="View That's My Scrap details">
-                    <img src="assets/fcp/GIF_Vids/hero_gameplay.gif" alt="That's My Scrap Gameplay" class="active-gif" loading="lazy">
-                    <img src="assets/fcp/GIF_Vids/coop_gravity_beam.gif" alt="That's My Scrap Co-op Mechanic" loading="lazy">
+                <a href="tms.html" class="row-image gif-cycler" aria-label="View AOA details">
+                    <img src="assets/fcp/GIF_Vids/hero_gameplay.gif" alt="AOA Gameplay" class="active-gif" loading="lazy">
+                    <img src="assets/fcp/GIF_Vids/coop_gravity_beam.gif" alt="AOA Co-op Mechanic" loading="lazy">
                 </a>
                 <div class="row-content">
                     <span class="row-date">FatCatPlay Game Studio</span>
-                    <h3 class="row-title"><a href="tms.html">That's My Scrap!</a></h3>
+                    <h3 class="row-title"><a href="tms.html">AOA: Space Scrap Smugglers</a></h3>
                     
                     <div class="meta-tags">
-                        <span class="tag">Game Designer</span>
+                        <span class="tag">Contract Game Designer</span>
                         <span class="tag">4-Player Co-op</span>
                         <span class="tag">Unreal Engine 5</span>
                     </div>
 
                     <div class="row-desc">
                         <ul>
-                            <li>Drafted and maintained foundational <strong>Game Design Documents</strong> to establish core loops and system constraints during early production.</li>
-                            <li>Designed textless onboarding sequences using <strong>diegetic visual cues</strong> and environmental affordances to teach mechanics organically.</li>
-                            <li>Engineered physics based tool synergies including a cooperative Gravity Beam rule that forces <strong>emergent team communication</strong>.</li>
-                            <li>Structured early graybox level layouts for the Training Spoke to validate player navigation and spatial metrics.</li>
+                            <li>Drafted and maintained structured <strong>Game Design Documents (GDDs)</strong> for a physics-driven space mining simulation, establishing core loops.</li>
+                            <li>Engineered physics-based tool synergies to simulate smuggling, including a <strong>Gravity Beam</strong> that forces emergent team communication.</li>
+                            <li>Created <strong>top-down level layouts</strong> and structured early graybox blockouts for the Training Spoke to validate spatial metrics.</li>
+                            <li>Designed textless onboarding sequences utilizing <strong>diegetic visual cues</strong> to teach spaceship piloting organically.</li>
                         </ul>
                     </div>
-                    <a href="tms.html" class="pill-btn">View Case Study</a>
+                    <a href="tms.html" class="pill-btn">View Project</a>
                 </div>
             </article>
 
@@ -403,7 +376,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
-            // 1. HAMBURGER MENU LOGIC
+            // 1. HAMBURGER MENU LOGIC (Failsafe Version)
             const oldMenuBtn = document.querySelector('.menu-toggle');
             const nav = document.querySelector('.nav-links');
 
@@ -425,18 +398,17 @@
                 });
             }
 
-            // 2. GIF CROSSFADER LOGIC
+            // 2. GIF CROSSFADER LOGIC (Cycles every 5 seconds)
             const cyclers = document.querySelectorAll('.gif-cycler');
             cyclers.forEach(cycler => {
                 const images = cycler.querySelectorAll('img');
                 if (images.length > 1) {
                     let currentIndex = 0;
-                    // Cycles to the next GIF every 4.5 seconds
                     setInterval(() => {
                         images[currentIndex].classList.remove('active-gif');
                         currentIndex = (currentIndex + 1) % images.length;
                         images[currentIndex].classList.add('active-gif');
-                    }, 4500); 
+                    }, 5000); 
                 }
             });
 

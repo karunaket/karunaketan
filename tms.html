@@ -3,17 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>That's My Scrap! | Karuna Ketan</title>
+    <title>AOA: Space Scrap Smugglers | Karuna Ketan</title>
     
     <link rel="stylesheet" href="style.css">
     
     <style>
+        /* --- MINIMAL PROJECT HEADER --- */
+        .project-minimal-header {
+            padding: 1.5rem 2rem;
+            background: rgba(255, 255, 255, 0.98);
+            border-bottom: 1px solid #e5e5e5;
+            position: sticky; 
+            top: 0; 
+            z-index: 2000;
+        }
+        
+        .project-header-content {
+            max-width: 1400px; 
+            margin: 0 auto;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+        }
+        
+        .project-logo {
+            font-family: var(--font-heading, 'Oswald', sans-serif); 
+            font-size: 1.5rem; 
+            font-weight: 700;
+            color: #111; 
+            letter-spacing: 2px; 
+            text-decoration: none; 
+            line-height: 1;
+        }
+        
+        .project-back-link {
+            font-family: var(--font-heading, 'Oswald', sans-serif); 
+            font-size: 0.85rem; 
+            font-weight: 600;
+            color: #555; 
+            letter-spacing: 1.5px; 
+            text-transform: uppercase; 
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .project-back-link:hover { 
+            color: #111; 
+        }
+
         /* --- PAGE SPECIFIC STYLES & UI COMPONENTS --- */
 
         /* Problem/Solution Framework Cards */
         .gds-framework-card {
             background: #fff;
-            border-left: 5px solid var(--red-accent);
+            border-left: 5px solid var(--red-accent, #ff3b30);
             padding: 2.5rem;
             box-shadow: 0 10px 35px rgba(0,0,0,0.06);
             border-radius: 0 8px 8px 0;
@@ -24,18 +67,18 @@
         .gds-row:last-child { margin-bottom: 0; }
         
         .gds-label {
-            font-family: var(--font-heading);
+            font-family: var(--font-heading, 'Oswald', sans-serif);
             font-size: 0.95rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            color: var(--red-accent);
+            color: var(--red-accent, #ff3b30);
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 700;
         }
         
-        .gds-text { font-size: 1.05rem; color: var(--text-dim); line-height: 1.7; }
-        .gds-text strong { color: var(--text-color); font-weight: 700; }
+        .gds-text { font-size: 1.05rem; color: var(--text-dim, #555); line-height: 1.7; }
+        .gds-text strong { color: var(--text-color, #111); font-weight: 700; }
 
         /* Tool Synergy Grid */
         .tool-grid {
@@ -46,43 +89,34 @@
         }
 
         .tool-card {
-            background: #fdfdfd;
-            border: 1px solid var(--border-color);
-            padding: 2rem;
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 2.5rem 2rem;
             border-radius: 8px;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            border-bottom: 3px solid #111;
         }
 
         .tool-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.08);
-            border-color: #ccc;
+            border-bottom-color: var(--red-accent, #ff3b30);
         }
-
-        .tool-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 4px;
-            background: var(--text-color);
-            transition: background 0.3s ease;
-        }
-
-        .tool-card:hover::before { background: var(--red-accent); }
 
         .tool-tags { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
-        .t-tag { background: #eee; color: #333; font-size: 0.7rem; font-family: var(--font-heading); font-weight: 700; padding: 4px 10px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; }
+        .t-tag { background: #f4f4f4; color: #333; font-size: 0.7rem; font-family: var(--font-heading, 'Oswald', sans-serif); font-weight: 700; padding: 4px 10px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; }
 
-        .tool-card h4 { font-family: var(--font-heading); font-size: 1.3rem; color: #111; margin-bottom: 1rem; line-height: 1.2; }
-        .tool-card p { font-size: 0.95rem; color: var(--text-dim); line-height: 1.6; }
+        .tool-card h4 { font-family: var(--font-heading, 'Oswald', sans-serif); font-size: 1.3rem; color: #111; margin-bottom: 1rem; line-height: 1.2; text-transform: uppercase;}
+        .tool-card p { font-size: 0.95rem; color: var(--text-dim, #555); line-height: 1.6; }
 
         /* Level Design Timeline */
         .level-timeline {
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 2.5rem;
             margin-top: 3rem;
             position: relative;
         }
@@ -91,7 +125,7 @@
             content: '';
             position: absolute;
             top: 0; left: 24px;
-            width: 2px; height: 100%;
+            width: 3px; height: 100%;
             background: #eee;
             z-index: 0;
         }
@@ -99,7 +133,7 @@
         .timeline-beat {
             display: flex;
             align-items: flex-start;
-            gap: 2rem;
+            gap: 2.5rem;
             position: relative;
             z-index: 1;
         }
@@ -109,37 +143,40 @@
             background: #111; color: #fff;
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-family: var(--font-heading); font-size: 1.2rem; font-weight: 700;
+            font-family: var(--font-heading, 'Oswald', sans-serif); font-size: 1.2rem; font-weight: 700;
             flex-shrink: 0;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             transition: 0.3s ease;
         }
 
         .timeline-beat:hover .beat-number {
-            background: var(--red-accent);
-            transform: scale(1.1);
+            background: var(--red-accent, #ff3b30);
+            transform: scale(1.15);
+            box-shadow: 0 8px 20px rgba(255,59,48,0.3);
         }
 
         .beat-content {
             background: #fff;
             border: 1px solid #eee;
-            padding: 2rem;
+            padding: 2.5rem;
             border-radius: 8px;
             flex-grow: 1;
             box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
         }
 
         .timeline-beat:hover .beat-content {
-            transform: translateX(5px);
-            border-color: #ddd;
+            transform: translateX(8px);
+            border-left-color: var(--red-accent, #ff3b30);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
         }
 
-        .beat-content h4 { font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px; color: #111; }
-        .beat-content p { font-size: 0.95rem; color: var(--text-dim); line-height: 1.6; margin-bottom: 1rem; }
-        .beat-goal { font-size: 0.85rem; font-weight: 600; color: var(--red-accent); text-transform: uppercase; letter-spacing: 1px; display: inline-block; background: #fff5f4; padding: 4px 10px; border-radius: 4px; }
+        .beat-content h4 { font-family: var(--font-heading, 'Oswald', sans-serif); font-size: 1.3rem; margin-bottom: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #111; }
+        .beat-content p { font-size: 0.95rem; color: var(--text-dim, #555); line-height: 1.6; margin-bottom: 1.5rem; }
+        .beat-goal { font-size: 0.85rem; font-weight: 600; color: var(--red-accent, #ff3b30); text-transform: uppercase; letter-spacing: 1px; display: inline-block; background: #fff5f4; padding: 6px 12px; border-radius: 4px; }
 
-        /* Lightbox (Full Screen Image Viewer from EOF Reference) */
+        /* Lightbox */
         #imageViewer {
             display: none;
             position: fixed;
@@ -172,11 +209,11 @@
             font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
-            font-family: 'Oswald', sans-serif;
+            font-family: var(--font-heading, 'Oswald', sans-serif);
             line-height: 1;
         }
         .close-img-btn:hover {
-            color: #ff3b30;
+            color: var(--red-accent, #ff3b30);
             transform: scale(1.1);
         }
 
@@ -185,11 +222,11 @@
             to {transform: scale(1); opacity: 1;}
         }
 
-        /* MOBILE RESPONSIVENESS (Matches EOF Reference) */
+        /* MOBILE RESPONSIVENESS */
         @media (max-width: 900px) {
             .case-study-content { padding: 0 1.5rem 4rem 1.5rem; }
             .split-section { grid-template-columns: 1fr !important; gap: 2rem !important; }
-            .split-image { order: -1; } /* Image first */
+            .split-image { order: -1; } 
             .split-text { padding-right: 0; }
             .project-stats-grid { flex-wrap: wrap; gap: 1.5rem; }
             .stat-box { min-width: 40%; }
@@ -197,7 +234,7 @@
 
         @media (max-width: 768px) {
             .level-timeline::before { left: 20px; }
-            .timeline-beat { gap: 1rem; }
+            .timeline-beat { gap: 1.5rem; }
             .beat-number { width: 40px; height: 40px; font-size: 1rem; }
             .beat-content { padding: 1.5rem; }
         }
@@ -211,10 +248,10 @@
 </head>
 <body>
 
-    <header class="minimal-header">
-        <div class="header-content">
-            <a href="index.html" class="logo">KK.</a>
-            <a href="index.html#projects" style="font-family: 'Oswald', sans-serif; font-size: 0.85rem; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none; transition: color 0.2s ease;" onmouseover="this.style.color='#111'" onmouseout="this.style.color='#555'">BACK TO HOME</a>
+    <header class="project-minimal-header">
+        <div class="project-header-content">
+            <a href="index.html" class="project-logo">KK.</a>
+            <a href="index.html#projects" class="project-back-link">BACK TO HOME</a>
         </div>
     </header>
 
@@ -222,7 +259,7 @@
         <div class="slider-container full-width-slider">
             <div class="slider-wrapper">
                 <div class="slide">
-                    <img src="assets/fcp/GIF_Vids/hero_gameplay.gif" alt="That's My Scrap Gameplay Action">
+                    <img src="assets/fcp/GIF_Vids/hero_gameplay.gif" alt="Space Scrap Smugglers Gameplay Action">
                 </div>
             </div>
         </div>
@@ -230,12 +267,12 @@
 
     <section class="project-header-compact">
         <div class="industry-badge" style="position: relative; display: inline-block; top: 0; left: 0; margin-bottom: 1rem; box-shadow: none;">INDUSTRY WORK</div>
-        <h1 class="case-title">THAT'S MY SCRAP!</h1>
+        <h1 class="case-title">AOA: SPACE SCRAP SMUGGLERS</h1>
         
         <div class="project-stats-grid">
             <div class="stat-box">
                 <span class="label">ROLE</span>
-                <span class="value">Game Designer</span>
+                <span class="value">Contract Game Designer</span>
             </div>
             <div class="stat-box">
                 <span class="label">STUDIO</span>
@@ -258,7 +295,7 @@
         <div class="header-actions">
             <a href="https://youtu.be/JzA3o1U0otg" target="_blank" class="resume-btn pill-btn" style="border: 2px solid #111;">▶ WATCH REVEAL TEASER</a> 
         </div>
-        <p class="team-credit" style="margin-top: 1.5rem; font-style: italic; color: #888; font-size: 0.9rem;">*Note: Due to NDA, internal documents and specific code logic cannot be shared. This case study focuses exclusively on my foundational system design and level blockout philosophy.*</p>
+        <p class="team-credit" style="margin-top: 1.5rem; font-style: italic; color: #888; font-size: 0.9rem;">*Note: Due to NDA, internal documents and specific code logic cannot be shared. This case study focuses exclusively on my foundational system design, mechanic synergies, and level blockouts.*</p>
     </section>
 
     <div class="case-study-content">
@@ -267,23 +304,24 @@
             <div class="split-text">
                 <h2 class="block-title">Game Overview</h2>
                 <p class="lead-text">
-                    Take your flying factory into space, strip a sector for scrap, and try to survive capitalism.
+                    Take your flying factory into space, coordinate with your team, and smuggle illegal cargo under pressure.
                 </p>
                 <p class="block-text">
-                    <em>That's My Scrap!</em> is a physics-driven, 4-player co-op asteroid mining simulator. Players pilot individual spacecraft equipped with gravity tools while collectively managing a massive, shared cargo carrier (the FORGE). The core challenge is not combat, but <strong>coordination under pressure</strong>.
+                    <em>AOA: Space Scrap Smugglers</em> is a physics-driven, 4-player co-op asteroid mining simulator. Players pilot individual spacecraft equipped with Gravity Beams while collectively managing a massive, shared cargo carrier known as the <strong>FORGE</strong>. The core challenge is not combat, but <strong>physics-based coordination under pressure</strong>.
                 </p>
                 
-                <div style="background: #f9f9f9; padding: 1.5rem; border-left: 3px solid #111; margin-top: 1.5rem;">
-                    <h3 style="font-family: 'Oswald', sans-serif; font-size: 1rem; text-transform: uppercase; margin-bottom: 0.8rem; letter-spacing: 1px;">My Core Deliverables</h3>
-                    <ul class="clean-list" style="margin-bottom: 0;">
-                        <li>• Drafted foundational GDDs to establish core loops and systemic boundaries.</li>
-                        <li>• Designed physics-based tool synergies prioritizing emergent team communication.</li>
-                        <li>• Blocked out initial Hub-and-Spoke tutorial levels to validate spatial metrics.</li>
+                <div style="background: #f9f9f9; padding: 1.5rem; border-left: 3px solid #111; margin-top: 1.5rem; border-radius: 0 8px 8px 0;">
+                    <h3 style="font-family: var(--font-heading, 'Oswald', sans-serif); font-size: 1.1rem; text-transform: uppercase; margin-bottom: 1rem; letter-spacing: 1px;">My Core Deliverables</h3>
+                    <ul class="clean-list" style="margin-bottom: 0; line-height: 1.8;">
+                        <li>• Prepared structured <strong>Game Design Documents (GDDs)</strong> to establish core loops.</li>
+                        <li>• Engineered physics-based tool synergies (Gravity Beam, Shared Cargo).</li>
+                        <li>• Created <strong>top-down level layouts</strong> and graybox blockouts for the Training Spoke.</li>
+                        <li>• Designed textless onboarding utilizing diegetic visual cues.</li>
                     </ul>
                 </div>
             </div>
             <div class="split-image">
-                <img src="assets/fcp/Images/Poster.png" alt="That's My Scrap Key Art" style="width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); cursor: pointer;" onclick="openImage(this.src)">
+                <img src="assets/fcp/Images/Poster.png" alt="AOA Key Art" style="width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); cursor: pointer;" onclick="openImage(this.src)">
             </div>
         </section>
 
@@ -298,11 +336,11 @@
                     <div class="gds-framework-card">
                         <div class="gds-row">
                             <span class="gds-label">The Problem</span>
-                            <p class="gds-text">In early tests, highly skilled solo players could dominate the session, carrying cargo and clearing paths themselves while leaving the rest of the team as mere spectators.</p>
+                            <p class="gds-text">In early prototyping, highly skilled solo players could dominate the session, carrying cargo and steering the main ship themselves while leaving the rest of the team as mere spectators.</p>
                         </div>
                         <div class="gds-row">
-                            <span class="gds-label">The Solution (The Gravity Rule)</span>
-                            <p class="gds-text">I documented a strict physics constraint for the primary tool: <strong>1 Player holding heavy cargo = Extremely slow movement. 2+ Players attaching beams = Fast, stabilized movement.</strong></p>
+                            <span class="gds-label">The Solution (The FORGE & Gravity Rules)</span>
+                            <p class="gds-text">I documented strict physics constraints for the shared carrier (the FORGE) and the primary player tool. <strong>1 Player holding heavy cargo = Extremely slow, unstable movement. 2+ Players attaching beams = Fast, stabilized movement.</strong></p>
                         </div>
                         <div class="gds-row">
                             <span class="gds-label">The Result</span>
@@ -314,26 +352,26 @@
         </section>
 
         <section class="content-block" style="margin-top: 5rem;">
-            <h2 class="block-title">System 2: Emergent Tool Synergies</h2>
-            <p class="block-text">Rather than giving players specific keys for specific locks, we designed a sandbox of tools. Complexity and fun emerge from how players combine these tools to solve spatial problems.</p>
+            <h2 class="block-title">System 2: "One Tool, Many Uses"</h2>
+            <p class="block-text">In the GDD, I intentionally restricted the game to a single core multipurpose tool: <strong>The Gravity Beam (G-Beam)</strong>. Rather than giving players specific keys for specific locks, depth and complexity emerge from how players use this single tool to solve spatial problems together.</p>
             
             <div class="tool-grid">
                 <div class="tool-card">
-                    <div class="tool-tags"><span class="t-tag">Grapple Hook</span><span class="t-tag">Pulse Pusher</span></div>
-                    <h4>The "Cinematic Chaos" Move</h4>
-                    <p>Player A grapples the cargo; Player B blasts it across space with the Pusher.<br><br><strong>Design Goal:</strong> Extremely fast cargo movement, perfect for last-second saves under time pressure, but highly dangerous for fragile or hazardous goods.</p>
+                    <div class="tool-tags"><span class="t-tag">G-Beam</span><span class="t-tag">Co-op</span></div>
+                    <h4>Cooperative Hauling</h4>
+                    <p>Players must attach multiple G-Beams to drag, swing, and throw heavy space junk toward the FORGE.<br><br><strong>Design Goal:</strong> Make cargo extraction physics-driven and reliant on teamwork for alignment and stability.</p>
                 </div>
 
                 <div class="tool-card">
-                    <div class="tool-tags"><span class="t-tag">Laser Cutter</span><span class="t-tag">Time</span></div>
-                    <h4>The "Cut vs. Carry" Dilemma</h4>
-                    <p>Players can carry massive scrap whole (slow but full payout) or cut it into pieces (fast but reduces the final value).<br><br><strong>Design Goal:</strong> Player-made difficulty scaling. It forces smart risk vs. reward decision-making under intense pressure.</p>
+                    <div class="tool-tags"><span class="t-tag">The FORGE</span><span class="t-tag">Physics</span></div>
+                    <h4>Piloting the Carrier</h4>
+                    <p>The FORGE acts as a massive moving obstacle. Multiple players must provide directional input simultaneously to steer it.<br><br><strong>Design Goal:</strong> If inputs are mismatched, the carrier stalls or drifts. This forces rhythm and communication to navigate.</p>
                 </div>
 
                 <div class="tool-card">
-                    <div class="tool-tags"><span class="t-tag">Charged Gun</span><span class="t-tag">Gravity Beam</span></div>
-                    <h4>The "Smuggler's Run"</h4>
-                    <p>The Charged Gun enables interaction with rare, illegal cargo, but loses charge constantly, requiring map travel to refill.<br><br><strong>Design Goal:</strong> Forces players outside the established safe paths and makes the world map meaningful and dangerous.</p>
+                    <div class="tool-tags"><span class="t-tag">Smuggling</span><span class="t-tag">Hazards</span></div>
+                    <h4>Environmental Manipulation</h4>
+                    <p>The G-Beam isn't just for hauling loot—it can be used to pull debris aside, clear paths, or manage illegal cargo emitting detection heat.<br><br><strong>Design Goal:</strong> Player-made puzzle solving that turns the environment into an interactive sandbox.</p>
                 </div>
             </div>
         </section>
@@ -341,23 +379,23 @@
         <section class="content-block split-section" style="margin-top: 5rem;">
             <div class="split-text">
                 <h2 class="block-title">System 3: Textless Onboarding</h2>
-                <p class="block-text">Forced tutorials ruin the pacing of party games. I drafted an onboarding flow built entirely on <strong>Environmental Affordances</strong> to teach players naturally.</p>
+                <p class="block-text">Forced tutorials ruin the pacing of party games. I drafted an onboarding flow built entirely on <strong>Environmental Affordances</strong> to teach players spaceship piloting naturally.</p>
                 
                 <ul class="clean-list" style="margin-top: 1.5rem;">
-                    <li>• <strong>No UI Dumps:</strong> A central, diegetic Announcement Speaker in the Hub explains the context briefly: <em>"Mine asteroids. Meet quota. Smuggle if you dare."</em></li>
+                    <li>• <strong>No UI Dumps:</strong> A central, diegetic Announcement Speaker explains the context briefly: <em>"Mine asteroids. Meet quota. Smuggle if you dare."</em></li>
                     <li>• <strong>Visual Cues:</strong> Mineable asteroids emit soft glows. Interaction UI <em>only</em> appears when a player's crosshair is hovering perfectly over the action point.</li>
                     <li>• <strong>Learning Through Physics:</strong> Small orientation indicators near the spacecraft subtly teach inertia and rotation without complex menus.</li>
                 </ul>
             </div>
             <div class="split-image">
                 <img src="assets/fcp/Images/CoreLoop.png" alt="Core Loop Flowchart" style="width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); cursor: pointer;" onclick="openImage(this.src)">
-                <p class="caption">The foundational loop designed to teach the base economy.</p>
+                <p class="caption">The foundational loop designed to organically teach mechanics.</p>
             </div>
         </section>
 
         <section class="content-block" style="margin-top: 5rem;">
             <h2 class="block-title">Level Architecture: The Training Spoke</h2>
-            <p class="block-text">To manage production scope and control pacing, the world was structured using a <strong>Hub-and-Spoke</strong> topology. The Hub is 100% safe. The Spokes are linear, standalone missions. Below is my layout logic for the very first "Training Spoke."</p>
+            <p class="block-text">To manage production scope, I created top-down level layouts using a <strong>Hub-and-Spoke</strong> topology. The Hub is 100% safe. The Spokes are linear, standalone missions. Below is my layout logic for the early graybox blockouts of the "Training Spoke."</p>
             
             <div class="level-timeline">
                 
@@ -366,7 +404,7 @@
                     <div class="beat-content">
                         <h4>First Open Space: Orientation</h4>
                         <p>A calm open area connected directly from the Hub portal, filled with small floating asteroids and clear visibility. There is absolutely no cargo or time pressure here.</p>
-                        <span class="beat-goal">Player Outcome: "I understand how my ship moves in space."</span>
+                        <span class="beat-goal">Player Outcome: "I understand how my spaceship moves in space."</span>
                     </div>
                 </div>
 
@@ -374,7 +412,7 @@
                     <div class="beat-number">2</div>
                     <div class="beat-content">
                         <h4>Narrow Section: Riding the Carrier</h4>
-                        <p>Players are introduced to the large Carrier Crate. The path gradually narrows using massive asteroid walls, forcing players to ride the carrier grid and move together as a single unit.</p>
+                        <p>Players are introduced to the large FORGE carrier. The path gradually narrows using massive asteroid walls, forcing players to ride the carrier grid and move together as a single unit.</p>
                         <span class="beat-goal">Player Outcome: "I understand how to coordinate shared movement."</span>
                     </div>
                 </div>
@@ -383,7 +421,7 @@
                     <div class="beat-number">3</div>
                     <div class="beat-content">
                         <h4>Second Open Space: The Core Loop</h4>
-                        <p>The area opens up. Regular training cargo is placed clearly in view. Players must use the Gravity Gun to attach, align, and drop the cargo successfully into the carrier grid slots.</p>
+                        <p>The area opens up. Regular training cargo is placed clearly in view. Players must use the Gravity Beam to attach, align, and drop the cargo successfully into the carrier grid slots.</p>
                         <span class="beat-goal">Player Outcome: "I understand the primary cargo interaction loop."</span>
                     </div>
                 </div>
@@ -392,7 +430,7 @@
                     <div class="beat-number">4</div>
                     <div class="beat-content">
                         <h4>Obstacle Area: Problem Solving</h4>
-                        <p>Players encounter a blocked passage made of scrap and debris. They must realize that the Gravity Gun isn't just for hauling loot—it can be used to pull debris aside to open the golden path forward.</p>
+                        <p>Players encounter a blocked passage made of scrap and debris. They must realize that their tools can be used to pull debris aside to open the golden path forward.</p>
                         <span class="beat-goal">Player Outcome: "I can use my tools to solve environmental puzzles."</span>
                     </div>
                 </div>
@@ -403,7 +441,7 @@
     </div>
 
     <footer class="footer-section">
-        <p class="copyright">© 2026 Karuna Ketan.</p>
+        <p class="copyright" style="text-align: center; color: #888; padding: 2rem 0;">© 2026 Karuna Ketan.</p>
     </footer>
 
     <div id="imageViewer" onclick="closeImage()">
