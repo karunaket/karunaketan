@@ -3,152 +3,283 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio of Karuna Ketan, a Game Designer specializing in system design, level design, and player psychology.">
+    <meta name="description" content="Portfolio of Karuna Ketan, a Game Designer specializing in system design, player psychology, and game economy.">
     <title>Karuna Ketan | Game Designer</title>
     
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* --- MOBILE NAVIGATION & RESPONSIVENESS --- */
-        /* Note: All desktop styling is left to your style.css so it doesn't break! */
-
-        /* Hamburger Button - Hidden on Desktop */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 30px;
-            height: 21px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            z-index: 2000;
-            position: relative; 
+        /* --- 1. PREMIUM MINIMALIST PALETTE --- */
+        :root {
+            --bg-page: #FAF9F5; /* Warm Ivory */
+            --text-main: #111111; /* True Black/Charcoal */
+            --text-muted: #555555;
+            --accent: #D45B3E; /* Terracotta Rust */
+            --border-light: rgba(0,0,0,0.08);
+            
+            --font-display: 'Oswald', sans-serif;
+            --font-body: 'Montserrat', sans-serif;
         }
 
-        .menu-toggle .bar {
-            width: 100%;
-            height: 3px;
-            background-color: #111;
-            transition: 0.3s ease;
-            border-radius: 2px;
+        body {
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+            overflow-x: hidden;
         }
 
-        /* --- MULTI-GIF CROSSFADER --- */
-        .gif-cycler {
-            position: relative;
-            background: #050505; /* Prevents white flashes during transitions */
-            display: block;
-        }
-        
-        .gif-cycler img {
-            transition: transform 0.5s ease, opacity 0.8s ease-in-out !important;
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        
-        /* The first image dictates the container height. The rest sit perfectly on top of it. */
-        .gif-cycler img:not(:first-child) {
-            position: absolute;
+        /* --- 2. FLOATING EDITORIAL HEADER --- */
+        .minimal-header {
+            background: rgba(250, 249, 245, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1.2rem 2rem;
+            position: sticky;
             top: 0;
-            left: 0;
-            height: 100%;
+            z-index: 2000;
+        }
+        .header-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--text-main); letter-spacing: 2px; text-decoration: none;}
+        
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; margin: 0;}
+        .nav-links a { color: var(--text-muted); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: color 0.3s ease; }
+        .nav-links a:hover { color: var(--accent); }
+        
+        .header-resume-btn {
+            background: var(--text-main);
+            color: #fff !important;
+            padding: 0.6rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .header-resume-btn:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(212, 91, 62, 0.25);}
+
+        /* --- 3. IMMERSIVE HERO SECTION --- */
+        .hero-section {
+            max-width: 1300px;
+            margin: 6rem auto 8rem auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            gap: 6rem;
+        }
+        .hero-copy { flex: 1.2; }
+        
+        .hero-badge { 
+            font-family: var(--font-body); 
+            color: var(--text-main); 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            font-size: 0.85rem; 
+            margin-bottom: 1rem; 
+            display: block; 
+        }
+        
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: 4.5rem;
+            line-height: 1.1;
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+        
+        .hero-bio {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            max-width: 650px;
+            margin-bottom: 2.5rem;
+        }
+        .hero-bio strong { color: var(--text-main); font-weight: 700; }
+        
+        .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;}
+        
+        .btn-primary {
+            background: var(--text-main); color: #fff; padding: 1rem 2rem; border-radius: 50px; font-family: var(--font-display); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: 0.3s;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        .btn-primary:hover { background: var(--accent); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(212, 91, 62, 0.25); }
+        
+        .btn-ghost {
+            background: transparent; color: var(--text-main); padding: 1rem 2rem; border-radius: 50px; font-family: var(--font-display); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: 0.3s;
+            border: 2px solid rgba(0,0,0,0.1);
+        }
+        .btn-ghost:hover { border-color: var(--text-main); transform: translateY(-3px);}
+
+        /* Circular Profile Image */
+        .hero-image {
+            flex: 0.8;
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+        .hero-image img {
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
             object-fit: cover;
-        }
-        
-        .gif-cycler img:not(.active-gif) {
-            opacity: 0;
-            pointer-events: none; /* Prevents hidden layers from capturing clicks */
-        }
-        
-        .gif-cycler img.active-gif {
-            opacity: 1;
-            z-index: 2;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            border: 8px solid #fff;
         }
 
-        /* --- TABLET / SMALL LAPTOP RESPONSIVENESS --- */
-        @media (max-width: 900px) {
-            .intro-section {
-                flex-direction: column !important;
-                text-align: center;
-                gap: 3rem;
-                padding-top: 4rem;
-            }
+        /* --- 4. SPLIT-SCREEN PROJECT LAYOUT --- */
+        .projects-container {
+            max-width: 1300px;
+            margin: 0 auto 6rem auto;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            text-transform: uppercase;
+            margin-bottom: 5rem;
+            color: var(--text-main);
+            text-align: center;
+        }
+
+        .immersive-project {
+            display: flex;
+            align-items: center;
+            gap: 5rem;
+            margin-bottom: 10rem;
+        }
+        .immersive-project:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .project-media {
+            flex: 1.4;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            position: relative;
+            background: #000;
+            aspect-ratio: 16/10;
+        }
+        
+        .project-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .p-title { font-family: var(--font-display); font-size: 2.8rem; margin-bottom: 0.5rem; line-height: 1.1; text-transform: uppercase;}
+        
+        .p-details {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+        .p-details strong { color: var(--text-main); font-weight: 700; }
+
+        .p-desc { color: var(--text-muted); font-size: 1.05rem; line-height: 1.8; margin-bottom: 2rem; }
+        
+        .p-bullets { list-style: none; margin-bottom: 2.5rem; padding: 0; }
+        .p-bullets li { position: relative; padding-left: 1.5rem; margin-bottom: 0.8rem; font-size: 0.95rem; color: var(--text-main); }
+        .p-bullets li::before { content: "✦"; position: absolute; left: 0; color: var(--accent); font-size: 0.8rem; top: 2px;}
+
+        .btn-outline {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border: 2px solid var(--text-main);
+            color: var(--text-main);
+            border-radius: 50px;
+            font-family: var(--font-display);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            align-self: flex-start;
+            transition: 0.3s;
+        }
+        .btn-outline:hover { background: var(--text-main); color: #fff; transform: translateY(-2px);}
+
+        /* Multi-GIF Cycler */
+        .gif-cycler img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; transition: opacity 0.8s ease-in-out; }
+        .gif-cycler img:not(.active-gif) { opacity: 0; }
+        .gif-cycler img.active-gif { opacity: 1; z-index: 2; }
+
+        /* --- 5. PROCESS GRID --- */
+        .process-wrapper {
+            background: #fff;
+            padding: 8rem 2rem;
+            border-top: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
+        }
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 2rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        .process-step { 
+            background: var(--bg-page);
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(0,0,0,0.03);
+            transition: 0.3s;
+        }
+        .process-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.06);
+            border-color: rgba(0,0,0,0.08);
+        }
+        
+        .icon-circle {
+            width: 50px; height: 50px;
+            background: rgba(212, 91, 62, 0.1);
+            color: var(--accent);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .process-step h4 { font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 0.8rem; color: var(--text-main); letter-spacing: 0.5px;}
+        .process-step p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+
+        /* --- BULLETPROOF MOBILE MENU --- */
+        .menu-toggle { display: none; flex-direction: column; justify-content: space-between; width: 30px; height: 21px; background: transparent; border: none; cursor: pointer; z-index: 2000; position: relative; }
+        .menu-toggle .bar { width: 100%; height: 3px; background-color: var(--text-main); transition: 0.3s ease; border-radius: 2px; }
+
+        @media (max-width: 1024px) {
+            .hero-section { flex-direction: column; text-align: center; gap: 4rem; margin-top: 4rem;}
             .hero-actions { justify-content: center; }
-            .profile-img-container {
-                margin: 0 auto;
-                width: 80% !important;
-                max-width: 350px;
-            }
-
-            .project-row {
-                flex-direction: column !important;
-                gap: 1.5rem !important;
-                padding: 1.5rem !important;
-            }
-            .row-image { max-width: 100% !important; }
-            .row-content { width: 100% !important; }
-            .meta-tags { justify-content: center; }
-            .row-title, .row-date {
-                text-align: center;
-                display: block;
-            }
-            .row-desc ul { padding-left: 0; }
-            .pill-btn {
-                align-self: stretch !important;
-                text-align: center;
-            }
-
-            .process-grid {
-                grid-template-columns: 1fr 1fr !important;
-                gap: 1.5rem;
-            }
+            .hero-bio { margin: 0 auto 2.5rem auto; }
+            .hero-image img { max-width: 350px; }
+            
+            .immersive-project, .immersive-project:nth-child(even) { flex-direction: column; gap: 3rem; margin-bottom: 6rem;}
+            .project-media { width: 100%; aspect-ratio: 16/9; }
+            .project-info { padding: 0; }
+            
+            .process-grid { grid-template-columns: 1fr 1fr; gap: 2rem;}
         }
 
-        /* --- MOBILE NAVIGATION & PHONES --- */
         @media (max-width: 768px) {
             .menu-toggle { display: flex !important; }
+            .nav-links { position: fixed !important; top: 0 !important; right: -100% !important; width: 100% !important; height: 100vh !important; background-color: var(--bg-page) !important; display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: center !important; gap: 2.5rem !important; z-index: 1500 !important; transition: right 0.4s ease-in-out !important; }
+            .nav-links.active { right: 0 !important; }
+            .nav-links a { font-size: 1.5rem !important; color: var(--text-main) !important; }
+            .menu-toggle.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg) !important; }
+            .menu-toggle.active .bar:nth-child(2) { opacity: 0 !important; }
+            .menu-toggle.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg) !important; }
             
-            .nav-links {
-                position: fixed; 
-                top: 0; 
-                right: 0; 
-                width: 100%; 
-                height: 100vh;
-                background-color: #fff; 
-                display: flex; 
-                flex-direction: column !important; 
-                justify-content: center; 
-                align-items: center;
-                gap: 2.5rem; 
-                z-index: 1500;
-                transform: translateX(100%);
-                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-            }
-            
-            .nav-links.active { transform: translateX(0); }
-            .nav-links a { font-size: 1.5rem !important; font-weight: 700; color: #111; }
-            
-            .menu-toggle.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
-            .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
-            .menu-toggle.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
-
-            .footer-links {
-                display: flex;
-                flex-direction: column;
-                gap: 1rem;
-                align-items: center;
-            }
-        }
-
-        /* --- SMALL PHONES --- */
-        @media (max-width: 600px) {
-            .intro-title { font-size: 2.5rem !important; }
-            .hero-actions { flex-direction: column; gap: 1rem; }
-            .btn-primary { width: 100%; text-align: center; }
-            .process-grid { grid-template-columns: 1fr !important; }
+            .hero-title { font-size: 3.5rem; }
+            .hero-actions { flex-direction: column; width: 100%;}
+            .btn-primary, .btn-ghost { width: 100%; text-align: center; box-sizing: border-box;}
+            .process-grid { grid-template-columns: 1fr; gap: 1.5rem;}
         }
     </style>
 </head>
@@ -156,7 +287,7 @@
 
     <header class="minimal-header">
         <div class="header-content">
-            <a href="index.html" class="logo">KARUNA KETAN</a>
+            <a href="index.html" class="logo">KARUNA KETAN.</a>
             
             <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Navigation">
                 <span class="bar"></span>
@@ -166,217 +297,230 @@
 
             <nav>
                 <ul class="nav-links" id="nav-links">
-                    <li><a href="index.html#projects">Projects</a></li>
+                    <li><a href="#projects">Projects</a></li>
                     <li><a href="documents.html">Docs</a></li>
-                    <li><a href="process.html">Process</a></li>
+                    <li><a href="#process">Process</a></li>
                     <li><a href="about.html">About</a></li>
-                    <li><a href="index.html#contact">Contact</a></li>
                     <li><a href="resume.pdf" target="_blank" class="header-resume-btn">RESUME</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <main class="main-container">
-
-        <section class="intro-section">
-            <div class="intro-content">
-                <h2 class="section-label-small"><b>About me</b></h2>
-                <h1 class="intro-title">Hello, I’m Karuna Ketan, a game designer.</h1>
-                <p class="intro-bio">
-                    I specialize in <strong>Player Psychology</strong>, <strong>System Design</strong>, <strong>Level Design</strong>, and <strong>Economy Balancing</strong>. Leveraging a strong technical background, I translate creative pillars into actionable Game Design Documents and rapid prototypes. I am driven by crafting balanced gameplay loops and spatial layouts that create intentional, deeply engaging player experiences.
+    <main>
+        <section class="hero-section">
+            <div class="hero-copy">
+                <span class="hero-badge"><b>ABOUT ME</b></span>
+                <h1 class="hero-title">Hello, I'm Karuna Ketan.</h1>
+                <p class="hero-bio">
+                    I am a Game Designer specializing in <strong>Player Psychology</strong>, <strong>System Design</strong>, and <strong>Game Economy</strong>. Leveraging a strong technical background, I translate creative pillars into actionable Game Design Documents (GDDs) and rapid prototypes. I am driven by crafting balanced gameplay loops and spatial layouts that create intentional, deeply engaging player experiences.
                 </p>
                 <div class="hero-actions">
-                    <a href="resume.pdf" target="_blank" class="btn-primary">VIEW RESUME</a>
-                    </div>
+                    <a href="resume.pdf" target="_blank" class="btn-primary">View Resume</a>
+                    <a href="https://www.linkedin.com/in/karunaket/" target="_blank" class="btn-ghost">LinkedIn ↗</a>
+                    <a href="https://karuna-ketan.itch.io/" target="_blank" class="btn-ghost">Itch.io ↗</a>
+                </div>
             </div>
             
-            <figure class="profile-img-container">
-                <img src="assets/profile.jpeg" alt="Portrait of Karuna Ketan" class="profile-img">
-            </figure>
+            <div class="hero-image">
+                <img src="assets/profile.jpeg" alt="Karuna Ketan Portrait">
+            </div>
         </section>
 
-        <section id="projects" class="projects-section">
+        <section id="projects" class="projects-container">
+            <h2 class="section-title">Selected Works</h2>
             
-            <h2 class="section-divider-title">Professional Work</h2>
-            
-            <article class="project-row premium-card">
-                <div class="industry-badge">In Development</div>
-                <a href="tms.html" class="row-image gif-cycler" aria-label="View AOA details">
+            <article class="immersive-project">
+                <div class="project-media gif-cycler">
                     <img src="assets/fcp/GIF_Vids/hero_gameplay.gif" alt="AOA Gameplay" class="active-gif" loading="lazy">
-                    <img src="assets/fcp/GIF_Vids/coop_gravity_beam.gif" alt="AOA Co-op Mechanic" loading="lazy">
-                </a>
-                <div class="row-content">
-                    <span class="row-date">FatCatPlay Game Studio</span>
-                    <h3 class="row-title"><a href="tms.html">AOA: Space Scrap Smugglers</a></h3>
+                    <img src="assets/fcp/GIF_Vids/coop_gravity_beam.gif" alt="AOA Gravity Beam" loading="lazy">
+                </div>
+                <div class="project-info">
+                    <h3 class="p-title">AOA: Space Scrap</h3>
                     
-                    <div class="meta-tags">
-                        <span class="tag">Contract Game Designer</span>
-                        <span class="tag">4-Player Co-op</span>
-                        <span class="tag">Unreal Engine 5</span>
+                    <div class="p-details">
+                        <strong>Role:</strong> Contract Game Designer<br>
+                        <strong>Team:</strong> 12+ (FatCatPlay)<br>
+                        <strong>Duration:</strong> Dec 2025 - Feb 2026<br>
+                        <strong>Engine:</strong> Unreal Engine
                     </div>
 
-                    <div class="row-desc">
-                        <ul>
-                            <li>Drafted and maintained structured <strong>Game Design Documents (GDDs)</strong> for a physics-driven space mining simulation, establishing core loops.</li>
-                            <li>Engineered physics-based tool synergies to simulate smuggling, including a <strong>Gravity Beam</strong> that forces emergent team communication.</li>
-                            <li>Created <strong>top-down level layouts</strong> and structured early graybox blockouts for the Training Spoke to validate spatial metrics.</li>
-                            <li>Designed textless onboarding sequences utilizing <strong>diegetic visual cues</strong> to teach spaceship piloting organically.</li>
-                        </ul>
-                    </div>
-                    <a href="tms.html" class="pill-btn">View Project</a>
+                    <p class="p-desc">A physics-driven space mining simulator built for emergent cooperative gameplay. I designed foundational mechanics that brutally enforce team communication and authored the documentation that guided production.</p>
+
+                    <ul class="p-bullets">
+                        <li>Engineered physics-based tool synergies like the Gravity Beam to force cooperative dependencies.</li>
+                        <li>Created top-down graybox layouts for the Hub-and-Spoke tutorial world.</li>
+                        <li>Designed textless onboarding sequences utilizing diegetic visual cues.</li>
+                    </ul>
+
+                    <a href="tms.html" class="btn-outline">Read Case Study</a>
                 </div>
             </article>
 
-            <h2 class="section-divider-title">Personal Projects</h2>
-            
-            <div class="projects-list">
-                
-                <article class="project-row">
-                    <a href="eof.html" class="row-image gif-cycler" aria-label="View Eclipse of Fear details">
-                        <img src="assets/Horror/GIF_Vids/Minions.gif" alt="Eclipse of Fear Enemy Encounters" class="active-gif" loading="lazy">
-                        <img src="assets/Horror/GIF_Vids/Boss_Eclipse_Chase.gif" alt="Eclipse of Fear Boss Chase" loading="lazy">
-                        <img src="assets/Horror/GIF_Vids/Paper_Lives_Burn.gif" alt="Eclipse of Fear UI System" loading="lazy">
-                        <img src="assets/Horror/GIF_Vids/Inner_Thoughts_Mechanic.gif" alt="Eclipse of Fear Navigation" loading="lazy">
-                    </a>
-                    <div class="row-content">
-                        <span class="row-date">Survival Horror</span>
-                        <h3 class="row-title"><a href="eof.html">Eclipse of Fear</a></h3>
-                        
-                        <div class="meta-tags">
-                            <span class="tag">Game Designer</span>
-                            <span class="tag">Unreal Engine 5</span>
-                            <span class="tag">Duration: 1 Month</span>
-                        </div>
-
-                        <div class="row-desc">
-                            <ul>
-                                <li>Designed the diegetic <strong>"Lives as Papers"</strong> health system where losing a life physically burns a mandatory quest item.</li>
-                                <li>Balanced 4 distinct enemy waves using <strong>Data Sheets</strong> to tune speed and detection radius for an escalating difficulty curve.</li>
-                                <li>Scripted a dynamic <strong>Intensity Director</strong> altering lighting states and enemy aggression based on objective completion.</li>
-                            </ul>
-                        </div>
-                        <a href="eof.html" class="pill-btn">View project</a>
+            <article class="immersive-project">
+                <div class="project-media gif-cycler">
+                    <img src="assets/RPG/Images/1.png" alt="Obstacle Assault Gameplay" class="active-gif" loading="lazy" style="filter: grayscale(20%);">
+                </div>
+                <div class="project-info">
+                    <h3 class="p-title">Obstacle Assault</h3>
+                    
+                    <div class="p-details">
+                        <strong>Role:</strong> Game & Level Designer<br>
+                        <strong>Team:</strong> Solo Project<br>
+                        <strong>Duration:</strong> Jan 2026 - Present<br>
+                        <strong>Engine:</strong> Unreal Engine
                     </div>
-                </article>
 
-                <article class="project-row">
-                    <a href="scttv.html" class="row-image gif-cycler" aria-label="View Shattered Charms details">
-                        <img src="assets/RPG/GIF_Vids/Combat_Loop.gif" alt="Shattered Charms Combat" class="active-gif" loading="lazy">
-                        <img src="assets/RPG/GIF_Vids/Charm_UI.gif" alt="Shattered Charms UI Inventory" loading="lazy">
-                        <img src="assets/RPG/GIF_Vids/Sword_Upgrade.gif" alt="Shattered Charms Economy" loading="lazy">
-                        <img src="assets/RPG/GIF_Vids/Boss_AI.gif" alt="Shattered Charms Boss Encounter" loading="lazy">
-                    </a>
-                    <div class="row-content">
-                        <span class="row-date">Action RPG</span>
-                        <h3 class="row-title"><a href="scttv.html">Shattered Charms: Through The Veil</a></h3>
-                        
-                        <div class="meta-tags">
-                            <span class="tag">Game Designer</span>
-                            <span class="tag">Unreal Engine 5</span>
-                            <span class="tag">Duration: 3 Months</span>
-                        </div>
+                    <p class="p-desc">A precision platformer focused on flow state and spatial mastery. I utilized data-driven iteration to balance difficulty, ensuring players feel challenged by the environment rather than the controls.</p>
 
-                        <div class="row-desc">
-                            <ul>
-                                <li>Designed the <strong>"Charm Matrix"</strong> progression system allowing players to discover new abilities through specific Charm Fusions.</li>
-                                <li>Modeled a <strong>Purification Economy</strong> in Excel to balance drop rates and enforce exploration before the final boss.</li>
-                                <li>Architected a <strong>Hub and Spoke</strong> world layout using lighting cues to control pacing and signal environmental transitions.</li>
-                            </ul>
-                        </div>
-                        <a href="scttv.html" class="pill-btn">View project</a>
+                    <ul class="p-bullets">
+                        <li>Designed movement-driven levels that teach mechanics through risk-reward routing.</li>
+                        <li>Tuned spatial metrics, jump arcs, and coyote time to minimize player frustration.</li>
+                        <li>Implemented instant-restart loops to prioritize continuous mastery.</li>
+                    </ul>
+
+                    <a href="#" class="btn-outline">Case Study Coming Soon</a>
+                </div>
+            </article>
+
+            <article class="immersive-project">
+                <div class="project-media gif-cycler">
+                    <img src="assets/Horror/GIF_Vids/Minions.gif" alt="Eclipse of Fear" class="active-gif" loading="lazy">
+                    <img src="assets/Horror/GIF_Vids/Boss_Eclipse_Chase.gif" alt="Eclipse Chase" loading="lazy">
+                </div>
+                <div class="project-info">
+                    <h3 class="p-title">Eclipse of Fear</h3>
+                    
+                    <div class="p-details">
+                        <strong>Role:</strong> Game Designer<br>
+                        <strong>Team:</strong> 2 Members<br>
+                        <strong>Duration:</strong> 1 Month<br>
+                        <strong>Engine:</strong> Unreal Engine
                     </div>
-                </article>
 
-                <article class="project-row">
-                    <a href="ps.html" class="row-image gif-cycler" aria-label="View Project Singularity details">
-                        <img src="assets/Action-adv/GIF_Vids/Game_Overview.gif" alt="Project Singularity Gameplay" class="active-gif" loading="lazy">
-                        <img src="assets/Action-adv/GIF_Vids/Teleport_Mechanic.gif" alt="Project Singularity Teleport" loading="lazy">
-                    </a>
-                    <div class="row-content">
-                        <span class="row-date">Action Adventure</span>
-                        <h3 class="row-title"><a href="ps.html">Project Singularity</a></h3>
-                        
-                        <div class="meta-tags">
-                            <span class="tag">Game Designer</span>
-                            <span class="tag">Unreal Engine 5</span>
-                            <span class="tag">Team Size: 3</span>
-                        </div>
+                    <p class="p-desc">A systemic survival horror prototype emphasizing psychological tension. I stripped away traditional UI elements to create a highly immersive, vulnerable player experience driven by dynamic AI.</p>
 
-                        <div class="row-desc">
-                            <ul>
-                                <li>Designed a <strong>Teleportation Mechanic</strong> as a dual purpose tool for environmental puzzles and combat flanking.</li>
-                                <li>Prioritized <strong>"Game Feel"</strong> validation by iterating on camera shake and hit stop feedback loops for responsive combat.</li>
-                                <li>Defined <strong>Spatial Metrics</strong> for level blockouts accommodating NPC escort mechanics and vertical encounters.</li>
-                            </ul>
-                        </div>
-                        <a href="ps.html" class="pill-btn">View project</a>
+                    <ul class="p-bullets">
+                        <li>Designed the diegetic "Lives as Papers" health system where failing physically burns a quest item.</li>
+                        <li>Scripted a dynamic Intensity Director that scales enemy aggression based on player metrics.</li>
+                        <li>Balanced 4 distinct enemy waves using Data Sheets to tune speed and detection.</li>
+                    </ul>
+
+                    <a href="eof.html" class="btn-outline">Read Case Study</a>
+                </div>
+            </article>
+
+            <article class="immersive-project">
+                <div class="project-media gif-cycler">
+                    <img src="assets/RPG/GIF_Vids/Combat_Loop.gif" alt="Shattered Charms" class="active-gif" loading="lazy">
+                    <img src="assets/RPG/GIF_Vids/Boss_AI.gif" alt="Boss AI" loading="lazy">
+                </div>
+                <div class="project-info">
+                    <h3 class="p-title">Shattered Charms</h3>
+                    
+                    <div class="p-details">
+                        <strong>Role:</strong> Game Designer<br>
+                        <strong>Team:</strong> Solo Project<br>
+                        <strong>Duration:</strong> 3 Months<br>
+                        <strong>Engine:</strong> Unreal Engine
                     </div>
-                </article>
 
-            </div>
+                    <p class="p-desc">An Action RPG focused on systemic progression and mathematical balancing. I replaced rigid skill trees with modular systems to heavily incentivize player experimentation.</p>
 
-            <h2 class="section-divider-title">Game Deconstruction</h2>
-            
-            <div class="projects-list" style="gap: 4rem;">
-                <article class="project-row">
-                    <a href="tlou.html" class="row-image" aria-label="View The Last of Us Analysis">
-                        <img src="assets/Game Deconstruction/TLOU.png" alt="The Last of Us Part I cover art" loading="lazy">
-                    </a>
-                    <div class="row-content">
-                        <span class="row-date">Analysis</span>
-                        <h3 class="row-title"><a href="tlou.html">The Last of Us: Part I</a></h3>
-                        
-                        <div class="meta-tags">
-                            <span class="tag">Level Pacing</span>
-                            <span class="tag">Economy</span>
-                            <span class="tag">Player Psychology</span>
-                        </div>
+                    <ul class="p-bullets">
+                        <li>Designed the active "Charm Matrix" progression system for combat synergy.</li>
+                        <li>Mathematically modeled a 3-tier purification economy in Excel to balance drop rates.</li>
+                        <li>Architected a Hub-and-Spoke world layout using lighting cues to control pacing.</li>
+                    </ul>
 
-                        <div class="row-desc">
-                            <ul>
-                                <li>Analyzed the use of <strong>"Pacing Pockets"</strong> to balance gameplay tension and emotional relief.</li>
-                                <li>Deconstructed how resource scarcity mechanics for ammo and crafting force strict defensive play.</li>
-                                <li>Mapped environmental storytelling techniques that successfully guide navigation without UI.</li>
-                            </ul>
-                        </div>
-                        <a href="tlou.html" class="pill-btn">Read Deconstruction</a>
-                    </div>
-                </article>
-            </div>
+                    <a href="scttv.html" class="btn-outline">Read Case Study</a>
+                </div>
+            </article>
+
+            <article class="immersive-project" style="margin-bottom: 4rem;">
+                <div class="project-media" style="background: transparent; box-shadow: none;">
+                    <img src="assets/Game Deconstruction/TLOU.png" alt="TLOU Cover" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.08);">
+                </div>
+                <div class="project-info">
+                    <span style="color: var(--text-muted); letter-spacing: 1px; font-family: var(--font-body); font-weight: 500; font-size: 0.9rem; text-transform: uppercase; margin-bottom: 0.5rem; display: block;">Design Analysis</span>
+                    <h3 class="p-title" style="font-size: 2.4rem;">The Last of Us: Part I</h3>
+                    <p class="p-desc">A deep dive into how Naughty Dog uses resource scarcity, "Pacing Pockets", and environmental storytelling to manipulate player psychology without relying on UI waypoints.</p>
+                    <a href="tlou.html" class="btn-outline">Read Deconstruction</a>
+                </div>
+            </article>
 
         </section>
 
-        <section id="process" class="process-section">
-            <h2 class="section-divider-title">My Process</h2>
+        <section id="process" class="process-wrapper">
+            <h2 class="section-title" style="margin-bottom: 4rem;">My Process</h2>
             <div class="process-grid">
-                <div class="process-card"><div class="process-icon" aria-hidden="true">🔍</div><h3>Research</h3><p>I conduct deep Game Deconstructions to understand design pillars, game loops, and pacing.</p></div>
-                <div class="process-card"><div class="process-icon" aria-hidden="true">📝</div><h3>Brief</h3><p>Establishing clear Design Pillars early to ensure mechanics align with the core player fantasy.</p></div>
-                <div class="process-card"><div class="process-icon" aria-hidden="true">💡</div><h3>Ideation</h3><p>From brainstorming to Paper Prototyping. I test math and logic on paper to fail fast before coding.</p></div>
-                <div class="process-card"><div class="process-icon" aria-hidden="true">📖</div><h3>Docs</h3><p>Creating Live GDDs. I know when to write detailed specs and when to make quick flowcharts.</p></div>
-                <div class="process-card"><div class="process-icon" aria-hidden="true">⚙️</div><h3>Prototype</h3><p>Jumping into Unreal Engine 5 using Blueprints to build ugly but functional mechanics to test Game Feel.</p></div>
-                <div class="process-card"><div class="process-icon" aria-hidden="true">🎮</div><h3>Testing</h3><p>Regular playtests to tune difficulty curves. Gathering feedback is my bread and butter.</p></div>
-                <div class="process-card"><div class="process-icon" aria-hidden="true">🚀</div><h3>Release</h3><p>Packaging and shipping builds, ensuring the first time user experience is frictionless.</p></div>
-                <div class="process-card"><div class="process-icon" aria-hidden="true">📊</div><h3>Analysis</h3><p>Digging through playtest data and writing Post Mortems to understand what went right and what broke.</p></div>
+                
+                <div class="process-step">
+                    <div class="icon-circle">🔍</div>
+                    <h4>Research</h4>
+                    <p>I conduct deep Game Deconstructions to understand design pillars, game loops, and pacing.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="icon-circle">📝</div>
+                    <h4>Brief</h4>
+                    <p>Establishing clear Design Pillars early to ensure mechanics align with the core player fantasy.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="icon-circle">💡</div>
+                    <h4>Ideation</h4>
+                    <p>From brainstorming to Paper Prototyping. I test math and logic on paper to fail fast before coding.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="icon-circle">📖</div>
+                    <h4>Docs</h4>
+                    <p>Creating Live GDDs. I know when to write detailed specs and when to make quick flowcharts.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="icon-circle">⚙️</div>
+                    <h4>Prototype</h4>
+                    <p>Jumping into Unreal Engine using Blueprints to build functional mechanics to test Game Feel.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="icon-circle">🎮</div>
+                    <h4>Testing</h4>
+                    <p>Regular playtests to tune difficulty curves. Gathering feedback is my bread and butter.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="icon-circle">🚀</div>
+                    <h4>Release</h4>
+                    <p>Packaging and shipping builds, ensuring the first-time user experience is frictionless.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="icon-circle">📊</div>
+                    <h4>Analysis</h4>
+                    <p>Digging through playtest data and writing Post Mortems to understand what went right and broke.</p>
+                </div>
+
             </div>
         </section>
 
     </main>
 
-    <footer id="contact" class="footer-section">
-        <div class="footer-links">
-            <a href="mailto:gamesbykarunaket@gmail.com" aria-label="Email Karuna Ketan">Email</a>
-            <a href="https://wa.me/917764870529" target="_blank" rel="noopener noreferrer" aria-label="Chat with Karuna Ketan on WhatsApp">+91 7764870529</a>
-            <a href="https://www.linkedin.com/in/karunaket/" target="_blank" rel="noopener noreferrer" aria-label="Visit Karuna Ketan's LinkedIn">LinkedIn</a>
-            <a href="https://karuna-ketan.itch.io/" target="_blank" rel="noopener noreferrer" aria-label="Visit Karuna Ketan's itch.io Profile">itch.io</a>
+    <footer style="background: var(--text-main); color: var(--bg-page); padding: 4rem 2rem; text-align: center;">
+        <div style="display: flex; gap: 2rem; justify-content: center; margin-bottom: 2rem; font-family: var(--font-display); text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">
+            <a href="mailto:gamesbykarunaket@gmail.com" style="color: var(--bg-page); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#D45B3E'" onmouseout="this.style.color='#FAF9F5'">Email</a>
+            <a href="https://www.linkedin.com/in/karunaket/" target="_blank" style="color: var(--bg-page); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#D45B3E'" onmouseout="this.style.color='#FAF9F5'">LinkedIn</a>
+            <a href="https://karuna-ketan.itch.io/" target="_blank" style="color: var(--bg-page); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#D45B3E'" onmouseout="this.style.color='#FAF9F5'">itch.io</a>
         </div>
-        <p style="margin-top: 1rem; color: #888; font-size: 0.8rem;">© 2026 Karuna Ketan.</p>
+        <p style="font-size: 0.85rem; color: #888;">© 2026 Karuna Ketan.</p>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
-            // 1. HAMBURGER MENU LOGIC (Failsafe Version)
+            // 1. HAMBURGER MENU LOGIC
             const oldMenuBtn = document.querySelector('.menu-toggle');
             const nav = document.querySelector('.nav-links');
 
@@ -398,7 +542,7 @@
                 });
             }
 
-            // 2. GIF CROSSFADER LOGIC (Cycles every 5 seconds)
+            // 2. GIF CROSSFADER LOGIC (Cycles every 4 seconds)
             const cyclers = document.querySelectorAll('.gif-cycler');
             cyclers.forEach(cycler => {
                 const images = cycler.querySelectorAll('img');
@@ -408,10 +552,9 @@
                         images[currentIndex].classList.remove('active-gif');
                         currentIndex = (currentIndex + 1) % images.length;
                         images[currentIndex].classList.add('active-gif');
-                    }, 5000); 
+                    }, 4000); 
                 }
             });
-
         });
     </script>
 </body>

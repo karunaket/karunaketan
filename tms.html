@@ -3,133 +3,289 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AOA: Space Scrap Smugglers - Game Design Case Study by Karuna Ketan.">
     <title>AOA: Space Scrap Smugglers | Karuna Ketan</title>
     
     <link rel="stylesheet" href="style.css">
     
     <style>
-        /* --- MINIMAL PROJECT HEADER --- */
-        .project-minimal-header {
-            padding: 1.5rem 2rem;
-            background: rgba(255, 255, 255, 0.98);
-            border-bottom: 1px solid #e5e5e5;
-            position: sticky; 
-            top: 0; 
+        /* --- 1. PREMIUM MINIMALIST PALETTE --- */
+        :root {
+            --bg-page: #FAF9F5; 
+            --text-main: #111111; 
+            --text-muted: #555555;
+            --accent: #D45B3E; 
+            --border-light: rgba(0,0,0,0.08);
+            
+            --font-display: 'Oswald', sans-serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- 2. FLOATING EDITORIAL HEADER --- */
+        .minimal-header {
+            background: rgba(250, 249, 245, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1.2rem 2rem;
+            position: sticky;
+            top: 0;
             z-index: 2000;
         }
+        .header-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--text-main); letter-spacing: 2px; text-decoration: none;}
         
-        .project-header-content {
-            max-width: 1400px; 
-            margin: 0 auto;
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-        }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; margin: 0;}
+        .nav-links a { color: var(--text-muted); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: color 0.3s ease; }
+        .nav-links a:hover { color: var(--accent); }
         
-        .project-logo {
-            font-family: var(--font-heading, 'Oswald', sans-serif); 
-            font-size: 1.5rem; 
-            font-weight: 700;
-            color: #111; 
-            letter-spacing: 2px; 
-            text-decoration: none; 
-            line-height: 1;
-        }
-        
-        .project-back-link {
-            font-family: var(--font-heading, 'Oswald', sans-serif); 
-            font-size: 0.85rem; 
+        .header-resume-btn {
+            background: var(--text-main);
+            color: #fff !important;
+            padding: 0.6rem 1.8rem;
+            border-radius: 50px;
             font-weight: 600;
-            color: #555; 
-            letter-spacing: 1.5px; 
-            text-transform: uppercase; 
-            text-decoration: none;
-            transition: color 0.2s ease;
+            transition: all 0.3s ease;
+        }
+        .header-resume-btn:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(212, 91, 62, 0.25);}
+
+        /* --- 3. CASE STUDY HERO (CENTERED & FIXED CROPPING) --- */
+        .case-hero {
+            max-width: 1300px;
+            margin: 4rem auto;
+            padding: 0 2rem;
         }
         
-        .project-back-link:hover { 
-            color: #111; 
-        }
-
-        /* --- PAGE SPECIFIC STYLES & UI COMPONENTS --- */
-
-        /* Problem/Solution Framework Cards */
-        .gds-framework-card {
-            background: #fff;
-            border-left: 5px solid var(--red-accent, #ff3b30);
-            padding: 2.5rem;
-            box-shadow: 0 10px 35px rgba(0,0,0,0.06);
-            border-radius: 0 8px 8px 0;
+        /* Removed Aspect Ratio to naturally fit the GIF without letterboxing/cropping */
+        .hero-visual {
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
             position: relative;
+            background: #000;
+            margin-bottom: 4rem;
         }
-        
+        .gif-cycler { display: block; position: relative; }
+        .gif-cycler img { width: 100%; height: auto; display: block; transition: opacity 0.8s ease-in-out; }
+        .gif-cycler img:not(:first-child) { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        .gif-cycler img:not(.active-gif) { opacity: 0; }
+        .gif-cycler img.active-gif { opacity: 1; z-index: 2; }
+
+        .case-title {
+            text-align: center;
+            font-family: var(--font-display);
+            font-size: 4rem;
+            line-height: 1.1;
+            color: var(--text-main);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        .case-metrics-wrapper {
+            border-top: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1.8rem 0;
+            margin-bottom: 1.75rem;
+            display: flex;
+            justify-content: center;
+        }
+        .case-metrics-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 4rem;
+        }
+        .metric-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .metric-item span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.4rem;
+            font-weight: 500;
+        }
+        .metric-item strong {
+            font-size: 1.05rem;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-weight: 700;
+        }
+
+        /* Video Action & NDA Note */
+        .hero-actions-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+        .btn-play {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--text-main); color: #fff; padding: 1rem 2.5rem; border-radius: 50px; font-family: var(--font-display); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: 0.3s;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            margin-bottom: 1.5rem;
+        }
+        .btn-play:hover { background: var(--accent); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(212, 91, 62, 0.25); }
+        .nda-note {
+            font-style: italic; color: var(--text-muted); font-size: 0.95rem; max-width: 900px; line-height: 1.6; margin: 0 auto;
+        }
+
+        /* --- 4. SIDEBAR & CONTENT LAYOUT --- */
+        .case-layout {
+            max-width: 1300px;
+            margin: 0 auto 8rem auto;
+            padding: 0 2rem;
+            display: flex;
+            gap: 5rem;
+            align-items: flex-start;
+        }
+
+        /* Sticky Sidebar */
+        .case-sidebar {
+            flex: 0 0 240px;
+            position: sticky;
+            top: 120px; 
+            height: fit-content;
+        }
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .sidebar-link {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            padding-left: 1rem;
+            border-left: 3px solid transparent;
+            display: block;
+        }
+        .sidebar-link:hover, .sidebar-link.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+        }
+
+        /* Main Content */
+        .case-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .content-section {
+            margin-bottom: 6rem;
+            scroll-margin-top: 140px; 
+        }
+
+        .section-header {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--text-main);
+        }
+
+        .block-text {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        .block-text strong { color: var(--text-main); }
+
+        /* Problem/Solution Box */
+        .gds-box {
+            background: #fff;
+            border-left: 4px solid var(--accent);
+            padding: 2.5rem;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            margin-bottom: 3rem;
+            border-top: 1px solid var(--border-light);
+            border-right: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
+        }
         .gds-row { margin-bottom: 2rem; }
         .gds-row:last-child { margin-bottom: 0; }
-        
         .gds-label {
-            font-family: var(--font-heading, 'Oswald', sans-serif);
-            font-size: 0.95rem;
+            font-family: var(--font-display);
+            font-size: 1.1rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--red-accent, #ff3b30);
+            letter-spacing: 1px;
+            color: var(--accent);
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 700;
         }
-        
-        .gds-text { font-size: 1.05rem; color: var(--text-dim, #555); line-height: 1.7; }
-        .gds-text strong { color: var(--text-color, #111); font-weight: 700; }
 
-        /* Tool Synergy Grid */
-        .tool-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2.5rem;
-        }
-
-        .tool-card {
+        /* Immersive Images */
+        .case-image {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
             background: #fff;
-            border: 1px solid #eee;
-            padding: 2.5rem 2rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-            border-bottom: 3px solid #111;
+        }
+        .case-image:hover { transform: scale(1.02); }
+        .img-caption { text-align: center; font-size: 0.9rem; color: var(--text-muted); font-style: italic; margin-bottom: 3rem; }
+
+        /* Grid for Multiple Images */
+        .image-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
         }
 
-        .tool-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
-            border-bottom-color: var(--red-accent, #ff3b30);
-        }
+        /* Clean List */
+        .clean-list { list-style: none; padding: 0; }
+        .clean-list li { position: relative; padding-left: 1.5rem; margin-bottom: 1.2rem; font-size: 1.05rem; color: var(--text-muted); }
+        .clean-list li::before { content: "✦"; position: absolute; left: 0; color: var(--accent); font-size: 0.8rem; top: 5px;}
+        .clean-list strong { color: var(--text-main); }
 
-        .tool-tags { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
-        .t-tag { background: #f4f4f4; color: #333; font-size: 0.7rem; font-family: var(--font-heading, 'Oswald', sans-serif); font-weight: 700; padding: 4px 10px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; }
-
-        .tool-card h4 { font-family: var(--font-heading, 'Oswald', sans-serif); font-size: 1.3rem; color: #111; margin-bottom: 1rem; line-height: 1.2; text-transform: uppercase;}
-        .tool-card p { font-size: 0.95rem; color: var(--text-dim, #555); line-height: 1.6; }
-
-        /* Level Design Timeline */
+        /* Timeline Layout */
         .level-timeline {
             display: flex;
             flex-direction: column;
             gap: 2.5rem;
-            margin-top: 3rem;
             position: relative;
         }
-
         .level-timeline::before {
             content: '';
             position: absolute;
             top: 0; left: 24px;
-            width: 3px; height: 100%;
-            background: #eee;
+            width: 2px; height: 100%;
+            background: var(--border-light);
             z-index: 0;
         }
-
         .timeline-beat {
             display: flex;
             align-items: flex-start;
@@ -137,311 +293,325 @@
             position: relative;
             z-index: 1;
         }
-
         .beat-number {
             width: 50px; height: 50px;
-            background: #111; color: #fff;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-family: var(--font-heading, 'Oswald', sans-serif); font-size: 1.2rem; font-weight: 700;
-            flex-shrink: 0;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            background: #fff; border: 2px solid var(--text-main); color: var(--text-main);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; flex-shrink: 0;
             transition: 0.3s ease;
         }
-
-        .timeline-beat:hover .beat-number {
-            background: var(--red-accent, #ff3b30);
-            transform: scale(1.15);
-            box-shadow: 0 8px 20px rgba(255,59,48,0.3);
-        }
-
+        .timeline-beat:hover .beat-number { background: var(--accent); border-color: var(--accent); color: #fff;}
+        
         .beat-content {
             background: #fff;
-            border: 1px solid #eee;
+            border: 1px solid var(--border-light);
             padding: 2.5rem;
-            border-radius: 8px;
+            border-radius: 12px;
             flex-grow: 1;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            transition: 0.3s;
         }
+        .timeline-beat:hover .beat-content { border-color: var(--accent); transform: translateX(5px);}
+        .beat-content h4 { font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 0.8rem; text-transform: uppercase; color: var(--text-main); }
+        .beat-content p { font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 0; }
 
-        .timeline-beat:hover .beat-content {
-            transform: translateX(8px);
-            border-left-color: var(--red-accent, #ff3b30);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+        /* --- 5. NEXT PROJECT CTA BUTTON (HIGH VISIBILITY & CENTERED) --- */
+        .next-project-btn-container {
+            width: 100%;
+            display: flex;
+            justify-content: center; /* Center Aligned */
+            margin-top: 4rem;
         }
-
-        .beat-content h4 { font-family: var(--font-heading, 'Oswald', sans-serif); font-size: 1.3rem; margin-bottom: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #111; }
-        .beat-content p { font-size: 0.95rem; color: var(--text-dim, #555); line-height: 1.6; margin-bottom: 1.5rem; }
-        .beat-goal { font-size: 0.85rem; font-weight: 600; color: var(--red-accent, #ff3b30); text-transform: uppercase; letter-spacing: 1px; display: inline-block; background: #fff5f4; padding: 6px 12px; border-radius: 4px; }
+        .next-proj-small-btn {
+            background: var(--accent); /* Now strictly Terracotta for High Visibility */
+            color: #fff;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            font-family: var(--font-display);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            transition: 0.3s ease;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 25px rgba(212, 91, 62, 0.3);
+        }
+        .next-proj-small-btn:hover {
+            background: var(--text-main);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+        }
 
         /* Lightbox */
-        #imageViewer {
-            display: none;
-            position: fixed;
-            z-index: 3000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.95);
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        #fullImage {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 4px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            animation: zoomIn 0.3s ease;
-        }
+        #imageViewer { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; }
+        #fullImage { max-width: 90%; max-height: 90%; border-radius: 8px; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+        .close-img-btn { position: absolute; top: 30px; right: 40px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s; font-family: var(--font-display); }
+        .close-img-btn:hover { color: var(--accent); transform: scale(1.1); }
 
-        .close-img-btn {
-            position: absolute;
-            top: 30px;
-            right: 40px;
-            color: #fff;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            font-family: var(--font-heading, 'Oswald', sans-serif);
-            line-height: 1;
-        }
-        .close-img-btn:hover {
-            color: var(--red-accent, #ff3b30);
-            transform: scale(1.1);
-        }
+        /* --- 6. MOBILE RESPONSIVENESS --- */
+        .menu-toggle { display: none; flex-direction: column; justify-content: space-between; width: 30px; height: 21px; background: transparent; border: none; cursor: pointer; z-index: 2000; position: relative; }
+        .menu-toggle .bar { width: 100%; height: 3px; background-color: var(--text-main); transition: 0.3s ease; border-radius: 2px; }
 
-        @keyframes zoomIn {
-            from {transform: scale(0.9); opacity: 0;}
-            to {transform: scale(1); opacity: 1;}
-        }
-
-        /* MOBILE RESPONSIVENESS */
-        @media (max-width: 900px) {
-            .case-study-content { padding: 0 1.5rem 4rem 1.5rem; }
-            .split-section { grid-template-columns: 1fr !important; gap: 2rem !important; }
-            .split-image { order: -1; } 
-            .split-text { padding-right: 0; }
-            .project-stats-grid { flex-wrap: wrap; gap: 1.5rem; }
-            .stat-box { min-width: 40%; }
+        @media (max-width: 1024px) {
+            .case-title { font-size: 3.5rem; }
+            .case-metrics-grid { gap: 2rem; }
+            .case-layout { flex-direction: column; gap: 3rem; }
+            
+            /* Horizontal Sticky Sidebar for Mobile */
+            .case-sidebar { 
+                position: sticky; 
+                top: 70px;
+                width: 100%; 
+                background: var(--bg-page);
+                z-index: 1900;
+                border-bottom: 1px solid var(--border-light); 
+                padding: 1rem 0;
+            }
+            .sidebar-nav {
+                flex-direction: row;
+                overflow-x: auto;
+                white-space: nowrap;
+                justify-content: flex-start;
+                gap: 2rem;
+                padding-bottom: 0.5rem;
+            }
+            .sidebar-nav::-webkit-scrollbar { display: none; }
+            .sidebar-nav { -ms-overflow-style: none; scrollbar-width: none; }
+            
+            .sidebar-link {
+                border-left: none;
+                border-bottom: 2px solid transparent;
+                padding-left: 0;
+                padding-bottom: 0.5rem;
+            }
+            .sidebar-link:hover, .sidebar-link.active {
+                border-left-color: transparent;
+                border-bottom-color: var(--accent);
+            }
         }
 
         @media (max-width: 768px) {
-            .level-timeline::before { left: 20px; }
-            .timeline-beat { gap: 1.5rem; }
-            .beat-number { width: 40px; height: 40px; font-size: 1rem; }
-            .beat-content { padding: 1.5rem; }
-        }
-
-        @media (max-width: 600px) {
-            .case-title { font-size: 2.2rem !important; line-height: 1.2; }
-            .project-header-compact { padding: 0 1rem; margin-top: 2rem; }
-            .header-actions .resume-btn { width: 100%; text-align: center; display: block; }
+            .menu-toggle { display: flex !important; }
+            .nav-links { position: fixed !important; top: 0 !important; right: -100% !important; width: 100% !important; height: 100vh !important; background-color: var(--bg-page) !important; display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: center !important; gap: 2.5rem !important; z-index: 1500 !important; transition: right 0.4s ease-in-out !important; }
+            .nav-links.active { right: 0 !important; }
+            .nav-links a { font-size: 1.5rem !important; color: var(--text-main) !important; }
+            .menu-toggle.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg) !important; }
+            .menu-toggle.active .bar:nth-child(2) { opacity: 0 !important; }
+            .menu-toggle.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg) !important; }
+            
+            .case-title { font-size: 2.8rem; }
+            .case-metrics-grid { gap: 1.5rem; flex-direction: column; align-items: center;}
+            .image-grid { grid-template-columns: 1fr; }
+            .next-proj-small-btn { width: 100%; justify-content: center; box-sizing: border-box;}
         }
     </style>
 </head>
 <body>
 
-    <header class="project-minimal-header">
-        <div class="project-header-content">
-            <a href="index.html" class="project-logo">KK.</a>
-            <a href="index.html#projects" class="project-back-link">BACK TO HOME</a>
+    <header class="minimal-header">
+        <div class="header-content">
+            <a href="index.html" class="logo">KARUNA KETAN.</a>
+            
+            <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Navigation">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+
+            <nav>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="index.html#projects" style="color: var(--accent);">Projects</a></li>
+                    <li><a href="documents.html">Docs</a></li>
+                    <li><a href="index.html#process">Process</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="resume.pdf" target="_blank" class="header-resume-btn">RESUME</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
-    <div class="top-slider-section">
-        <div class="slider-container full-width-slider">
-            <div class="slider-wrapper">
-                <div class="slide">
-                    <img src="assets/fcp/GIF_Vids/hero_gameplay.gif" alt="Space Scrap Smugglers Gameplay Action">
+    <main>
+        
+        <section class="case-hero">
+            <div class="hero-visual gif-cycler">
+                <img src="assets/fcp/GIF_Vids/hero_gameplay.gif" alt="Space Scrap Smugglers Gameplay" class="active-gif">
+                <img src="assets/fcp/GIF_Vids/coop_gravity_beam.gif" alt="Gravity Beam Tool">
+            </div>
+            
+            <h1 class="case-title">AOA: Space Scrap Smugglers</h1>
+            
+            <div class="case-metrics-wrapper">
+                <div class="case-metrics-grid">
+                    <div class="metric-item"><span>Role</span><strong>Contract Game Designer</strong></div>
+                    <div class="metric-item"><span>Studio</span><strong>FatCatPlay</strong></div>
+                    <div class="metric-item"><span>Engine</span><strong>Unreal Engine</strong></div>
+                    <div class="metric-item"><span>Genre</span><strong>4-Player Co-op</strong></div>
+                    <div class="metric-item"><span>Team Size</span><strong>12+</strong></div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <section class="project-header-compact">
-        <div class="industry-badge" style="position: relative; display: inline-block; top: 0; left: 0; margin-bottom: 1rem; box-shadow: none;">INDUSTRY WORK</div>
-        <h1 class="case-title">AOA: SPACE SCRAP SMUGGLERS</h1>
-        
-        <div class="project-stats-grid">
-            <div class="stat-box">
-                <span class="label">ROLE</span>
-                <span class="value">Contract Game Designer</span>
-            </div>
-            <div class="stat-box">
-                <span class="label">STUDIO</span>
-                <span class="value">FatCatPlay</span>
-            </div>
-            <div class="stat-box">
-                <span class="label">ENGINE</span>
-                <span class="value">Unreal Engine 5</span>
-            </div>
-            <div class="stat-box">
-                <span class="label">GENRE</span>
-                <span class="value">4-Player Co-op</span>
-            </div>
-            <div class="stat-box">
-                <span class="label">TEAM SIZE</span>
-                <span class="value">12+</span>
-            </div>
-        </div>
-        
-        <div class="header-actions">
-            <a href="https://youtu.be/JzA3o1U0otg" target="_blank" class="resume-btn pill-btn" style="border: 2px solid #111;">▶ WATCH REVEAL TEASER</a> 
-        </div>
-        <p class="team-credit" style="margin-top: 1.5rem; font-style: italic; color: #888; font-size: 0.9rem;">*Note: Due to NDA, internal documents and specific code logic cannot be shared. This case study focuses exclusively on my foundational system design, mechanic synergies, and level blockouts.*</p>
-    </section>
-
-    <div class="case-study-content">
-        
-        <section class="content-block split-section">
-            <div class="split-text">
-                <h2 class="block-title">Game Overview</h2>
-                <p class="lead-text">
-                    Take your flying factory into space, coordinate with your team, and smuggle illegal cargo under pressure.
-                </p>
-                <p class="block-text">
-                    <em>AOA: Space Scrap Smugglers</em> is a physics-driven, 4-player co-op asteroid mining simulator. Players pilot individual spacecraft equipped with Gravity Beams while collectively managing a massive, shared cargo carrier known as the <strong>FORGE</strong>. The core challenge is not combat, but <strong>physics-based coordination under pressure</strong>.
-                </p>
-                
-                <div style="background: #f9f9f9; padding: 1.5rem; border-left: 3px solid #111; margin-top: 1.5rem; border-radius: 0 8px 8px 0;">
-                    <h3 style="font-family: var(--font-heading, 'Oswald', sans-serif); font-size: 1.1rem; text-transform: uppercase; margin-bottom: 1rem; letter-spacing: 1px;">My Core Deliverables</h3>
-                    <ul class="clean-list" style="margin-bottom: 0; line-height: 1.8;">
-                        <li>• Prepared structured <strong>Game Design Documents (GDDs)</strong> to establish core loops.</li>
-                        <li>• Engineered physics-based tool synergies (Gravity Beam, Shared Cargo).</li>
-                        <li>• Created <strong>top-down level layouts</strong> and graybox blockouts for the Training Spoke.</li>
-                        <li>• Designed textless onboarding utilizing diegetic visual cues.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="split-image">
-                <img src="assets/fcp/Images/Poster.png" alt="AOA Key Art" style="width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); cursor: pointer;" onclick="openImage(this.src)">
+            
+            <div class="hero-actions-container">
+                <a href="https://youtu.be/JzA3o1U0otg" target="_blank" class="btn-play">▶ Watch Reveal Teaser</a>
+                <p class="nda-note">*Note: Due to NDA, internal documents and specific code logic cannot be shared. This case study focuses exclusively on my foundational system design, mechanic synergies, and level blockouts.*</p>
             </div>
         </section>
 
-        <section class="content-block">
-            <h2 class="block-title">System 1: Physics-Driven Dependency</h2>
-            <div class="split-section" style="align-items: center;">
-                <div class="split-image">
-                    <img src="assets/fcp/GIF_Vids/coop_gravity_beam.gif" alt="Players using Gravity Beam" style="width: 100%; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); cursor: pointer;" onclick="openImage(this.src)">
-                    <p class="caption">The Gravity Beam strictly enforces team play through mass and physics.</p>
-                </div>
-                <div class="split-text">
-                    <div class="gds-framework-card">
+        <div class="case-layout">
+            
+            <aside class="case-sidebar">
+                <ul class="sidebar-nav">
+                    <li><a href="#overview" class="sidebar-link active">Overview</a></li>
+                    <li><a href="#mechanics" class="sidebar-link">Less is More</a></li>
+                    <li><a href="#onboarding" class="sidebar-link">Silent Onboarding</a></li>
+                    <li><a href="#level-design" class="sidebar-link">Level Architecture</a></li>
+                    <li><a href="#encounters" class="sidebar-link">Whimsical Encounters</a></li>
+                </ul>
+            </aside>
+
+            <div class="case-content">
+                
+                <section id="overview" class="content-section">
+                    <h2 class="section-header">Game Overview</h2>
+                    <p class="block-text">
+                        <em>AOA: Space Scrap Smugglers</em> is a physics-driven, 4-player co-op asteroid mining simulator. Players pilot individual spacecraft equipped with Gravity Beams while collectively managing a massive, shared cargo carrier known as the <strong>FORGE</strong>. 
+                    </p>
+                    <p class="block-text">
+                        The core challenge is not combat, but <strong>physics-based coordination under pressure</strong>. You and your friends are alien scrap dealers. You mine asteroids, dodge space police, and try to survive a chaotic "friendslop" environment.
+                    </p>
+                </section>
+
+                <section id="mechanics" class="content-section">
+                    <h2 class="section-header">The "Less is More" Approach</h2>
+                    <p class="block-text">
+                        Initially, we designed multiple complex tool synergies (like using a Pulse Pusher alongside a Gravity Gun) to create distinct player roles. But "friendslops" are meant to be easy to pick up, and complex tool systems were causing players to overthink rather than have fun.
+                    </p>
+                    
+                    <div class="gds-box">
                         <div class="gds-row">
                             <span class="gds-label">The Problem</span>
-                            <p class="gds-text">In early prototyping, highly skilled solo players could dominate the session, carrying cargo and steering the main ship themselves while leaving the rest of the team as mere spectators.</p>
+                            <p class="block-text" style="margin: 0;">Multiple tools created too much cognitive load for a party game. Meanwhile, highly skilled solo players could still dominate the session by moving heavy cargo alone, breaking the co-op dependency.</p>
                         </div>
                         <div class="gds-row">
-                            <span class="gds-label">The Solution (The FORGE & Gravity Rules)</span>
-                            <p class="gds-text">I documented strict physics constraints for the shared carrier (the FORGE) and the primary player tool. <strong>1 Player holding heavy cargo = Extremely slow, unstable movement. 2+ Players attaching beams = Fast, stabilized movement.</strong></p>
+                            <span class="gds-label">The Solution (Mass Dependency)</span>
+                            <p class="block-text" style="margin: 0;">We scrapped the multi-tool system entirely and focused purely on the <strong>Gravity Beam</strong>. I designed a physics rule where certain cargo is incredibly "heavy." <strong>1 Player holding heavy cargo = Extremely slow movement. 2+ Players attaching beams = Fast, stabilized movement.</strong></p>
                         </div>
                         <div class="gds-row">
                             <span class="gds-label">The Result</span>
-                            <p class="gds-text">This simple rule acts as the signature co-op mechanic. It brutally punishes lone-wolf play, forces vocal communication, and creates dramatic "wait for me!" moments under time pressure.</p>
+                            <p class="block-text" style="margin: 0;">This simple rule forced vocal communication and created high-tension moments (e.g., getting chased by Space Police and dropping speed because a teammate panicked). A small, focused change drastically increased depth while cutting down the development load.</p>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
 
-        <section class="content-block" style="margin-top: 5rem;">
-            <h2 class="block-title">System 2: "One Tool, Many Uses"</h2>
-            <p class="block-text">In the GDD, I intentionally restricted the game to a single core multipurpose tool: <strong>The Gravity Beam (G-Beam)</strong>. Rather than giving players specific keys for specific locks, depth and complexity emerge from how players use this single tool to solve spatial problems together.</p>
-            
-            <div class="tool-grid">
-                <div class="tool-card">
-                    <div class="tool-tags"><span class="t-tag">G-Beam</span><span class="t-tag">Co-op</span></div>
-                    <h4>Cooperative Hauling</h4>
-                    <p>Players must attach multiple G-Beams to drag, swing, and throw heavy space junk toward the FORGE.<br><br><strong>Design Goal:</strong> Make cargo extraction physics-driven and reliant on teamwork for alignment and stability.</p>
-                </div>
+                    <img src="assets/fcp/Images/1.png" alt="Gravity Beam Mechanics" class="case-image" onclick="openImage(this.src)">
+                    <p class="img-caption">Visualizing the Mass Dependency physics rule in action.</p>
+                </section>
 
-                <div class="tool-card">
-                    <div class="tool-tags"><span class="t-tag">The FORGE</span><span class="t-tag">Physics</span></div>
-                    <h4>Piloting the Carrier</h4>
-                    <p>The FORGE acts as a massive moving obstacle. Multiple players must provide directional input simultaneously to steer it.<br><br><strong>Design Goal:</strong> If inputs are mismatched, the carrier stalls or drifts. This forces rhythm and communication to navigate.</p>
-                </div>
+                <section id="onboarding" class="content-section">
+                    <h2 class="section-header">Silent Onboarding & Affordances</h2>
+                    <p class="block-text">
+                        Co-op audiences hate forced text dumps. If you pause their game to make them read instructions, their flow breaks and they rage quit. Furthermore, in a gritty space scavenger game, slapping UI everywhere kills immersion.
+                    </p>
+                    
+                    <div class="image-grid">
+                        <img src="assets/fcp/Images/2.png" alt="Silent Onboarding Elements" class="case-image" style="margin-bottom:0;" onclick="openImage(this.src)">
+                        <img src="assets/fcp/Images/3.png" alt="UI Affordances" class="case-image" style="margin-bottom:0;" onclick="openImage(this.src)">
+                    </div>
+                    <p class="img-caption">Utilizing environmental cues and diegetic onboarding inside the Hub.</p>
 
-                <div class="tool-card">
-                    <div class="tool-tags"><span class="t-tag">Smuggling</span><span class="t-tag">Hazards</span></div>
-                    <h4>Environmental Manipulation</h4>
-                    <p>The G-Beam isn't just for hauling loot—it can be used to pull debris aside, clear paths, or manage illegal cargo emitting detection heat.<br><br><strong>Design Goal:</strong> Player-made puzzle solving that turns the environment into an interactive sandbox.</p>
-                </div>
-            </div>
-        </section>
+                    <p class="block-text">
+                        I solved this by designing a multi-layer, silent onboarding system inside the <strong>Hub</strong> (our safe starting zone), relying purely on physical affordances:
+                    </p>
 
-        <section class="content-block split-section" style="margin-top: 5rem;">
-            <div class="split-text">
-                <h2 class="block-title">System 3: Textless Onboarding</h2>
-                <p class="block-text">Forced tutorials ruin the pacing of party games. I drafted an onboarding flow built entirely on <strong>Environmental Affordances</strong> to teach players spaceship piloting naturally.</p>
+                    <ul class="clean-list">
+                        <li><strong>No UI Dumps:</strong> A central, diegetic Announcement Speaker explains context naturally: <em>"You are miners. Mine asteroids. Meet quota. Smuggle if you dare."</em></li>
+                        <li><strong>Looping Video Screens:</strong> Monitors in the environment show actual working mechanics (ship movement, Gravity Beam usage) without pausing the game.</li>
+                        <li><strong>Visual Cues Over UI:</strong> Instead of glowing text, mineable asteroids emit soft glows. Interaction UI <em>only</em> appears when hovering perfectly over the action point.</li>
+                        <li><strong>Natural Urgency:</strong> For the Smelter, instead of a boring UI timer, a siren activates and gates physically open, creating a natural panic window.</li>
+                    </ul>
+                </section>
+
+                <section id="level-design" class="content-section">
+                    <h2 class="section-header">Hub & Spoke Architecture</h2>
+                    <p class="block-text">
+                        Space is incredibly tough to design. The massive scale and lack of environmental anchors (no ground, no obvious paths) make it a nightmare to guide players. Furthermore, early non-linear layouts weren't scalable for new features.
+                    </p>
+                    
+                    <p class="block-text">
+                        I pushed for a <strong>Hub and Spoke</strong> level design. The Hub acts as the safe spawning zone where players understand their context, and from there they travel to distinct, scalable Spokes (Training, Quota, Smuggling). This solved our pacing problems and made the game infinitely expandable.
+                    </p>
+
+                    <img src="assets/fcp/Images/HnS.jpg" alt="Hub and Spoke Flowchart" class="case-image" onclick="openImage(this.src)">
+                    <p class="img-caption">Miro board breakdown of the Hub-and-Spoke level structure.</p>
+
+                    <h3 style="font-family: var(--font-display); font-size: 1.8rem; text-transform: uppercase; margin-top: 4rem; margin-bottom: 1.5rem; color: var(--text-main);">The Training Spoke</h3>
+                    <p class="block-text">
+                        I designed the top-down layout for Spoke 1 to be strictly linear so players wouldn't feel overwhelmed. It teaches one thing at a time: basic movement, riding the carrier grid through narrow spaces, carrying cargo, and finally using the gravity gun.
+                    </p>
+
+                    <div class="image-grid">
+                        <img src="assets/fcp/Images/TD - 1.png" alt="Top Down Blockout" class="case-image" style="margin-bottom:0;" onclick="openImage(this.src)">
+                        <img src="assets/fcp/Images/TD - 2.png" alt="Legend" class="case-image" style="margin-bottom:0; object-fit: contain; background: #f4f4f4;" onclick="openImage(this.src)">
+                    </div>
+                    <p class="img-caption">Top-down graybox layout for the Training Spoke (Left) and its structural legend (Right).</p>
+
+                    <div class="level-timeline">
+                        <div class="timeline-beat">
+                            <div class="beat-number">1</div>
+                            <div class="beat-content">
+                                <h4>Linear Progression</h4>
+                                <p>The layout avoids confusing branching paths, guiding players directly from basic ship movement orientation into their first safe cargo extraction.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-beat">
+                            <div class="beat-number">2</div>
+                            <div class="beat-content">
+                                <h4>Lighting as Direction</h4>
+                                <p>To fix the "empty space" problem without adding UI, I used lighting to guide navigation. Closed spaces are kept dim, while bright spotlights in open areas naturally pull players toward the critical path.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="encounters" class="content-section" style="margin-bottom: 0;">
+                    <h2 class="section-header">Whimsical, Low-Scope Encounters</h2>
+                    <p class="block-text">
+                        The game felt too empty, but adding traditional enemies and complex combat AI was completely out of scope for our timeline. Our Director requested a "whimsical" setting (playful, charming, imaginative), so we needed to inject energy without blowing up the budget.
+                    </p>
+
+                    <div class="image-grid">
+                        <img src="assets/fcp/Images/4.png" alt="Situational Hazards" class="case-image" style="margin-bottom:0;" onclick="openImage(this.src)">
+                        <img src="assets/fcp/Images/5.png" alt="Expressive Cargo" class="case-image" style="margin-bottom:0;" onclick="openImage(this.src)">
+                        <img src="assets/fcp/Images/6.png" alt="Smiling Planets" class="case-image" style="margin-bottom:0;" onclick="openImage(this.src)">
+                        <img src="assets/fcp/Images/8 (AI).png" alt="Whimsical Encounter Concepts" class="case-image" style="margin-bottom:0;" onclick="openImage(this.src)">
+                    </div>
+                    <p class="img-caption">Injecting personality without breaking the engineering budget.</p>
+
+                    <ul class="clean-list">
+                        <li><strong>Situational Hazards:</strong> Instead of smart enemies, I pitched static traps like sleeping alien creatures. They require zero pathfinding and just sit there until a player makes a loud mistake.</li>
+                        <li><strong>Expressive Cargo:</strong> I gave crates eyes and mouths. Heavy cargo visibly struggles when carried, and illegal cargo has a shady personality.</li>
+                        <li><strong>Smiling Planets:</strong> Massive background planets with smiling faces that talk to you. They aren't enemies, but they add immense personality to the sector for zero animation cost.</li>
+                        <li><strong>Player-Driven Chaos:</strong> The real danger comes from your friends messing up. Waking up a sleeping alien because your teammate boosted too hard creates hilarious, memorable moments.</li>
+                    </ul>
+                </section>
                 
-                <ul class="clean-list" style="margin-top: 1.5rem;">
-                    <li>• <strong>No UI Dumps:</strong> A central, diegetic Announcement Speaker explains the context briefly: <em>"Mine asteroids. Meet quota. Smuggle if you dare."</em></li>
-                    <li>• <strong>Visual Cues:</strong> Mineable asteroids emit soft glows. Interaction UI <em>only</em> appears when a player's crosshair is hovering perfectly over the action point.</li>
-                    <li>• <strong>Learning Through Physics:</strong> Small orientation indicators near the spacecraft subtly teach inertia and rotation without complex menus.</li>
-                </ul>
-            </div>
-            <div class="split-image">
-                <img src="assets/fcp/Images/CoreLoop.png" alt="Core Loop Flowchart" style="width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); cursor: pointer;" onclick="openImage(this.src)">
-                <p class="caption">The foundational loop designed to organically teach mechanics.</p>
-            </div>
-        </section>
-
-        <section class="content-block" style="margin-top: 5rem;">
-            <h2 class="block-title">Level Architecture: The Training Spoke</h2>
-            <p class="block-text">To manage production scope, I created top-down level layouts using a <strong>Hub-and-Spoke</strong> topology. The Hub is 100% safe. The Spokes are linear, standalone missions. Below is my layout logic for the early graybox blockouts of the "Training Spoke."</p>
-            
-            <div class="level-timeline">
-                
-                <div class="timeline-beat">
-                    <div class="beat-number">1</div>
-                    <div class="beat-content">
-                        <h4>First Open Space: Orientation</h4>
-                        <p>A calm open area connected directly from the Hub portal, filled with small floating asteroids and clear visibility. There is absolutely no cargo or time pressure here.</p>
-                        <span class="beat-goal">Player Outcome: "I understand how my spaceship moves in space."</span>
-                    </div>
-                </div>
-
-                <div class="timeline-beat">
-                    <div class="beat-number">2</div>
-                    <div class="beat-content">
-                        <h4>Narrow Section: Riding the Carrier</h4>
-                        <p>Players are introduced to the large FORGE carrier. The path gradually narrows using massive asteroid walls, forcing players to ride the carrier grid and move together as a single unit.</p>
-                        <span class="beat-goal">Player Outcome: "I understand how to coordinate shared movement."</span>
-                    </div>
-                </div>
-
-                <div class="timeline-beat">
-                    <div class="beat-number">3</div>
-                    <div class="beat-content">
-                        <h4>Second Open Space: The Core Loop</h4>
-                        <p>The area opens up. Regular training cargo is placed clearly in view. Players must use the Gravity Beam to attach, align, and drop the cargo successfully into the carrier grid slots.</p>
-                        <span class="beat-goal">Player Outcome: "I understand the primary cargo interaction loop."</span>
-                    </div>
-                </div>
-
-                <div class="timeline-beat">
-                    <div class="beat-number">4</div>
-                    <div class="beat-content">
-                        <h4>Obstacle Area: Problem Solving</h4>
-                        <p>Players encounter a blocked passage made of scrap and debris. They must realize that their tools can be used to pull debris aside to open the golden path forward.</p>
-                        <span class="beat-goal">Player Outcome: "I can use my tools to solve environmental puzzles."</span>
-                    </div>
+                <div class="next-project-btn-container">
+                    <a href="#" class="next-proj-small-btn">Next Project → Obstacle Assault</a>
                 </div>
 
             </div>
-        </section>
+        </div>
 
-    </div>
+    </main>
 
-    <footer class="footer-section">
-        <p class="copyright" style="text-align: center; color: #888; padding: 2rem 0;">© 2026 Karuna Ketan.</p>
+    <footer style="background: var(--text-main); color: var(--bg-page); padding: 4rem 2rem; text-align: center;">
+        <div style="display: flex; gap: 2rem; justify-content: center; margin-bottom: 2rem; font-family: var(--font-display); text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">
+            <a href="mailto:gamesbykarunaket@gmail.com" style="color: var(--bg-page); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#D45B3E'" onmouseout="this.style.color='#FAF9F5'">Email</a>
+            <a href="https://www.linkedin.com/in/karunaket/" target="_blank" style="color: var(--bg-page); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#D45B3E'" onmouseout="this.style.color='#FAF9F5'">LinkedIn</a>
+            <a href="https://karuna-ketan.itch.io/" target="_blank" style="color: var(--bg-page); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#D45B3E'" onmouseout="this.style.color='#FAF9F5'">itch.io</a>
+        </div>
+        <p style="font-size: 0.85rem; color: #888;">© 2026 Karuna Ketan.</p>
     </footer>
 
     <div id="imageViewer" onclick="closeImage()">
@@ -452,24 +622,82 @@
     <script src="script.js"></script>
 
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hamburger Menu Logic
+            const oldMenuBtn = document.querySelector('.menu-toggle');
+            const nav = document.querySelector('.nav-links');
+
+            if (oldMenuBtn && nav) {
+                const menuBtn = oldMenuBtn.cloneNode(true);
+                oldMenuBtn.parentNode.replaceChild(menuBtn, oldMenuBtn);
+                menuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    nav.classList.toggle('active');
+                    menuBtn.classList.toggle('active');
+                });
+                document.addEventListener('click', (e) => {
+                    if (!nav.contains(e.target) && !menuBtn.contains(e.target)) {
+                        nav.classList.remove('active');
+                        menuBtn.classList.remove('active');
+                    }
+                });
+            }
+
+            // GIF Crossfader
+            const cyclers = document.querySelectorAll('.gif-cycler');
+            cyclers.forEach(cycler => {
+                const images = cycler.querySelectorAll('img');
+                if (images.length > 1) {
+                    let currentIndex = 0;
+                    setInterval(() => {
+                        images[currentIndex].classList.remove('active-gif');
+                        currentIndex = (currentIndex + 1) % images.length;
+                        images[currentIndex].classList.add('active-gif');
+                    }, 4000); 
+                }
+            });
+
+            // Scrollspy Logic for Sidebar
+            const sections = document.querySelectorAll('.content-section');
+            const navLinks = document.querySelectorAll('.sidebar-link');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '-150px 0px -60% 0px',
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+
+        // Lightbox Functions
         function openImage(src) {
             const viewer = document.getElementById('imageViewer');
             const fullImg = document.getElementById('fullImage');
-            
             fullImg.src = src;
             viewer.style.display = 'flex';
-            
-            setTimeout(() => {
-                viewer.style.opacity = '1';
-            }, 10);
-            
+            setTimeout(() => { viewer.style.opacity = '1'; }, 10);
             document.body.style.overflow = 'hidden';
         }
 
         function closeImage() {
             const viewer = document.getElementById('imageViewer');
             viewer.style.opacity = '0';
-            
             setTimeout(() => {
                 viewer.style.display = 'none';
                 document.getElementById('fullImage').src = "";
