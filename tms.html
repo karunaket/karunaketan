@@ -86,7 +86,7 @@
         .case-title {
             text-align: center;
             font-family: var(--font-display);
-            font-size: 4rem;
+            font-size: 4.5rem;
             line-height: 1.1;
             color: var(--text-main);
             margin-bottom: 2rem;
@@ -128,7 +128,6 @@
             font-weight: 700;
         }
 
-        /* Video Action & NDA Note */
         .hero-actions-container {
             display: flex;
             flex-direction: column;
@@ -136,13 +135,35 @@
             text-align: center;
             margin-bottom: 5rem;
         }
-        .btn-play {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: var(--text-main); color: #fff; padding: 1rem 2.5rem; border-radius: 50px; font-family: var(--font-display); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: 0.3s;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
             margin-bottom: 1.5rem;
         }
-        .btn-play:hover { background: var(--accent); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(212, 91, 62, 0.25); }
+        .btn-play {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            background: var(--text-main); color: #fff; padding: 1rem 2.5rem; border-radius: 50px; font-family: var(--font-display); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: 0.3s;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            white-space: nowrap;
+            box-sizing: border-box;
+            border: 2px solid transparent;
+        }
+        .btn-play:hover { background: var(--accent); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(212, 91, 62, 0.25); border-color: var(--accent); }
+        
+        .btn-ghost {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            background: transparent; color: var(--text-main); padding: 1rem 2.5rem; border-radius: 50px; font-family: var(--font-display); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: 0.3s;
+            border: 2px solid var(--text-main);
+            cursor: pointer;
+            white-space: nowrap;
+            box-sizing: border-box;
+        }
+        .btn-ghost:hover { background: var(--text-main); color: #fff; transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); }
+
         .nda-note {
             font-style: italic; color: var(--text-muted); font-size: 0.95rem; max-width: 900px; line-height: 1.6; margin: 0 auto;
         }
@@ -157,7 +178,6 @@
             align-items: flex-start;
         }
 
-        /* Sticky Sidebar */
         .case-sidebar {
             flex: 0 0 240px;
             position: sticky;
@@ -190,7 +210,6 @@
             border-left-color: var(--accent);
         }
 
-        /* Main Content */
         .case-content {
             flex: 1;
             min-width: 0;
@@ -244,7 +263,6 @@
             font-weight: 700;
         }
 
-        /* Immersive Images */
         .case-image {
             width: 100%;
             border-radius: 12px;
@@ -257,7 +275,6 @@
         .case-image:hover { transform: scale(1.02); }
         .img-caption { text-align: center; font-size: 0.9rem; color: var(--text-muted); font-style: italic; margin-bottom: 3rem; }
 
-        /* Grid for Multiple Images */
         .image-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -265,65 +282,20 @@
             margin-bottom: 1rem;
         }
 
-        /* Clean List */
         .clean-list { list-style: none; padding: 0; }
         .clean-list li { position: relative; padding-left: 1.5rem; margin-bottom: 1.2rem; font-size: 1.05rem; color: var(--text-muted); }
         .clean-list li::before { content: "✦"; position: absolute; left: 0; color: var(--accent); font-size: 0.8rem; top: 5px;}
         .clean-list strong { color: var(--text-main); }
 
-        /* Timeline Layout */
-        .level-timeline {
-            display: flex;
-            flex-direction: column;
-            gap: 2.5rem;
-            position: relative;
-        }
-        .level-timeline::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 24px;
-            width: 2px; height: 100%;
-            background: var(--border-light);
-            z-index: 0;
-        }
-        .timeline-beat {
-            display: flex;
-            align-items: flex-start;
-            gap: 2.5rem;
-            position: relative;
-            z-index: 1;
-        }
-        .beat-number {
-            width: 50px; height: 50px;
-            background: #fff; border: 2px solid var(--text-main); color: var(--text-main);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; flex-shrink: 0;
-            transition: 0.3s ease;
-        }
-        .timeline-beat:hover .beat-number { background: var(--accent); border-color: var(--accent); color: #fff;}
-        
-        .beat-content {
-            background: #fff;
-            border: 1px solid var(--border-light);
-            padding: 2.5rem;
-            border-radius: 12px;
-            flex-grow: 1;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-            transition: 0.3s;
-        }
-        .timeline-beat:hover .beat-content { border-color: var(--accent); transform: translateX(5px);}
-        .beat-content h4 { font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 0.8rem; text-transform: uppercase; color: var(--text-main); }
-        .beat-content p { font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 0; }
-
-        /* --- 5. NEXT PROJECT CTA BUTTON (HIGH VISIBILITY & CENTERED) --- */
+        /* --- 5. NEXT PROJECT CTA BUTTON (CENTERED) --- */
         .next-project-btn-container {
             width: 100%;
             display: flex;
-            justify-content: center; /* Center Aligned */
+            justify-content: center; 
             margin-top: 4rem;
         }
         .next-proj-small-btn {
-            background: var(--accent); /* Now strictly Terracotta for High Visibility */
+            background: var(--accent); 
             color: #fff;
             padding: 1.2rem 3rem;
             border-radius: 50px;
@@ -360,7 +332,6 @@
             .case-metrics-grid { gap: 2rem; }
             .case-layout { flex-direction: column; gap: 3rem; }
             
-            /* Horizontal Sticky Sidebar for Mobile */
             .case-sidebar { 
                 position: sticky; 
                 top: 70px;
@@ -454,7 +425,6 @@
             </div>
             
             <div class="hero-actions-container">
-                <a href="https://youtu.be/JzA3o1U0otg" target="_blank" class="btn-play">▶ Watch Reveal Teaser</a>
                 <p class="nda-note">*Note: Due to NDA, internal documents and specific code logic cannot be shared. This case study focuses exclusively on my foundational system design, mechanic synergies, and level blockouts.*</p>
             </div>
         </section>
@@ -475,12 +445,19 @@
                 
                 <section id="overview" class="content-section">
                     <h2 class="section-header">Game Overview</h2>
-                    <p class="block-text">
-                        <em>AOA: Space Scrap Smugglers</em> is a physics-driven, 4-player co-op asteroid mining simulator. Players pilot individual spacecraft equipped with Gravity Beams while collectively managing a massive, shared cargo carrier known as the <strong>FORGE</strong>. 
-                    </p>
-                    <p class="block-text">
-                        The core challenge is not combat, but <strong>physics-based coordination under pressure</strong>. You and your friends are alien scrap dealers. You mine asteroids, dodge space police, and try to survive a chaotic "friendslop" environment.
-                    </p>
+                    <div style="display: flex; gap: 3rem; align-items: flex-start; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 300px;">
+                            <p class="block-text" style="margin-top: 0;">
+                                <em>AOA: Space Scrap Smugglers</em> is a physics-driven, 4-player co-op asteroid mining simulator. Players pilot individual spacecraft equipped with Gravity Beams while collectively managing a massive, shared cargo carrier known as the <strong>FORGE</strong>. 
+                            </p>
+                            <p class="block-text">
+                                The core challenge is not combat, but <strong>physics-based coordination under pressure</strong>. You and your friends are alien scrap dealers. You mine asteroids, dodge space police, and try to survive a chaotic "friendslop" environment.
+                            </p>
+                        </div>
+                        <div style="flex: 1; min-width: 300px; width: 100%;">
+                            <iframe width="100%" style="aspect-ratio: 16/9; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.06);" src="https://www.youtube.com/embed/JzA3o1U0otg" title="AOA Reveal Teaser" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        </div>
+                    </div>
                 </section>
 
                 <section id="mechanics" class="content-section">
@@ -597,7 +574,7 @@
                 </section>
                 
                 <div class="next-project-btn-container">
-                    <a href="#" class="next-proj-small-btn">Next Project → Obstacle Assault</a>
+                    <a href="oa.html" class="next-proj-small-btn">Next Project → Obstacle Assault</a>
                 </div>
 
             </div>

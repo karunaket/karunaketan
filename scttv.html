@@ -3,96 +3,400 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shattered Charms: Through The Veil | Karuna Ketan</title>
+    <meta name="description" content="Shattered Charms: Through the Veil - Game Design Case Study by Karuna Ketan.">
+    <title>Shattered Charms: Through the Veil | Karuna Ketan</title>
+    
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- 1. MINIMAL PROJECT HEADER --- */
-        .project-minimal-header {
-            padding: 1.5rem 2rem;
-            background: #fff;
-            border-bottom: 1px solid #e5e5e5;
-            position: sticky; 
-            top: 0; 
+        /* --- 1. PREMIUM MINIMALIST PALETTE --- */
+        :root {
+            --bg-page: #FAF9F5; 
+            --text-main: #111111; 
+            --text-muted: #555555;
+            --accent: #D45B3E; 
+            --border-light: rgba(0,0,0,0.08);
+            
+            --font-display: 'Oswald', sans-serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- 2. FLOATING EDITORIAL HEADER --- */
+        .minimal-header {
+            background: rgba(250, 249, 245, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1.2rem 2rem;
+            position: sticky;
+            top: 0;
             z-index: 2000;
         }
+        .header-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--text-main); letter-spacing: 2px; text-decoration: none;}
         
-        .project-header-content {
-            max-width: 1400px; 
-            margin: 0 auto;
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; margin: 0;}
+        .nav-links a { color: var(--text-muted); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: color 0.3s ease; }
+        .nav-links a:hover { color: var(--accent); }
+        
+        .header-resume-btn {
+            background: var(--text-main);
+            color: #fff !important;
+            padding: 0.6rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .header-resume-btn:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(212, 91, 62, 0.25);}
+
+        /* --- 3. CASE STUDY HERO --- */
+        .case-hero {
+            max-width: 1300px;
+            margin: 4rem auto;
+            padding: 0 2rem;
         }
         
-        .project-logo {
-            font-family: var(--font-heading); 
-            font-size: 1.5rem; 
+        /* INTERACTIVE HERO SLIDER */
+        .hero-slider {
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            position: relative;
+            background: #000;
+            margin-bottom: 4rem;
+            aspect-ratio: 16/9;
+        }
+        .hero-slide {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            z-index: 1;
+        }
+        .hero-slide.active-slide {
+            opacity: 1;
+            z-index: 2;
+        }
+        .hero-slide img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            background: rgba(17, 17, 17, 0.5);
+            color: #fff;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            backdrop-filter: blur(4px);
+        }
+        .slider-btn:hover { background: var(--accent); transform: translateY(-50%) scale(1.1); }
+        .slider-btn.prev { left: 20px; }
+        .slider-btn.next { right: 20px; }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            gap: 8px;
+            background: rgba(0,0,0,0.4);
+            padding: 8px 16px;
+            border-radius: 50px;
+            backdrop-filter: blur(4px);
+        }
+        .dot {
+            width: 8px; height: 8px;
+            background: rgba(255,255,255,0.4);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .dot.active-dot { background: #fff; transform: scale(1.3); }
+
+        .case-title {
+            text-align: center;
+            font-family: var(--font-display);
+            font-size: 4rem; 
+            line-height: 1.1;
+            color: var(--text-main);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        .case-metrics-wrapper {
+            border-top: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1.8rem 0;
+            margin-bottom: 1.75rem;
+            display: flex;
+            justify-content: center;
+        }
+        .case-metrics-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 4rem;
+        }
+        .metric-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .metric-item span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.4rem;
+            font-weight: 500;
+        }
+        .metric-item strong {
+            font-size: 1.05rem;
+            color: var(--text-main);
+            font-family: var(--font-body);
             font-weight: 700;
-            color: #111; 
-            letter-spacing: 2px; 
-            text-decoration: none; 
+        }
+
+        .hero-actions-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center; 
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn-play, .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 0 2.5rem;
+            height: 55px; 
+            border-radius: 50px;
+            font-family: var(--font-display);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            transition: 0.3s;
+            cursor: pointer;
+            white-space: nowrap;
+            box-sizing: border-box;
             line-height: 1;
         }
         
-        .project-back-link {
-            font-family: var(--font-heading); 
-            font-size: 0.95rem; 
-            font-weight: 600;
-            color: #555; 
-            letter-spacing: 1.5px; 
-            text-transform: uppercase; 
-            text-decoration: none;
-            transition: color 0.2s ease;
+        .btn-play {
+            background: var(--text-main);
+            color: #fff;
+            border: 2px solid transparent; 
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        .btn-play:hover { 
+            background: var(--accent); 
+            transform: translateY(-3px); 
+            box-shadow: 0 10px 25px rgba(212, 91, 62, 0.25); 
+            border-color: var(--accent); 
         }
         
-        .project-back-link:hover { 
-            color: var(--red-accent); 
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-main);
+            border: 2px solid var(--text-main);
+        }
+        .btn-ghost:hover { 
+            background: var(--text-main); 
+            color: #fff; 
+            transform: translateY(-3px); 
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); 
         }
 
-        /* --- 2. PREMIUM GDS CARDS --- */
-        .gds-framework-card {
-            background: #fff;
-            border-left: 5px solid var(--red-accent);
-            padding: 2.5rem;
-            box-shadow: 0 10px 35px rgba(0,0,0,0.06);
-            border-radius: 0 8px 8px 0;
-            position: relative;
+        .nda-note {
+            font-style: italic; color: var(--text-muted); font-size: 0.95rem; max-width: 900px; line-height: 1.6; margin: 0 auto;
         }
-        
-        .gds-label {
-            font-family: var(--font-heading);
-            font-size: 0.95rem;
+
+        /* --- 4. SIDEBAR & CONTENT LAYOUT --- */
+        .case-layout {
+            max-width: 1300px;
+            margin: 0 auto 8rem auto;
+            padding: 0 2rem;
+            display: flex;
+            gap: 5rem;
+            align-items: flex-start;
+        }
+
+        .case-sidebar {
+            flex: 0 0 240px;
+            position: sticky;
+            top: 120px; 
+            height: fit-content;
+        }
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .sidebar-link {
+            font-family: var(--font-display);
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--red-accent);
+            font-weight: 600;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            padding-left: 1rem;
+            border-left: 3px solid transparent;
+            display: block;
+        }
+        .sidebar-link:hover, .sidebar-link.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+        }
+
+        .case-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .content-section {
+            margin-bottom: 6rem;
+            scroll-margin-top: 140px; 
+        }
+
+        .section-header {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--text-main);
+        }
+
+        .block-text {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        .block-text strong { color: var(--text-main); }
+        .lead-text { font-size: 1.25rem; font-weight: 500; color: var(--text-main); margin-bottom: 1.5rem; line-height: 1.6;}
+
+        /* GDS Box (Problem/Solution) */
+        .gds-box {
+            background: #fff;
+            border-left: 4px solid var(--accent);
+            padding: 2.5rem;
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            margin-bottom: 3rem;
+            border-top: 1px solid var(--border-light);
+            border-right: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
+        }
+        .gds-row { margin-bottom: 2rem; }
+        .gds-row:last-child { margin-bottom: 0; }
+        .gds-label {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent);
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 700;
         }
+
+        /* Standard Interactive Images */
+        .case-image {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            background: #fff;
+        }
+        .case-image:hover { transform: scale(1.02); }
         
-        .gds-text { font-size: 1.05rem; color: var(--text-dim); line-height: 1.7; }
-        .gds-text strong { color: var(--text-color); font-weight: 700; }
+        /* Non-Interactive System GIFs (Full Width) */
+        .system-gif {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+            margin: 0;
+            display: block;
+        }
 
-        /* --- 3. PAGE SPECIFIC STYLES (Restored & Enhanced) --- */
+        .img-caption { text-align: center; font-size: 0.9rem; color: var(--text-muted); font-style: italic; margin-bottom: 3rem; }
 
-        /* Masonry Grid (Improved Structure) */
+        /* Grids */
+        .image-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Centered Flex Grid for Paper Prototypes */
         .raw-gallery-grid {
-            column-count: 3;
-            column-gap: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
             margin-top: 2rem;
+            margin-bottom: 3rem;
         }
         .raw-gallery-item {
-            break-inside: avoid;
-            margin-bottom: 1.5rem;
-            width: 100%;
-            border-radius: 4px;
-            border: 1px solid #e5e5e5;
-            background: #f9f9f9;
+            width: calc(33.333% - 1rem); /* 3 cards per row */
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            background: #fff;
             cursor: pointer;
             transition: transform 0.2s ease;
             overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            display: flex;
         }
         .raw-gallery-item img {
             width: 100%;
@@ -100,396 +404,568 @@
             display: block;
             transition: transform 0.3s ease;
         }
-        .raw-gallery-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        .raw-gallery-item:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+        .raw-gallery-item:hover img { transform: scale(1.05); }
+
+        /* Lists & Flows */
+        .clean-list { list-style: none; padding: 0; }
+        .clean-list li { position: relative; padding-left: 1.5rem; margin-bottom: 1.2rem; font-size: 1.05rem; color: var(--text-muted); }
+        .clean-list li::before { content: "✦"; position: absolute; left: 0; color: var(--accent); font-size: 0.8rem; top: 5px;}
+        .clean-list strong { color: var(--text-main); }
+
+        /* Document Grid */
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
-        .raw-gallery-item:hover img {
-            transform: scale(1.05);
+        .gdd-preview-box {
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            padding: 2.5rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            height: 100%;
+            box-sizing: border-box;
+        }
+        .gdd-preview-box:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(212, 91, 62, 0.1);
+        }
+        .gdd-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .gdd-preview-box h3 { font-family: var(--font-display); font-size: 1.4rem; color: var(--text-main); text-transform: uppercase; margin-bottom: 0.5rem; }
+        .gdd-preview-box p { color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.9rem; flex-grow: 1; }
+        .gdd-view-btn {
+            background: var(--text-main); color: #fff; padding: 0.6rem 1.5rem; border-radius: 50px; font-weight: 600; font-family: var(--font-display); letter-spacing: 1px; text-transform: uppercase; transition: 0.3s; font-size: 0.85rem;
+        }
+        .gdd-preview-box:hover .gdd-view-btn { background: var(--accent); }
+
+        /* Post Mortem Grid */
+        .pm-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .pm-card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+        .pm-card.success { border-top: 3px solid #2ecc71; }
+        .pm-card.failure { border-top: 3px solid #e74c3c; }
+        .pm-card.learning { border-top: 3px solid #f1c40f; }
+        .pm-card h4 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 1rem; text-transform: uppercase; color: var(--text-main);}
+        .pm-card ul { padding-left: 1.2rem; margin: 0; color: var(--text-muted); font-size: 0.95rem;}
+        .pm-card li { margin-bottom: 0.8rem; }
+
+        /* --- NEXT PROJECT CTA BUTTON --- */
+        .next-project-btn-container {
+            width: 100%;
+            display: flex;
+            justify-content: center; 
+            margin-top: 4rem;
+        }
+        .next-proj-small-btn {
+            background: var(--accent); color: #fff; padding: 1.2rem 3rem; border-radius: 50px; font-family: var(--font-display); font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none; transition: 0.3s ease; font-size: 1rem; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 10px 25px rgba(212, 91, 62, 0.3);
+        }
+        .next-proj-small-btn:hover { background: var(--text-main); transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0,0,0,0.25); }
+
+        /* --- PDF Viewer Modal (FULLSCREEN) --- */
+        #viewer {
+            display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.92); z-index: 9999; flex-direction: column; align-items: center;
+        }
+        .controls { width: 100%; display: flex; justify-content: center; align-items: center; padding: 16px 20px; background: transparent; flex-shrink: 0; position: relative; z-index: 10001; }
+        .controls button { padding: 10px 28px; background: #D45B3E; color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: 700; font-family: var(--font-display); letter-spacing: 2px; text-transform: uppercase; font-size: 0.95rem; transition: 0.2s; box-shadow: 0 4px 20px rgba(212, 91, 62, 0.4); display: flex; align-items: center; gap: 8px; }
+        .controls button:hover { background: #fff; color: #111; box-shadow: 0 4px 20px rgba(255,255,255,0.2); }
+        #pdfFrame { width: 100%; flex-grow: 1; border: none; background: transparent; }
+
+        /* Lightbox */
+        #imageViewer { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; }
+        #fullImage { max-width: 90%; max-height: 90%; border-radius: 8px; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+        .close-img-btn { position: absolute; top: 30px; right: 40px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s; font-family: var(--font-display); }
+        .close-img-btn:hover { color: var(--accent); transform: scale(1.1); }
+
+        /* --- MOBILE RESPONSIVENESS --- */
+        .menu-toggle { display: none; flex-direction: column; justify-content: space-between; width: 30px; height: 21px; background: transparent; border: none; cursor: pointer; z-index: 2000; position: relative; }
+        .menu-toggle .bar { width: 100%; height: 3px; background-color: var(--text-main); transition: 0.3s ease; border-radius: 2px; }
+
+        @media (max-width: 1024px) {
+            .case-title { font-size: 3rem; }
+            .case-metrics-grid { gap: 2rem; }
+            .case-layout { flex-direction: column; gap: 3rem; }
+            .case-sidebar { position: sticky; top: 70px; width: 100%; background: var(--bg-page); z-index: 1900; border-bottom: 1px solid var(--border-light); padding: 1rem 0; }
+            .sidebar-nav { flex-direction: row; overflow-x: auto; white-space: nowrap; justify-content: flex-start; gap: 2rem; padding-bottom: 0.5rem; }
+            .sidebar-nav::-webkit-scrollbar { display: none; }
+            .sidebar-nav { -ms-overflow-style: none; scrollbar-width: none; }
+            .sidebar-link { border-left: none; border-bottom: 2px solid transparent; padding-left: 0; padding-bottom: 0.5rem; }
+            .sidebar-link:hover, .sidebar-link.active { border-left-color: transparent; border-bottom-color: var(--accent); }
+            
+            .docs-grid { grid-template-columns: 1fr 1fr; }
+            .pm-grid { grid-template-columns: 1fr; }
+            .raw-gallery-item { width: calc(50% - 0.75rem); } 
         }
 
-        /* Lightbox (Full Screen Image Viewer) */
-        #imageViewer {
-            display: none; position: fixed; z-index: 3000; left: 0; top: 0;
-            width: 100%; height: 100%; background-color: rgba(0,0,0,0.95);
-            justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease;
+        @media (max-width: 768px) {
+            .menu-toggle { display: flex !important; }
+            .nav-links { position: fixed !important; top: 0 !important; right: -100% !important; width: 100% !important; height: 100vh !important; background-color: var(--bg-page) !important; display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: center !important; gap: 2.5rem !important; z-index: 1500 !important; transition: right 0.4s ease-in-out !important; }
+            .nav-links.active { right: 0 !important; }
+            .nav-links a { font-size: 1.5rem !important; color: var(--text-main) !important; }
+            .menu-toggle.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg) !important; }
+            .menu-toggle.active .bar:nth-child(2) { opacity: 0 !important; }
+            .menu-toggle.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg) !important; }
+            
+            .case-title { font-size: 2.4rem; }
+            .btn-group { flex-direction: column; width: 100%; }
+            .btn-play, .btn-ghost { width: 100%; justify-content: center; }
+            
+            .image-grid { grid-template-columns: 1fr; }
+            .docs-grid { grid-template-columns: 1fr; }
+            .next-proj-small-btn { width: 100%; justify-content: center; box-sizing: border-box;}
         }
-        #fullImage {
-            max-width: 90%; max-height: 90%; border-radius: 4px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5); animation: zoomIn 0.3s ease;
-        }
-        .close-img-btn {
-            position: absolute; top: 30px; right: 40px; color: #fff;
-            font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s;
-            font-family: 'Oswald', sans-serif; line-height: 1;
-        }
-        .close-img-btn:hover { color: var(--red-accent); transform: scale(1.1); }
-        @keyframes zoomIn { from {transform: scale(0.9); opacity: 0;} to {transform: scale(1); opacity: 1;} }
-
-        /* RESPONSIVE FIXES */
-        @media (max-width: 900px) {
-            .case-study-content { padding: 0 1.5rem 4rem 1.5rem; }
-            .split-section { grid-template-columns: 1fr !important; gap: 2rem !important; }
-            .split-image { order: -1; }
-            .raw-gallery-grid { column-count: 2; }
-            .project-stats-grid { flex-wrap: wrap; gap: 1.5rem; }
-            .stat-box { min-width: 40%; }
-        }
-
-        @media (max-width: 600px) {
-            .case-title { font-size: 2.2rem !important; line-height: 1.2; }
-            .raw-gallery-grid { column-count: 1; }
-            .project-header-compact { margin-top: 2rem; padding: 0 1rem; }
-            .header-actions .resume-btn { width: 100%; text-align: center; display: block; }
-            .video-wrapper { margin-top: 1.5rem; }
-            .project-header-content { padding: 0 1rem; }
+        @media (max-width: 480px) {
+            .raw-gallery-item { width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <header class="project-minimal-header">
-        <div class="project-header-content">
-            <a href="index.html" class="project-logo">KK.</a>
-            <a href="index.html#projects" class="project-back-link" style="font-family: 'Oswald', sans-serif; font-size: 0.85rem; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none; transition: color 0.2s ease;" onmouseover="this.style.color='#111'" onmouseout="this.style.color='#555'">BACK TO HOME</a>
+    <header class="minimal-header">
+        <div class="header-content">
+            <a href="index.html" class="logo">KARUNA KETAN.</a>
+            
+            <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Navigation">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+
+            <nav>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="index.html#projects" style="color: var(--accent);">Projects</a></li>
+                    <li><a href="documents.html">Docs</a></li>
+                    <li><a href="index.html#process">Process</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="resume.pdf" target="_blank" class="header-resume-btn">RESUME</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
-    <div class="top-slider-section">
-        <div class="slider-container full-width-slider">
-            <div class="slider-wrapper">
-                <div class="slide"><img src="assets/RPG/Images/1.png" alt="Shattered Charms Title Screen"></div>
-                <div class="slide"><img src="assets/RPG/Images/3.png" alt="Forest Path Atmosphere"></div>
-                <div class="slide"><img src="assets/RPG/Images/5.png" alt="Market Hub Environment"></div>
-                <div class="slide"><img src="assets/RPG/Images/10.png" alt="Dark Temple Interior"></div>
-                <div class="slide"><img src="assets/RPG/Images/8.jpg" alt="Charm System UI"></div>
-                <div class="slide"><img src="assets/RPG/Images/9.png" alt="Combat and VFX"></div>
-                <div class="slide"><img src="assets/RPG/Images/11.png" alt="Exploration Zone"></div>
-                <div class="slide"><img src="assets/RPG/Images/16.png" alt="Final Boss Arena"></div>
-            </div>
-            <button class="slider-btn prev">&#10094;</button>
-            <button class="slider-btn next">&#10095;</button>
-            <div class="slider-dots-container" id="dotsContainer"></div>
-        </div>
-    </div>
-
-    <section class="project-header-compact">
-        <h1 class="case-title">SHATTERED CHARMS: THROUGH THE VEIL</h1>
+    <main>
         
-        <div class="project-stats-grid">
-            <div class="stat-box"><span class="label">ROLE</span><span class="value">Game Designer</span></div>
-            <div class="stat-box"><span class="label">ENGINE</span><span class="value">Unreal Engine 5</span></div>
-            <div class="stat-box"><span class="label">GENRE</span><span class="value">Action RPG</span></div>
-            <div class="stat-box"><span class="label">FOCUS</span><span class="value">Mechanics & Economy</span></div>
-            <div class="stat-box"><span class="label">DURATION</span><span class="value">3 Months</span></div>
-        </div>
-
-        <div class="header-actions">
-            <a href="https://karuna-ketan.itch.io/shattered-charms-through-the-veil" target="_blank" class="resume-btn pill-btn" style="border: 2px solid #111;">PLAY ON ITCH.IO ↗</a> 
-        </div>
-        
-        <p class="team-credit">Designer: <strong>Karuna Ketan</strong></p>
-    </section>
-
-    <div class="case-study-content">
-        
-        <section class="content-block split-section">
-            <div class="split-text">
-                <h2 class="block-title">Game Overview</h2>
-                <p class="lead-text">
-                    What if progression was earned through understanding systems, not leveling numbers?
-                </p>
-                <p class="block-text">
-                    <em>Shattered Charms: Through the Veil</em> is a third-person Action RPG prototype focused on modular combat design and economy-driven progression. Set in a world fractured by a mysterious event known as The Shattering, players explore a small hub-centered region to discover Charms that fundamentally change how they fight, survive, and progress.<br><br>
-                    Rather than relying on experience points or traditional skill trees, progression is driven by experimentation, discovery, and an economy-gated upgrade loop. Understanding how Charms interact becomes the primary path to survival and advancement, reinforcing both the narrative and the gameplay.
-                </p>
+        <section class="case-hero">
+            <div class="hero-slider" id="heroSlider">
+                <div class="hero-slide active-slide"><img src="assets/RPG/Images/1.png" alt="Shattered Charms Title Screen"></div>
+                <div class="hero-slide"><img src="assets/RPG/GIF_Vids/Combat_Loop.gif" alt="Combat Gameplay Loop"></div>
+                <div class="hero-slide"><img src="assets/RPG/Images/3.png" alt="Forest Path Atmosphere"></div>
+                <div class="hero-slide"><img src="assets/RPG/GIF_Vids/Boss_AI.gif" alt="Boss AI Behavior"></div>
+                <div class="hero-slide"><img src="assets/RPG/Images/5.png" alt="Market Hub Environment"></div>
+                <div class="hero-slide"><img src="assets/RPG/GIF_Vids/Sword_Upgrade.gif" alt="Purification Economy"></div>
+                <div class="hero-slide"><img src="assets/RPG/Images/10.png" alt="Dark Temple Interior"></div>
+                <div class="hero-slide"><img src="assets/RPG/Images/8.jpg" alt="Charm System UI"></div>
+                <div class="hero-slide"><img src="assets/RPG/Images/9.png" alt="Combat and VFX"></div>
+                <div class="hero-slide"><img src="assets/RPG/Images/11.png" alt="Exploration Zone"></div>
+                <div class="hero-slide"><img src="assets/RPG/Images/16.png" alt="Final Boss Arena"></div>
+                
+                <button class="slider-btn prev" onclick="moveSlideManual(-1)">&#10094;</button>
+                <button class="slider-btn next" onclick="moveSlideManual(1)">&#10095;</button>
+                
+                <div class="slider-dots" id="dotsContainer"></div>
             </div>
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/_CrbB9irnxE" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </section>
-
-        <section class="content-block split-section">
-            <div class="split-text">
-                <h2 class="block-title">The Design Challenge</h2>
-                <p class="block-text">
-                    <strong>How do you encourage meaningful build variety in a short RPG prototype?</strong><br><br>
-                    Most action RPGs rely on deep skill trees that take hours to fully unfold. For a 20–30 minute vertical slice, that approach often results in shallow or unfinished progression.
-                    <br><br>
-                    My core challenge was to design a system that encourages experimentation immediately, makes player choices feel distinct, and rewards curiosity over raw stats. The solution became a modular Charm system combined with an economy-gated progression loop.
-                </p>
-            </div>
-            <div class="split-image">
-                <img src="assets/RPG/GIF_Vids/Combat_Loop.gif" alt="Combat variety driven by Charm loadouts" style="cursor: pointer;" onclick="openImage(this.src)">
-                <p class="caption">Combat variety is driven by Charm loadouts rather than class selection.</p>
-            </div>
-        </section>
-
-        <section class="content-block">
-            <div class="split-grid">
-                <div class="text-col">
-                    <h3 class="sub-title">Project Scope</h3>
-                    <ul class="clean-list">
-                        <li>• <strong>World:</strong> Hub-and-Spoke semi-open structure.</li>
-                        <li>• <strong>Core System:</strong> Dual-Slot Charm Fusion (Passive + Active).</li>
-                        <li>• <strong>Progression:</strong> Economy-gated weapon purification.</li>
-                        <li>• <strong>AI:</strong> Behavior Tree driven boss encounter.</li>
-                        <li>• <strong>Result:</strong> A complete vertical slice with exploration, combat, economy, and climax.</li>
-                    </ul>
-                </div>
-                <div class="text-col">
-                    <h3 class="sub-title">Design Pillars</h3>
-                    <ul class="clean-list">
-                        <li>• <strong>Strategic Loadout:</strong> Limited Charm slots force trade-offs between offense and defense, preventing dominant meta builds.</li>
-                        <li>• <strong>Gated Progression:</strong> The final boss cannot be rushed, making combat mandatory.</li>
-                        <li>• <strong>Visual Clarity:</strong> Lighting communicates gameplay states so players intuitively read spaces without HUD markers.</li>
-                    </ul>
+            
+            <h1 class="case-title">Shattered Charms: Through the Veil</h1>
+            
+            <div class="case-metrics-wrapper">
+                <div class="case-metrics-grid">
+                    <div class="metric-item"><span>Role</span><strong>Game Designer</strong></div>
+                    <div class="metric-item"><span>Team</span><strong>Solo Project</strong></div>
+                    <div class="metric-item"><span>Engine</span><strong>Unreal Engine 5</strong></div>
+                    <div class="metric-item"><span>Genre</span><strong>Action RPG</strong></div>
+                    <div class="metric-item"><span>Duration</span><strong>3 Months</strong></div>
                 </div>
             </div>
+            
+            <div class="hero-actions-container">
+                <div class="btn-group">
+                    <a href="https://karuna-ketan.itch.io/shattered-charms-through-the-veil" target="_blank" class="btn-play">▶ PLAY ON ITCH.IO</a>
+                    <a href="javascript:void(0);" onclick="openPDF('assets/RPG/SCTTV_GDD.pdf')" class="btn-ghost">📄 VIEW GDD</a>
+                </div>
+                <p class="nda-note">*Note: This prototype focuses on modular combat design and economy-driven progression. Detailed GDD and Data Spreadsheets are available in the Documentation section below.*</p>
+            </div>
         </section>
 
-        <section class="content-block split-section">
-            <div class="split-text">
-                <h2 class="block-title">Core Gameplay Loop</h2>
-                <ul class="clean-list">
-                    <li><strong>1. Explore:</strong> Navigate the "Spokes" (Cave, Farm, Temple) to find loot.</li>
-                    <li><strong>2. Survive:</strong> Combat enemies using Charms to earn Jewels.</li>
-                    <li><strong>3. Loot:</strong> Collect Jewels from enemies and chests.</li>
-                    <li><strong>4. Upgrade:</strong> Purify the weapon through Shrines using Jewels.</li>
-                    <li><strong>5. Progress:</strong> Unlock access to the final Boss Arena.</li>
+        <div class="case-layout">
+            
+            <aside class="case-sidebar">
+                <ul class="sidebar-nav">
+                    <li><a href="#overview" class="sidebar-link active">Overview</a></li>
+                    <li><a href="#core-loop" class="sidebar-link">Core Loop</a></li>
+                    <li><a href="#level-design" class="sidebar-link">Level Design</a></li>
+                    <li><a href="#systems" class="sidebar-link">System Breakdowns</a></li>
+                    <li><a href="#process" class="sidebar-link">Process</a></li>
+                    <li><a href="#docs" class="sidebar-link">Documentation</a></li>
+                    <li><a href="#postmortem" class="sidebar-link">Post-Mortem</a></li>
+                    <li><a href="#gameplay" class="sidebar-link">Complete Gameplay</a></li>
                 </ul>
-            </div>
-            <div class="split-image">
-                <img src="assets/RPG/Images/GameplayLoop.png" alt="Core Gameplay Loop Diagram" style="cursor: pointer;" onclick="openImage(this.src)">
-                <p class="caption">The economy loop ties combat directly to progression.</p>
-            </div>
-        </section>
+            </aside>
 
-        <section class="content-block" style="margin-top: 3rem;">
-            <h2 class="block-title">World Building: Paper to Proxy</h2>
-            <p class="block-text">
-                The Hub-and-Spoke design required clear visual distinctness between the safe "Market" and the dangerous "Wilds." I mapped these transitions on paper to verify travel times before building the environment.
-            </p>
+            <div class="case-content">
+                
+                <section id="overview" class="content-section">
+                    <h2 class="section-header">Game Overview</h2>
+                    <div style="display: flex; gap: 3rem; align-items: flex-start; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 300px;">
+                            <p class="lead-text" style="margin-top: 0;">
+                                What if progression was earned through understanding systems, not leveling numbers?
+                            </p>
+                            <p class="block-text">
+                                <em>Shattered Charms: Through the Veil</em> is a third-person Action RPG prototype focused on modular combat design and economy-driven progression. Set in a world fractured by a mysterious event, players explore a Hub-and-Spoke region to discover Charms that fundamentally change how they fight and survive.
+                            </p>
+                            <p class="block-text">
+                                Rather than relying on experience points or traditional skill trees, progression is driven by experimentation, discovery, and an economy-gated upgrade loop. Understanding how Charms interact becomes the primary path to survival.
+                            </p>
+                        </div>
+                        <div style="flex: 1; min-width: 300px; width: 100%;">
+                            <iframe width="100%" style="aspect-ratio: 16/9; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.06);" src="https://www.youtube.com/embed/_CrbB9irnxE" title="Shattered Charms Trailer" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </section>
 
-            <div class="comparison-grid">
-                <div class="compare-card">
-                    <span class="compare-label label-before">Phase 1: Paper Map</span>
-                    <img src="assets/RPG/RAW/14.jpeg" alt="Paper Map Design" onclick="openImage(this.src)">
-                </div>
+                <section id="core-loop" class="content-section">
+                    <h2 class="section-header">Core Gameplay Loop</h2>
+                    
+                    <div style="display: flex; gap: 3rem; align-items: center; flex-wrap: wrap; margin-bottom: 4rem;">
+                        <div style="flex: 1; min-width: 300px;">
+                            <h3 style="font-family: var(--font-display); font-size: 1.5rem; text-transform: uppercase; margin-bottom: 1rem; color: var(--text-main);">The Design Challenge</h3>
+                            <p class="block-text">
+                                <strong>How do you encourage meaningful build variety in a short RPG prototype?</strong><br><br>
+                                Most action RPGs rely on deep skill trees that take hours to fully unfold. For a 20–30 minute vertical slice, that approach often results in shallow progression. The solution became a modular Charm system that rewards curiosity over raw stats, combined with an economy-gated progression loop.
+                            </p>
+                            <ul class="clean-list" style="margin-top: 1.5rem;">
+                                <li><strong>1. Explore:</strong> Navigate the "Spokes" to find loot.</li>
+                                <li><strong>2. Survive:</strong> Combat enemies using Charms to earn Jewels.</li>
+                                <li><strong>3. Upgrade:</strong> Purify the weapon through Shrines using Jewels.</li>
+                                <li><strong>4. Progress:</strong> Unlock access to the final Boss Arena.</li>
+                            </ul>
+                        </div>
+                        <div style="flex: 1; min-width: 300px;">
+                            <img src="assets/RPG/Images/GameplayLoop.png" alt="Core Gameplay Loop Diagram" class="case-image" style="margin-bottom: 0;" onclick="openImage(this.src)">
+                            <p class="caption" style="text-align: center; margin-top: 1rem; font-style: italic; color: var(--text-muted);">The economy loop ties combat directly to progression.</p>
+                        </div>
+                    </div>
+                </section>
 
-                <div class="compare-card">
-                    <span class="compare-label label-after">Phase 2: Final Hub</span>
-                    <img src="assets/RPG/Images/LD.png" alt="Final Market Hub Environment" onclick="openImage(this.src)">
-                </div>
-            </div>
-            <p class="caption">Translating the "Safe Zone" concept from a 2D topology sketch to the final warm-lit hub area.</p>
-        </section>
-
-        <section class="content-block">
-            <h2 class="block-title">Level Design: Hub-and-Spoke</h2>
-            <div class="split-section" style="margin-top: 2rem; align-items: start;">
-                <div class="split-text">
+                <section id="level-design" class="content-section">
+                    <h2 class="section-header">Level Design: Hub-and-Spoke</h2>
                     <p class="lead-text">
                         The world is built on a "Pacing Loop" of Safety → Tension → Relief.
                     </p>
-                    <p class="block-text">
-                        I structured the map around a central <strong>Market Hub</strong> connected to distinct "Spoke" zones. This layout serves two purposes: it allows players to choose their own difficulty path, and it creates a psychological "return to safety" after every expedition.
-                    </p>
+
+                    <div style="display: flex; gap: 3rem; align-items: flex-start; flex-wrap: wrap; margin-bottom: 3rem;">
+                        <div style="flex: 1; min-width: 300px;">
+                            <p class="block-text">
+                                I structured the map around a central <strong>Market Hub</strong> connected to distinct "Spoke" zones. This layout serves two purposes: it allows players to choose their own difficulty path, and it creates a psychological "return to safety" after every expedition.
+                            </p>
+                            <h3 style="font-family: var(--font-display); font-size: 1.5rem; text-transform: uppercase; margin-bottom: 1rem; color: var(--text-main); margin-top: 2rem;">Visual Navigation</h3>
+                            <p class="block-text">
+                                Navigation is guided by lighting. The Hub is bathed in warm, inviting orange tones. As players cross the threshold into a Spoke, the palette shifts immediately to cold blues and sickly purples. This visual shift acts as a subconscious warning system.
+                            </p>
+                        </div>
+                        <div style="flex: 1; min-width: 300px;">
+                            <img src="assets/RPG/Images/LD.png" alt="Level Top-Down Map" class="case-image" style="margin-bottom: 0;" onclick="openImage(this.src)">
+                            <p class="caption" style="text-align: center; margin-top: 1rem; font-style: italic; color: var(--text-muted);">Central Market Hub connecting to the Farm, Cave, and Temple.</p>
+                        </div>
+                    </div>
                     
-                    <h3 style="margin-top: 2rem; margin-bottom: 0.8rem; font-family: 'Oswald', sans-serif; font-size: 1.4rem; font-weight: 700;">Visual Language & Navigation</h3>
-                    <p class="block-text">
-                        Navigation is guided by lighting rather than UI markers. 
-                        The <strong>Hub</strong> is bathed in warm, inviting orange tones (Safety). 
-                        As players cross the threshold into a <strong>Spoke</strong>, the palette shifts immediately to cold blues and sickly purples (Danger). This visual shift acts as a subconscious warning system for the player.
-                    </p>
+                    <div class="image-grid" style="align-items: center;">
+                        <div>
+                            <span style="font-family: var(--font-display); text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-size: 0.9rem;">Phase 1: Paper Map</span>
+                            <img src="assets/RPG/RAW/14.jpeg" alt="Paper Map Design" class="case-image" onclick="openImage(this.src)">
+                        </div>
+                        <div>
+                            <span style="font-family: var(--font-display); text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-size: 0.9rem;">Phase 2: Engine Transition</span>
+                            <img src="assets/RPG/GIF_Vids/Level_Transition.gif" alt="Lighting Transition" class="case-image">
+                        </div>
+                    </div>
+                </section>
 
-                    <ul class="clean-list" style="margin-top: 1rem;">
-                        <li>• <strong>The Hub (Market):</strong> Safe zone containing Vendors and Quest Givers.</li>
-                        <li>• <strong>Spoke 1 (Cave):</strong> Linear combat-heavy dungeon leading to the Shrine.</li>
-                        <li>• <strong>Spoke 2 (Farm):</strong> Open combat arena rewarding an Active Charm.</li>
-                        <li>• <strong>Spoke 3 (Boss Arena):</strong> Locked behind progression checks.</li>
-                    </ul>
-                </div>
-                <div class="split-image">
-                    <img src="assets/RPG/Images/LD.png" alt="Top Down Map Layout" style="cursor: pointer;" onclick="openImage(this.src)">
-                    <p class="caption">Top-down view showing the Central Market Hub connecting to the Farm, Cave, and Temple.</p>
+                <section id="systems" class="content-section">
+                    <h2 class="section-header">System Breakdowns</h2>
                     
-                    <img src="assets/RPG/GIF_Vids/Level_Transition.gif" style="margin-top: 2rem; cursor: pointer;" alt="Visual Transition from Hub to Spoke" onclick="openImage(this.src)">
-                    <p class="caption">Crossing the threshold: Lighting shifts communicate the transition from the Safe Hub to the Dangerous Spokes.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="content-block" style="margin-top: 5rem;">
-            <h2 class="block-title">System Breakdowns</h2>
-            
-            <div class="gds-framework-card" style="margin-bottom: 3rem;">
-                <span class="gds-label">System 1: The Charm Matrix</span>
-                <div class="split-section" style="gap: 2rem; margin-top: 1rem; align-items: center;">
-                    <div class="split-text">
-                        <p class="gds-text">Traditional RPG skill trees were replaced with a modular Dual-Slot Charm system that rewards active discovery over passive leveling.</p>
-                        <ul class="clean-list" style="margin-top: 1rem;">
-                            <li><strong>Normal Slot:</strong> Holds a base Passive or Active Charm.</li>
-                            <li><strong>Fused Slot:</strong> Unlocks exclusively when specific combinations are equipped together.</li>
-                            <li><strong>Example:</strong> Pairing <em>Veil Harmony</em> (Defense) with <em>Veil Burst</em> (Attack) unlocks <strong>Veil Shatter Burst</strong>—a fused ability that grants temporary shielding while dealing massive area damage.</li>
-                        </ul>
+                    <div class="gds-box">
+                        <div class="gds-row" style="margin-bottom: 1.5rem;">
+                            <span class="gds-label">System 1: The Charm Matrix</span>
+                            <p class="block-text">Traditional RPG skill trees were replaced with a modular Dual-Slot Charm system that rewards active discovery over passive leveling.</p>
+                            <ul class="clean-list" style="margin-bottom: 1.5rem;">
+                                <li><strong>Normal Slot:</strong> Holds a base Passive or Active Charm.</li>
+                                <li><strong>Fused Slot:</strong> Unlocks exclusively when specific combinations are equipped together.</li>
+                                <li><strong>Example:</strong> Pairing <em>Veil Harmony</em> (Defense) with <em>Veil Burst</em> (Attack) unlocks <strong>Veil Shatter Burst</strong>—a fused ability that grants temporary shielding while dealing massive area damage.</li>
+                            </ul>
+                        </div>
+                        <img src="assets/RPG/GIF_Vids/Charm_UI.gif" alt="Charm Inventory Drag and Drop System" class="system-gif">
+                        <p class="caption" style="text-align: center; margin-top: 1rem; font-style: italic; color: var(--text-muted);">Drag-and-drop inventory enabling real-time build swapping.</p>
                     </div>
-                    <div class="split-image">
-                        <img src="assets/RPG/GIF_Vids/Charm_UI.gif" alt="Charm Inventory Drag and Drop System" style="border-radius: 4px;">
-                        <p class="caption">Drag-and-drop inventory enabling real-time build swapping.</p>
+
+                    <div class="gds-box">
+                        <div class="gds-row" style="margin-bottom: 1.5rem;">
+                            <span class="gds-label">System 2: The Purification Economy</span>
+                            <p class="block-text"><strong>The Problem:</strong> In short prototypes, players often sprint past side content directly to the boss, ignoring the core combat loops.</p>
+                            <p class="block-text"><strong>The Solution:</strong> I implemented a hard economy gate. The final boss is 100% immune to the starting weapon. Players must Purify their sword at Shrines, costing Jewels that drop exclusively from side-content enemies and chests.</p>
+                        </div>
+                        <img src="assets/RPG/GIF_Vids/Sword_Upgrade.gif" alt="Sword Upgrade Interaction" class="system-gif">
+                        <p class="caption" style="text-align: center; margin-top: 1rem; font-style: italic; color: var(--text-muted);">Loot gains immediate meaning, and combat feeds progression directly.</p>
                     </div>
-                </div>
-            </div>
 
-            <div class="gds-framework-card" style="margin-bottom: 3rem; border-left-color: #f1c40f;">
-                <span class="gds-label" style="color: #f1c40f;">System 2: The Purification Economy</span>
-                <div class="split-section" style="gap: 2rem; margin-top: 1rem; align-items: center;">
-                    <div class="split-image">
-                        <img src="assets/RPG/GIF_Vids/Sword_Upgrade.gif" alt="Sword Upgrade Interaction" style="border-radius: 4px;">
-                        <p class="caption">Spending Jewels at the Shrine to bypass the hard progression gate.</p>
+                    <div class="gds-box">
+                        <div class="gds-row" style="margin-bottom: 1.5rem;">
+                            <span class="gds-label">System 3: Dynamic Boss AI</span>
+                            <p class="block-text">The Boss (Guardian) is driven by a dynamic Behavior Tree that shifts states based on player distance and damage received.</p>
+                            <ul class="clean-list" style="margin-bottom: 1.5rem;">
+                                <li><strong>Melee State:</strong> Heavy aggression up close.</li>
+                                <li><strong>Ranged State:</strong> Cosmic ranged attacks if the player kites him.</li>
+                                <li><strong>Heal State:</strong> Teleports away to regenerate if not pressured constantly.</li>
+                            </ul>
+                        </div>
+                        <img src="assets/RPG/GIF_Vids/Boss_AI.gif" alt="Boss Behavior Tree Gameplay" class="system-gif">
+                        <p class="caption" style="text-align: center; margin-top: 1rem; font-style: italic; color: var(--text-muted);">The AI severely punishes passive play, forcing players to constantly adapt.</p>
                     </div>
-                    <div class="split-text">
-                        <p class="gds-text"><strong>The Problem:</strong> In short prototypes, players often sprint past side content directly to the boss, ignoring the core combat loops.</p>
-                        <p class="gds-text" style="margin-top: 0.8rem;"><strong>The Solution:</strong> I implemented a hard economy gate. The final boss is 100% immune to the starting weapon. Players must Purify their sword at Shrines, costing Jewels that drop exclusively from side-content enemies and chests.</p>
-                        <p class="gds-text" style="margin-top: 0.8rem;"><strong>The Result:</strong> Loot gains immediate meaning, combat feeds progression directly, and exploration becomes mandatory rather than optional.</p>
+                </section>
+
+                <section id="process" class="content-section">
+                    <h2 class="section-header">Process: Paper to Engine</h2>
+                    <p class="block-text">Before entering the engine, every system—from the Charm Matrix logic to the Economy Flow—was mapped out and iterated on paper to test viability.</p>
+                    
+                    <div class="raw-gallery-grid">
+                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/1.jpeg" onclick="openImage(this.src)" alt="Design Sketch 1" loading="lazy"></div>
+                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/2.jpeg" onclick="openImage(this.src)" alt="Design Sketch 2" loading="lazy"></div>
+                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/14.jpeg" onclick="openImage(this.src)" alt="Design Sketch 14" loading="lazy"></div>
+                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/15.jpeg" onclick="openImage(this.src)" alt="Design Sketch 15" loading="lazy"></div>
+                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/3.jpeg" onclick="openImage(this.src)" alt="Design Sketch 3" loading="lazy"></div>
+                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/4.jpeg" onclick="openImage(this.src)" alt="Design Sketch 4" loading="lazy"></div>
+                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/5.jpeg" onclick="openImage(this.src)" alt="Design Sketch 5" loading="lazy"></div>
+                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/6.jpeg" onclick="openImage(this.src)" alt="Design Sketch 6" loading="lazy"></div>
+                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/7.jpeg" onclick="openImage(this.src)" alt="Design Sketch 7" loading="lazy"></div>
+                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/8.jpeg" onclick="openImage(this.src)" alt="Design Sketch 8" loading="lazy"></div>
+                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/9.jpeg" onclick="openImage(this.src)" alt="Design Sketch 9" loading="lazy"></div>
+                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/10.jpeg" onclick="openImage(this.src)" alt="Design Sketch 10" loading="lazy"></div>
+                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/11.jpeg" onclick="openImage(this.src)" alt="Design Sketch 11" loading="lazy"></div>
+                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/12.jpeg" onclick="openImage(this.src)" alt="Design Sketch 12" loading="lazy"></div>
+                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/13.jpeg" onclick="openImage(this.src)" alt="Design Sketch 13" loading="lazy"></div>
                     </div>
-                </div>
-            </div>
+                </section>
 
-            <div class="gds-framework-card" style="border-left-color: #2ecc71;">
-                <span class="gds-label" style="color: #2ecc71;">System 3: AI & Boss Design</span>
-                <div class="split-section" style="gap: 2rem; margin-top: 1rem; align-items: center;">
-                    <div class="split-text">
-                        <p class="gds-text">Enemies are designed to teach combat mechanics organically through their behavior patterns.</p>
-                        <ul class="clean-list" style="margin-top: 1rem;">
-                            <li><strong>Tier 1 (Swarmers):</strong> Forces the player to learn crowd control and spacing.</li>
-                            <li><strong>Tier 2 (Armored):</strong> Teaches precise dodging and vulnerability windows.</li>
-                            <li><strong>The Boss (Guardian):</strong> Driven by a dynamic Behavior Tree that shifts states. He uses melee aggression up close, cosmic ranged attacks at a distance, and teleports to heal if the player tries to kite him.</li>
-                        </ul>
-                        <p class="gds-text" style="margin-top: 0.8rem;"><strong>The Result:</strong> The AI severely punishes passive play, forcing players to constantly adapt their positioning and Charm loadouts mid-fight.</p>
+                <section id="docs" class="content-section">
+                    <h2 class="section-header">Documentation</h2>
+                    <p class="block-text">Comprehensive technical documents covering system mechanics, level design, and economy balancing.</p>
+                    <p class="block-text" style="font-style: italic; color: #666; font-size: 0.95rem; margin-bottom: 2rem;">These documents are designed for quick skimming, focused on systems architecture, economy balancing, and spatial flow.</p>
+                    
+                    <div class="docs-grid">
+                        <div class="gdd-preview-box" onclick="openPDF('assets/RPG/SCTTV_GDD.pdf')">
+                            <div class="gdd-icon">📄</div>
+                            <h3 style="font-size: 1.4rem;">Main GDD</h3>
+                            <p style="font-size: 0.9rem;">Deep dive into Charm Matrix logic and core progression.</p>
+                            <span class="gdd-view-btn">View PDF</span>
+                        </div>
+
+                        <div class="gdd-preview-box" onclick="openPDF('assets/RPG/SCTTV_LDD.pdf')">
+                            <div class="gdd-icon">🗺️</div>
+                            <h3 style="font-size: 1.4rem;">Level Design</h3>
+                            <p style="font-size: 0.9rem;">Breakdown of Hub-and-Spoke layouts and pacing curves.</p>
+                            <span class="gdd-view-btn">View PDF</span>
+                        </div>
+
+                        <div class="gdd-preview-box" onclick="openPDF('assets/RPG/SCTTV - Datas.pdf')">
+                            <div class="gdd-icon">📊</div>
+                            <h3 style="font-size: 1.4rem;">Data Sheets</h3>
+                            <p style="font-size: 0.9rem;">Raw balancing tables covering the Purification Economy.</p>
+                            <span class="gdd-view-btn">View PDF</span>
+                        </div>
                     </div>
-                    <div class="split-image">
-                        <img src="assets/RPG/GIF_Vids/Boss_AI.gif" alt="Boss Behavior Tree Gameplay" style="border-radius: 4px;">
-                        <p class="caption">The Guardian AI switching phases dynamically.</p>
+                </section>
+
+                <section id="postmortem" class="content-section">
+                    <h2 class="section-header">Post-Mortem</h2>
+                    
+                    <div class="pm-grid">
+                        <div class="pm-card success">
+                            <h4>What Went Right</h4>
+                            <ul>
+                                <li>Charm Fusion encouraged immediate experimentation and curiosity.</li>
+                                <li>Hub-and-Spoke layout created a highly readable pacing loop.</li>
+                                <li>Visual lighting feedback effectively communicated power and safety states.</li>
+                            </ul>
+                        </div>
+                        <div class="pm-card failure">
+                            <h4>What Went Wrong</h4>
+                            <ul>
+                                <li>Camera tracking occasionally struggled in tight, enclosed cave encounters.</li>
+                                <li>Scope creep early on from an abandoned board-game style side feature.</li>
+                            </ul>
+                        </div>
+                        <div class="pm-card learning">
+                            <h4>What I Learned</h4>
+                            <ul>
+                                <li>Data Tables are absolutely essential for scalable RPG combat systems.</li>
+                                <li>Economy balance requires constant iteration and spreadsheet modeling.</li>
+                                <li>These lessons directly informed how I approached economy balance in future studio projects.</li>
+                            </ul>
+                        </div>
                     </div>
+                </section>
+
+                <section id="gameplay" class="content-section" style="margin-bottom: 0;">
+                    <h2 class="section-header">Vertical Slice Playthrough</h2>
+                    <p class="block-text">Unedited footage demonstrating the complete Core Loop: Exploring the Hub, traveling to a Spoke zone, combat with Charm abilities, and the final Boss encounter.</p>
+                    <iframe width="100%" style="aspect-ratio: 16/9; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.06);" src="https://www.youtube.com/embed/eLuUngO_4hQ" title="Shattered Charms Full Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </section>
+                
+                <div class="next-project-btn-container">
+                    <a href="tlou.html" class="next-proj-small-btn">Next Project → TLOU Design Analysis</a>
                 </div>
+
             </div>
-        </section>
+        </div>
 
-        <section class="content-block">
-            <h2 class="block-title">Full Vertical Slice Playthrough</h2>
-            <p class="block-text">
-                Unedited footage demonstrating the complete Core Loop: Exploring the Hub, traveling to a Spoke zone, combat with Charm abilities, and the final Boss encounter.
-            </p>
-            <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/eLuUngO_4hQ" 
-                        title="Shattered Charms Full Walkthrough" frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                </iframe>
-            </div>
-        </section>
+    </main>
 
-        <section class="content-block">
-            <h2 class="block-title">Post-Mortem</h2>
-            <div class="three-col-grid">
-                <div class="pm-card green">
-                    <h4>What Went Right</h4>
-                    <ul>
-                        <li>Charm Fusion encouraged experimentation and curiosity.</li>
-                        <li>Hub-and-Spoke layout created clear pacing and flow.</li>
-                        <li>Visual feedback clearly communicated power progression.</li>
-                    </ul>
-                </div>
-                <div class="pm-card red">
-                    <h4>What Went Wrong</h4>
-                    <ul>
-                        <li>Camera issues in tight cave encounters.</li>
-                        <li>Scope creep from an abandoned board-game style side feature.</li>
-                    </ul>
-                </div>
-                <div class="pm-card yellow">
-                    <h4>What I Learned</h4>
-                    <ul>
-                        <li>Data Tables are essential for scalable RPG systems.</li>
-                        <li>Economy balance requires iteration and spreadsheets.</li>
-                        <li>These lessons directly informed how I approached economy balance and scope control in later projects.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="docs" class="content-block pdf-section">
-            <h2 class="block-title">Documentation</h2>
-            <p class="block-text">Comprehensive technical documents covering system mechanics and level design.</p>
-            <p class="block-text" style="font-style: italic; color: #666; font-size: 0.95rem; margin-bottom: 2rem;">These documents are designed for quick skimming, focused on systems architecture, economy balancing, and spatial flow.</p>
-            
-            <div class="three-col-grid">
-                <div class="doc-box" style="display: flex; flex-direction: column;">
-                    <h3 class="sub-title">Game Design Document</h3>
-                    <p class="block-text" style="font-size: 0.9rem; flex-grow: 1;">Deep dive into the <strong>Charm Matrix logic</strong>, narrative branching structures, and core progression.</p>
-                    <button class="big-doc-btn" style="padding: 1rem; width: 100%; font-size: 0.9rem; text-align: center;" onclick="openPDF('assets/RPG/SCTTV_GDD.pdf')">VIEW GDD (PDF)</button>
-                </div>
-
-                <div class="doc-box" style="display: flex; flex-direction: column;">
-                    <h3 class="sub-title">Level Design Document</h3>
-                    <p class="block-text" style="font-size: 0.9rem; flex-grow: 1;">Detailed breakdown of the <strong>Hub-and-Spoke layout</strong>, encounter pacing curves, and blocked-out map flows.</p>
-                    <button class="big-doc-btn" style="padding: 1rem; width: 100%; font-size: 0.9rem; text-align: center;" onclick="openPDF('assets/RPG/SCTTV_LDD.pdf')">VIEW LDD (PDF)</button>
-                </div>
-
-                <div class="doc-box" style="display: flex; flex-direction: column;">
-                    <h3 class="sub-title">Technical Data Sheets</h3>
-                    <p class="block-text" style="font-size: 0.9rem; flex-grow: 1;">Raw balancing tables covering the <strong>Purification Economy</strong>, weapon scaling, and Jewel drop rates.</p>
-                    <button class="big-doc-btn" style="padding: 1rem; width: 100%; font-size: 0.9rem; text-align: center;" onclick="openPDF('assets/RPG/SCTTV - Datas.pdf')">VIEW DATA (PDF)</button>
-                </div>
-            </div>
-        </section>
-
-        <section class="content-block">
-            <h2 class="block-title">Process: From Paper to Engine</h2>
-            <p class="block-text">Before entering the engine, every system—from the Charm Matrix to the Economy Flow—was iterated on paper. These sketches document the logic behind the mechanics.</p>
-            
-            <div class="raw-gallery-grid">
-                <div class="raw-gallery-item"><img src="assets/RPG/RAW/1.jpeg" onclick="openImage(this.src)" alt="Design Sketch 1" loading="lazy"></div>
-                <div class="raw-gallery-item"><img src="assets/RPG/RAW/2.jpeg" onclick="openImage(this.src)" alt="Design Sketch 2" loading="lazy"></div>
-                <div class="raw-gallery-item"><img src="assets/RPG/RAW/14.jpeg" onclick="openImage(this.src)" alt="Design Sketch 14" loading="lazy"></div>
-                <div class="raw-gallery-item"><img src="assets/RPG/RAW/15.jpeg" onclick="openImage(this.src)" alt="Design Sketch 15" loading="lazy"></div>
-                <div class="raw-gallery-item"><img src="assets/RPG/RAW/3.jpeg" onclick="openImage(this.src)" alt="Design Sketch 3" loading="lazy"></div>
-                <div class="raw-gallery-item"><img src="assets/RPG/RAW/4.jpeg" onclick="openImage(this.src)" alt="Design Sketch 4" loading="lazy"></div>
-                <div class="raw-gallery-item"><img src="assets/RPG/RAW/5.jpeg" onclick="openImage(this.src)" alt="Design Sketch 5" loading="lazy"></div>
-                <div class="raw-gallery-item"><img src="assets/RPG/RAW/6.jpeg" onclick="openImage(this.src)" alt="Design Sketch 6" loading="lazy"></div>
-                <div class="raw-gallery-item"><img src="assets/RPG/RAW/7.jpeg" onclick="openImage(this.src)" alt="Design Sketch 7" loading="lazy"></div>
-                <div class="raw-gallery-item"><img src="assets/RPG/RAW/8.jpeg" onclick="openImage(this.src)" alt="Design Sketch 8" loading="lazy"></div>
-                <div class="raw-gallery-item"><img src="assets/RPG/RAW/9.jpeg" onclick="openImage(this.src)" alt="Design Sketch 9" loading="lazy"></div>
-                <div class="raw-gallery-item"><img src="assets/RPG/RAW/10.jpeg" onclick="openImage(this.src)" alt="Design Sketch 10" loading="lazy"></div>
-                <div class="raw-gallery-item"><img src="assets/RPG/RAW/11.jpeg" onclick="openImage(this.src)" alt="Design Sketch 11" loading="lazy"></div>
-                <div class="raw-gallery-item"><img src="assets/RPG/RAW/12.jpeg" onclick="openImage(this.src)" alt="Design Sketch 12" loading="lazy"></div>
-                <div class="raw-gallery-item"><img src="assets/RPG/RAW/13.jpeg" onclick="openImage(this.src)" alt="Design Sketch 13" loading="lazy"></div>
-            </div>
-        </section>
-
-    </div>
-
-    <footer class="footer-section">
-        <p class="copyright">© 2026 Karuna Ketan.</p>
+    <footer style="background: var(--text-main); color: var(--bg-page); padding: 4rem 2rem; text-align: center;">
+        <div style="display: flex; gap: 2rem; justify-content: center; margin-bottom: 2rem; font-family: var(--font-display); text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">
+            <a href="mailto:gamesbykarunaket@gmail.com" style="color: var(--bg-page); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#D45B3E'" onmouseout="this.style.color='#FAF9F5'">Email</a>
+            <a href="https://www.linkedin.com/in/karunaket/" target="_blank" style="color: var(--bg-page); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#D45B3E'" onmouseout="this.style.color='#FAF9F5'">LinkedIn</a>
+            <a href="https://karuna-ketan.itch.io/" target="_blank" style="color: var(--bg-page); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#D45B3E'" onmouseout="this.style.color='#FAF9F5'">itch.io</a>
+        </div>
+        <p style="font-size: 0.85rem; color: #888;">© 2026 Karuna Ketan.</p>
     </footer>
 
     <div id="viewer">
-        <div class="controls"><button onclick="closePDF()">❌ Close</button></div>
+        <div class="controls">
+            <button onclick="closePDF()">✕ CLOSE</button>
+        </div>
         <iframe id="pdfFrame"></iframe>
     </div>
-    
+
     <div id="imageViewer" onclick="closeImage()">
         <span class="close-img-btn">&times;</span>
-        <img id="fullImage" onclick="event.stopPropagation()">
+        <img id="fullImage" onclick="event.stopPropagation()"> 
     </div>
 
     <script src="script.js"></script>
+
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hamburger Menu
+            const oldMenuBtn = document.querySelector('.menu-toggle');
+            const nav = document.querySelector('.nav-links');
+
+            if (oldMenuBtn && nav) {
+                const menuBtn = oldMenuBtn.cloneNode(true);
+                oldMenuBtn.parentNode.replaceChild(menuBtn, oldMenuBtn);
+                menuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    nav.classList.toggle('active');
+                    menuBtn.classList.toggle('active');
+                });
+                document.addEventListener('click', (e) => {
+                    if (!nav.contains(e.target) && !menuBtn.contains(e.target)) {
+                        nav.classList.remove('active');
+                        menuBtn.classList.remove('active');
+                    }
+                });
+            }
+
+            // Slider Logic (Hero)
+            const heroSlides = document.querySelectorAll('.hero-slide');
+            const dotsContainer = document.getElementById('dotsContainer');
+            let currentHeroSlide = 0;
+            let heroSlideInterval;
+
+            if(heroSlides.length > 0) {
+                // Generate Dots
+                heroSlides.forEach((_, i) => {
+                    const dot = document.createElement('div');
+                    dot.classList.add('dot');
+                    if(i === 0) dot.classList.add('active-dot');
+                    dot.onclick = () => jumpToSlide(i);
+                    dotsContainer.appendChild(dot);
+                });
+
+                const heroDots = document.querySelectorAll('.dot');
+
+                function showHeroSlide(index) {
+                    heroSlides.forEach(s => s.classList.remove('active-slide'));
+                    heroDots.forEach(d => d.classList.remove('active-dot'));
+                    currentHeroSlide = index;
+                    if (currentHeroSlide >= heroSlides.length) currentHeroSlide = 0;
+                    if (currentHeroSlide < 0) currentHeroSlide = heroSlides.length - 1;
+                    heroSlides[currentHeroSlide].classList.add('active-slide');
+                    heroDots[currentHeroSlide].classList.add('active-dot');
+                }
+
+                window.moveSlideManual = function(step) {
+                    clearInterval(heroSlideInterval);
+                    showHeroSlide(currentHeroSlide + step);
+                    heroSlideInterval = setInterval(() => { showHeroSlide(currentHeroSlide + 1); }, 5000);
+                };
+
+                window.jumpToSlide = function(index) {
+                    clearInterval(heroSlideInterval);
+                    showHeroSlide(index);
+                    heroSlideInterval = setInterval(() => { showHeroSlide(currentHeroSlide + 1); }, 5000);
+                };
+
+                heroSlideInterval = setInterval(() => { showHeroSlide(currentHeroSlide + 1); }, 5000);
+            }
+
+            // Scrollspy
+            const sections = document.querySelectorAll('.content-section');
+            const navLinks = document.querySelectorAll('.sidebar-link');
+
+            const observerOptions = { root: null, rootMargin: '-150px 0px -60% 0px', threshold: 0 };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => observer.observe(section));
+        });
+
+        // PDF Functions
+        function openPDF(pdfSrc) {
+            document.getElementById('pdfFrame').src = pdfSrc;
+            const viewer = document.getElementById('viewer');
+            viewer.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        function closePDF() {
+            document.getElementById('viewer').style.display = 'none';
+            document.getElementById('pdfFrame').src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Lightbox Functions
         function openImage(src) {
             const viewer = document.getElementById('imageViewer');
-            const fullImg = document.getElementById('fullImage');
-            fullImg.src = src;
+            document.getElementById('fullImage').src = src;
             viewer.style.display = 'flex';
             setTimeout(() => { viewer.style.opacity = '1'; }, 10);
             document.body.style.overflow = 'hidden';

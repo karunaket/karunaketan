@@ -11,10 +11,10 @@
     <style>
         /* --- 1. PREMIUM MINIMALIST PALETTE --- */
         :root {
-            --bg-page: #FAF9F5; /* Warm Ivory */
-            --text-main: #111111; /* True Black/Charcoal */
+            --bg-page: #FAF9F5; 
+            --text-main: #111111; 
             --text-muted: #555555;
-            --accent: #D45B3E; /* Terracotta Rust */
+            --accent: #D45B3E; 
             --border-light: rgba(0,0,0,0.08);
             
             --font-display: 'Oswald', sans-serif;
@@ -29,6 +29,7 @@
             padding: 0;
             line-height: 1.7;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
         /* --- 2. FLOATING EDITORIAL HEADER --- */
@@ -98,21 +99,55 @@
         }
         .hero-bio strong { color: var(--text-main); font-weight: 700; }
         
-        .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;}
+        /* PERFECTLY ALIGNED BUTTONS */
+        .hero-actions { 
+            display: flex; 
+            gap: 1rem; 
+            align-items: center; 
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary, .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 55px; 
+            padding: 0 2rem;
+            border-radius: 50px;
+            font-family: var(--font-display);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            transition: 0.3s;
+            box-sizing: border-box;
+            white-space: nowrap;
+            line-height: 1;
+        }
         
         .btn-primary {
-            background: var(--text-main); color: #fff; padding: 1rem 2rem; border-radius: 50px; font-family: var(--font-display); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: 0.3s;
+            background: var(--text-main); 
+            color: #fff; 
+            border: 2px solid transparent; 
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
-        .btn-primary:hover { background: var(--accent); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(212, 91, 62, 0.25); }
+        .btn-primary:hover { 
+            background: var(--accent); 
+            border-color: var(--accent);
+            transform: translateY(-3px); 
+            box-shadow: 0 10px 25px rgba(212, 91, 62, 0.25); 
+        }
         
         .btn-ghost {
-            background: transparent; color: var(--text-main); padding: 1rem 2rem; border-radius: 50px; font-family: var(--font-display); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: 0.3s;
-            border: 2px solid rgba(0,0,0,0.1);
+            background: transparent; 
+            color: var(--text-main); 
+            border: 2px solid rgba(0,0,0,0.15);
         }
-        .btn-ghost:hover { border-color: var(--text-main); transform: translateY(-3px);}
+        .btn-ghost:hover { 
+            border-color: var(--text-main); 
+            transform: translateY(-3px);
+        }
 
-        /* Circular Profile Image */
         .hero-image {
             flex: 0.8;
             position: relative;
@@ -129,27 +164,101 @@
             border: 8px solid #fff;
         }
 
-        /* --- 4. SPLIT-SCREEN PROJECT LAYOUT --- */
-        .projects-container {
+        /* --- 4. SIDEBAR & CONTENT LAYOUT --- */
+        .home-layout {
             max-width: 1300px;
             margin: 0 auto 6rem auto;
             padding: 0 2rem;
+            display: flex;
+            gap: 5rem;
+            align-items: flex-start;
         }
-        
+
+        .home-sidebar {
+            flex: 0 0 220px;
+            position: sticky;
+            top: 120px; 
+            height: fit-content;
+        }
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .sidebar-link {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            padding-left: 1rem;
+            border-left: 3px solid transparent;
+            display: block;
+        }
+        .sidebar-link:hover, .sidebar-link.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+        }
+
+        .home-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .scroll-section {
+            scroll-margin-top: 140px; 
+        }
+
+        /* DYNAMIC SECTION TITLES */
         .section-title {
             font-family: var(--font-display);
-            font-size: 3rem;
+            font-size: 3.5rem;
             text-transform: uppercase;
             margin-bottom: 5rem;
             color: var(--text-main);
-            text-align: center;
+        }
+        .section-title::after {
+            content: '.';
+            color: var(--accent);
         }
 
+        /* EDITORIAL CATEGORY TITLES */
+        .thin-section-title {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-main);
+            margin-bottom: 4rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .thin-section-title::before {
+            content: '✦';
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+        .thin-section-title::after {
+            content: '';
+            height: 2px;
+            flex-grow: 1;
+            background: var(--border-light);
+        }
+
+        /* --- 5. PROJECT CARDS --- */
         .immersive-project {
             display: flex;
             align-items: center;
-            gap: 5rem;
-            margin-bottom: 10rem;
+            gap: 4rem;
+            margin-bottom: 8rem;
         }
         .immersive-project:nth-child(even) {
             flex-direction: row-reverse;
@@ -189,48 +298,67 @@
         .p-bullets li { position: relative; padding-left: 1.5rem; margin-bottom: 0.8rem; font-size: 0.95rem; color: var(--text-main); }
         .p-bullets li::before { content: "✦"; position: absolute; left: 0; color: var(--accent); font-size: 0.8rem; top: 2px;}
 
+        /* HIGH VISIBILITY PROJECT BUTTONS */
         .btn-outline {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            border: 2px solid var(--text-main);
-            color: var(--text-main);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 55px;
+            padding: 0 2.5rem;
+            background: var(--accent);
+            color: #fff;
             border-radius: 50px;
             font-family: var(--font-display);
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             text-decoration: none;
-            align-self: flex-start;
+            align-self: center; /* Centered under text */
             transition: 0.3s;
+            box-sizing: border-box;
+            white-space: nowrap;
+            box-shadow: 0 10px 25px rgba(212, 91, 62, 0.3);
+            border: 2px solid transparent;
         }
-        .btn-outline:hover { background: var(--text-main); color: #fff; transform: translateY(-2px);}
+        .btn-outline:hover { 
+            background: var(--text-main); 
+            color: #fff; 
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+        }
 
-        /* Multi-GIF Cycler */
         .gif-cycler img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; transition: opacity 0.8s ease-in-out; }
         .gif-cycler img:not(.active-gif) { opacity: 0; }
         .gif-cycler img.active-gif { opacity: 1; z-index: 2; }
 
-        /* --- 5. PROCESS GRID --- */
+        /* --- 6. PROCESS GRID (CENTERED BOTTOM ROW) --- */
         .process-wrapper {
             background: #fff;
-            padding: 8rem 2rem;
-            border-top: 1px solid var(--border-light);
-            border-bottom: 1px solid var(--border-light);
+            padding: 4rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            margin-bottom: 4rem;
+            margin-top: 4rem;
         }
+        
         .process-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr); 
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* This perfectly centers the bottom row! */
             gap: 2rem;
-            max-width: 1300px;
-            margin: 0 auto;
         }
+        
         .process-step { 
+            width: calc(33.333% - 1.34rem); /* 3 cards per row exactly */
             background: var(--bg-page);
             padding: 2.5rem 2rem;
             border-radius: 12px;
             border: 1px solid rgba(0,0,0,0.03);
             transition: 0.3s;
+            box-sizing: border-box;
         }
+        
         .process-step:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.06);
@@ -248,9 +376,9 @@
         }
 
         .process-step h4 { font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 0.8rem; color: var(--text-main); letter-spacing: 0.5px;}
-        .process-step p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+        .process-step p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin: 0; }
 
-        /* --- BULLETPROOF MOBILE MENU --- */
+        /* --- BULLETPROOF MOBILE MENU & LAYOUT --- */
         .menu-toggle { display: none; flex-direction: column; justify-content: space-between; width: 30px; height: 21px; background: transparent; border: none; cursor: pointer; z-index: 2000; position: relative; }
         .menu-toggle .bar { width: 100%; height: 3px; background-color: var(--text-main); transition: 0.3s ease; border-radius: 2px; }
 
@@ -260,11 +388,47 @@
             .hero-bio { margin: 0 auto 2.5rem auto; }
             .hero-image img { max-width: 350px; }
             
+            .home-layout { flex-direction: column; gap: 3rem; }
+            
+            .home-sidebar { 
+                position: sticky; 
+                top: 70px;
+                width: 100%; 
+                background: var(--bg-page);
+                z-index: 1900;
+                border-bottom: 1px solid var(--border-light); 
+                padding: 1rem 0;
+            }
+            .sidebar-nav {
+                flex-direction: row;
+                overflow-x: auto;
+                white-space: nowrap;
+                justify-content: flex-start;
+                gap: 2rem;
+                padding-bottom: 0.5rem;
+            }
+            .sidebar-nav::-webkit-scrollbar { display: none; }
+            .sidebar-nav { -ms-overflow-style: none; scrollbar-width: none; }
+            
+            .sidebar-link {
+                border-left: none;
+                border-bottom: 2px solid transparent;
+                padding-left: 0;
+                padding-bottom: 0.5rem;
+            }
+            .sidebar-link:hover, .sidebar-link.active {
+                border-left-color: transparent;
+                border-bottom-color: var(--accent);
+            }
+
             .immersive-project, .immersive-project:nth-child(even) { flex-direction: column; gap: 3rem; margin-bottom: 6rem;}
             .project-media { width: 100%; aspect-ratio: 16/9; }
-            .project-info { padding: 0; }
+            .project-info { padding: 0; align-items: center; text-align: center;}
+            .btn-outline { align-self: center; }
+            .p-bullets li { text-align: left; } 
             
-            .process-grid { grid-template-columns: 1fr 1fr; gap: 2rem;}
+            /* Switch to 2 columns on tablets */
+            .process-step { width: calc(50% - 1rem); }
         }
 
         @media (max-width: 768px) {
@@ -278,8 +442,12 @@
             
             .hero-title { font-size: 3.5rem; }
             .hero-actions { flex-direction: column; width: 100%;}
-            .btn-primary, .btn-ghost { width: 100%; text-align: center; box-sizing: border-box;}
-            .process-grid { grid-template-columns: 1fr; gap: 1.5rem;}
+            .btn-primary, .btn-ghost, .btn-outline { width: 100%; text-align: center; justify-content: center;}
+            
+            .process-wrapper { padding: 2rem 1.5rem; }
+            .process-grid { gap: 1.5rem;}
+            /* Switch to 1 column on phones */
+            .process-step { width: 100%; } 
         }
     </style>
 </head>
@@ -327,185 +495,207 @@
             </div>
         </section>
 
-        <section id="projects" class="projects-container">
-            <h2 class="section-title">Selected Works</h2>
+        <div class="home-layout">
             
-            <article class="immersive-project">
-                <div class="project-media gif-cycler">
-                    <img src="assets/fcp/GIF_Vids/hero_gameplay.gif" alt="AOA Gameplay" class="active-gif" loading="lazy">
-                    <img src="assets/fcp/GIF_Vids/coop_gravity_beam.gif" alt="AOA Gravity Beam" loading="lazy">
-                </div>
-                <div class="project-info">
-                    <h3 class="p-title">AOA: Space Scrap</h3>
+            <aside class="home-sidebar">
+                <ul class="sidebar-nav">
+                    <li><a href="#professional" class="sidebar-link active">Professional</a></li>
+                    <li><a href="#personal" class="sidebar-link">Personal</a></li>
+                    <li><a href="#deconstruction" class="sidebar-link">Deconstruction</a></li>
+                    <li><a href="#process" class="sidebar-link">My Process</a></li>
+                </ul>
+            </aside>
+
+            <div class="home-content" id="projects">
+                
+                <h2 class="section-title">Projects</h2>
+
+                <div id="professional" class="scroll-section">
+                    <h3 class="thin-section-title">Professional Project</h3>
                     
-                    <div class="p-details">
-                        <strong>Role:</strong> Contract Game Designer<br>
-                        <strong>Team:</strong> 12+ (FatCatPlay)<br>
-                        <strong>Duration:</strong> Dec 2025 - Feb 2026<br>
-                        <strong>Engine:</strong> Unreal Engine
-                    </div>
+                    <article class="immersive-project">
+                        <div class="project-media gif-cycler">
+                            <img src="assets/fcp/GIF_Vids/hero_gameplay.gif" alt="AOA Gameplay" class="active-gif" loading="lazy">
+                            <img src="assets/fcp/GIF_Vids/coop_gravity_beam.gif" alt="AOA Gravity Beam" loading="lazy">
+                        </div>
+                        <div class="project-info">
+                            <h3 class="p-title">AOA: Space Scrap Smugglers</h3>
+                            
+                            <div class="p-details">
+                                <strong>Role:</strong> Contract Game Designer<br>
+                                <strong>Team:</strong> 12+ (FatCatPlay)<br>
+                                <strong>Duration:</strong> 3 Months<br>
+                                <strong>Engine:</strong> Unreal Engine
+                            </div>
 
-                    <p class="p-desc">A physics-driven space mining simulator built for emergent cooperative gameplay. I designed foundational mechanics that brutally enforce team communication and authored the documentation that guided production.</p>
+                            <p class="p-desc">A physics-driven space mining simulator built for emergent cooperative gameplay. I designed foundational mechanics that brutally enforce team communication and authored the documentation that guided production.</p>
 
-                    <ul class="p-bullets">
-                        <li>Engineered physics-based tool synergies like the Gravity Beam to force cooperative dependencies.</li>
-                        <li>Created top-down graybox layouts for the Hub-and-Spoke tutorial world.</li>
-                        <li>Designed textless onboarding sequences utilizing diegetic visual cues.</li>
-                    </ul>
+                            <ul class="p-bullets">
+                                <li>Engineered physics-based tool synergies like the Gravity Beam to force cooperative dependencies.</li>
+                                <li>Created top-down graybox layouts for the Hub-and-Spoke tutorial world.</li>
+                                <li>Designed textless onboarding sequences utilizing diegetic visual cues.</li>
+                            </ul>
 
-                    <a href="tms.html" class="btn-outline">Read Case Study</a>
+                            <a href="tms.html" class="btn-outline">View Project</a>
+                        </div>
+                    </article>
                 </div>
-            </article>
 
-            <article class="immersive-project">
-                <div class="project-media gif-cycler">
-                    <img src="assets/RPG/Images/1.png" alt="Obstacle Assault Gameplay" class="active-gif" loading="lazy" style="filter: grayscale(20%);">
-                </div>
-                <div class="project-info">
-                    <h3 class="p-title">Obstacle Assault</h3>
+                <div id="personal" class="scroll-section">
+                    <h3 class="thin-section-title">Personal Projects</h3>
                     
-                    <div class="p-details">
-                        <strong>Role:</strong> Game & Level Designer<br>
-                        <strong>Team:</strong> Solo Project<br>
-                        <strong>Duration:</strong> Jan 2026 - Present<br>
-                        <strong>Engine:</strong> Unreal Engine
-                    </div>
+                    <article class="immersive-project">
+                        <div class="project-media gif-cycler">
+                            <img src="assets/OA/GIF_Vids/hero_gameplay.gif" alt="Obstacle Assault Gameplay" class="active-gif" loading="lazy" style="filter: grayscale(20%);">
+                        </div>
+                        <div class="project-info">
+                            <h3 class="p-title">Obstacle Assault</h3>
+                            
+                            <div class="p-details">
+                                <strong>Role:</strong> Game Designer<br>
+                                <strong>Team:</strong> Solo Project<br>
+                                <strong>Duration:</strong> 1 Month<br>
+                                <strong>Engine:</strong> Unreal Engine
+                            </div>
 
-                    <p class="p-desc">A precision platformer focused on flow state and spatial mastery. I utilized data-driven iteration to balance difficulty, ensuring players feel challenged by the environment rather than the controls.</p>
+                            <p class="p-desc">A 3D platformer focused on flow state and spatial mastery. I utilized data-driven iteration to balance difficulty, ensuring players feel challenged by the environment rather than the controls.</p>
 
-                    <ul class="p-bullets">
-                        <li>Designed movement-driven levels that teach mechanics through risk-reward routing.</li>
-                        <li>Tuned spatial metrics, jump arcs, and coyote time to minimize player frustration.</li>
-                        <li>Implemented instant-restart loops to prioritize continuous mastery.</li>
-                    </ul>
+                            <ul class="p-bullets">
+                                <li>Designed movement-driven levels that teach mechanics through risk-reward routing.</li>
+                                <li>Tuned spatial metrics, jump arcs, and coyote time to minimize player frustration.</li>
+                                <li>Implemented instant-restart loops to prioritize continuous mastery.</li>
+                            </ul>
 
-                    <a href="#" class="btn-outline">Case Study Coming Soon</a>
+                            <a href="oa.html" class="btn-outline">View Project</a>
+                        </div>
+                    </article>
+
+                    <article class="immersive-project">
+                        <div class="project-media gif-cycler">
+                            <img src="assets/Horror/GIF_Vids/Minions.gif" alt="Eclipse of Fear" class="active-gif" loading="lazy">
+                            <img src="assets/Horror/GIF_Vids/Boss_Eclipse_Chase.gif" alt="Eclipse Chase" loading="lazy">
+                        </div>
+                        <div class="project-info">
+                            <h3 class="p-title">Eclipse of Fear</h3>
+                            
+                            <div class="p-details">
+                                <strong>Role:</strong> Game Designer<br>
+                                <strong>Team:</strong> 2 Members<br>
+                                <strong>Duration:</strong> 1 Month<br>
+                                <strong>Engine:</strong> Unreal Engine
+                            </div>
+
+                            <p class="p-desc">A systemic survival horror prototype emphasizing psychological tension. I stripped away traditional UI elements to create a highly immersive, vulnerable player experience driven by dynamic AI.</p>
+
+                            <ul class="p-bullets">
+                                <li>Designed the diegetic "Lives as Papers" health system where failing physically burns a quest item.</li>
+                                <li>Scripted a dynamic Intensity Director that scales enemy aggression based on player metrics.</li>
+                                <li>Balanced 4 distinct enemy waves using Data Sheets to tune speed and detection.</li>
+                            </ul>
+
+                            <a href="eof.html" class="btn-outline">View Project</a>
+                        </div>
+                    </article>
+
+                    <article class="immersive-project">
+                        <div class="project-media gif-cycler">
+                            <img src="assets/RPG/GIF_Vids/Combat_Loop.gif" alt="Shattered Charms" class="active-gif" loading="lazy">
+                            <img src="assets/RPG/GIF_Vids/Boss_AI.gif" alt="Boss AI" loading="lazy">
+                        </div>
+                        <div class="project-info">
+                            <h3 class="p-title">Shattered Charms: Through The Veil</h3>
+                            
+                            <div class="p-details">
+                                <strong>Role:</strong> Game Designer<br>
+                                <strong>Team:</strong> Solo Project<br>
+                                <strong>Duration:</strong> 3 Months<br>
+                                <strong>Engine:</strong> Unreal Engine
+                            </div>
+
+                            <p class="p-desc">An Action RPG focused on systemic progression and mathematical balancing. I replaced rigid skill trees with modular systems to heavily incentivize player experimentation.</p>
+
+                            <ul class="p-bullets">
+                                <li>Designed the active "Charm Matrix" progression system for combat synergy.</li>
+                                <li>Mathematically modeled a 3-tier purification economy in Excel to balance drop rates.</li>
+                                <li>Architected a Hub-and-Spoke world layout using lighting cues to control pacing.</li>
+                            </ul>
+
+                            <a href="scttv.html" class="btn-outline">View Project</a>
+                        </div>
+                    </article>
                 </div>
-            </article>
 
-            <article class="immersive-project">
-                <div class="project-media gif-cycler">
-                    <img src="assets/Horror/GIF_Vids/Minions.gif" alt="Eclipse of Fear" class="active-gif" loading="lazy">
-                    <img src="assets/Horror/GIF_Vids/Boss_Eclipse_Chase.gif" alt="Eclipse Chase" loading="lazy">
-                </div>
-                <div class="project-info">
-                    <h3 class="p-title">Eclipse of Fear</h3>
+                <div id="deconstruction" class="scroll-section">
+                    <h3 class="thin-section-title">Game Deconstruction</h3>
                     
-                    <div class="p-details">
-                        <strong>Role:</strong> Game Designer<br>
-                        <strong>Team:</strong> 2 Members<br>
-                        <strong>Duration:</strong> 1 Month<br>
-                        <strong>Engine:</strong> Unreal Engine
-                    </div>
-
-                    <p class="p-desc">A systemic survival horror prototype emphasizing psychological tension. I stripped away traditional UI elements to create a highly immersive, vulnerable player experience driven by dynamic AI.</p>
-
-                    <ul class="p-bullets">
-                        <li>Designed the diegetic "Lives as Papers" health system where failing physically burns a quest item.</li>
-                        <li>Scripted a dynamic Intensity Director that scales enemy aggression based on player metrics.</li>
-                        <li>Balanced 4 distinct enemy waves using Data Sheets to tune speed and detection.</li>
-                    </ul>
-
-                    <a href="eof.html" class="btn-outline">Read Case Study</a>
+                    <article class="immersive-project" style="margin-bottom: 2rem;">
+                        <div class="project-media" style="background: transparent; box-shadow: none;">
+                            <img src="assets/Game Deconstruction/TLOU.png" alt="TLOU Cover" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.08);">
+                        </div>
+                        <div class="project-info">
+                            <h3 class="p-title" style="font-size: 2.4rem;">The Last of Us: Part I</h3>
+                            <p class="p-desc">A deep dive into how Naughty Dog uses resource scarcity, "Pacing Pockets", and environmental storytelling to manipulate player psychology without relying on UI waypoints.</p>
+                            <a href="tlou.html" class="btn-outline">Read Deconstruction</a>
+                        </div>
+                    </article>
                 </div>
-            </article>
 
-            <article class="immersive-project">
-                <div class="project-media gif-cycler">
-                    <img src="assets/RPG/GIF_Vids/Combat_Loop.gif" alt="Shattered Charms" class="active-gif" loading="lazy">
-                    <img src="assets/RPG/GIF_Vids/Boss_AI.gif" alt="Boss AI" loading="lazy">
-                </div>
-                <div class="project-info">
-                    <h3 class="p-title">Shattered Charms</h3>
+                <section id="process" class="process-wrapper scroll-section">
+                    <h2 class="section-title" style="margin-bottom: 3rem; text-align: left; border: none; font-size: 2.5rem;">My Process</h2>
                     
-                    <div class="p-details">
-                        <strong>Role:</strong> Game Designer<br>
-                        <strong>Team:</strong> Solo Project<br>
-                        <strong>Duration:</strong> 3 Months<br>
-                        <strong>Engine:</strong> Unreal Engine
+                    <div class="process-grid">
+                        <div class="process-step">
+                            <div class="icon-circle">🔍</div>
+                            <h4>Research</h4>
+                            <p>I conduct deep Game Deconstructions to understand design pillars, game loops, and pacing.</p>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="icon-circle">📝</div>
+                            <h4>Brief</h4>
+                            <p>Establishing clear Design Pillars early to ensure mechanics align with the core player fantasy.</p>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="icon-circle">💡</div>
+                            <h4>Ideation</h4>
+                            <p>From brainstorming to Paper Prototyping. I test math and logic on paper to fail fast before coding.</p>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="icon-circle">📖</div>
+                            <h4>Docs</h4>
+                            <p>Creating Live GDDs. I know when to write detailed specs and when to make quick flowcharts.</p>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="icon-circle">⚙️</div>
+                            <h4>Prototype</h4>
+                            <p>Jumping into Unreal Engine using Blueprints to build functional mechanics to test Game Feel.</p>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="icon-circle">🎮</div>
+                            <h4>Testing</h4>
+                            <p>Regular playtests to tune difficulty curves. Gathering feedback is my bread and butter.</p>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="icon-circle">🚀</div>
+                            <h4>Release</h4>
+                            <p>Packaging and shipping builds, ensuring the first-time user experience is frictionless.</p>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="icon-circle">📊</div>
+                            <h4>Analysis</h4>
+                            <p>Digging through playtest data and writing Post Mortems to understand what went right and broke.</p>
+                        </div>
                     </div>
-
-                    <p class="p-desc">An Action RPG focused on systemic progression and mathematical balancing. I replaced rigid skill trees with modular systems to heavily incentivize player experimentation.</p>
-
-                    <ul class="p-bullets">
-                        <li>Designed the active "Charm Matrix" progression system for combat synergy.</li>
-                        <li>Mathematically modeled a 3-tier purification economy in Excel to balance drop rates.</li>
-                        <li>Architected a Hub-and-Spoke world layout using lighting cues to control pacing.</li>
-                    </ul>
-
-                    <a href="scttv.html" class="btn-outline">Read Case Study</a>
-                </div>
-            </article>
-
-            <article class="immersive-project" style="margin-bottom: 4rem;">
-                <div class="project-media" style="background: transparent; box-shadow: none;">
-                    <img src="assets/Game Deconstruction/TLOU.png" alt="TLOU Cover" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.08);">
-                </div>
-                <div class="project-info">
-                    <span style="color: var(--text-muted); letter-spacing: 1px; font-family: var(--font-body); font-weight: 500; font-size: 0.9rem; text-transform: uppercase; margin-bottom: 0.5rem; display: block;">Design Analysis</span>
-                    <h3 class="p-title" style="font-size: 2.4rem;">The Last of Us: Part I</h3>
-                    <p class="p-desc">A deep dive into how Naughty Dog uses resource scarcity, "Pacing Pockets", and environmental storytelling to manipulate player psychology without relying on UI waypoints.</p>
-                    <a href="tlou.html" class="btn-outline">Read Deconstruction</a>
-                </div>
-            </article>
-
-        </section>
-
-        <section id="process" class="process-wrapper">
-            <h2 class="section-title" style="margin-bottom: 4rem;">My Process</h2>
-            <div class="process-grid">
-                
-                <div class="process-step">
-                    <div class="icon-circle">🔍</div>
-                    <h4>Research</h4>
-                    <p>I conduct deep Game Deconstructions to understand design pillars, game loops, and pacing.</p>
-                </div>
-                
-                <div class="process-step">
-                    <div class="icon-circle">📝</div>
-                    <h4>Brief</h4>
-                    <p>Establishing clear Design Pillars early to ensure mechanics align with the core player fantasy.</p>
-                </div>
-                
-                <div class="process-step">
-                    <div class="icon-circle">💡</div>
-                    <h4>Ideation</h4>
-                    <p>From brainstorming to Paper Prototyping. I test math and logic on paper to fail fast before coding.</p>
-                </div>
-                
-                <div class="process-step">
-                    <div class="icon-circle">📖</div>
-                    <h4>Docs</h4>
-                    <p>Creating Live GDDs. I know when to write detailed specs and when to make quick flowcharts.</p>
-                </div>
-                
-                <div class="process-step">
-                    <div class="icon-circle">⚙️</div>
-                    <h4>Prototype</h4>
-                    <p>Jumping into Unreal Engine using Blueprints to build functional mechanics to test Game Feel.</p>
-                </div>
-                
-                <div class="process-step">
-                    <div class="icon-circle">🎮</div>
-                    <h4>Testing</h4>
-                    <p>Regular playtests to tune difficulty curves. Gathering feedback is my bread and butter.</p>
-                </div>
-                
-                <div class="process-step">
-                    <div class="icon-circle">🚀</div>
-                    <h4>Release</h4>
-                    <p>Packaging and shipping builds, ensuring the first-time user experience is frictionless.</p>
-                </div>
-                
-                <div class="process-step">
-                    <div class="icon-circle">📊</div>
-                    <h4>Analysis</h4>
-                    <p>Digging through playtest data and writing Post Mortems to understand what went right and broke.</p>
-                </div>
+                </section>
 
             </div>
-        </section>
-
+        </div>
     </main>
 
     <footer style="background: var(--text-main); color: var(--bg-page); padding: 4rem 2rem; text-align: center;">
@@ -542,7 +732,7 @@
                 });
             }
 
-            // 2. GIF CROSSFADER LOGIC (Cycles every 4 seconds)
+            // 2. GIF CROSSFADER LOGIC
             const cyclers = document.querySelectorAll('.gif-cycler');
             cyclers.forEach(cycler => {
                 const images = cycler.querySelectorAll('img');
@@ -554,6 +744,33 @@
                         images[currentIndex].classList.add('active-gif');
                     }, 4000); 
                 }
+            });
+
+            // 3. SCROLLSPY FOR HOMEPAGE SIDEBAR
+            const sections = document.querySelectorAll('.scroll-section');
+            const navLinks = document.querySelectorAll('.sidebar-link');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '-150px 0px -60% 0px',
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href').substring(1) === entry.target.id) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
             });
         });
     </script>
