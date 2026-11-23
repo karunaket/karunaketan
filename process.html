@@ -3,306 +3,304 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Paper prototypes, spatial blockouts, and early level maps by Karuna Ketan.">
     <title>Design Process | Karuna Ketan</title>
-    
     <link rel="stylesheet" href="style.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    
     <style>
-        /* --- GLOBAL LAYOUT --- */
-        .process-container {
-            padding: 2rem 2rem 6rem 2rem;
-            max-width: 1800px;
-            margin: 0 auto;
+        .process-hero {
+            max-width: 1220px;
+            margin: 3.5rem auto 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .process-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.15rem, 4.5vw, 3.2rem);
+            font-weight: 700;
+            line-height: 1.08;
+            letter-spacing: -0.5px;
+            margin: 0.25rem 0 1rem 0;
+            color: var(--text-main);
+        }
+
+        .process-lead {
+            font-size: 1.03rem;
+            color: var(--text-muted);
+            max-width: 780px;
+            line-height: 1.75;
+            margin: 0;
+        }
+
+        /* --- STICKY PROJECT JUMP BAR --- */
+        .jump-bar-wrap {
+            position: sticky;
+            top: 67px;
+            z-index: 1500;
+            max-width: 1220px;
+            margin: 0 auto 2.5rem auto;
+            padding: 0.65rem 2rem;
+            background: var(--bg-page);
+            transition: background-color 0.25s ease;
+        }
+
+        .jump-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem 1.1rem;
+            padding: 0.75rem 1.25rem;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .bar-label {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+        }
+
+        .jump-link {
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            padding: 0.3rem 0.55rem;
+            border-radius: 6px;
+            transition: color 0.2s ease;
+        }
+
+        .jump-link:hover {
+            color: var(--accent);
+        }
+
+        /* --- SKETCH GROUPS & 3-COLUMN BALANCED MASONRY --- */
+        .process-wrapper {
+            max-width: 1220px;
+            margin: 0 auto 6rem auto;
+            padding: 0 2rem;
         }
 
         .project-group {
-            margin-bottom: 5rem;
+            margin-bottom: 4.5rem;
+            scroll-margin-top: 145px;
         }
 
-        /* --- HEADERS --- */
         .group-header {
-            border-bottom: 2px solid #111;
-            padding-bottom: 0.5rem;
-            margin-bottom: 2rem;
-            text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 0.5rem 1rem;
+            padding-bottom: 0.65rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-light);
         }
 
         .group-title {
-            font-size: 1.8rem;
+            font-family: var(--font-display);
+            font-size: 1.45rem;
             font-weight: 700;
-            color: #111;
+            color: var(--text-main);
             margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-family: 'Oswald', sans-serif;
         }
 
-        /* --- MASONRY GRID --- */
+        .group-link {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
         .raw-grid {
-            column-count: 4;
-            column-gap: 1.5rem;
+            column-count: 3;
+            column-gap: 1.25rem;
         }
 
-        /* ONLY THESE TWO CLASSES WERE UPGRADED */
-        .raw-item {
+        .raw-item.media-frame {
             break-inside: avoid;
-            margin-bottom: 1.5rem;
-            border-radius: 4px;
+            margin: 0 0 1.25rem 0;
+            border-radius: 12px;
             overflow: hidden;
-            border: 1px solid #eee;
-            border-bottom: 4px solid #111; /* Added premium border */
-            transition: all 0.3s ease; /* Smoothed transition */
-            cursor: pointer;
-            background: #fff; /* Brightened to make images pop */
-            position: relative;
+            border: 1px solid var(--border-light);
+            background: var(--bg-surface);
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .raw-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            border-bottom-color: var(--red-accent); /* Glows red on hover */
-            z-index: 2;
+        .raw-item.media-frame:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow-md);
         }
 
-        .raw-item img {
+        .raw-item.media-frame img {
             width: 100%;
             height: auto;
             display: block;
         }
 
-        /* --- LIGHTBOX --- */
-        #imageViewer { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; }
-        #fullImage { max-width: 95%; max-height: 95%; border-radius: 4px; box-shadow: 0 0 20px rgba(0,0,0,0.5); animation: zoomIn 0.3s ease; }
-        .close-img-btn { position: absolute; top: 30px; right: 40px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s; font-family: 'Oswald', sans-serif; line-height: 1; }
-        .close-img-btn:hover { color: var(--red-accent); transform: scale(1.1); }
-        @keyframes zoomIn { from {transform: scale(0.9); opacity: 0;} to {transform: scale(1); opacity: 1;} }
-
-        /* --- BUTTONS --- */
-        .header-resume-btn {
-            background-color: #111; color: #fff !important; padding: 0.5rem 1.2rem;
-            border-radius: 6px; font-weight: 600; transition: all 0.3s ease; border: 2px solid #111;
-        }
-        .header-resume-btn:hover { background-color: transparent; color: #111 !important; }
-
-        /* --- MOBILE NAVIGATION STYLES (Restored & Forced) --- */
-        
-        /* 1. The Hamburger Icon Styling */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 30px;
-            height: 21px;
-            background: transparent;
-            margin-left: 100px;
-            border: none;
-            cursor: pointer;
-            z-index: 2000;
-            /* Stays on top */
-        }
-        
-        /* The lines inside the hamburger */
-        .menu-toggle .bar {
-            width: 100%;
-            height: 3px;
-            background-color: #000; /* Force Black Color */
-            transition: 0.3s;
-            border-radius: 2px;
-        }
-
-        /* 2. Mobile Media Query */
-        @media (max-width: 768px) {
-            /* Show Hamburger */
-            .menu-toggle { display: flex !important; }
-            
-            /* Sidebar Menu Panel */
-            .nav-links {
-                position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
-                background-color: #fff; flex-direction: column; justify-content: center; align-items: center;
-                gap: 2.5rem; transition: 0.3s ease-in-out; z-index: 1500;
-                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-            }
-            /* Slide in when active */
-            .nav-links.active { right: 0; display: flex; }
-            .nav-links a { font-size: 1.5rem; font-weight: 700; color: #000; }
-            
-            /* Hamburger Animation to 'X' */
-            .menu-toggle.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
-            .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
-            .menu-toggle.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
-        }
-
-        /* --- RESPONSIVE PAGE STRUCTURE --- */
-        @media (max-width: 1200px) {
-            .raw-grid { column-count: 3; }
-        }
-
         @media (max-width: 900px) {
-            /* Reduce massive padding from 8rem to 3rem on mobile so text isn't lost */
-            .intro-section { padding: 3rem 0 2rem 0; } 
-            
-            .raw-grid { column-count: 2; }
-            .process-container { padding: 2rem 1.5rem 4rem 1.5rem; }
+            .raw-grid {
+                column-count: 2;
+            }
         }
 
-        @media (max-width: 600px) {
-            .raw-grid { column-count: 1; } /* 1 Column on mobile */
-            .group-title { font-size: 1.5rem; }
-            
-            /* Make the main title smaller so it doesn't look weird */
-            .intro-content h1 { font-size: 2.5rem !important; line-height: 1.2; }
-            .intro-content p { font-size: 1rem !important; }
+        @media (max-width: 768px) {
+            .process-hero,
+            .process-wrapper {
+                padding: 0 1.25rem;
+            }
+
+            .jump-bar-wrap {
+                position: static;
+                padding: 0 1.25rem;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .raw-grid {
+                column-count: 1;
+            }
         }
     </style>
 </head>
-<body>
+<body id="top">
 
     <header class="minimal-header">
         <div class="header-content">
-            <a href="index.html" class="logo">KARUNA KETAN</a>
-            
-            <button class="menu-toggle" aria-label="Toggle Navigation">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="index.html#projects">Projects</a></li>
-                    <li><a href="documents.html">Docs</a></li>
-                    <li><a href="process.html">Process</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="index.html#contact">Contact</a></li>
-                    <li><a href="resume.pdf" target="_blank" class="header-resume-btn">RESUME</a></li>
-                </ul>
-            </nav>
+            <a href="index.html" class="logo">KARUNA KETAN.</a>
+            <div class="nav-right">
+                <nav>
+                    <ul class="nav-links" id="nav-links">
+                        <li><a href="index.html">Projects</a></li>
+                        <li><a href="process.html" class="active-nav">Process</a></li>
+                        <li><a href="documents.html">Documents</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="resume.html" class="header-resume-btn">RESUME</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Light/Dark Mode" title="Switch Theme">🌙</button>
+                <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle navigation">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
         </div>
     </header>
 
-    <main class="main-container">
-        
-        <section class="intro-section" style="padding-bottom: 2rem;">
-            <div class="intro-content">
-                <h1 style="font-family: 'Oswald', sans-serif; font-size: 3rem; margin-bottom: 1rem;">The Design Process</h1>
-                <p style="font-size: 1.1rem; color: #444; max-width: 800px; font-family: 'Montserrat', sans-serif;">A visual archive of my raw notes, whiteboard sessions, and paper prototypes. This is where the engineering and problem-solving happens before the engine is ever opened.</p>
-            </div>
+    <main>
+        <section class="process-hero">
+            <span class="section-label">Sketchbook &amp; Paper Prototype Archive</span>
+            <h1 class="process-title">From Paper to Engine</h1>
+            <p class="process-lead">
+                Before opening Unreal Engine 5, I sketch level layouts, enemy AI state trees, and progression math on paper. Click any page below to inspect the raw notes and diagrams up close.
+            </p>
         </section>
 
-        <div class="process-container">
-
-            <div class="project-group">
-                <div class="group-header"><h2 class="group-title">Eclipse of Fear (Horror)</h2></div>
-                <div class="raw-grid">
-                    <div class="raw-item"><img src="assets/Horror/RAW/1.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Horror/RAW/2.png" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Horror/RAW/3.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Horror/RAW/4.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Horror/RAW/5.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Horror/RAW/6.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Horror/RAW/7.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Horror/RAW/8.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Horror/RAW/9.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                </div>
+        <div class="jump-bar-wrap">
+            <div class="jump-bar">
+                <span class="bar-label">Jump to:</span>
+                <a href="#scttv-raw" class="jump-link">Shattered Charms: Through The Veil</a>
+                <a href="#jumprift-raw" class="jump-link">JumpRift: 3D Platformer</a>
+                <a href="#eof-raw" class="jump-link">Eclipse of Fear</a>
+                <a href="#tlou-raw" class="jump-link">The Last of Us: Part I</a>
             </div>
-
-            <div class="project-group">
-                <div class="group-header"><h2 class="group-title">Shattered Charms: Through The Veil (RPG)</h2></div>
-                <div class="raw-grid">
-                    <div class="raw-item"><img src="assets/RPG/RAW/1.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/RPG/RAW/14.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/RPG/RAW/15.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/RPG/RAW/2.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/RPG/RAW/3.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/RPG/RAW/4.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/RPG/RAW/5.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/RPG/RAW/6.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/RPG/RAW/7.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/RPG/RAW/8.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/RPG/RAW/9.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/RPG/RAW/10.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/RPG/RAW/11.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/RPG/RAW/12.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/RPG/RAW/13.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                </div>
-            </div>
-
-            <div class="project-group">
-                <div class="group-header"><h2 class="group-title">Project Singularity (Action-Adventure)</h2></div>
-                <div class="raw-grid">
-                    <div class="raw-item"><img src="assets/Action-adv/RAW/LD_Paper_prototype.jpg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Action-adv/RAW/1.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Action-adv/RAW/8.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Action-adv/RAW/9.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Action-adv/RAW/2.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Action-adv/RAW/3.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Action-adv/RAW/10.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Action-adv/RAW/4.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Action-adv/RAW/5.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Action-adv/RAW/6.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Action-adv/RAW/7.jpeg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Action-adv/RAW/M_1.png" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Action-adv/RAW/M_2.png" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Action-adv/RAW/M_3.png" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Action-adv/RAW/M_4.png" onclick="openImage(this.src)" loading="lazy"></div>
-                </div>
-            </div>
-
-            <div class="project-group">
-                <div class="group-header"><h2 class="group-title">Game Deconstruction (The Last of Us)</h2></div>
-                <div class="raw-grid">
-                    <div class="raw-item"><img src="assets/Game Deconstruction/RAW/1.jpg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Game Deconstruction/RAW/2.jpg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Game Deconstruction/RAW/3.jpg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Game Deconstruction/RAW/4.jpg" onclick="openImage(this.src)" loading="lazy"></div>
-                    <div class="raw-item"><img src="assets/Game Deconstruction/RAW/5.jpg" onclick="openImage(this.src)" loading="lazy"></div>
-                </div>
-            </div>
-
         </div>
 
+        <div class="process-wrapper">
+
+            <!-- 1. SHATTERED CHARMS -->
+            <section id="scttv-raw" class="project-group">
+                <div class="group-header">
+                    <h2 class="group-title">Shattered Charms: Through The Veil (Action RPG)</h2>
+                    <a href="scttv.html" class="group-link">View Project →</a>
+                </div>
+                <div class="raw-grid">
+                    <div class="raw-item media-frame"><img src="assets/RPG/RAW/1.jpeg" alt="Shattered Charms Sketch 1" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/RPG/RAW/14.jpeg" alt="Shattered Charms Annotated Valley Map" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/RPG/RAW/13.jpeg" alt="Shattered Charms 5-Zone Blockout" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/RPG/RAW/11.jpeg" alt="Shattered Charms Encounter Flow" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/RPG/RAW/5.jpeg" alt="Shattered Charms Economy Math" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/RPG/RAW/10.jpeg" alt="Shattered Charms Boss AI Tree" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/RPG/RAW/9.jpeg" alt="Shattered Charms Boss Range Rings" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/RPG/RAW/2.jpeg" alt="Shattered Charms Sketch 2" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/RPG/RAW/3.jpeg" alt="Shattered Charms Sketch 3" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/RPG/RAW/4.jpeg" alt="Shattered Charms Sketch 4" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/RPG/RAW/6.jpeg" alt="Shattered Charms Sketch 6" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/RPG/RAW/7.jpeg" alt="Shattered Charms Sketch 7" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/RPG/RAW/8.jpeg" alt="Shattered Charms Sketch 8" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/RPG/RAW/12.jpeg" alt="Shattered Charms Sketch 12" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/RPG/RAW/15.jpeg" alt="Shattered Charms Sketch 15" loading="lazy"></div>
+                </div>
+            </section>
+
+            <!-- 2. JUMPRIFT -->
+            <section id="jumprift-raw" class="project-group">
+                <div class="group-header">
+                    <h2 class="group-title">JumpRift: 3D Platformer (Android &amp; PC)</h2>
+                    <a href="jumprift.html" class="group-link">View Project →</a>
+                </div>
+                <div class="raw-grid">
+                    <div class="raw-item media-frame"><img src="assets/JumpRift/RAW/1.jpeg" alt="JumpRift Sketch 1" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/JumpRift/RAW/2.jpeg" alt="JumpRift Sketch 2" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/JumpRift/RAW/3.jpeg" alt="JumpRift Sketch 3" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/JumpRift/RAW/4.jpeg" alt="JumpRift Sketch 4" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/JumpRift/RAW/5.jpeg" alt="JumpRift Sketch 5" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/JumpRift/RAW/6.jpeg" alt="JumpRift Sketch 6" loading="lazy"></div>
+                </div>
+            </section>
+
+            <!-- 3. ECLIPSE OF FEAR -->
+            <section id="eof-raw" class="project-group">
+                <div class="group-header">
+                    <h2 class="group-title">Eclipse of Fear (Survival Horror)</h2>
+                    <a href="eof.html" class="group-link">View Project →</a>
+                </div>
+                <div class="raw-grid">
+                    <div class="raw-item media-frame"><img src="assets/Horror/RAW/1.jpeg" alt="Eclipse of Fear Sketch 1" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/Horror/RAW/2.png" alt="Eclipse of Fear Layout Blockout" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/Horror/RAW/3.jpeg" alt="Eclipse of Fear Sketch 3" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/Horror/RAW/4.jpeg" alt="Eclipse of Fear Sketch 4" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/Horror/RAW/5.jpeg" alt="Eclipse of Fear Sketch 5" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/Horror/RAW/6.jpeg" alt="Eclipse of Fear Sketch 6" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/Horror/RAW/7.jpeg" alt="Eclipse of Fear Sketch 7" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/Horror/RAW/8.jpeg" alt="Eclipse of Fear Sketch 8" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/Horror/RAW/9.jpeg" alt="Eclipse of Fear Sketch 9" loading="lazy"></div>
+                </div>
+            </section>
+
+            <!-- 4. GAME DECONSTRUCTION -->
+            <section id="tlou-raw" class="project-group" style="margin-bottom: 0;">
+                <div class="group-header">
+                    <h2 class="group-title">The Last of Us: Part I (Game Deconstruction)</h2>
+                    <a href="tlou.html" class="group-link">View Project →</a>
+                </div>
+                <div class="raw-grid">
+                    <div class="raw-item media-frame"><img src="assets/Game Deconstruction/RAW/1.jpg" alt="TLOU Deconstruction Note 1" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/Game Deconstruction/RAW/2.jpg" alt="TLOU Deconstruction Note 2" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/Game Deconstruction/RAW/3.jpg" alt="TLOU Deconstruction Note 3" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/Game Deconstruction/RAW/4.jpg" alt="TLOU Deconstruction Note 4" loading="lazy"></div>
+                    <div class="raw-item media-frame"><img src="assets/Game Deconstruction/RAW/5.jpg" alt="TLOU Deconstruction Note 5" loading="lazy"></div>
+                </div>
+            </section>
+
+        </div>
     </main>
 
-    <footer id="contact" class="footer-section">
+    <footer class="site-footer">
         <div class="footer-links">
-            <a href="mailto:gamesbykarunaket@gmail.com" aria-label="Email Karuna Ketan">Email</a>
-            <a href="https://wa.me/917764870529" target="_blank" rel="noopener noreferrer"
-                aria-label="Chat with Karuna Ketan on WhatsApp">+91 7764870529</a>
-            <a href="https://www.linkedin.com/in/karunaket/" target="_blank" rel="noopener noreferrer"
-                aria-label="Visit Karuna Ketan's LinkedIn">LinkedIn</a>
-            <a href="https://karuna-ketan.itch.io/" target="_blank" rel="noopener noreferrer"
-                aria-label="Visit Karuna Ketan's itch.io Profile">itch.io</a>
+            <a href="mailto:gamesbykarunaket@gmail.com">Email</a>
+            <a href="https://www.linkedin.com/in/karunaket/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://karuna-ketan.itch.io/" target="_blank" rel="noopener noreferrer">itch.io</a>
         </div>
-        <p style="margin-top: 1rem; color: #888; font-size: 0.8rem;">© 2026 Karuna Ketan.</p>
+        <p class="footer-copy">© 2026 Karuna Ketan.</p>
     </footer>
 
-    <div id="imageViewer" onclick="closeImage()">
-        <span class="close-img-btn">&times;</span>
-        <img id="fullImage" onclick="event.stopPropagation()"> 
-    </div>
-
     <script src="script.js"></script>
-
-    <script>
-        function openImage(src) {
-            const viewer = document.getElementById('imageViewer');
-            const fullImg = document.getElementById('fullImage');
-            fullImg.src = src;
-            viewer.style.display = 'flex';
-            setTimeout(() => { viewer.style.opacity = '1'; }, 10);
-            document.body.style.overflow = 'hidden';
-        }
-        function closeImage() {
-            const viewer = document.getElementById('imageViewer');
-            viewer.style.opacity = '0';
-            setTimeout(() => {
-                viewer.style.display = 'none';
-                document.getElementById('fullImage').src = "";
-                document.body.style.overflow = 'auto';
-            }, 300);
-        }
-    </script>
 </body>
 </html>

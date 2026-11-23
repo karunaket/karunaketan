@@ -1,149 +1,191 @@
+/* ==========================================================================
+   KARUNA KETAN — PORTFOLIO INTERACTIONS
+   Light/Dark Mode, Scroll-to-Top Arrow, Right Scrollspy, Lightbox & GIF Reels
+   ========================================================================== */
+
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // 1. MOBILE MENU TOGGLE (With click-outside fixes applied)
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
+    // 1. Light / Dark Mode Toggle (Light Mode Default)
+    const themeBtn = document.getElementById('theme-toggle');
+    const savedTheme = localStorage.getItem('kk-theme');
 
-    if (menuToggle && navLinks) {
-        menuToggle.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevents instant closing
-            menuToggle.classList.toggle('active');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        if (themeBtn) themeBtn.textContent = '☀️';
+    }
+
+    if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            themeBtn.textContent = isDark ? '☀️' : '🌙';
+            localStorage.setItem('kk-theme', isDark ? 'dark' : 'light');
+        });
+    }
+
+    // 2. Mobile Navigation Toggle
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const navLinks = document.getElementById('nav-links');
+
+    if (menuBtn && navLinks) {
+        menuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
-            
-            // Prevent scrolling when menu is open
-            if (navLinks.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = 'auto';
-            }
         });
 
-        // Close menu when clicking anywhere outside of it
-        document.addEventListener('click', (e) => {
-            if (navLinks.classList.contains('active') && !navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
-                menuToggle.classList.remove('active');
-                navLinks.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        });
-
-        // Close menu when a link is clicked
-        document.querySelectorAll('.nav-links a').forEach(link => {
+        navLinks.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
-                menuToggle.classList.remove('active');
                 navLinks.classList.remove('active');
-                document.body.style.overflow = 'auto';
             });
         });
     }
 
-    // 2. SMOOTH SCROLLING
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            if (this.getAttribute('href').startsWith("#")) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) target.scrollIntoView({ behavior: 'smooth' });
-            }
+    // 3. Global Floating Back-to-Top Arrow Button (Every Page)
+    const topBtn = document.createElement('button');
+    topBtn.className = 'back-to-top-btn';
+    topBtn.setAttribute('aria-label', 'Scroll to top');
+    topBtn.setAttribute('title', 'Back to Top');
+    topBtn.textContent = '↑';
+    document.body.appendChild(topBtn);
+
+    const toggleTopBtn = () => {
+        topBtn.classList.toggle('visible', window.scrollY > 360);
+    };
+    window.addEventListener('scroll', toggleTopBtn, { passive: true });
+    toggleTopBtn();
+
+    topBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // 4. Right-Side Contents Header Click -> Scroll to Top
+    document.querySelectorAll('.toc-heading').forEach(heading => {
+        heading.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     });
 
-    // 3. IMAGE SLIDER
-    const slides = document.querySelectorAll('.slide');
-    const dotsContainer = document.getElementById('dotsContainer');
-    const prevBtn = document.querySelector('.prev');
-    const nextBtn = document.querySelector('.next');
-    const wrapper = document.querySelector('.slider-wrapper');
-    
-    let currentSlide = 0;
-    let slideInterval;
+    // 5. Right-Side Contents Scrollspy (Main & Sub-Sections)
+    const spyTargets = document.querySelectorAll('.content-section[id], .sub-block-title[id]');
+    const tocLinks = document.querySelectorAll('.toc-link');
 
-    if (slides.length > 0 && wrapper) {
-        slides.forEach((_, index) => {
-            const dot = document.createElement('div');
-            dot.classList.add('dot');
-            if (index === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => { goToSlide(index); resetTimer(); });
-            dotsContainer.appendChild(dot);
+    if (spyTargets.length > 0 && tocLinks.length > 0) {
+        const updateScrollspy = () => {
+            let current = '';
+            spyTargets.forEach(target => {
+                if (window.scrollY >= target.offsetTop - 165) {
+                    current = target.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.toggle('active', Boolean(current && link.getAttribute('href') === '#' + current));
+            });
+        };
+
+        window.addEventListener('scroll', updateScrollspy, { passive: true });
+        updateScrollspy();
+    }
+
+    // 6. Collapsible Terracotta Detail Drawers
+    document.querySelectorAll('.drawer-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const drawer = header.closest('.detail-drawer');
+            if (drawer) drawer.classList.toggle('open');
+        });
+    });
+
+    // 7. Mobile-Safe Lightbox Image & GIF Inspector
+    const mediaFrames = document.querySelectorAll('.media-frame');
+    if (mediaFrames.length > 0) {
+        const modal = document.createElement('div');
+        modal.className = 'lightbox-modal';
+        modal.innerHTML = `
+            <button class="lightbox-close" aria-label="Close">CLOSE ✕</button>
+            <img src="" alt="">
+            <div class="lightbox-caption"></div>
+        `;
+        document.body.appendChild(modal);
+
+        const modalImg = modal.querySelector('img');
+        const modalCaption = modal.querySelector('.lightbox-caption');
+        const closeBtn = modal.querySelector('.lightbox-close');
+
+        const closeModal = () => {
+            modal.classList.remove('open');
+            document.body.style.overflow = '';
+            modalImg.src = ''; // Resets GIFs cleanly on close
+        };
+
+        mediaFrames.forEach(frame => {
+            const img = frame.querySelector('img');
+            if (!img) return;
+
+            frame.addEventListener('click', () => {
+                const cap = frame.querySelector('.media-caption');
+                modalImg.src = img.src;
+                modalImg.alt = img.alt || '';
+                modalCaption.textContent = cap ? cap.textContent : (img.alt || '');
+                modal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
         });
 
-        const dots = document.querySelectorAll('.dot');
-
-        function updateSlider() {
-            wrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
-            dots.forEach(dot => dot.classList.remove('active'));
-            if(dots[currentSlide]) dots[currentSlide].classList.add('active');
-        }
-
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            updateSlider();
-        }
-
-        function prevSlide() {
-            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-            updateSlider();
-        }
-
-        function goToSlide(index) {
-            currentSlide = index;
-            updateSlider();
-        }
-
-        function startTimer() {
-            slideInterval = setInterval(nextSlide, 3500); 
-        }
-
-        function resetTimer() {
-            clearInterval(slideInterval);
-            startTimer();
-        }
-
-        if (nextBtn) { nextBtn.addEventListener('click', () => { nextSlide(); resetTimer(); }); }
-        if (prevBtn) { prevBtn.addEventListener('click', () => { prevSlide(); resetTimer(); }); }
-
-        startTimer();
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+        });
     }
-});
 
-// 4. GLOBAL PDF & IMAGE VIEWER FUNCTIONS
-function openPDF(file) {
-    const viewer = document.getElementById("viewer");
-    if(viewer) {
-        viewer.style.display = "block";
-        document.getElementById("pdfFrame").src = file;
-        document.body.style.overflow = "hidden";
+    // 8. Homepage Discipline Filter Tabs
+    const filterButtons = document.querySelectorAll('.filter-btn[data-filter]');
+    const filterItems = document.querySelectorAll('.project-card[data-category]');
+    const categoryDividers = document.querySelectorAll('.category-divider[data-section]');
+
+    if (filterButtons.length > 0 && filterItems.length > 0) {
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = btn.getAttribute('data-filter');
+
+                filterButtons.forEach(b => b.classList.remove('active-filter'));
+                btn.classList.add('active-filter');
+
+                filterItems.forEach(item => {
+                    const cats = (item.getAttribute('data-category') || '').split(/\s+/);
+                    const isVisible = target === 'all' || cats.includes(target);
+                    item.classList.toggle('is-filtered-out', !isVisible);
+                    item.style.display = isVisible ? '' : 'none';
+                });
+
+                // Hide any category heading whose cards are all filtered out
+                categoryDividers.forEach(divider => {
+                    const sec = divider.getAttribute('data-section');
+                    const visibleInSection = document.querySelectorAll(
+                        `.project-card[data-section="${sec}"]:not(.is-filtered-out)`
+                    );
+                    divider.classList.toggle('is-filtered-out', visibleInSection.length === 0);
+                });
+            });
+        });
     }
-}
 
-function closePDF() {
-    const viewer = document.getElementById("viewer");
-    if(viewer) {
-        viewer.style.display = "none";
-        document.getElementById("pdfFrame").src = "";
-        document.body.style.overflow = "auto";
-    }
-}
+    // 9. Continuous Auto-Sliding GIF Reels (No Arrows, No Dots)
+    const reels = document.querySelectorAll('.thumb-reel, .hero-slider');
+    reels.forEach((reel, reelIndex) => {
+        const intervalMs = parseInt(reel.getAttribute('data-interval'), 10) || 3400;
+        let currentSlide = 0;
 
-function openImage(src) {
-    const viewer = document.getElementById('imageViewer');
-    const fullImg = document.getElementById('fullImage');
-    if(viewer && fullImg) {
-        fullImg.src = src;
-        viewer.style.display = 'flex';
-        setTimeout(() => { viewer.style.opacity = '1'; }, 10);
-        document.body.style.overflow = 'hidden';
-    }
-}
-
-function closeImage() {
-    const viewer = document.getElementById('imageViewer');
-    if(viewer) {
-        viewer.style.opacity = '0';
         setTimeout(() => {
-            viewer.style.display = 'none';
-            document.getElementById('fullImage').src = "";
-            document.body.style.overflow = 'auto';
-        }, 300);
-    }
-}
+            setInterval(() => {
+                const slides = reel.querySelectorAll('.thumb-slide, .hero-slide');
+                if (slides.length <= 1) return;
+
+                slides.forEach(s => s.classList.remove('active-slide'));
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active-slide');
+            }, intervalMs);
+        }, reelIndex * 400);
+    });
+});

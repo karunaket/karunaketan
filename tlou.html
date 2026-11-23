@@ -3,841 +3,642 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="The Last of Us Part I - Game Deconstruction by Karuna Ketan.">
-    <title>The Last of Us Part I - Game Deconstruction | Karuna Ketan</title>
-    
+    <meta name="description" content="The Last of Us Part I - Game Deconstruction and Design Analysis by Karuna Ketan.">
+    <title>The Last of Us: Part I - Game Deconstruction | Karuna Ketan</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23D45B3E'/%3E%3Cpath d='M21 24h22a9 9 0 0 1 8.8 10.9l-2.1 9.5a5.5 5.5 0 0 1-9.4 2.6L36 42.5h-8l-4.3 4.5a5.5 5.5 0 0 1-9.4-2.6l-2.1-9.5A9 9 0 0 1 21 24z' fill='%23FAF9F5'/%3E%3Crect x='20' y='30' width='2.5' height='7' rx='1' fill='%23D45B3E'/%3E%3Crect x='17.75' y='32.25' width='7' height='2.5' rx='1' fill='%23D45B3E'/%3E%3Ccircle cx='42' cy='31.5' r='1.7' fill='%23D45B3E'/%3E%3Ccircle cx='45.5' cy='35' r='1.7' fill='%23D45B3E'/%3E%3C/svg%3E">
     <link rel="stylesheet" href="style.css">
-    
     <style>
-        /* --- 1. PREMIUM MINIMALIST PALETTE --- */
-        :root {
-            --bg-page: #FAF9F5; 
-            --text-main: #111111; 
-            --text-muted: #555555;
-            --accent: #D45B3E; 
-            --border-light: rgba(0,0,0,0.08);
-            
-            --font-display: 'Oswald', sans-serif;
-            --font-body: 'Montserrat', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-page);
-            color: var(--text-main);
-            font-family: var(--font-body);
-            margin: 0;
-            padding: 0;
-            line-height: 1.7;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        /* --- 2. FLOATING EDITORIAL HEADER --- */
-        .minimal-header {
-            background: rgba(250, 249, 245, 0.9);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-light);
-            padding: 1.2rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 2000;
-        }
-        .header-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--text-main); letter-spacing: 2px; text-decoration: none;}
-        
-        .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; margin: 0;}
-        .nav-links a { color: var(--text-muted); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: color 0.3s ease; }
-        .nav-links a:hover { color: var(--accent); }
-        
-        .header-resume-btn {
-            background: var(--text-main);
-            color: #fff !important;
-            padding: 0.6rem 1.8rem;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        .header-resume-btn:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(212, 91, 62, 0.25);}
-
-        /* --- 3. CASE STUDY HERO --- */
-        .case-hero {
-            max-width: 1300px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-        }
-        
-        .hero-visual {
-            width: 100%;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-            position: relative;
-            background: #000;
-            margin-bottom: 4rem;
-            aspect-ratio: 16/9;
-        }
-        .hero-visual img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .case-title {
-            text-align: center;
-            font-family: var(--font-display);
-            font-size: 4.5rem; 
-            line-height: 1.1;
-            color: var(--text-main);
-            margin-bottom: 2rem;
-            text-transform: uppercase;
-        }
-
-        .case-metrics-wrapper {
-            border-top: 1px solid var(--border-light);
-            border-bottom: 1px solid var(--border-light);
-            padding: 1.8rem 0;
-            margin-bottom: 1.75rem;
-            display: flex;
-            justify-content: center;
-        }
-        .case-metrics-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 4rem;
-        }
-        .metric-item {
-            display: flex;
-            flex-direction: column;
+        /* --- HERO SLIDER CONTROLLERS (ARROWS & DOTS) --- */
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 6;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(15, 16, 20, 0.65);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #FFFFFF;
+            display: inline-flex;
             align-items: center;
-            text-align: center;
-        }
-        .metric-item span {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.4rem;
-            font-weight: 500;
-        }
-        .metric-item strong {
-            font-size: 1.05rem;
-            color: var(--text-main);
-            font-family: var(--font-body);
-            font-weight: 700;
-        }
-
-        .hero-actions-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            margin-bottom: 5rem;
-        }
-        .btn-group {
-            display: flex;
-            gap: 1rem;
             justify-content: center;
-            align-items: center; 
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
-        }
-        
-        .btn-play {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            padding: 0 2.5rem; height: 55px; border-radius: 50px; font-family: var(--font-display); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: 0.3s; cursor: pointer; white-space: nowrap; box-sizing: border-box; line-height: 1;
-            background: var(--text-main); color: #fff; border: 2px solid transparent; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
-        .btn-play:hover { background: var(--accent); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(212, 91, 62, 0.25); border-color: var(--accent); }
-        
-        .nda-note {
-            font-style: italic; color: var(--text-muted); font-size: 0.95rem; max-width: 900px; line-height: 1.6; margin: 0 auto;
-        }
-
-        /* --- 4. SIDEBAR & CONTENT LAYOUT --- */
-        .case-layout {
-            max-width: 1300px;
-            margin: 0 auto 8rem auto;
-            padding: 0 2rem;
-            display: flex;
-            gap: 5rem;
-            align-items: flex-start;
-        }
-
-        .case-sidebar {
-            flex: 0 0 240px;
-            position: sticky;
-            top: 120px; 
-            height: fit-content;
-        }
-        .sidebar-nav {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-        }
-        .sidebar-link {
-            font-family: var(--font-display);
-            text-transform: uppercase;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: 0.3s;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            padding-left: 1rem;
-            border-left: 3px solid transparent;
-            display: block;
-        }
-        .sidebar-link:hover, .sidebar-link.active {
-            color: var(--accent);
-            border-left-color: var(--accent);
-        }
-
-        .case-content {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .content-section {
-            margin-bottom: 6rem;
-            scroll-margin-top: 140px; 
-        }
-
-        .section-header {
-            font-family: var(--font-display);
-            font-size: 2.2rem;
-            text-transform: uppercase;
-            color: var(--text-main);
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--text-main);
-        }
-
-        .block-text {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            line-height: 1.8;
-            margin-bottom: 2rem;
-        }
-        .block-text strong { color: var(--text-main); }
-        .lead-text { font-size: 1.25rem; font-weight: 500; color: var(--text-main); margin-bottom: 1.5rem; line-height: 1.6;}
-
-        /* Quote Box */
-        .quote-box {
-            border-left: 4px solid var(--accent);
-            background: #fff;
-            padding: 2rem 2.5rem;
-            font-style: italic;
-            font-size: 1.15rem;
-            margin: 2rem 0;
-            color: var(--text-main);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            border-radius: 0 12px 12px 0;
-            line-height: 1.8;
-            border-top: 1px solid var(--border-light);
-            border-right: 1px solid var(--border-light);
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        /* GDS Box (Problem/Solution) */
-        .gds-box {
-            background: #fff;
-            border-left: 4px solid var(--accent);
-            padding: 2.5rem;
-            border-radius: 0 12px 12px 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            margin-bottom: 3rem;
-            border-top: 1px solid var(--border-light);
-            border-right: 1px solid var(--border-light);
-            border-bottom: 1px solid var(--border-light);
-        }
-        .gds-row { margin-bottom: 2rem; }
-        .gds-row:last-child { margin-bottom: 0; }
-        .gds-label {
-            font-family: var(--font-display);
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--accent);
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-
-        /* Standard Interactive Images */
-        .case-image {
-            width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
-            margin-bottom: 1rem;
             cursor: pointer;
-            transition: 0.3s;
-            background: #fff;
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+            padding: 0;
         }
-        .case-image:hover { transform: scale(1.02); }
-        .img-caption { text-align: center; font-size: 0.9rem; color: var(--text-muted); font-style: italic; margin-bottom: 3rem; }
 
-        /* Grids */
-        .image-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-bottom: 1rem;
+        .slider-arrow:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-50%) scale(1.06);
         }
-        
-        .three-col-grid {
+
+        .slider-arrow.prev-slide {
+            left: 1.25rem;
+        }
+
+        .slider-arrow.next-slide {
+            right: 1.25rem;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 6;
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.35rem 0.65rem;
+            border-radius: 999px;
+            background: rgba(15, 16, 20, 0.45);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+
+        .slider-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: none;
+            padding: 0;
+            background: rgba(255, 255, 255, 0.42);
+            cursor: pointer;
+            transition: all 0.22s ease;
+        }
+
+        .slider-dot:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .slider-dot.active-dot {
+            background: #FFFFFF;
+            transform: scale(1.22);
+        }
+
+        @media (max-width: 600px) {
+            .slider-arrow {
+                width: 34px;
+                height: 34px;
+            }
+            .slider-arrow.prev-slide {
+                left: 0.75rem;
+            }
+            .slider-arrow.next-slide {
+                right: 0.75rem;
+            }
+            .slider-dots {
+                bottom: 0.65rem;
+            }
+        }
+
+        .pillar-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.15rem;
+            margin: 1.4rem 0 1.85rem 0;
+        }
+
+        .pillar-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 1.3rem 1.4rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .pillar-card h4 {
+            font-family: var(--font-display);
+            font-size: 1.02rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0 0 0.45rem 0;
+        }
+
+        .pillar-card p {
+            font-size: 0.89rem;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.62;
+        }
+
+        .loop-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-top: 2rem;
+            gap: 1.15rem;
+            margin: 1.4rem 0 1.85rem 0;
         }
 
-        /* Centered Flex Grid for Paper Prototypes */
-        .raw-gallery-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 2rem;
-            margin-bottom: 3rem;
-        }
-        .raw-gallery-item {
-            width: calc(33.333% - 1rem); 
-            border-radius: 8px;
+        .loop-card {
+            background: var(--bg-surface);
             border: 1px solid var(--border-light);
-            background: #fff;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            display: flex;
+            border-top: 3px solid var(--accent);
+            border-radius: 12px;
+            padding: 1.3rem 1.35rem;
+            box-shadow: var(--shadow-sm);
         }
-        .raw-gallery-item img {
-            width: 100%;
-            height: auto; 
+
+        .loop-tag {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.9px;
+            color: var(--accent);
             display: block;
-            transition: transform 0.3s ease;
+            margin-bottom: 0.35rem;
         }
-        .raw-gallery-item:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
-        .raw-gallery-item:hover img { transform: scale(1.05); }
 
-        /* Lists & Flows */
-        .clean-list { list-style: none; padding: 0; }
-        .clean-list li { position: relative; padding-left: 1.5rem; margin-bottom: 1.2rem; font-size: 1.05rem; color: var(--text-muted); }
-        .clean-list li::before { content: "✦"; position: absolute; left: 0; color: var(--accent); font-size: 0.8rem; top: 5px;}
-        .clean-list strong { color: var(--text-main); }
-
-        .flow-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-top: 2rem;
-            margin-bottom: 3rem;
+        .loop-card p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.62;
         }
-        .flow-card {
-            background: #fff;
-            padding: 2rem;
-            border-radius: 8px;
+
+        .table-wrap {
+            width: 100%;
+            overflow-x: auto;
             border: 1px solid var(--border-light);
-            border-top: 3px solid var(--text-main);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-            transition: 0.3s ease;
+            border-radius: 12px;
+            background: var(--bg-surface);
+            margin: 1.25rem 0 1.65rem 0;
+            box-shadow: var(--shadow-sm);
         }
-        .flow-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
-            border-top-color: var(--accent);
-        }
-        .flow-card h4 { font-family: var(--font-display); font-size: 1.2rem; color: var(--text-main); margin-bottom: 0.5rem; text-transform: uppercase;}
-        
-        /* Weapon Table */
-        .weapon-table {
+
+        .data-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 2rem;
-            font-size: 0.95rem;
-            background: #fff;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--border-light);
-        }
-        .weapon-table th, .weapon-table td {
-            border-bottom: 1px solid var(--border-light);
-            padding: 18px 24px;
+            font-size: 0.87rem;
             text-align: left;
-            vertical-align: top;
-            line-height: 1.6;
         }
-        .weapon-table th {
-            background-color: var(--text-main);
-            font-weight: 700;
-            color: #fff;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
+
+        .data-table th {
             font-family: var(--font-display);
-            border: none;
+            font-weight: 700;
+            color: var(--text-main);
+            background: var(--bg-subtle);
+            padding: 0.82rem 1rem;
+            border-bottom: 1px solid var(--border-light);
+            white-space: nowrap;
         }
-        .weapon-table tr { transition: background-color 0.2s ease; }
-        .weapon-table tr:hover { background-color: #fafafa; }
 
-        /* --- MEDIUM CARD CTA RESTORED --- */
-        .medium-card-container { display: flex; justify-content: center; margin-top: 3rem; text-decoration: none; }
-        .medium-card { 
-            display: flex; background: #fff; border: 1px solid var(--border-light); border-radius: 12px; 
-            overflow: hidden; width: 100%; max-width: 900px; 
-            transition: transform 0.3s ease, box-shadow 0.3s ease; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03); 
-            text-decoration: none; color: inherit; 
+        .data-table td {
+            padding: 0.8rem 1rem;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-light);
+            line-height: 1.52;
         }
-        .medium-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.08); border-color: var(--accent); }
-        .medium-thumb { width: 400px; object-fit: cover; flex-shrink: 0; }
-        .medium-content { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; }
-        .medium-logo { font-size: 0.85rem; font-weight: 700; color: var(--accent); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 1px; font-family: var(--font-display); }
-        .medium-title { font-family: var(--font-display); font-size: 2.2rem; font-weight: 700; margin-bottom: 1rem; color: var(--text-main); line-height: 1.1; text-transform: uppercase; }
-        .medium-desc { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 2rem; line-height: 1.6; }
-        .medium-meta { font-size: 0.85rem; color: var(--text-main); font-weight: 600; text-transform: uppercase; letter-spacing: 1px;}
 
-        /* Lightbox */
-        #imageViewer { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; }
-        #fullImage { max-width: 90%; max-height: 90%; border-radius: 8px; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
-        .close-img-btn { position: absolute; top: 30px; right: 40px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s; font-family: var(--font-display); }
-        .close-img-btn:hover { color: var(--accent); transform: scale(1.1); }
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
 
-        /* --- MOBILE RESPONSIVENESS --- */
-        .menu-toggle { display: none; flex-direction: column; justify-content: space-between; width: 30px; height: 21px; background: transparent; border: none; cursor: pointer; z-index: 2000; position: relative; }
-        .menu-toggle .bar { width: 100%; height: 3px; background-color: var(--text-main); transition: 0.3s ease; border-radius: 2px; }
+        .data-table td strong {
+            color: var(--text-main);
+        }
 
-        @media (max-width: 1024px) {
-            .case-title { font-size: 3.5rem; }
-            .case-metrics-grid { gap: 2rem; }
-            .case-layout { flex-direction: column; gap: 3rem; }
-            .case-sidebar { position: sticky; top: 70px; width: 100%; background: var(--bg-page); z-index: 1900; border-bottom: 1px solid var(--border-light); padding: 1rem 0; }
-            .sidebar-nav { flex-direction: row; overflow-x: auto; white-space: nowrap; justify-content: flex-start; gap: 2rem; padding-bottom: 0.5rem; }
-            .sidebar-nav::-webkit-scrollbar { display: none; }
-            .sidebar-nav { -ms-overflow-style: none; scrollbar-width: none; }
-            .sidebar-link { border-left: none; border-bottom: 2px solid transparent; padding-left: 0; padding-bottom: 0.5rem; }
-            .sidebar-link:hover, .sidebar-link.active { border-left-color: transparent; border-bottom-color: var(--accent); }
-            
-            .three-col-grid { grid-template-columns: 1fr; }
-            .raw-gallery-item { width: calc(50% - 0.75rem); } 
-            
-            .medium-card { flex-direction: column; }
-            .medium-thumb { width: 100%; height: auto; aspect-ratio: 16/9; }
+        .pub-banner {
+            display: block;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-left: 4px solid var(--accent);
+            border-radius: 14px;
+            padding: 2rem 1.75rem;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            margin-top: 1.75rem;
+        }
+
+        .pub-banner:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+
+        .pub-banner h3 {
+            font-family: var(--font-display);
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0.35rem 0 0.65rem 0;
+        }
+
+        .doc-pill {
+            font-family: var(--font-display);
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: var(--text-main);
+            padding: 0.62rem 1.2rem;
+            border: 1px solid var(--border-light);
+            background: var(--bg-surface);
+            border-radius: 50px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .doc-pill:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .project-pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            padding-top: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid var(--border-light);
+            flex-wrap: wrap;
         }
 
         @media (max-width: 768px) {
-            .menu-toggle { display: flex !important; }
-            .nav-links { position: fixed !important; top: 0 !important; right: -100% !important; width: 100% !important; height: 100vh !important; background-color: var(--bg-page) !important; display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: center !important; gap: 2.5rem !important; z-index: 1500 !important; transition: right 0.4s ease-in-out !important; }
-            .nav-links.active { right: 0 !important; }
-            .nav-links a { font-size: 1.5rem !important; color: var(--text-main) !important; }
-            .menu-toggle.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg) !important; }
-            .menu-toggle.active .bar:nth-child(2) { opacity: 0 !important; }
-            .menu-toggle.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg) !important; }
-            
-            .case-title { font-size: 2.8rem; }
-            .btn-group { flex-direction: column; width: 100%; }
-            .btn-play { width: 100%; justify-content: center; }
-            
-            .flow-grid, .image-grid { grid-template-columns: 1fr; }
-            .raw-gallery-grid { grid-template-columns: 1fr; }
-            
-            .weapon-table { display: block; overflow-x: auto; white-space: nowrap; }
+            .pillar-grid,
+            .loop-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-pagination {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .project-pagination a {
+                justify-content: center;
+                text-align: center;
+            }
         }
     </style>
 </head>
-<body>
+<body id="top">
 
     <header class="minimal-header">
         <div class="header-content">
             <a href="index.html" class="logo">KARUNA KETAN.</a>
-            
-            <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Navigation">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-
-            <nav>
-                <ul class="nav-links" id="nav-links">
-                    <li><a href="index.html#projects" style="color: var(--accent);">Projects</a></li>
-                    <li><a href="documents.html">Docs</a></li>
-                    <li><a href="index.html#process">Process</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="resume.pdf" target="_blank" class="header-resume-btn">RESUME</a></li>
-                </ul>
-            </nav>
+            <div class="nav-right">
+                <nav>
+                    <ul class="nav-links" id="nav-links">
+                        <li><a href="index.html" class="active-nav">Projects</a></li>
+                        <li><a href="process.html">Process</a></li>
+                        <li><a href="documents.html">Documents</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="resume.pdf" target="_blank" class="header-resume-btn">RESUME</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Light/Dark Mode" title="Switch Theme">🌙</button>
+                <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle navigation">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
         </div>
     </header>
 
-    <main>
-        
-        <section class="case-hero">
-            <div class="hero-visual">
-                <img src="assets/Game Deconstruction/TLOU.png" alt="The Last of Us Key Art">
-            </div>
-            
-            <h1 class="case-title">The Last of Us: Part I</h1>
-            
-            <div class="case-metrics-wrapper">
-                <div class="case-metrics-grid">
-                    <div class="metric-item"><span>Type</span><strong>Game Deconstruction</strong></div>
-                    <div class="metric-item"><span>Developer</span><strong>Naughty Dog</strong></div>
-                    <div class="metric-item"><span>Genre</span><strong>Action-Adventure</strong></div>
-                    <div class="metric-item"><span>Author</span><strong>Karuna Ketan</strong></div>
+    <!-- FULL-WIDTH HERO SLIDER WITH ARROWS & PAGINATION DOTS -->
+    <div class="case-hero">
+        <div class="hero-banner">
+            <div class="hero-slider" id="tlou-hero-slider" data-interval="3800">
+                <div class="hero-slide active-slide"><img src="assets/Game Deconstruction/TLOU.png" alt="The Last of Us Part I Key Art"></div>
+                <div class="hero-slide"><img src="assets/Game Deconstruction/Images/3.png" alt="The Last of Us Lighting Guidance Analysis"></div>
+                <div class="hero-slide"><img src="assets/Game Deconstruction/Images/5.png" alt="The Last of Us Landmark and Leading Line Analysis"></div>
+                <div class="hero-slide"><img src="assets/Game Deconstruction/Images/GameplayLoop.webp" alt="The Last of Us Gameplay Loop Flowchart"></div>
+                <div class="hero-slide"><img src="assets/Game Deconstruction/Images/Tension.webp" alt="The Last of Us Tension Design Architecture Flowchart"></div>
+
+                <button type="button" class="slider-arrow prev-slide" aria-label="Previous slide">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <button type="button" class="slider-arrow next-slide" aria-label="Next slide">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+
+                <div class="slider-dots" role="tablist" aria-label="Hero media slides">
+                    <button type="button" class="slider-dot active-dot" data-slide="0" aria-label="Slide 1"></button>
+                    <button type="button" class="slider-dot" data-slide="1" aria-label="Slide 2"></button>
+                    <button type="button" class="slider-dot" data-slide="2" aria-label="Slide 3"></button>
+                    <button type="button" class="slider-dot" data-slide="3" aria-label="Slide 4"></button>
+                    <button type="button" class="slider-dot" data-slide="4" aria-label="Slide 5"></button>
                 </div>
             </div>
-            
-            <div class="hero-actions-container">
-                <div class="btn-group">
-                    <a href="https://medium.com/@karunaket/the-last-of-us-part-i-game-deconstruction-by-karuna-ketan-c0584d9f46e3" target="_blank" class="btn-play">▶ READ FULL Deconstruction ON MEDIUM</a>
+        </div>
+    </div>
+
+    <div class="case-layout">
+        <main class="case-content">
+            <div class="case-header-block">
+                <span class="section-label">Game Deconstruction // Published Systems Analysis</span>
+                <h1 class="case-title">The Last of Us: Part I</h1>
+                <p class="case-subtitle">
+                    A 3,000+ word systems and level design breakdown examining how Naughty Dog uses strict resource scarcity, "Pacing Pockets", orthogonal enemy roles, and architectural lighting to sustain tension without HUD waypoints.
+                </p>
+
+                <div class="meta-strip">
+                    <span><strong>Type:</strong> Game Deconstruction</span>
+                    <span><strong>Developer:</strong> Naughty Dog</span>
+                    <span><strong>Genre:</strong> Action-Adventure / Survival</span>
+                    <span><strong>Format:</strong> Written Breakdown &amp; Flow Diagrams</span>
                 </div>
-                <p class="nda-note">*Note: This is an analytical deep dive into level pacing, resource scarcity, and emotional resonance through mechanics.*</p>
+
+                <div class="tag-pill-row">
+                    <span class="tech-pill">Resource Scarcity</span>
+                    <span class="tech-pill">Pacing Pockets</span>
+                    <span class="tech-pill">Level Sightlines</span>
+                    <span class="tech-pill">Player Psychology</span>
+                    <span class="tech-pill">Weapon Roles</span>
+                    <span class="tech-pill">Enemy Ecology</span>
+                </div>
+
+                <div class="doc-actions">
+                    <a href="https://medium.com/@karunaket/the-last-of-us-part-i-game-deconstruction-by-karuna-ketan-c0584d9f46e3" target="_blank" rel="noopener noreferrer" class="btn-solid">Read Full Analysis on Medium ↗</a>
+                    <a href="#lessons" class="btn-outline">↓ Jump to Lessons Applied</a>
+                </div>
+
+                <div class="highlights-box">
+                    <h2 class="highlights-title">★ Key Takeaways From This Breakdown</h2>
+                    <ul class="highlights-list">
+                        <li><strong>Scarcity Drives Decisions:</strong> Tight carry caps, shared crafting ingredients, and dynamic drop scaling keep players just short of feeling safe, turning every bullet and rag into a tactical trade-off.</li>
+                        <li><strong>Lighting &amp; Geometry Replace Waypoints:</strong> Sunlight shafts, slanted concrete beams, and weathered yellow accents guide player sightlines naturally without mini-maps or floating arrows.</li>
+                        <li><strong>Pacing Pockets Prevent Burnout:</strong> High-stress combat arenas are consistently followed by quiet scavenging rooms and narrative beats so tension resets before the next spike.</li>
+                        <li><strong>Direct Impact on My Work:</strong> Applied these exact systems to my Shrine Jewel gates in <em>Shattered Charms: Through The Veil</em> and warm-to-cold lighting shifts in <em>Eclipse of Fear</em>.</li>
+                    </ul>
+                </div>
             </div>
-        </section>
 
-        <div class="case-layout">
-            
-            <aside class="case-sidebar">
-                <ul class="sidebar-nav">
-                    <li><a href="#overview" class="sidebar-link active">Overview</a></li>
-                    <li><a href="#pillars" class="sidebar-link">Design Pillars</a></li>
-                    <li><a href="#loops" class="sidebar-link">Gameplay Loops</a></li>
-                    <li><a href="#scarcity" class="sidebar-link">Resource Scarcity</a></li>
-                    <li><a href="#level-design" class="sidebar-link">Level Design</a></li>
-                    <li><a href="#weapons" class="sidebar-link">Weapons</a></li>
-                    <li><a href="#tension" class="sidebar-link">Tension Design</a></li>
-                    <li><a href="#lessons" class="sidebar-link">Lessons</a></li>
-                    <li><a href="#notes" class="sidebar-link">Raw Notes</a></li>
-                </ul>
-            </aside>
+            <!-- 01. OVERVIEW & PILLARS -->
+            <section id="overview" class="content-section">
+                <h2 class="block-title">01. Overview &amp; Core Design Pillars</h2>
+                <p class="copy-text">
+                    <strong>The Last of Us: Part I</strong> succeeds because its mechanics and narrative pull in the exact same direction. Strict ammo caps, real-time backpack crafting, heavy weapon sway, and close over-the-shoulder camera framing keep the player physically vulnerable, mirroring Joel and Ellie's struggle to survive across a collapsed world.
+                </p>
+                <p class="copy-text">
+                    In this deconstruction, I broke down how level architecture, environmental lighting, weapon handling, and infected/human enemy roles interlock to sustain tension across the entire campaign.
+                </p>
 
-            <div class="case-content">
-                
-                <section id="overview" class="content-section">
-                    <h2 class="section-header">Deconstruction Overview</h2>
-                    <div style="display: flex; gap: 3rem; align-items: flex-start; flex-wrap: wrap;">
-                        <div style="flex: 1; min-width: 300px;">
-                            <p class="block-text" style="margin-top: 0;">
-                                <em>The Last of Us Part I</em> (2022) is a remake of the classic that redefined the action-adventure genre. This deconstruction focuses on how Naughty Dog uses scarcity, level design, tension, and enemy encounters to shape player experience.
-                            </p>
-                            <p class="block-text">
-                                Rather than treating narrative and mechanics as separate layers, the game seamlessly integrates them. Every bullet, every shadow, and every corner of its world reinforces both survival gameplay and emotional storytelling.
-                            </p>
-                        </div>
-                        <div style="flex: 1; min-width: 300px; width: 100%;">
-                            <div class="quote-box" style="margin-top: 0;">
-                                "Studying this game matters because it shows how mechanics can manipulate player psychology: scarcity raises tension, level design guides exploration without UI, and encounter design allows multiple playstyles."
-                            </div>
-                        </div>
+                <div class="pillar-grid">
+                    <div class="pillar-card">
+                        <h4>01. Scarcity &amp; Consequence</h4>
+                        <p>Tight carry limits force deliberate shot selection. Missing a single revolver shot can collapse a quiet stealth plan into a desperate melee scramble.</p>
                     </div>
-                </section>
-
-                <section id="pillars" class="content-section">
-                    <h2 class="section-header">Core Design Pillars</h2>
-                    <div class="flow-grid">
-                        <div class="flow-card">
-                            <h4>1. Scarcity & Tension</h4>
-                            <p class="block-text" style="margin-bottom: 0; font-size: 0.95rem;">Every bullet and medkit is limited. Scarcity forces constant trade-offs: fight or sneak, heal now or save for later.</p>
-                        </div>
-                        <div class="flow-card">
-                            <h4>2. Environmental Storytelling</h4>
-                            <p class="block-text" style="margin-bottom: 0; font-size: 0.95rem;">The world guides the player without UI. Leading lines, lighting, and landmarks direct attention organically.</p>
-                        </div>
-                        <div class="flow-card">
-                            <h4>3. Dynamic Encounters</h4>
-                            <p class="block-text" style="margin-bottom: 0; font-size: 0.95rem;">Encounters have multiple solutions. Enemy archetypes demand different strategies, ensuring replayability.</p>
-                        </div>
-                        <div class="flow-card">
-                            <h4>4. Narrative Integration</h4>
-                            <p class="block-text" style="margin-bottom: 0; font-size: 0.95rem;">Mechanics mirror the story arc. Protecting Ellie is built into gameplay, not just cutscenes.</p>
-                        </div>
+                    <div class="pillar-card">
+                        <h4>02. Guiding Without Waypoints</h4>
+                        <p>Leading geometry, light spills, and high-contrast yellow accents steer players through collapsed interiors without mini-maps or UI clutter.</p>
                     </div>
-                </section>
-
-                <section id="loops" class="content-section">
-                    <h2 class="section-header">The Gameplay Loops</h2>
-                    <p class="block-text">The game is driven by three distinct loops that constantly reinforce survival tension.</p>
-                    
-                    <div class="three-col-grid">
-                        <div class="flow-card">
-                            <h4>Moment-to-Moment</h4>
-                            <p class="block-text" style="margin-bottom: 1rem; font-size: 0.95rem; font-weight: 600; color: var(--accent);">Explore → Scavenge → Craft → Plan → Combat → Survive</p>
-                            <p class="block-text" style="margin-bottom: 0; font-size: 0.95rem;">Every cycle creates a rhythm of Tension → Decision → Consequence → Reset. Victory often comes at the cost of resources, creating immediate anxiety for the next encounter.</p>
-                        </div>
-                        <div class="flow-card">
-                            <h4>Mid-Term (Chapter)</h4>
-                            <p class="block-text" style="margin-bottom: 1rem; font-size: 0.95rem; font-weight: 600; color: var(--accent);">Setup → New Area → New Enemy → Strain → Relief</p>
-                            <p class="block-text" style="margin-bottom: 0; font-size: 0.95rem;">Each chapter introduces new mechanics or enemies while delivering key story beats. Pacing alternates between high-tension combat and quiet narrative downtime.</p>
-                        </div>
-                        <div class="flow-card">
-                            <h4>Long-Term (Game)</h4>
-                            <p class="block-text" style="margin-bottom: 1rem; font-size: 0.95rem; font-weight: 600; color: var(--accent);">Survive → Upgrade → Bond → Face Dilemma</p>
-                            <p class="block-text" style="margin-bottom: 0; font-size: 0.95rem;">Upgrades reward perseverance but never eliminate tension. The emotional bond with Ellie is strengthened mechanically over time, leading to the final moral dilemma.</p>
-                        </div>
+                    <div class="pillar-card">
+                        <h4>03. Loopable Combat Arenas</h4>
+                        <p>Multi-entry spaces with waist-high cover and flanking routes let players break line of sight, relocate, and fluidly shift between stealth and loud combat.</p>
                     </div>
-                    
-                    <img src="assets/Game Deconstruction/Images/GameplayLoop.webp" alt="Gameplay Loop Diagram" class="case-image" style="margin-top: 2rem;" onclick="openImage(this.src)">
-                </section>
-
-                <section id="scarcity" class="content-section">
-                    <h2 class="section-header">Resource Scarcity & Psychology</h2>
-                    <div style="display: flex; gap: 3rem; align-items: center; flex-wrap: wrap;">
-                        <div style="flex: 1; min-width: 300px;">
-                            <img src="assets/Game Deconstruction/Images/1.webp" alt="Workbench and Inventory System" class="case-image" style="margin-bottom: 0;" onclick="openImage(this.src)">
-                        </div>
-                        <div style="flex: 1; min-width: 300px;">
-                            <p class="block-text">
-                                Unlike action games where resources empower players, here scarcity constantly disempowers them, making survival feel earned.
-                            </p>
-                            <ul class="clean-list">
-                                <li><strong>Crafting Trade-offs:</strong> Medkit vs Molotov? Shiv vs Upgrade? Every decision carries a stressful opportunity cost.</li>
-                                <li><strong>Weapon Tuning:</strong> The Revolver has high damage but slow reload. The Bow is silent but arrows break. Missing a shot is devastating.</li>
-                                <li><strong>Real-Time Inventory:</strong> Crafting happens in real-time (no pause), meaning every menu interaction carries the risk of death.</li>
-                            </ul>
-                        </div>
+                    <div class="pillar-card">
+                        <h4>04. Companion Presence</h4>
+                        <p>Ellie's contextual movement, stealth positioning, and combat callouts reinforce your protective role without turning fights into frustrating escort missions.</p>
                     </div>
-                </section>
+                </div>
+            </section>
 
-                <section id="level-design" class="content-section">
-                    <h2 class="section-header">Level Design: Guiding the Player</h2>
-                    <p class="lead-text">How do you guide a player without a minimap or UI waypoints?</p>
-                    
-                    <div class="gds-box">
-                        <div class="gds-row">
-                            <span class="gds-label">1. Light & Landmarks</span>
-                            <p class="block-text">
-                                Naughty Dog uses high-contrast lighting as a natural focal point. A bright exit or a sunlit doorway pulls the player forward through dark, oppressive spaces. Distant landmarks act as long-term orientation points.
-                            </p>
-                        </div>
-                        <div class="image-grid">
-                            <img src="assets/Game Deconstruction/Images/3.png" alt="Lighting Guide Analysis" class="case-image" style="margin-bottom: 0;" onclick="openImage(this.src)">
-                            <img src="assets/Game Deconstruction/Images/5.png" alt="Landmark Guide Analysis" class="case-image" style="margin-bottom: 0;" onclick="openImage(this.src)">
-                        </div>
+            <!-- 02. GAMEPLAY LOOPS -->
+            <section id="loops" class="content-section">
+                <h2 class="block-title">02. Micro, Meso &amp; Macro Gameplay Loops</h2>
+                <p class="copy-text">
+                    Player engagement is anchored by three nested gameplay loops operating across immediate encounters, chapter pacing, and full-campaign progression:
+                </p>
+
+                <div class="loop-grid">
+                    <div class="loop-card">
+                        <span class="loop-tag">Micro Loop (Encounter)</span>
+                        <p>Scavenge &rarr; Scout threats via Listen Mode &rarr; Stealth takedown or precision shot &rarr; Reposition &rarr; Craft under pressure.</p>
                     </div>
-
-                    <div class="gds-box">
-                        <div class="gds-row">
-                            <span class="gds-label">2. Guiding Attention Through Composition</span>
-                            <p class="block-text">
-                                Level design uses natural frames, like doorways or archways, to focus the player’s attention on key areas. Light, lines, and object placement work together to make important spaces immediately readable.
-                            </p>
-                        </div>
-                        <div class="image-grid">
-                            <img src="assets/Game Deconstruction/Images/2.png" alt="Framing and Composition" class="case-image" style="margin-bottom: 0;" onclick="openImage(this.src)">
-                            <img src="assets/Game Deconstruction/Images/4.png" alt="Environmental Pathing" class="case-image" style="margin-bottom: 0;" onclick="openImage(this.src)">
-                        </div>
+                    <div class="loop-card">
+                        <span class="loop-tag">Meso Loop (Chapter Pacing)</span>
+                        <p>Quiet scavenging pocket &rarr; Escalating combat arena &rarr; Low-ammo pinch &rarr; Narrative relief beat and workbench check.</p>
                     </div>
-
-                    <div class="gds-box">
-                        <div class="gds-row">
-                            <span class="gds-label">3. Directing Through Environmental Blockages</span>
-                            <p class="block-text">
-                                The world itself acts as a subtle guide. Fallen trees, debris, wrecked buses, and barricades are not just set dressing but tools for directing players along intended routes. These obstacles feel natural within the post-apocalyptic setting.
-                            </p>
-                        </div>
-                        <div class="image-grid">
-                            <img src="assets/Game Deconstruction/Images/6.png" alt="Environmental Blockage 1" class="case-image" style="margin-bottom: 0;" onclick="openImage(this.src)">
-                            <img src="assets/Game Deconstruction/Images/7.png" alt="Environmental Blockage 2" class="case-image" style="margin-bottom: 0;" onclick="openImage(this.src)">
-                        </div>
+                    <div class="loop-card">
+                        <span class="loop-tag">Macro Loop (Campaign Arc)</span>
+                        <p>Resource survival &rarr; Scrap &amp; Supplement upgrades &rarr; Growing bond between Joel and Ellie &rarr; Final moral confrontation.</p>
                     </div>
-                </section>
+                </div>
 
-                <section id="weapons" class="content-section">
-                    <h2 class="section-header">Weapons as Teaching Tools</h2>
-                    <p class="block-text">Each weapon encourages a specific playstyle and teaches the player different lessons about survival.</p>
-                    
-                    <table class="weapon-table">
+                <div class="media-frame">
+                    <img src="assets/Game Deconstruction/Images/GameplayLoop.webp" alt="The Last of Us Gameplay Loop Flowchart">
+                    <div class="media-caption"><strong>Gameplay Loop Diagram:</strong> How micro encounter decisions feed into chapter pacing pockets and long-term resource management.</div>
+                </div>
+            </section>
+
+            <!-- 03. RESOURCE SCARCITY -->
+            <section id="scarcity" class="content-section">
+                <h2 class="block-title">03. Resource Scarcity &amp; Player Psychology</h2>
+                <p class="copy-text">
+                    Unlike action shooters that reward combat with abundant ammo drops, <strong>The Last of Us</strong> uses overlapping crafting recipes and strict inventory caps to create constant tactical friction. Because <strong>Alcohol</strong> and <strong>Rags</strong> are shared between <strong>Health Kits</strong> and <strong>Molotov Cocktails</strong>, every craft forces a risk-reward decision: heal a wound immediately or save an area-denial weapon for a Clicker cluster ahead.
+                </p>
+                <p class="copy-text">
+                    Under the hood, dynamic drop scaling monitors the player's reserve ammo and health state: when resources drop near zero, drawers and defeated enemies yield just enough supplies to stay in the fight, never enough to feel comfortable.
+                </p>
+
+                <div class="media-frame">
+                    <img src="assets/Game Deconstruction/Images/1.webp" alt="Workbench and Inventory Scarcity Analysis">
+                    <div class="media-caption"><strong>Shared Crafting Ingredients &amp; Upgrades:</strong> Overlapping recipes between survival and offense force meaningful resource trade-offs before every encounter.</div>
+                </div>
+            </section>
+
+            <!-- 04. LEVEL DESIGN -->
+            <section id="level-design" class="content-section">
+                <h2 class="block-title">04. Level Design: Guiding Through Space &amp; Pacing Pockets</h2>
+                <p class="copy-text">
+                    Naughty Dog pairs architectural leading lines with deliberate <strong>Pacing Pockets</strong>—alternating high-adrenaline combat zones with calm traversal and scavenging spaces so players never suffer tension fatigue:
+                </p>
+
+                <div class="comparison-grid">
+                    <div class="media-frame">
+                        <img src="assets/Game Deconstruction/Images/3.png" alt="Lighting Guidance Analysis">
+                        <div class="media-caption"><strong>High-Contrast Lighting:</strong> Bright sunlight shafts cut through dark interiors, pulling player focus naturally toward exits and climbable ledges.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/Game Deconstruction/Images/5.png" alt="Landmark and Leading Line Analysis">
+                        <div class="media-caption"><strong>Leading Geometry:</strong> Slanted beams, collapsed highway slabs, and distant landmarks align player sightlines without HUD markers.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 05. WEAPONS, ENEMY ROLES & TENSION -->
+            <section id="weapons-tension" class="content-section">
+                <h2 class="block-title">05. Weapons, Enemy Ecology &amp; The Tension Stack</h2>
+                <p class="copy-text">
+                    Every weapon in Joel's arsenal enforces a distinct behavioral role through reload time, sway, noise, and ammo rarity, while Infected archetypes force players to adapt tactics dynamically:
+                </p>
+
+                <div class="table-wrap">
+                    <table class="data-table">
                         <thead>
                             <tr>
-                                <th style="width: 20%;">Weapon</th>
-                                <th style="width: 30%;">Playstyle Encouraged</th>
-                                <th style="width: 50%;">Lesson Taught</th>
+                                <th>Weapon / Archetype</th>
+                                <th>Core Mechanical Trait</th>
+                                <th>Behavioral Impact on Player</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><strong>Revolver</strong></td>
-                                <td>High damage, Slow reload</td>
-                                <td>Forces careful planning; every shot must count.</td>
+                                <td><strong>Revolver / 9mm Pistol</strong></td>
+                                <td>Reliable accuracy vs. slow reload and limited magazine capacity</td>
+                                <td>Rewards calm headshots and punishes panic-firing at moving targets</td>
                             </tr>
                             <tr>
                                 <td><strong>Shotgun</strong></td>
-                                <td>Devastating, Close range</td>
-                                <td>Encourages awareness of positioning and spacing ("Panic Button").</td>
+                                <td>High close-range stopping power with scarce shells</td>
+                                <td>Acts as an emergency panic tool when stealth breaks down up close</td>
                             </tr>
                             <tr>
-                                <td><strong>Bow</strong></td>
-                                <td>Silent, Reusable ammo</td>
-                                <td>Teaches patience, stealth, and risk-reward assessment.</td>
+                                <td><strong>Hunting Rifle &amp; Bow</strong></td>
+                                <td>High-precision long-range damage vs. silent recoverable arrows</td>
+                                <td>Encourages scouting high ground and thin-out stealth openers</td>
                             </tr>
                             <tr>
-                                <td><strong>Brick/Bottle</strong></td>
-                                <td>Distraction, Stun</td>
-                                <td>Teaches crowd control and creating openings in combat.</td>
+                                <td><strong>Runners &amp; Stalkers</strong></td>
+                                <td>Fast sight-based rushes vs. flanking cover ambushers</td>
+                                <td>Punishes hesitation and forces constant awareness of flank angles</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Clickers &amp; Bloaters</strong></td>
+                                <td>Blind echolocation with instant-kill grabs vs. armored spore tanks</td>
+                                <td>Punishes loud gunfire and forces bottle/brick distractions or fire</td>
                             </tr>
                         </tbody>
                     </table>
-                </section>
+                </div>
 
-                <section id="tension" class="content-section">
-                    <h2 class="section-header">Holistic Tension Design</h2>
-                    <div style="display: flex; gap: 3rem; align-items: center; flex-wrap: wrap;">
-                        <div style="flex: 1; min-width: 300px;">
-                            <p class="block-text">
-                                The Last of Us Part I creates tension on multiple levels, keeping players engaged, alert, and emotionally invested. The game layers different sources of tension that interact to create a rich, immersive experience.
-                            </p>
-                            <ul class="clean-list">
-                                <li>• <strong>Environmental:</strong> Dark areas, spores, and water sections limit visibility.</li>
-                                <li>• <strong>Inventory:</strong> Limited carry capacity creates anxiety about future needs.</li>
-                                <li>• <strong>Narrative:</strong> Ellie's safety adds emotional stakes; you are protecting a child.</li>
-                                <li>• <strong>Audio:</strong> Clicker screeches signal danger before you see it.</li>
-                            </ul>
-                        </div>
-                        <div style="flex: 1; min-width: 300px;">
-                            <img src="assets/Game Deconstruction/Images/Tension.webp" alt="Tension Flowchart" class="case-image" style="margin-bottom: 0;" onclick="openImage(this.src)">
-                        </div>
-                    </div>
-                </section>
+                <div class="media-frame" style="margin-top: 1.5rem;">
+                    <img src="assets/Game Deconstruction/Images/Tension.webp" alt="Tension Design Architecture Flowchart">
+                    <div class="media-caption"><strong>Layered Tension Stack:</strong> Real-time backpack crafting, lethal Clicker grabs, scarce ammo, and directional audio cues combine to keep encounters tense.</div>
+                </div>
+            </section>
 
-                <section id="lessons" class="content-section">
-                    <h2 class="section-header">Lessons for My Design</h2>
-                    
-                    <div style="background: var(--text-main); color: #fff; padding: 3rem; border-radius: 12px; margin-bottom: 3rem;">
-                        <ul class="clean-list" style="margin-bottom: 0;">
-                            <li style="color: #fff; opacity: 0.9;"><b>Scarcity Heightens Tension:</b> Even in a small prototype, limiting resources makes every decision feel impactful.</li>
-                            <li style="color: #fff; opacity: 0.9;"><b>Environmental Cues Over UI:</b> Light, framing, and geometry should guide the player first. UI is a last resort.</li>
-                            <li style="color: #fff; opacity: 0.9;"><b>Enemy Archetypes as Tools:</b> Enemies should force different behaviors (e.g., Clickers force slowness, Runners force speed).</li>
-                            <li style="color: #fff; opacity: 0.9;"><b>Emotional Pacing:</b> Constant action is exhausting. Interleaving quiet moments makes the combat peaks feel higher.</li>
-                            <li style="color: #fff; opacity: 0.9;"><b>Mechanics = Narrative:</b> Gameplay systems should reinforce the story themes.</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="image-grid">
-                        <img src="assets/Game Deconstruction/Images/Lesson_1.webp" alt="Lesson Diagram 1" class="case-image" style="margin-bottom: 0;" onclick="openImage(this.src)">
-                        <img src="assets/Game Deconstruction/Images/Lesson_2.webp" alt="Lesson Diagram 2" class="case-image" style="margin-bottom: 0;" onclick="openImage(this.src)">
-                    </div>
-                </section>
+            <!-- 06. LESSONS APPLIED TO MY PROJECTS -->
+            <section id="lessons" class="content-section">
+                <h2 class="block-title">06. Lessons Applied to My Own Games</h2>
+                <ul class="clean-list">
+                    <li><strong>Scarcity as a Progression Driver:</strong> Tightening resource availability turns every pickup into a meaningful win. I applied this directly to the 80 and 130 Jewel Shrine gates in <a href="scttv.html" style="color: var(--accent); font-weight: 600;">Shattered Charms: Through The Veil</a>.</li>
+                    <li><strong>Lighting as World Grammar:</strong> Using warm vs. cold color shifts and architectural framing to signal safe and dangerous zones without popup arrows. Applied in both <em>AOA: Space Scrap Smugglers</em> and <a href="eof.html" style="color: var(--accent); font-weight: 600;">Eclipse of Fear</a>.</li>
+                    <li><strong>Orthogonal Enemy Roles:</strong> Designing enemies that demand different player responses (Runners punish hesitation; Clickers punish noise), mirrored in my Varmint, Warrior, and Elite enemy tiers.</li>
+                    <li><strong>Pacing Pockets:</strong> Following intense combat fights with quiet hub or exploration spaces so players can decompress mentally before the next difficulty spike.</li>
+                </ul>
+            </section>
 
-                <section id="notes" class="content-section">
-                    <h2 class="section-header">Raw Notes</h2>
-                    <p class="block-text">My personal notes, sketches, and raw observations made during the deconstruction process.</p>
-                    
-                    <div class="raw-gallery-grid">
-                        <div class="raw-gallery-item"><img src="assets/Game Deconstruction/RAW/1.jpg" onclick="openImage(this.src)" alt="Analysis Note 1" loading="lazy"></div>
-                        <div class="raw-gallery-item"><img src="assets/Game Deconstruction/RAW/2.jpg" onclick="openImage(this.src)" alt="Analysis Note 2" loading="lazy"></div>
-                        <div class="raw-gallery-item"><img src="assets/Game Deconstruction/RAW/3.jpg" onclick="openImage(this.src)" alt="Analysis Note 3" loading="lazy"></div>
-                        <div class="raw-gallery-item"><img src="assets/Game Deconstruction/RAW/4.jpg" onclick="openImage(this.src)" alt="Analysis Note 4" loading="lazy"></div>
-                        <div class="raw-gallery-item"><img src="assets/Game Deconstruction/RAW/5.jpg" onclick="openImage(this.src)" alt="Analysis Note 5" loading="lazy"></div>
-                    </div>
-                </section>
+            <!-- 07. RAW NOTES & MEDIUM PUBLICATION -->
+            <section id="publication" class="content-section">
+                <h2 class="block-title">07. Raw Notebook Sketches &amp; Full Article</h2>
+                <p class="copy-text">
+                    Sketchbook flowcharts and spatial breakdowns drawn while studying encounter loops and pacing beats:
+                </p>
 
-                <section class="content-section" style="margin-bottom: 0;">
-                    <h2 class="section-header">Full Analysis</h2>
-                    <a href="https://medium.com/@karunaket/the-last-of-us-part-i-game-deconstruction-by-karuna-ketan-c0584d9f46e3" target="_blank" class="medium-card-container">
-                        <article class="medium-card">
-                            <img src="assets/Game Deconstruction/TLOU.png" alt="Article Thumbnail" class="medium-thumb">
-                            <div class="medium-content">
-                                <div class="medium-logo">Medium</div>
-                                <h3 class="medium-title">The Last of Us Part I — Game Deconstruction</h3>
-                                <p class="medium-desc">
-                                    A comprehensive deep dive into level pacing, enemy AI behaviors, and how Naughty Dog creates emotional resonance through game mechanics.
-                                </p>
-                                <div class="btn-group" style="justify-content: flex-start;">
-                                    <span class="btn-play" style="height: 45px; padding: 0 1.5rem; font-size: 0.85rem;">Complete Deconstruction on Medium</span>
-                                </div>
-                            </div>
-                        </article>
-                    </a>
-                </section>
-                
+                <div class="grid-3">
+                    <div class="media-frame"><img src="assets/Game Deconstruction/RAW/1.jpg" alt="Deconstruction Notebook Page 1"><div class="media-caption">Notebook Page 1: Core tension and scarcity loops.</div></div>
+                    <div class="media-frame"><img src="assets/Game Deconstruction/RAW/2.jpg" alt="Deconstruction Notebook Page 2"><div class="media-caption">Notebook Page 2: Encounter sightlines and cover flow.</div></div>
+                    <div class="media-frame"><img src="assets/Game Deconstruction/RAW/3.jpg" alt="Deconstruction Notebook Page 3"><div class="media-caption">Notebook Page 3: Pacing pocket rhythm notes.</div></div>
+                    <div class="media-frame"><img src="assets/Game Deconstruction/RAW/4.jpg" alt="Deconstruction Notebook Page 4"><div class="media-caption">Notebook Page 4: Weapon roles and ammo economy notes.</div></div>
+                    <div class="media-frame"><img src="assets/Game Deconstruction/RAW/5.jpg" alt="Deconstruction Notebook Page 5"><div class="media-caption">Notebook Page 5: Enemy archetype interaction matrix.</div></div>
+                </div>
+
+                <a href="https://medium.com/@karunaket/the-last-of-us-part-i-game-deconstruction-by-karuna-ketan-c0584d9f46e3" target="_blank" rel="noopener noreferrer" class="pub-banner">
+                    <span class="section-label" style="margin: 0;">Medium Publication</span>
+                    <h3>Read the Full 3,000+ Word Analysis on Medium</h3>
+                    <p class="copy-text" style="margin: 0 0 1rem 0;">Includes annotated screenshots, encounter breakdowns, and pacing diagrams.</p>
+                    <span style="color: var(--accent); font-family: var(--font-display); font-weight: 700; font-size: 0.95rem;">Open Full Article on Medium ↗</span>
+                </a>
+            </section>
+
+            <!-- PREVIOUS / NEXT PROJECT PAGINATION -->
+            <div class="project-pagination">
+                <a href="eof.html" class="doc-pill">← Previous: Eclipse of Fear</a>
+                <a href="index.html" class="btn-solid">Back to All Projects →</a>
             </div>
-        </div>
+        </main>
 
-    </main>
-
-    <footer style="background: var(--text-main); color: var(--bg-page); padding: 4rem 2rem; text-align: center;">
-        <div style="display: flex; gap: 2rem; justify-content: center; margin-bottom: 2rem; font-family: var(--font-display); text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">
-            <a href="mailto:gamesbykarunaket@gmail.com" style="color: var(--bg-page); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#D45B3E'" onmouseout="this.style.color='#FAF9F5'">Email</a>
-            <a href="https://www.linkedin.com/in/karunaket/" target="_blank" style="color: var(--bg-page); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#D45B3E'" onmouseout="this.style.color='#FAF9F5'">LinkedIn</a>
-            <a href="https://karuna-ketan.itch.io/" target="_blank" style="color: var(--bg-page); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#D45B3E'" onmouseout="this.style.color='#FAF9F5'">itch.io</a>
-        </div>
-        <p style="font-size: 0.85rem; color: #888;">© 2026 Karuna Ketan.</p>
-    </footer>
-
-    <div id="imageViewer" onclick="closeImage()">
-        <span class="close-img-btn">&times;</span>
-        <img id="fullImage" onclick="event.stopPropagation()"> 
+        <!-- RIGHT-SIDE FLOATING TABLE OF CONTENTS -->
+        <aside class="right-sidebar" aria-label="Page Contents">
+            <h2 class="toc-heading" title="Scroll to top">Contents</h2>
+            <ul class="toc-list">
+                <li class="toc-item"><a href="#overview" class="toc-link">01. Overview &amp; Pillars</a></li>
+                <li class="toc-item"><a href="#loops" class="toc-link">02. Gameplay Loops</a></li>
+                <li class="toc-item"><a href="#scarcity" class="toc-link">03. Resource Scarcity</a></li>
+                <li class="toc-item"><a href="#level-design" class="toc-link">04. Level Design</a></li>
+                <li class="toc-item"><a href="#weapons-tension" class="toc-link">05. Weapons &amp; Tension</a></li>
+                <li class="toc-item"><a href="#lessons" class="toc-link" style="color: var(--accent); font-weight: 700;">06. Lessons Applied</a></li>
+                <li class="toc-item"><a href="#publication" class="toc-link">07. Full Publication</a></li>
+            </ul>
+        </aside>
     </div>
 
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="mailto:gamesbykarunaket@gmail.com">Email</a>
+            <a href="https://www.linkedin.com/in/karunaket/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://karuna-ketan.itch.io/" target="_blank" rel="noopener noreferrer">itch.io</a>
+        </div>
+        <p class="footer-copy">© 2026 Karuna Ketan.</p>
+    </footer>
+
     <script src="script.js"></script>
-
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Hamburger Menu
-            const oldMenuBtn = document.querySelector('.menu-toggle');
-            const nav = document.querySelector('.nav-links');
+        (function () {
+            const slider = document.getElementById('tlou-hero-slider');
+            if (!slider) return;
 
-            if (oldMenuBtn && nav) {
-                const menuBtn = oldMenuBtn.cloneNode(true);
-                oldMenuBtn.parentNode.replaceChild(menuBtn, oldMenuBtn);
-                menuBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    nav.classList.toggle('active');
-                    menuBtn.classList.toggle('active');
-                });
-                document.addEventListener('click', (e) => {
-                    if (!nav.contains(e.target) && !menuBtn.contains(e.target)) {
-                        nav.classList.remove('active');
-                        menuBtn.classList.remove('active');
-                    }
+            const slides = Array.from(slider.querySelectorAll('.hero-slide'));
+            const dots = Array.from(slider.querySelectorAll('.slider-dot'));
+            const prevBtn = slider.querySelector('.prev-slide');
+            const nextBtn = slider.querySelector('.next-slide');
+
+            function syncDots(activeIdx) {
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active-dot', i === activeIdx);
                 });
             }
 
-            // Scrollspy
-            const sections = document.querySelectorAll('.content-section');
-            const navLinks = document.querySelectorAll('.sidebar-link');
-
-            const observerOptions = { root: null, rootMargin: '-150px 0px -60% 0px', threshold: 0 };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        navLinks.forEach(link => {
-                            link.classList.remove('active');
-                            if (link.getAttribute('href').substring(1) === entry.target.id) {
-                                link.classList.add('active');
-                            }
-                        });
-                    }
+            function goToSlide(index) {
+                const target = (index + slides.length) % slides.length;
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active-slide', i === target);
                 });
-            }, observerOptions);
+                syncDots(target);
+            }
 
-            sections.forEach(section => observer.observe(section));
-        });
+            function getCurrentIndex() {
+                const idx = slides.findIndex(s => s.classList.contains('active-slide'));
+                return idx >= 0 ? idx : 0;
+            }
 
-        // Lightbox Functions
-        function openImage(src) {
-            const viewer = document.getElementById('imageViewer');
-            document.getElementById('fullImage').src = src;
-            viewer.style.display = 'flex';
-            setTimeout(() => { viewer.style.opacity = '1'; }, 10);
-            document.body.style.overflow = 'hidden';
-        }
-        function closeImage() {
-            const viewer = document.getElementById('imageViewer');
-            viewer.style.opacity = '0';
-            setTimeout(() => {
-                viewer.style.display = 'none';
-                document.getElementById('fullImage').src = "";
-                document.body.style.overflow = 'auto';
-            }, 300);
-        }
+            if (prevBtn) {
+                prevBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    goToSlide(getCurrentIndex() - 1);
+                });
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    goToSlide(getCurrentIndex() + 1);
+                });
+            }
+
+            dots.forEach((dot, i) => {
+                dot.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    goToSlide(i);
+                });
+            });
+
+            // Keep dots synced even when script.js auto-advances slides
+            const observer = new MutationObserver(() => {
+                syncDots(getCurrentIndex());
+            });
+            slides.forEach(slide => {
+                observer.observe(slide, { attributes: true, attributeFilter: ['class'] });
+            });
+        })();
     </script>
 </body>
 </html>

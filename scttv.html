@@ -3,982 +3,1177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Shattered Charms: Through the Veil - Game Design Case Study by Karuna Ketan.">
-    <title>Shattered Charms: Through the Veil | Karuna Ketan</title>
-    
+    <meta name="description" content="Shattered Charms: Through The Veil - Action RPG vertical slice by Karuna Ketan featuring a Dual-Slot Charm Fusion system, Jewel-gated weapon purification, and a Behavior Tree boss encounter in Unreal Engine 5.">
+    <title>Shattered Charms: Through The Veil | Karuna Ketan</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23D45B3E'/%3E%3Cpath d='M21 24h22a9 9 0 0 1 8.8 10.9l-2.1 9.5a5.5 5.5 0 0 1-9.4 2.6L36 42.5h-8l-4.3 4.5a5.5 5.5 0 0 1-9.4-2.6l-2.1-9.5A9 9 0 0 1 21 24z' fill='%23FAF9F5'/%3E%3Crect x='20' y='30' width='2.5' height='7' rx='1' fill='%23D45B3E'/%3E%3Crect x='17.75' y='32.25' width='7' height='2.5' rx='1' fill='%23D45B3E'/%3E%3Ccircle cx='42' cy='31.5' r='1.7' fill='%23D45B3E'/%3E%3Ccircle cx='45.5' cy='35' r='1.7' fill='%23D45B3E'/%3E%3C/svg%3E">
     <link rel="stylesheet" href="style.css">
-    
     <style>
-        /* --- 1. PREMIUM MINIMALIST PALETTE --- */
-        :root {
-            --bg-page: #FAF9F5; 
-            --text-main: #111111; 
-            --text-muted: #555555;
-            --accent: #D45B3E; 
-            --border-light: rgba(0,0,0,0.08);
-            
-            --font-display: 'Oswald', sans-serif;
-            --font-body: 'Montserrat', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-page);
-            color: var(--text-main);
-            font-family: var(--font-body);
-            margin: 0;
-            padding: 0;
-            line-height: 1.7;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        /* --- 2. FLOATING EDITORIAL HEADER --- */
-        .minimal-header {
-            background: rgba(250, 249, 245, 0.9);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-light);
-            padding: 1.2rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 2000;
-        }
-        .header-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--text-main); letter-spacing: 2px; text-decoration: none;}
-        
-        .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; margin: 0;}
-        .nav-links a { color: var(--text-muted); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: color 0.3s ease; }
-        .nav-links a:hover { color: var(--accent); }
-        
-        .header-resume-btn {
-            background: var(--text-main);
-            color: #fff !important;
-            padding: 0.6rem 1.8rem;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        .header-resume-btn:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(212, 91, 62, 0.25);}
-
-        /* --- 3. CASE STUDY HERO --- */
-        .case-hero {
-            max-width: 1300px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-        }
-        
-        /* INTERACTIVE HERO SLIDER */
-        .hero-slider {
-            width: 100%;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-            position: relative;
-            background: #000;
-            margin-bottom: 4rem;
-            aspect-ratio: 16/9;
-        }
-        .hero-slide {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            z-index: 1;
-        }
-        .hero-slide.active-slide {
-            opacity: 1;
-            z-index: 2;
-        }
-        .hero-slide img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .slider-btn {
+        /* --- HERO SLIDER CONTROLLERS (ARROWS & DOTS) --- */
+        .slider-arrow {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            z-index: 10;
-            background: rgba(17, 17, 17, 0.5);
-            color: #fff;
-            border: none;
-            width: 50px;
-            height: 50px;
+            z-index: 6;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s;
-            backdrop-filter: blur(4px);
-        }
-        .slider-btn:hover { background: var(--accent); transform: translateY(-50%) scale(1.1); }
-        .slider-btn.prev { left: 20px; }
-        .slider-btn.next { right: 20px; }
-
-        .slider-dots {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
-            display: flex;
-            gap: 8px;
-            background: rgba(0,0,0,0.4);
-            padding: 8px 16px;
-            border-radius: 50px;
-            backdrop-filter: blur(4px);
-        }
-        .dot {
-            width: 8px; height: 8px;
-            background: rgba(255,255,255,0.4);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .dot.active-dot { background: #fff; transform: scale(1.3); }
-
-        .case-title {
-            text-align: center;
-            font-family: var(--font-display);
-            font-size: 4rem; 
-            line-height: 1.1;
-            color: var(--text-main);
-            margin-bottom: 2rem;
-            text-transform: uppercase;
-        }
-
-        .case-metrics-wrapper {
-            border-top: 1px solid var(--border-light);
-            border-bottom: 1px solid var(--border-light);
-            padding: 1.8rem 0;
-            margin-bottom: 1.75rem;
-            display: flex;
-            justify-content: center;
-        }
-        .case-metrics-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 4rem;
-        }
-        .metric-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-        .metric-item span {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.4rem;
-            font-weight: 500;
-        }
-        .metric-item strong {
-            font-size: 1.05rem;
-            color: var(--text-main);
-            font-family: var(--font-body);
-            font-weight: 700;
-        }
-
-        .hero-actions-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            margin-bottom: 5rem;
-        }
-        .btn-group {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            align-items: center; 
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
-        }
-        
-        .btn-play, .btn-ghost {
+            background: rgba(15, 16, 20, 0.65);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #FFFFFF;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            padding: 0 2.5rem;
-            height: 55px; 
-            border-radius: 50px;
-            font-family: var(--font-display);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-decoration: none;
-            transition: 0.3s;
             cursor: pointer;
-            white-space: nowrap;
-            box-sizing: border-box;
-            line-height: 1;
-        }
-        
-        .btn-play {
-            background: var(--text-main);
-            color: #fff;
-            border: 2px solid transparent; 
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
-        .btn-play:hover { 
-            background: var(--accent); 
-            transform: translateY(-3px); 
-            box-shadow: 0 10px 25px rgba(212, 91, 62, 0.25); 
-            border-color: var(--accent); 
-        }
-        
-        .btn-ghost {
-            background: transparent;
-            color: var(--text-main);
-            border: 2px solid var(--text-main);
-        }
-        .btn-ghost:hover { 
-            background: var(--text-main); 
-            color: #fff; 
-            transform: translateY(-3px); 
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); 
-        }
-
-        .nda-note {
-            font-style: italic; color: var(--text-muted); font-size: 0.95rem; max-width: 900px; line-height: 1.6; margin: 0 auto;
-        }
-
-        /* --- 4. SIDEBAR & CONTENT LAYOUT --- */
-        .case-layout {
-            max-width: 1300px;
-            margin: 0 auto 8rem auto;
-            padding: 0 2rem;
-            display: flex;
-            gap: 5rem;
-            align-items: flex-start;
-        }
-
-        .case-sidebar {
-            flex: 0 0 240px;
-            position: sticky;
-            top: 120px; 
-            height: fit-content;
-        }
-        .sidebar-nav {
-            list-style: none;
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
             padding: 0;
-            margin: 0;
+        }
+
+        .slider-arrow:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-50%) scale(1.06);
+        }
+
+        .slider-arrow.prev-slide {
+            left: 1.25rem;
+        }
+
+        .slider-arrow.next-slide {
+            right: 1.25rem;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 6;
             display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-        }
-        .sidebar-link {
-            font-family: var(--font-display);
-            text-transform: uppercase;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: 0.3s;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            padding-left: 1rem;
-            border-left: 3px solid transparent;
-            display: block;
-        }
-        .sidebar-link:hover, .sidebar-link.active {
-            color: var(--accent);
-            border-left-color: var(--accent);
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.35rem 0.65rem;
+            border-radius: 999px;
+            background: rgba(15, 16, 20, 0.45);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
         }
 
-        .case-content {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .content-section {
-            margin-bottom: 6rem;
-            scroll-margin-top: 140px; 
-        }
-
-        .section-header {
-            font-family: var(--font-display);
-            font-size: 2.2rem;
-            text-transform: uppercase;
-            color: var(--text-main);
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--text-main);
-        }
-
-        .block-text {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            line-height: 1.8;
-            margin-bottom: 2rem;
-        }
-        .block-text strong { color: var(--text-main); }
-        .lead-text { font-size: 1.25rem; font-weight: 500; color: var(--text-main); margin-bottom: 1.5rem; line-height: 1.6;}
-
-        /* GDS Box (Problem/Solution) */
-        .gds-box {
-            background: #fff;
-            border-left: 4px solid var(--accent);
-            padding: 2.5rem;
-            border-radius: 0 12px 12px 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            margin-bottom: 3rem;
-            border-top: 1px solid var(--border-light);
-            border-right: 1px solid var(--border-light);
-            border-bottom: 1px solid var(--border-light);
-        }
-        .gds-row { margin-bottom: 2rem; }
-        .gds-row:last-child { margin-bottom: 0; }
-        .gds-label {
-            font-family: var(--font-display);
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--accent);
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-
-        /* Standard Interactive Images */
-        .case-image {
-            width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
-            margin-bottom: 1rem;
+        .slider-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: none;
+            padding: 0;
+            background: rgba(255, 255, 255, 0.42);
             cursor: pointer;
-            transition: 0.3s;
-            background: #fff;
-        }
-        .case-image:hover { transform: scale(1.02); }
-        
-        /* Non-Interactive System GIFs (Full Width) */
-        .system-gif {
-            width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
-            margin: 0;
-            display: block;
+            transition: all 0.22s ease;
         }
 
-        .img-caption { text-align: center; font-size: 0.9rem; color: var(--text-muted); font-style: italic; margin-bottom: 3rem; }
-
-        /* Grids */
-        .image-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-bottom: 1rem;
+        .slider-dot:hover {
+            background: rgba(255, 255, 255, 0.8);
         }
-        
-        /* Centered Flex Grid for Paper Prototypes */
-        .raw-gallery-grid {
+
+        .slider-dot.active-dot {
+            background: #FFFFFF;
+            transform: scale(1.22);
+        }
+
+        @media (max-width: 600px) {
+            .slider-arrow {
+                width: 34px;
+                height: 34px;
+            }
+            .slider-arrow.prev-slide {
+                left: 0.75rem;
+            }
+            .slider-arrow.next-slide {
+                right: 0.75rem;
+            }
+            .slider-dots {
+                bottom: 0.65rem;
+            }
+        }
+
+        /* --- DOC ACTION PILLS --- */
+        .doc-actions {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 2rem;
-            margin-bottom: 3rem;
+            gap: 0.7rem;
+            margin: 1.15rem 0 2.25rem 0;
         }
-        .raw-gallery-item {
-            width: calc(33.333% - 1rem); /* 3 cards per row */
-            border-radius: 8px;
-            border: 1px solid var(--border-light);
-            background: #fff;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            display: flex;
-        }
-        .raw-gallery-item img {
-            width: 100%;
-            height: auto; 
-            display: block;
-            transition: transform 0.3s ease;
-        }
-        .raw-gallery-item:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
-        .raw-gallery-item:hover img { transform: scale(1.05); }
 
-        /* Lists & Flows */
-        .clean-list { list-style: none; padding: 0; }
-        .clean-list li { position: relative; padding-left: 1.5rem; margin-bottom: 1.2rem; font-size: 1.05rem; color: var(--text-muted); }
-        .clean-list li::before { content: "✦"; position: absolute; left: 0; color: var(--accent); font-size: 0.8rem; top: 5px;}
-        .clean-list strong { color: var(--text-main); }
-
-        /* Document Grid */
-        .docs-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        .gdd-preview-box {
-            background: #fff;
-            border-radius: 12px;
+        .doc-pill {
+            font-family: var(--font-display);
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: var(--text-main);
+            padding: 0.62rem 1.2rem;
             border: 1px solid var(--border-light);
-            padding: 2.5rem 1.5rem;
-            display: flex;
-            flex-direction: column;
+            background: var(--bg-surface);
+            border-radius: 50px;
+            transition: all 0.2s ease;
+            display: inline-flex;
             align-items: center;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            height: 100%;
-            box-sizing: border-box;
+            gap: 0.4rem;
         }
-        .gdd-preview-box:hover {
+
+        .doc-pill:hover {
             border-color: var(--accent);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(212, 91, 62, 0.1);
+            color: var(--accent);
         }
-        .gdd-icon { font-size: 2.5rem; margin-bottom: 1rem; }
-        .gdd-preview-box h3 { font-family: var(--font-display); font-size: 1.4rem; color: var(--text-main); text-transform: uppercase; margin-bottom: 0.5rem; }
-        .gdd-preview-box p { color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.9rem; flex-grow: 1; }
-        .gdd-view-btn {
-            background: var(--text-main); color: #fff; padding: 0.6rem 1.5rem; border-radius: 50px; font-weight: 600; font-family: var(--font-display); letter-spacing: 1px; text-transform: uppercase; transition: 0.3s; font-size: 0.85rem;
-        }
-        .gdd-preview-box:hover .gdd-view-btn { background: var(--accent); }
 
-        /* Post Mortem Grid */
-        .pm-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        .pm-card {
-            background: #fff;
-            padding: 2rem;
-            border-radius: 12px;
+        /* --- ZONE DIVIDERS --- */
+        .zone-divider {
+            padding: 1.35rem 1.6rem;
+            background: var(--bg-surface);
             border: 1px solid var(--border-light);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            border-left: 4px solid var(--accent);
+            border-radius: 12px;
+            margin: 0 0 2.2rem 0;
+            box-shadow: var(--shadow-sm);
         }
-        .pm-card.success { border-top: 3px solid #2ecc71; }
-        .pm-card.failure { border-top: 3px solid #e74c3c; }
-        .pm-card.learning { border-top: 3px solid #f1c40f; }
-        .pm-card h4 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 1rem; text-transform: uppercase; color: var(--text-main);}
-        .pm-card ul { padding-left: 1.2rem; margin: 0; color: var(--text-muted); font-size: 0.95rem;}
-        .pm-card li { margin-bottom: 0.8rem; }
 
-        /* --- NEXT PROJECT CTA BUTTON --- */
-        .next-project-btn-container {
+        .zone-divider.zone-two {
+            margin-top: 3.75rem;
+        }
+
+        .zone-tag {
+            font-family: var(--font-display);
+            font-size: 0.74rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.1px;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .zone-heading {
+            font-family: var(--font-display);
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        /* --- PILLAR & TECH SPEC CARDS --- */
+        .pillar-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.1rem;
+            margin: 1.35rem 0 1.75rem 0;
+        }
+
+        .pillar-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 1.25rem 1.35rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .pillar-card h4 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0 0 0.4rem 0;
+        }
+
+        .pillar-card p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* --- SVG INFOGRAPHIC CARD --- */
+        .infographic-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: 14px;
+            padding: 1.4rem 1.5rem;
+            margin: 1.5rem 0 2rem 0;
+            box-shadow: var(--shadow-sm);
+            overflow-x: auto;
+        }
+
+        .infographic-label {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent);
+            margin-bottom: 0.9rem;
+            display: block;
+        }
+
+        .infographic-card svg {
             width: 100%;
+            min-width: 620px;
+            height: auto;
+            display: block;
+        }
+
+        /* --- BALANCING & TECH TABLES --- */
+        .table-wrap {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            background: var(--bg-surface);
+            margin: 1.35rem 0 1.75rem 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.87rem;
+            text-align: left;
+        }
+
+        .data-table th {
+            font-family: var(--font-display);
+            font-weight: 700;
+            color: var(--text-main);
+            background: var(--bg-subtle);
+            padding: 0.85rem 1rem;
+            border-bottom: 1px solid var(--border-light);
+            white-space: nowrap;
+        }
+
+        .data-table td {
+            padding: 0.8rem 1rem;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-light);
+            line-height: 1.5;
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table td strong {
+            color: var(--text-main);
+        }
+
+        .slot-pill {
+            display: inline-block;
+            font-family: var(--font-display);
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            padding: 0.18rem 0.55rem;
+            border-radius: 999px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            border: 1px solid var(--accent-border);
+        }
+
+        /* --- CALLOUT BOX --- */
+        .callout-box {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-left: 3px solid var(--accent);
+            border-radius: 10px;
+            padding: 1.1rem 1.3rem;
+            margin: 1.35rem 0;
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.65;
+        }
+
+        .callout-box strong {
+            color: var(--text-main);
+        }
+
+        /* --- PREVIOUS / NEXT PROJECT PAGINATION --- */
+        .project-pagination {
             display: flex;
-            justify-content: center; 
-            margin-top: 4rem;
-        }
-        .next-proj-small-btn {
-            background: var(--accent); color: #fff; padding: 1.2rem 3rem; border-radius: 50px; font-family: var(--font-display); font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none; transition: 0.3s ease; font-size: 1rem; display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 10px 25px rgba(212, 91, 62, 0.3);
-        }
-        .next-proj-small-btn:hover { background: var(--text-main); transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0,0,0,0.25); }
-
-        /* --- PDF Viewer Modal (FULLSCREEN) --- */
-        #viewer {
-            display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.92); z-index: 9999; flex-direction: column; align-items: center;
-        }
-        .controls { width: 100%; display: flex; justify-content: center; align-items: center; padding: 16px 20px; background: transparent; flex-shrink: 0; position: relative; z-index: 10001; }
-        .controls button { padding: 10px 28px; background: #D45B3E; color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: 700; font-family: var(--font-display); letter-spacing: 2px; text-transform: uppercase; font-size: 0.95rem; transition: 0.2s; box-shadow: 0 4px 20px rgba(212, 91, 62, 0.4); display: flex; align-items: center; gap: 8px; }
-        .controls button:hover { background: #fff; color: #111; box-shadow: 0 4px 20px rgba(255,255,255,0.2); }
-        #pdfFrame { width: 100%; flex-grow: 1; border: none; background: transparent; }
-
-        /* Lightbox */
-        #imageViewer { display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.95); justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; }
-        #fullImage { max-width: 90%; max-height: 90%; border-radius: 8px; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
-        .close-img-btn { position: absolute; top: 30px; right: 40px; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; transition: 0.3s; font-family: var(--font-display); }
-        .close-img-btn:hover { color: var(--accent); transform: scale(1.1); }
-
-        /* --- MOBILE RESPONSIVENESS --- */
-        .menu-toggle { display: none; flex-direction: column; justify-content: space-between; width: 30px; height: 21px; background: transparent; border: none; cursor: pointer; z-index: 2000; position: relative; }
-        .menu-toggle .bar { width: 100%; height: 3px; background-color: var(--text-main); transition: 0.3s ease; border-radius: 2px; }
-
-        @media (max-width: 1024px) {
-            .case-title { font-size: 3rem; }
-            .case-metrics-grid { gap: 2rem; }
-            .case-layout { flex-direction: column; gap: 3rem; }
-            .case-sidebar { position: sticky; top: 70px; width: 100%; background: var(--bg-page); z-index: 1900; border-bottom: 1px solid var(--border-light); padding: 1rem 0; }
-            .sidebar-nav { flex-direction: row; overflow-x: auto; white-space: nowrap; justify-content: flex-start; gap: 2rem; padding-bottom: 0.5rem; }
-            .sidebar-nav::-webkit-scrollbar { display: none; }
-            .sidebar-nav { -ms-overflow-style: none; scrollbar-width: none; }
-            .sidebar-link { border-left: none; border-bottom: 2px solid transparent; padding-left: 0; padding-bottom: 0.5rem; }
-            .sidebar-link:hover, .sidebar-link.active { border-left-color: transparent; border-bottom-color: var(--accent); }
-            
-            .docs-grid { grid-template-columns: 1fr 1fr; }
-            .pm-grid { grid-template-columns: 1fr; }
-            .raw-gallery-item { width: calc(50% - 0.75rem); } 
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            padding-top: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid var(--border-light);
+            flex-wrap: wrap;
         }
 
         @media (max-width: 768px) {
-            .menu-toggle { display: flex !important; }
-            .nav-links { position: fixed !important; top: 0 !important; right: -100% !important; width: 100% !important; height: 100vh !important; background-color: var(--bg-page) !important; display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: center !important; gap: 2.5rem !important; z-index: 1500 !important; transition: right 0.4s ease-in-out !important; }
-            .nav-links.active { right: 0 !important; }
-            .nav-links a { font-size: 1.5rem !important; color: var(--text-main) !important; }
-            .menu-toggle.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg) !important; }
-            .menu-toggle.active .bar:nth-child(2) { opacity: 0 !important; }
-            .menu-toggle.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg) !important; }
-            
-            .case-title { font-size: 2.4rem; }
-            .btn-group { flex-direction: column; width: 100%; }
-            .btn-play, .btn-ghost { width: 100%; justify-content: center; }
-            
-            .image-grid { grid-template-columns: 1fr; }
-            .docs-grid { grid-template-columns: 1fr; }
-            .next-proj-small-btn { width: 100%; justify-content: center; box-sizing: border-box;}
-        }
-        @media (max-width: 480px) {
-            .raw-gallery-item { width: 100%; }
+            .pillar-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-pagination {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .project-pagination a {
+                justify-content: center;
+                text-align: center;
+            }
         }
     </style>
 </head>
-<body>
+<body id="top">
 
     <header class="minimal-header">
         <div class="header-content">
             <a href="index.html" class="logo">KARUNA KETAN.</a>
-            
-            <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Navigation">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-
-            <nav>
-                <ul class="nav-links" id="nav-links">
-                    <li><a href="index.html#projects" style="color: var(--accent);">Projects</a></li>
-                    <li><a href="documents.html">Docs</a></li>
-                    <li><a href="index.html#process">Process</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="resume.pdf" target="_blank" class="header-resume-btn">RESUME</a></li>
-                </ul>
-            </nav>
+            <div class="nav-right">
+                <nav>
+                    <ul class="nav-links" id="nav-links">
+                        <li><a href="index.html" class="active-nav">Projects</a></li>
+                        <li><a href="process.html">Process</a></li>
+                        <li><a href="documents.html">Documents</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="resume.pdf" target="_blank" class="header-resume-btn">RESUME</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Light/Dark Mode" title="Switch Theme">🌙</button>
+                <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle navigation">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
         </div>
     </header>
 
-    <main>
-        
-        <section class="case-hero">
-            <div class="hero-slider" id="heroSlider">
-                <div class="hero-slide active-slide"><img src="assets/RPG/Images/1.png" alt="Shattered Charms Title Screen"></div>
-                <div class="hero-slide"><img src="assets/RPG/GIF_Vids/Combat_Loop.gif" alt="Combat Gameplay Loop"></div>
-                <div class="hero-slide"><img src="assets/RPG/Images/3.png" alt="Forest Path Atmosphere"></div>
-                <div class="hero-slide"><img src="assets/RPG/GIF_Vids/Boss_AI.gif" alt="Boss AI Behavior"></div>
-                <div class="hero-slide"><img src="assets/RPG/Images/5.png" alt="Market Hub Environment"></div>
-                <div class="hero-slide"><img src="assets/RPG/GIF_Vids/Sword_Upgrade.gif" alt="Purification Economy"></div>
-                <div class="hero-slide"><img src="assets/RPG/Images/10.png" alt="Dark Temple Interior"></div>
-                <div class="hero-slide"><img src="assets/RPG/Images/8.jpg" alt="Charm System UI"></div>
-                <div class="hero-slide"><img src="assets/RPG/Images/9.png" alt="Combat and VFX"></div>
-                <div class="hero-slide"><img src="assets/RPG/Images/11.png" alt="Exploration Zone"></div>
-                <div class="hero-slide"><img src="assets/RPG/Images/16.png" alt="Final Boss Arena"></div>
-                
-                <button class="slider-btn prev" onclick="moveSlideManual(-1)">&#10094;</button>
-                <button class="slider-btn next" onclick="moveSlideManual(1)">&#10095;</button>
-                
-                <div class="slider-dots" id="dotsContainer"></div>
-            </div>
-            
-            <h1 class="case-title">Shattered Charms: Through the Veil</h1>
-            
-            <div class="case-metrics-wrapper">
-                <div class="case-metrics-grid">
-                    <div class="metric-item"><span>Role</span><strong>Game Designer</strong></div>
-                    <div class="metric-item"><span>Team</span><strong>Solo Project</strong></div>
-                    <div class="metric-item"><span>Engine</span><strong>Unreal Engine 5</strong></div>
-                    <div class="metric-item"><span>Genre</span><strong>Action RPG</strong></div>
-                    <div class="metric-item"><span>Duration</span><strong>3 Months</strong></div>
-                </div>
-            </div>
-            
-            <div class="hero-actions-container">
-                <div class="btn-group">
-                    <a href="https://karuna-ketan.itch.io/shattered-charms-through-the-veil" target="_blank" class="btn-play">▶ PLAY ON ITCH.IO</a>
-                    <a href="javascript:void(0);" onclick="openPDF('assets/RPG/SCTTV_GDD.pdf')" class="btn-ghost">📄 VIEW GDD</a>
-                </div>
-                <p class="nda-note">*Note: This prototype focuses on modular combat design and economy-driven progression. Detailed GDD and Data Spreadsheets are available in the Documentation section below.*</p>
-            </div>
-        </section>
+    <!-- FULL-WIDTH HERO SLIDER WITH ARROWS & PAGINATION DOTS -->
+    <div class="case-hero">
+        <div class="hero-banner">
+            <div class="hero-slider" id="scttv-hero-slider" data-interval="3800">
+                <div class="hero-slide active-slide"><img src="assets/RPG/SCTTV.png" alt="Shattered Charms: Through The Veil Key Art"></div>
+                <div class="hero-slide"><img src="assets/RPG/GIF_Vids/Combat_Loop.gif" alt="Shattered Charms Combat Loop"></div>
+                <div class="hero-slide"><img src="assets/RPG/GIF_Vids/Boss_AI.gif" alt="Shattered Charms Veyla Boss Fight"></div>
+                <div class="hero-slide"><img src="assets/RPG/GIF_Vids/Charm_UI.gif" alt="Shattered Charms Dual-Slot Charm Fusion"></div>
+                <div class="hero-slide"><img src="assets/RPG/GIF_Vids/Sword_Upgrade.gif" alt="Shattered Charms Sword Purification"></div>
+                <div class="hero-slide"><img src="assets/RPG/GIF_Vids/Level_Transition.gif" alt="Shattered Charms World Exploration"></div>
 
-        <div class="case-layout">
-            
-            <aside class="case-sidebar">
-                <ul class="sidebar-nav">
-                    <li><a href="#overview" class="sidebar-link active">Overview</a></li>
-                    <li><a href="#core-loop" class="sidebar-link">Core Loop</a></li>
-                    <li><a href="#level-design" class="sidebar-link">Level Design</a></li>
-                    <li><a href="#systems" class="sidebar-link">System Breakdowns</a></li>
-                    <li><a href="#process" class="sidebar-link">Process</a></li>
-                    <li><a href="#docs" class="sidebar-link">Documentation</a></li>
-                    <li><a href="#postmortem" class="sidebar-link">Post-Mortem</a></li>
-                    <li><a href="#gameplay" class="sidebar-link">Complete Gameplay</a></li>
+                <button type="button" class="slider-arrow prev-slide" aria-label="Previous slide">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <button type="button" class="slider-arrow next-slide" aria-label="Next slide">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+
+                <div class="slider-dots" role="tablist" aria-label="Hero media slides">
+                    <button type="button" class="slider-dot active-dot" data-slide="0" aria-label="Slide 1"></button>
+                    <button type="button" class="slider-dot" data-slide="1" aria-label="Slide 2"></button>
+                    <button type="button" class="slider-dot" data-slide="2" aria-label="Slide 3"></button>
+                    <button type="button" class="slider-dot" data-slide="3" aria-label="Slide 4"></button>
+                    <button type="button" class="slider-dot" data-slide="4" aria-label="Slide 5"></button>
+                    <button type="button" class="slider-dot" data-slide="5" aria-label="Slide 6"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TWO-COLUMN LAYOUT: MAIN CONTENT LEFT + STICKY TOC RIGHT -->
+    <div class="case-layout">
+        <main class="case-content">
+            <div class="case-header-block">
+                <span class="section-label">Action RPG Vertical Slice // Game &amp; Technical Design</span>
+                <h1 class="case-title">Shattered Charms: Through The Veil</h1>
+                <p class="case-subtitle">
+                    A third-person dark fantasy Action RPG vertical slice built solo in Unreal Engine 5. Combines a Dual-Slot Charm Fusion system, Jewel-gated weapon purification, and a multi-phase Behavior Tree boss fight.
+                </p>
+
+                <div class="meta-strip">
+                    <span><strong>Genre:</strong> Third-Person Action RPG</span>
+                    <span><strong>Role:</strong> Solo Game &amp; Technical Designer</span>
+                    <span><strong>Engine:</strong> Unreal Engine 5 (Blueprints)</span>
+                    <span><strong>Duration:</strong> 3 Months</span>
+                    <span><strong>Scope:</strong> 20-30 Min Vertical Slice</span>
+                    <span><strong>Platform:</strong> PC (KB/M + Gamepad)</span>
+                </div>
+
+                <div class="tag-pill-row">
+                    <span class="tech-pill">Unreal Engine 5</span>
+                    <span class="tech-pill">Blueprints</span>
+                    <span class="tech-pill">Data-Driven Systems</span>
+                    <span class="tech-pill">Combat &amp; Boss AI</span>
+                    <span class="tech-pill">Game Economy</span>
+                    <span class="tech-pill">Behavior Trees</span>
+                </div>
+
+                <div class="doc-actions">
+                    <a href="https://karuna-ketan.itch.io/shattered-charms-through-the-veil" target="_blank" rel="noopener noreferrer" class="btn-solid">Play on itch.io ↗</a>
+                    <a href="https://youtu.be/eLuUngO_4hQ" target="_blank" rel="noopener noreferrer" class="btn-outline">Watch Gameplay Walkthrough ↗</a>
+                    <a href="#technical-design" class="btn-outline">↓ Jump to Technical Design</a>
+                    <a href="assets/RPG/SCTTV_GDD.pdf" target="_blank" class="doc-pill">GDD (PDF) ↗</a>
+                    <a href="assets/RPG/SCTTV_LDD.pdf" target="_blank" class="doc-pill">LDD (PDF) ↗</a>
+                    <a href="assets/RPG/SCTTV - Datas.pdf" target="_blank" class="doc-pill">Balancing Sheet (PDF) ↗</a>
+                </div>
+
+                <div class="highlights-box">
+                    <h2 class="highlights-title">★ Key Design &amp; Technical Highlights</h2>
+                    <ul class="highlights-list">
+                        <li>Built a <strong>data-driven Charm Fusion system</strong> (<code>DT_CharmsSystem</code> + <code>BPC_PlayerCharmSystem</code>) so UI drag-and-drop never touches stat math directly.</li>
+                        <li>Replaced hard-cast Blueprint chains with <strong>Blueprint Interfaces</strong> (<code>BPI_Damage</code>, <code>BPI_Interact</code>) across combat, shrines, chests, and NPCs.</li>
+                        <li>Designed <strong>Veyla's Boss AI (<code>BT_Boss</code>)</strong> where hitting her mid-heal cancels the channel on the exact frame of impact and locks her HP where it stopped.</li>
+                        <li>Tuned a <strong>20 to 30 minute Hub-and-Spoke RPG economy</strong> where players farm Jewels to afford two Shrine purifications (80 &amp; 130 Jewels) before breaking the boss barrier.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ========================================================= -->
+            <!-- ZONE 1: GAME DESIGN & ENCOUNTER PACING                    -->
+            <!-- ========================================================= -->
+            <div class="zone-divider">
+                <span class="zone-tag">Zone 01 // Systems, Economy &amp; Pacing</span>
+                <h2 class="zone-heading">Game Design &amp; Combat Systems</h2>
+            </div>
+
+            <!-- 01. OVERVIEW & PILLARS -->
+            <section id="overview" class="content-section">
+                <h2 class="block-title">01. Overview &amp; Design Pillars</h2>
+                <p class="copy-text">
+                    Weeks after an asteroid event called <strong>The Shattering</strong>, creatures from a corrupted dimension tear through a quiet farming village and abduct the protagonist's sister. Armed with only a rusted family blade, you explore corrupted spokes, fuse forbidden Charms, and purify your sword at ancient Shrines to face Veyla at the Impact Crater.
+                </p>
+
+                <div class="video-embed">
+                    <iframe src="https://www.youtube.com/embed/eLuUngO_4hQ" title="Shattered Charms: Through The Veil Full Gameplay Walkthrough" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+
+                <div class="pillar-grid">
+                    <div class="pillar-card">
+                        <h4>Two-Slot Loadout Trade-Offs</h4>
+                        <p>Only two Charm slots exist (one Normal, one Fused). You can't equip everything at once, so you have to choose between farming Jewels, tanking hits, or burst damage.</p>
+                    </div>
+                    <div class="pillar-card">
+                        <h4>Shrine-Gated Progression</h4>
+                        <p>A dull Level 0 sword won't scratch the final boss. You need to scavenge Jewels to fund two Shrine rituals before the crater barrier opens.</p>
+                    </div>
+                    <div class="pillar-card">
+                        <h4>No Minimap Clutter</h4>
+                        <p>Instead of floating quest markers, inner monologue ("Self-Talk"), short NPC hints, and warm-vs-cold lighting pull players naturally toward objectives.</p>
+                    </div>
+                    <div class="pillar-card">
+                        <h4>Enemies That Teach Mechanics</h4>
+                        <p>Fights scale from basic swarmers to dodge-check Warriors, self-healing Elites, and a boss that teleports away to heal if you give her breathing room.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 02. COMBAT & CORE LOOP -->
+            <section id="combat-loop" class="content-section">
+                <h2 class="block-title">02. Combat &amp; Core Gameplay Loop</h2>
+                <p class="copy-text">
+                    Combat centers on a snappy <strong>3-hit melee combo</strong> (<code>5.0</code> base damage per hit via a <code>25-unit</code> blade trace), a directional <strong>Dodge Roll</strong> with <code>0.1s</code> of invulnerability frames, and Middle-Mouse <strong>Target Lock-On</strong>.
+                </p>
+                <p class="copy-text">
+                    Neither <strong>HP (100)</strong> nor <strong>Mana (100)</strong> regenerates on its own, so you have to stay aggressive and break chests for physical drops. <strong>Stamina (100)</strong> drains at <code>5.0/sec</code> while sprinting (<code>480 cm/s</code> vs. <code>400 cm/s</code> walk) and refills at <code>25.0/sec</code> when pacing swings.
+                </p>
+
+                <div class="comparison-grid">
+                    <div class="media-frame">
+                        <img src="assets/RPG/GIF_Vids/Combat_Loop.gif" alt="Shattered Charms: Through The Veil Melee Combo and Dodge">
+                        <div class="media-caption"><strong>Melee &amp; Dodge Loop:</strong> 3-hit combos paired with timed lateral rolls against Veil Echoes.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/RPG/Images/GameplayLoop.png" alt="Shattered Charms: Through The Veil Core Game Loop">
+                        <div class="media-caption"><strong>Core Loop:</strong> Clear corrupted spokes, manage finite HP and Mana, farm Jewels, and fuse stronger Charms.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 03. DUAL-SLOT CHARM SYSTEM -->
+            <section id="charm-system" class="content-section">
+                <h2 class="block-title">03. Dual-Slot Charm Fusion System</h2>
+                <p class="copy-text">
+                    Instead of a bloated skill tree, progression runs on <strong>4 base Charms</strong> (2 Passive, 2 Active) equipped in a drag-and-drop menu (<code>[Tab]</code>). Collecting matching Passive + Active pairs unlocks <strong>2 Fused Charms</strong> for the dedicated Fused Slot.
+                </p>
+
+                <!-- MINDMAP / FUSION INFOGRAPHIC -->
+                <div class="infographic-card">
+                    <span class="infographic-label">Infographic // Charm Fusion &amp; Shrine Gate Progression Mindmap</span>
+                    <svg viewBox="0 0 820 260" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <marker id="arrow-scttv" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)"/>
+                            </marker>
+                        </defs>
+
+                        <!-- Column 1: Base Charms -->
+                        <rect x="15" y="18" width="210" height="46" rx="8" fill="var(--bg-subtle)" stroke="var(--border-light)" stroke-width="1.5"/>
+                        <text x="120" y="38" text-anchor="middle" fill="var(--text-main)" font-family="sans-serif" font-size="12" font-weight="700">Shatter Pulse (Passive)</text>
+                        <text x="120" y="54" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="10.5">+75% Jewel &amp; Loot Drops</text>
+
+                        <rect x="15" y="76" width="210" height="46" rx="8" fill="var(--bg-subtle)" stroke="var(--border-light)" stroke-width="1.5"/>
+                        <text x="120" y="96" text-anchor="middle" fill="var(--text-main)" font-family="sans-serif" font-size="12" font-weight="700">Veil Burst (Active • 10 Mana)</text>
+                        <text x="120" y="112" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="10.5">300-unit AoE Shockwave (20 Dmg)</text>
+
+                        <rect x="15" y="142" width="210" height="46" rx="8" fill="var(--bg-subtle)" stroke="var(--border-light)" stroke-width="1.5"/>
+                        <text x="120" y="162" text-anchor="middle" fill="var(--text-main)" font-family="sans-serif" font-size="12" font-weight="700">Veil Harmony (Passive)</text>
+                        <text x="120" y="178" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="10.5">65% Incoming Damage Reduction</text>
+
+                        <rect x="15" y="200" width="210" height="46" rx="8" fill="var(--bg-subtle)" stroke="var(--border-light)" stroke-width="1.5"/>
+                        <text x="120" y="220" text-anchor="middle" fill="var(--text-main)" font-family="sans-serif" font-size="12" font-weight="700">Shatter Strike (Active • 15 Mana)</text>
+                        <text x="120" y="236" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="10.5">+50% Next Melee Hit (15s)</text>
+
+                        <!-- Connectors to Fused -->
+                        <path d="M 225 41 L 265 41 L 265 70 L 295 70" fill="none" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#arrow-scttv)"/>
+                        <path d="M 225 99 L 265 99 L 265 70" fill="none" stroke="var(--accent)" stroke-width="1.8"/>
+
+                        <path d="M 225 165 L 265 165 L 265 194 L 295 194" fill="none" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#arrow-scttv)"/>
+                        <path d="M 225 223 L 265 223 L 265 194" fill="none" stroke="var(--accent)" stroke-width="1.8"/>
+
+                        <!-- Column 2: Fused Charms -->
+                        <rect x="302" y="38" width="230" height="64" rx="10" fill="var(--bg-subtle)" stroke="var(--accent)" stroke-width="2"/>
+                        <text x="417" y="60" text-anchor="middle" fill="var(--accent)" font-family="sans-serif" font-size="10" font-weight="700">FUSED SLOT // 25 MANA</text>
+                        <text x="417" y="77" text-anchor="middle" fill="var(--text-main)" font-family="sans-serif" font-size="12.5" font-weight="700">Veil Shatter Burst</text>
+                        <text x="417" y="93" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="10.5">1.75x Drops + 300u AoE Shockwave</text>
+
+                        <rect x="302" y="162" width="230" height="64" rx="10" fill="var(--bg-subtle)" stroke="var(--accent)" stroke-width="2"/>
+                        <text x="417" y="184" text-anchor="middle" fill="var(--accent)" font-family="sans-serif" font-size="10" font-weight="700">FUSED SLOT // 25 MANA</text>
+                        <text x="417" y="201" text-anchor="middle" fill="var(--text-main)" font-family="sans-serif" font-size="12.5" font-weight="700">Veil Shard Strike</text>
+                        <text x="417" y="217" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="10.5">65% Mitigation + 1.5x Melee Buff</text>
+
+                        <!-- Connectors to Shrine Gates -->
+                        <path d="M 532 70 L 570 70 L 570 130 L 598 130" fill="none" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#arrow-scttv)"/>
+                        <path d="M 532 194 L 570 194 L 570 130" fill="none" stroke="var(--accent)" stroke-width="1.8"/>
+
+                        <!-- Column 3: Shrine Progression Gates -->
+                        <rect x="605" y="45" width="200" height="72" rx="10" fill="var(--bg-subtle)" stroke="var(--border-light)" stroke-width="1.5"/>
+                        <text x="705" y="67" text-anchor="middle" fill="var(--accent)" font-family="sans-serif" font-size="10" font-weight="700">SHRINE GATE 01 (80 JEWELS)</text>
+                        <text x="705" y="85" text-anchor="middle" fill="var(--text-main)" font-family="sans-serif" font-size="12" font-weight="700">Sword Upgrade Lv. 1</text>
+                        <text x="705" y="102" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="10.5">Unlocks Fused Charm Resonance</text>
+
+                        <rect x="605" y="143" width="200" height="72" rx="10" fill="var(--bg-subtle)" stroke="var(--border-light)" stroke-width="1.5"/>
+                        <text x="705" y="165" text-anchor="middle" fill="var(--accent)" font-family="sans-serif" font-size="10" font-weight="700">SHRINE GATE 02 (130 JEWELS)</text>
+                        <text x="705" y="183" text-anchor="middle" fill="var(--text-main)" font-family="sans-serif" font-size="12" font-weight="700">Sword Upgrade Lv. 2</text>
+                        <text x="705" y="200" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="10.5">Breaks Veyla's Boss Arena Barrier</text>
+                    </svg>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Charm Name</th>
+                                <th>Slot</th>
+                                <th>Effect &amp; Multiplier</th>
+                                <th>Unlock Source</th>
+                                <th>Mana</th>
+                                <th>Duration</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Veil Harmony</strong></td>
+                                <td><span class="slot-pill">Passive</span></td>
+                                <td>Sets <code>DamageReductionMultiplier</code> to <strong>0.35</strong> (65% damage mitigation)</td>
+                                <td>Priest Temple Quest</td>
+                                <td>0</td>
+                                <td>Passive</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Shatter Pulse</strong></td>
+                                <td><span class="slot-pill">Passive</span></td>
+                                <td>Sets <code>ResourceDropRateMultiplier</code> to <strong>1.75</strong> (+75% Jewel &amp; loot drops)</td>
+                                <td>Farmer Ambush Clear</td>
+                                <td>0</td>
+                                <td>Passive</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Veil Burst</strong></td>
+                                <td><span class="slot-pill">Active</span></td>
+                                <td>Fires a <strong>300-unit</strong> AoE shockwave dealing <strong>20.0</strong> base damage</td>
+                                <td>Temple Guardian Gift</td>
+                                <td>10</td>
+                                <td>Instant</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Shatter Strike</strong></td>
+                                <td><span class="slot-pill">Active</span></td>
+                                <td>Sets <code>bNextMeleeIsBuffed = true</code> (+50% damage on next swing)</td>
+                                <td>Arena Guardian Trial</td>
+                                <td>15</td>
+                                <td>15s</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Veil Shatter Burst</strong></td>
+                                <td><span class="slot-pill">Fused</span></td>
+                                <td><strong>1.75x Drop Rate</strong> + <strong>300-unit / 20.0 dmg</strong> AoE shockwave</td>
+                                <td>Own Pulse + Burst</td>
+                                <td>25</td>
+                                <td>Instant</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Veil Shard Strike</strong></td>
+                                <td><span class="slot-pill">Fused</span></td>
+                                <td><strong>65% Damage Reduction</strong> + <strong>+50% next melee</strong> damage buff</td>
+                                <td>Own Harmony + Strike</td>
+                                <td>25</td>
+                                <td>15s</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="comparison-grid">
+                    <div class="media-frame">
+                        <img src="assets/RPG/GIF_Vids/Charm_UI.gif" alt="Drag and Drop Charm Equipping and Active Power Execution">
+                        <div class="media-caption"><strong>Live Loadout Swapping:</strong> Dragging charms into Normal and Fused slots updates multipliers right away.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/RPG/Images/8.jpg" alt="In-Game Charms Menu UI Layout">
+                        <div class="media-caption"><strong>Charms Menu UI:</strong> Left slots show active Normal and Fused loadouts; right grid holds unlocked shards.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 04. ECONOMY & SHRINE GATES -->
+            <section id="economy-gates" class="content-section">
+                <h2 class="block-title">04. Economy &amp; Shrine Purification Gates</h2>
+                <p class="copy-text">
+                    Enemies drop <code>3</code> to <code>20</code> Jewels depending on tier, giving players a clear reason to equip <em>Shatter Pulse</em> and explore optional spokes before facing the final boss:
+                </p>
+                <ul class="clean-list">
+                    <li><strong>First Shrine Ritual (80 Jewels):</strong> At the Priest Temple Shrine. Upgrades <code>SwordUpgradeLevel</code> to <strong>1</strong> and unlocks Fused Charm powers.</li>
+                    <li><strong>Second Shrine Ritual (130 Jewels):</strong> At the Hidden Cave Shrine. Upgrades <code>SwordUpgradeLevel</code> to <strong>2</strong>, igniting the blade and opening the Boss Barrier at the Impact Crater.</li>
                 </ul>
-            </aside>
 
-            <div class="case-content">
-                
-                <section id="overview" class="content-section">
-                    <h2 class="section-header">Game Overview</h2>
-                    <div style="display: flex; gap: 3rem; align-items: flex-start; flex-wrap: wrap;">
-                        <div style="flex: 1; min-width: 300px;">
-                            <p class="lead-text" style="margin-top: 0;">
-                                What if progression was earned through understanding systems, not leveling numbers?
-                            </p>
-                            <p class="block-text">
-                                <em>Shattered Charms: Through the Veil</em> is a third-person Action RPG prototype focused on modular combat design and economy-driven progression. Set in a world fractured by a mysterious event, players explore a Hub-and-Spoke region to discover Charms that fundamentally change how they fight and survive.
-                            </p>
-                            <p class="block-text">
-                                Rather than relying on experience points or traditional skill trees, progression is driven by experimentation, discovery, and an economy-gated upgrade loop. Understanding how Charms interact becomes the primary path to survival.
-                            </p>
-                        </div>
-                        <div style="flex: 1; min-width: 300px; width: 100%;">
-                            <iframe width="100%" style="aspect-ratio: 16/9; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.06);" src="https://www.youtube.com/embed/_CrbB9irnxE" title="Shattered Charms Trailer" frameborder="0" allowfullscreen></iframe>
-                        </div>
+                <div class="comparison-grid">
+                    <div class="media-frame">
+                        <img src="assets/RPG/GIF_Vids/Sword_Upgrade.gif" alt="Shrine Purification Ritual Upgrading the Sword">
+                        <div class="media-caption"><strong>Shrine Purification:</strong> Spending Jewels upgrades the sword tier and unlocks boss progression.</div>
                     </div>
-                </section>
-
-                <section id="core-loop" class="content-section">
-                    <h2 class="section-header">Core Gameplay Loop</h2>
-                    
-                    <div style="display: flex; gap: 3rem; align-items: center; flex-wrap: wrap; margin-bottom: 4rem;">
-                        <div style="flex: 1; min-width: 300px;">
-                            <h3 style="font-family: var(--font-display); font-size: 1.5rem; text-transform: uppercase; margin-bottom: 1rem; color: var(--text-main);">The Design Challenge</h3>
-                            <p class="block-text">
-                                <strong>How do you encourage meaningful build variety in a short RPG prototype?</strong><br><br>
-                                Most action RPGs rely on deep skill trees that take hours to fully unfold. For a 20–30 minute vertical slice, that approach often results in shallow progression. The solution became a modular Charm system that rewards curiosity over raw stats, combined with an economy-gated progression loop.
-                            </p>
-                            <ul class="clean-list" style="margin-top: 1.5rem;">
-                                <li><strong>1. Explore:</strong> Navigate the "Spokes" to find loot.</li>
-                                <li><strong>2. Survive:</strong> Combat enemies using Charms to earn Jewels.</li>
-                                <li><strong>3. Upgrade:</strong> Purify the weapon through Shrines using Jewels.</li>
-                                <li><strong>4. Progress:</strong> Unlock access to the final Boss Arena.</li>
-                            </ul>
-                        </div>
-                        <div style="flex: 1; min-width: 300px;">
-                            <img src="assets/RPG/Images/GameplayLoop.png" alt="Core Gameplay Loop Diagram" class="case-image" style="margin-bottom: 0;" onclick="openImage(this.src)">
-                            <p class="caption" style="text-align: center; margin-top: 1rem; font-style: italic; color: var(--text-muted);">The economy loop ties combat directly to progression.</p>
-                        </div>
+                    <div class="media-frame">
+                        <img src="assets/RPG/Images/Sword.png" alt="Purified Heirloom Sword Model">
+                        <div class="media-caption"><strong>Blade Progression:</strong> Each upgrade swaps the sword's shader and particle trail so power jumps feel clear.</div>
                     </div>
-                </section>
+                </div>
+            </section>
 
-                <section id="level-design" class="content-section">
-                    <h2 class="section-header">Level Design: Hub-and-Spoke</h2>
-                    <p class="lead-text">
-                        The world is built on a "Pacing Loop" of Safety → Tension → Relief.
-                    </p>
+            <!-- 05. ENEMY & BOSS DESIGN -->
+            <section id="enemy-boss-design" class="content-section">
+                <h2 class="block-title">05. Enemy Escalation &amp; Boss Design</h2>
+                <p class="copy-text">
+                    All enemies share a <code>3000-unit</code> Sight Radius and <code>90°</code> vision cone while introducing a clear combat check. <strong>Level 3 Elites</strong> even self-heal, quietly teaching the player how to interrupt healing before they face Veyla.
+                </p>
 
-                    <div style="display: flex; gap: 3rem; align-items: flex-start; flex-wrap: wrap; margin-bottom: 3rem;">
-                        <div style="flex: 1; min-width: 300px;">
-                            <p class="block-text">
-                                I structured the map around a central <strong>Market Hub</strong> connected to distinct "Spoke" zones. This layout serves two purposes: it allows players to choose their own difficulty path, and it creates a psychological "return to safety" after every expedition.
-                            </p>
-                            <h3 style="font-family: var(--font-display); font-size: 1.5rem; text-transform: uppercase; margin-bottom: 1rem; color: var(--text-main); margin-top: 2rem;">Visual Navigation</h3>
-                            <p class="block-text">
-                                Navigation is guided by lighting. The Hub is bathed in warm, inviting orange tones. As players cross the threshold into a Spoke, the palette shifts immediately to cold blues and sickly purples. This visual shift acts as a subconscious warning system.
-                            </p>
-                        </div>
-                        <div style="flex: 1; min-width: 300px;">
-                            <img src="assets/RPG/Images/LD.png" alt="Level Top-Down Map" class="case-image" style="margin-bottom: 0;" onclick="openImage(this.src)">
-                            <p class="caption" style="text-align: center; margin-top: 1rem; font-style: italic; color: var(--text-muted);">Central Market Hub connecting to the Farm, Cave, and Temple.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="image-grid" style="align-items: center;">
-                        <div>
-                            <span style="font-family: var(--font-display); text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-size: 0.9rem;">Phase 1: Paper Map</span>
-                            <img src="assets/RPG/RAW/14.jpeg" alt="Paper Map Design" class="case-image" onclick="openImage(this.src)">
-                        </div>
-                        <div>
-                            <span style="font-family: var(--font-display); text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-size: 0.9rem;">Phase 2: Engine Transition</span>
-                            <img src="assets/RPG/GIF_Vids/Level_Transition.gif" alt="Lighting Transition" class="case-image">
-                        </div>
-                    </div>
-                </section>
-
-                <section id="systems" class="content-section">
-                    <h2 class="section-header">System Breakdowns</h2>
-                    
-                    <div class="gds-box">
-                        <div class="gds-row" style="margin-bottom: 1.5rem;">
-                            <span class="gds-label">System 1: The Charm Matrix</span>
-                            <p class="block-text">Traditional RPG skill trees were replaced with a modular Dual-Slot Charm system that rewards active discovery over passive leveling.</p>
-                            <ul class="clean-list" style="margin-bottom: 1.5rem;">
-                                <li><strong>Normal Slot:</strong> Holds a base Passive or Active Charm.</li>
-                                <li><strong>Fused Slot:</strong> Unlocks exclusively when specific combinations are equipped together.</li>
-                                <li><strong>Example:</strong> Pairing <em>Veil Harmony</em> (Defense) with <em>Veil Burst</em> (Attack) unlocks <strong>Veil Shatter Burst</strong>—a fused ability that grants temporary shielding while dealing massive area damage.</li>
-                            </ul>
-                        </div>
-                        <img src="assets/RPG/GIF_Vids/Charm_UI.gif" alt="Charm Inventory Drag and Drop System" class="system-gif">
-                        <p class="caption" style="text-align: center; margin-top: 1rem; font-style: italic; color: var(--text-muted);">Drag-and-drop inventory enabling real-time build swapping.</p>
-                    </div>
-
-                    <div class="gds-box">
-                        <div class="gds-row" style="margin-bottom: 1.5rem;">
-                            <span class="gds-label">System 2: The Purification Economy</span>
-                            <p class="block-text"><strong>The Problem:</strong> In short prototypes, players often sprint past side content directly to the boss, ignoring the core combat loops.</p>
-                            <p class="block-text"><strong>The Solution:</strong> I implemented a hard economy gate. The final boss is 100% immune to the starting weapon. Players must Purify their sword at Shrines, costing Jewels that drop exclusively from side-content enemies and chests.</p>
-                        </div>
-                        <img src="assets/RPG/GIF_Vids/Sword_Upgrade.gif" alt="Sword Upgrade Interaction" class="system-gif">
-                        <p class="caption" style="text-align: center; margin-top: 1rem; font-style: italic; color: var(--text-muted);">Loot gains immediate meaning, and combat feeds progression directly.</p>
-                    </div>
-
-                    <div class="gds-box">
-                        <div class="gds-row" style="margin-bottom: 1.5rem;">
-                            <span class="gds-label">System 3: Dynamic Boss AI</span>
-                            <p class="block-text">The Boss (Guardian) is driven by a dynamic Behavior Tree that shifts states based on player distance and damage received.</p>
-                            <ul class="clean-list" style="margin-bottom: 1.5rem;">
-                                <li><strong>Melee State:</strong> Heavy aggression up close.</li>
-                                <li><strong>Ranged State:</strong> Cosmic ranged attacks if the player kites him.</li>
-                                <li><strong>Heal State:</strong> Teleports away to regenerate if not pressured constantly.</li>
-                            </ul>
-                        </div>
-                        <img src="assets/RPG/GIF_Vids/Boss_AI.gif" alt="Boss Behavior Tree Gameplay" class="system-gif">
-                        <p class="caption" style="text-align: center; margin-top: 1rem; font-style: italic; color: var(--text-muted);">The AI severely punishes passive play, forcing players to constantly adapt.</p>
-                    </div>
-                </section>
-
-                <section id="process" class="content-section">
-                    <h2 class="section-header">Process: Paper to Engine</h2>
-                    <p class="block-text">Before entering the engine, every system—from the Charm Matrix logic to the Economy Flow—was mapped out and iterated on paper to test viability.</p>
-                    
-                    <div class="raw-gallery-grid">
-                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/1.jpeg" onclick="openImage(this.src)" alt="Design Sketch 1" loading="lazy"></div>
-                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/2.jpeg" onclick="openImage(this.src)" alt="Design Sketch 2" loading="lazy"></div>
-                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/14.jpeg" onclick="openImage(this.src)" alt="Design Sketch 14" loading="lazy"></div>
-                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/15.jpeg" onclick="openImage(this.src)" alt="Design Sketch 15" loading="lazy"></div>
-                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/3.jpeg" onclick="openImage(this.src)" alt="Design Sketch 3" loading="lazy"></div>
-                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/4.jpeg" onclick="openImage(this.src)" alt="Design Sketch 4" loading="lazy"></div>
-                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/5.jpeg" onclick="openImage(this.src)" alt="Design Sketch 5" loading="lazy"></div>
-                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/6.jpeg" onclick="openImage(this.src)" alt="Design Sketch 6" loading="lazy"></div>
-                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/7.jpeg" onclick="openImage(this.src)" alt="Design Sketch 7" loading="lazy"></div>
-                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/8.jpeg" onclick="openImage(this.src)" alt="Design Sketch 8" loading="lazy"></div>
-                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/9.jpeg" onclick="openImage(this.src)" alt="Design Sketch 9" loading="lazy"></div>
-                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/10.jpeg" onclick="openImage(this.src)" alt="Design Sketch 10" loading="lazy"></div>
-                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/11.jpeg" onclick="openImage(this.src)" alt="Design Sketch 11" loading="lazy"></div>
-                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/12.jpeg" onclick="openImage(this.src)" alt="Design Sketch 12" loading="lazy"></div>
-                        <div class="raw-gallery-item"><img src="assets/RPG/RAW/13.jpeg" onclick="openImage(this.src)" alt="Design Sketch 13" loading="lazy"></div>
-                    </div>
-                </section>
-
-                <section id="docs" class="content-section">
-                    <h2 class="section-header">Documentation</h2>
-                    <p class="block-text">Comprehensive technical documents covering system mechanics, level design, and economy balancing.</p>
-                    <p class="block-text" style="font-style: italic; color: #666; font-size: 0.95rem; margin-bottom: 2rem;">These documents are designed for quick skimming, focused on systems architecture, economy balancing, and spatial flow.</p>
-                    
-                    <div class="docs-grid">
-                        <div class="gdd-preview-box" onclick="openPDF('assets/RPG/SCTTV_GDD.pdf')">
-                            <div class="gdd-icon">📄</div>
-                            <h3 style="font-size: 1.4rem;">Main GDD</h3>
-                            <p style="font-size: 0.9rem;">Deep dive into Charm Matrix logic and core progression.</p>
-                            <span class="gdd-view-btn">View PDF</span>
-                        </div>
-
-                        <div class="gdd-preview-box" onclick="openPDF('assets/RPG/SCTTV_LDD.pdf')">
-                            <div class="gdd-icon">🗺️</div>
-                            <h3 style="font-size: 1.4rem;">Level Design</h3>
-                            <p style="font-size: 0.9rem;">Breakdown of Hub-and-Spoke layouts and pacing curves.</p>
-                            <span class="gdd-view-btn">View PDF</span>
-                        </div>
-
-                        <div class="gdd-preview-box" onclick="openPDF('assets/RPG/SCTTV - Datas.pdf')">
-                            <div class="gdd-icon">📊</div>
-                            <h3 style="font-size: 1.4rem;">Data Sheets</h3>
-                            <p style="font-size: 0.9rem;">Raw balancing tables covering the Purification Economy.</p>
-                            <span class="gdd-view-btn">View PDF</span>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="postmortem" class="content-section">
-                    <h2 class="section-header">Post-Mortem</h2>
-                    
-                    <div class="pm-grid">
-                        <div class="pm-card success">
-                            <h4>What Went Right</h4>
-                            <ul>
-                                <li>Charm Fusion encouraged immediate experimentation and curiosity.</li>
-                                <li>Hub-and-Spoke layout created a highly readable pacing loop.</li>
-                                <li>Visual lighting feedback effectively communicated power and safety states.</li>
-                            </ul>
-                        </div>
-                        <div class="pm-card failure">
-                            <h4>What Went Wrong</h4>
-                            <ul>
-                                <li>Camera tracking occasionally struggled in tight, enclosed cave encounters.</li>
-                                <li>Scope creep early on from an abandoned board-game style side feature.</li>
-                            </ul>
-                        </div>
-                        <div class="pm-card learning">
-                            <h4>What I Learned</h4>
-                            <ul>
-                                <li>Data Tables are absolutely essential for scalable RPG combat systems.</li>
-                                <li>Economy balance requires constant iteration and spreadsheet modeling.</li>
-                                <li>These lessons directly informed how I approached economy balance in future studio projects.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="gameplay" class="content-section" style="margin-bottom: 0;">
-                    <h2 class="section-header">Vertical Slice Playthrough</h2>
-                    <p class="block-text">Unedited footage demonstrating the complete Core Loop: Exploring the Hub, traveling to a Spoke zone, combat with Charm abilities, and the final Boss encounter.</p>
-                    <iframe width="100%" style="aspect-ratio: 16/9; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.06);" src="https://www.youtube.com/embed/eLuUngO_4hQ" title="Shattered Charms Full Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                </section>
-                
-                <div class="next-project-btn-container">
-                    <a href="tlou.html" class="next-proj-small-btn">Next Project → TLOU Design Analysis</a>
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Archetype</th>
+                                <th>Max HP</th>
+                                <th>Speed</th>
+                                <th>Melee</th>
+                                <th>Ranged</th>
+                                <th>Jewel / Heal / Mana</th>
+                                <th>Combat Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Pawn 1 (Varmint)</strong></td>
+                                <td>14.5</td>
+                                <td>375 cm/s</td>
+                                <td>7.5</td>
+                                <td>-</td>
+                                <td>5 / 15 / 0</td>
+                                <td>Fast swarmer teaching basic 3-hit spacing</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pawn 2 (Warrior)</strong></td>
+                                <td>18.5 - 56</td>
+                                <td>375 cm/s</td>
+                                <td>3.5 - 11</td>
+                                <td>-</td>
+                                <td>3 / 10-20 / 10-15</td>
+                                <td>Armored bruiser punishing button-mashing; teaches Dodge</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pawn 3 (Elite)</strong></td>
+                                <td>69</td>
+                                <td>425 cm/s</td>
+                                <td>16</td>
+                                <td>-</td>
+                                <td>20 / 20 / 20</td>
+                                <td>Spoke mini-boss; foreshadows Boss healing</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Veyla (Final Boss)</strong></td>
+                                <td>100</td>
+                                <td>500 cm/s</td>
+                                <td>16</td>
+                                <td>30</td>
+                                <td>500 / 100 / 100</td>
+                                <td>Multi-phase duel testing Dodge, Melee, and Fused Charms</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
+                <div class="callout-box">
+                    <strong>Veyla's Heal-Interrupt Rule:</strong> Up close, Veyla chains sword combos; at range, she fires <code>30-damage</code> Cosmic Rays. Below <strong>60 HP</strong>, she spends <code>20 Mana</code> to teleport across the arena and channel a 5-second heal. If you dash in and hit her mid-channel, her health locks right where it was when interrupted.
+                </div>
+
+                <div class="comparison-grid">
+                    <div class="media-frame">
+                        <img src="assets/RPG/GIF_Vids/Boss_AI.gif" alt="Veyla Boss AI Melee and Ranged Combat">
+                        <div class="media-caption"><strong>Veyla Arena Fight:</strong> Switching between close sword combos and long-range Cosmic Rays.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/RPG/Images/15.png" alt="Veyla Casting Ranged Void Projectile">
+                        <div class="media-caption"><strong>Telegraphed Ranged Pressure:</strong> High-contrast projectiles force timed lateral dodges across the crater.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 06. HUB-AND-SPOKE ENCOUNTER PACING -->
+            <section id="encounter-pacing" class="content-section">
+                <h2 class="block-title">06. Hub-and-Spoke Encounter Pacing</h2>
+                <p class="copy-text">
+                    The 20 to 30 minute slice flows as a <strong>Hub-and-Spoke valley</strong> that alternates combat spikes with safe breathing room:
+                </p>
+                <ul class="clean-list">
+                    <li><strong>Forgotten Woods (Onboarding):</strong> Starts in your burned home. A fallen log teaches jump, a <em>Fake Shrine</em> decoy hides a nearby Jewel chest, and a lone Varmint introduces sword timing.</li>
+                    <li><strong>The Market (Safe Hub):</strong> Warm orange lighting and fortified walls give players relief, vendor context, and branching Town Elder dialogue.</li>
+                    <li><strong>Priest Temple, Cursed Cave &amp; Blighted Farm (Spokes):</strong> Cold purple and yellow lighting signal Veil corruption. Players tackle spokes in any order to collect Charms and Jewels.</li>
+                    <li><strong>The Impact Crater (Boss Arena):</strong> Wide, open snowy basin so Veyla's teleports and Cosmic Rays stay readable from anywhere.</li>
+                </ul>
+
+                <div class="comparison-grid">
+                    <div class="media-frame">
+                        <img src="assets/RPG/Images/LD.png" alt="Top-Down Hub-and-Spoke Encounter Map">
+                        <div class="media-caption"><strong>Top-Down Flow:</strong> Enemy tiers, Shrine gates, and spoke loops branching off the central Market hub.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/RPG/GIF_Vids/Level_Transition.gif" alt="Transition Between Market and Corrupted Zones">
+                        <div class="media-caption"><strong>Lighting Contrast:</strong> Shifting from warm hub lanterns to cold Veil fog signals danger without HUD popups.</div>
+                    </div>
+                </div>
+
+                <div class="grid-3">
+                    <div class="media-frame">
+                        <img src="assets/RPG/Images/6.png" alt="Market Hub NPC Branching Dialogue">
+                        <div class="media-caption">Market Hub NPC branching dialogue.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/RPG/Images/10.png" alt="Underground Shrine Focal Lighting">
+                        <div class="media-caption">Underground Shrine focal lighting.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/RPG/Images/13.png" alt="Impact Crater Boss Arena Gate">
+                        <div class="media-caption">Impact Crater boss barrier gate.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================================================= -->
+            <!-- ZONE 2: TECHNICAL DESIGN                                  -->
+            <!-- ========================================================= -->
+            <div class="zone-divider zone-two">
+                <span class="zone-tag">Zone 02 // Unreal Engine 5 Blueprint Systems</span>
+                <h2 class="zone-heading">Technical Design &amp; Architecture</h2>
             </div>
-        </div>
 
-    </main>
+            <!-- 07. TECHNICAL DESIGN: DATA & INTERFACES -->
+            <section id="technical-design" class="content-section">
+                <h2 class="block-title">07. Technical Design: Decoupled Data &amp; Interfaces</h2>
+                <p class="copy-text">
+                    Action RPGs turn into spaghetti fast when UI menus, combat math, and world triggers all talk directly to the Player Blueprint. I split everything into three clean layers so equipping a charm updates your combat stats automatically without messy cross-references:
+                </p>
 
-    <footer style="background: var(--text-main); color: var(--bg-page); padding: 4rem 2rem; text-align: center;">
-        <div style="display: flex; gap: 2rem; justify-content: center; margin-bottom: 2rem; font-family: var(--font-display); text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">
-            <a href="mailto:gamesbykarunaket@gmail.com" style="color: var(--bg-page); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#D45B3E'" onmouseout="this.style.color='#FAF9F5'">Email</a>
-            <a href="https://www.linkedin.com/in/karunaket/" target="_blank" style="color: var(--bg-page); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#D45B3E'" onmouseout="this.style.color='#FAF9F5'">LinkedIn</a>
-            <a href="https://karuna-ketan.itch.io/" target="_blank" style="color: var(--bg-page); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#D45B3E'" onmouseout="this.style.color='#FAF9F5'">itch.io</a>
+                <!-- CLEAR 3-LAYER VISUAL ARCHITECTURE CARD -->
+                <div class="infographic-card">
+                    <span class="infographic-label">Architecture Flow // How Equipping a Charm Updates Combat</span>
+                    <svg viewBox="0 0 820 195" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <marker id="scttv-flow-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)"/>
+                            </marker>
+                        </defs>
+
+                        <!-- Layer 1: UI -->
+                        <rect x="15" y="20" width="235" height="152" rx="10" fill="var(--bg-subtle)" stroke="var(--border-light)" stroke-width="1.5"/>
+                        <text x="132" y="44" text-anchor="middle" fill="var(--accent)" font-family="sans-serif" font-size="10" font-weight="700">LAYER 01 // UI MENU</text>
+                        <text x="132" y="66" text-anchor="middle" fill="var(--text-main)" font-family="monospace" font-size="12" font-weight="700">WBP_CharmMenu</text>
+                        <text x="132" y="92" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="11">Player drags a charm into a slot.</text>
+                        <text x="132" y="110" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="11">The menu only passes the Charm ID</text>
+                        <text x="132" y="128" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="11">and never touches damage math.</text>
+
+                        <line x1="250" y1="96" x2="285" y2="96" stroke="var(--accent)" stroke-width="2" marker-end="url(#scttv-flow-arrow)"/>
+
+                        <!-- Layer 2: Data & Component -->
+                        <rect x="292" y="20" width="235" height="152" rx="10" fill="var(--bg-subtle)" stroke="var(--accent)" stroke-width="1.8"/>
+                        <text x="409" y="44" text-anchor="middle" fill="var(--accent)" font-family="sans-serif" font-size="10" font-weight="700">LAYER 02 // DATA &amp; STAT MATH</text>
+                        <text x="409" y="66" text-anchor="middle" fill="var(--text-main)" font-family="monospace" font-size="12" font-weight="700">BPC_PlayerCharmSystem</text>
+                        <text x="409" y="92" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="11">Reads stats from DT_CharmsSystem,</text>
+                        <text x="409" y="110" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="11">resets old multipliers back to 1.0x,</text>
+                        <text x="409" y="128" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="11">and applies the new slot bonuses.</text>
+
+                        <line x1="527" y1="96" x2="562" y2="96" stroke="var(--accent)" stroke-width="2" marker-end="url(#scttv-flow-arrow)"/>
+
+                        <!-- Layer 3: Combat & World -->
+                        <rect x="569" y="20" width="235" height="152" rx="10" fill="var(--bg-subtle)" stroke="var(--border-light)" stroke-width="1.5"/>
+                        <text x="686" y="44" text-anchor="middle" fill="var(--accent)" font-family="sans-serif" font-size="10" font-weight="700">LAYER 03 // COMBAT &amp; WORLD</text>
+                        <text x="686" y="66" text-anchor="middle" fill="var(--text-main)" font-family="monospace" font-size="12" font-weight="700">BPI_Damage &amp; BPI_Interact</text>
+                        <text x="686" y="92" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="11">Sword swings, AoE bursts, chests,</text>
+                        <text x="686" y="110" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="11">and shrines use shared Interfaces</text>
+                        <text x="686" y="128" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="11">with zero hard Blueprint casts.</text>
+                    </svg>
+                </div>
+
+                <ul class="clean-list">
+                    <li><strong>Zero Hard Casting:</strong> <code>BPI_Damage</code> (<code>BeginSwordTrace</code>, <code>EndSwordTrace</code>, <code>Die</code>) and <code>BPI_Interact</code> (<code>InteractWithChest</code>, <code>InteractWithShrineLvl1</code>, <code>InteractWithShrineLvl2</code>) let <code>BP_Player</code> talk to enemies, chests, and shrines without knowing their exact Blueprint classes.</li>
+                    <li><strong>Data-Driven Tuning:</strong> Mana costs, durations, and slot types live inside <code>DT_CharmsSystem</code> (backed by enums <code>E_CharmID_New</code> and <code>E_CharmSlotType</code>) so balance tweaks never require rewiring Blueprint nodes.</li>
+                </ul>
+
+                <div class="media-frame" style="margin-bottom: 1.35rem;">
+                    <img src="assets/RPG/Tech/DT_CharmsSystem.png" alt="Unreal Engine 5 DT_CharmsSystem Data Table">
+                    <div class="media-caption"><strong>DT_CharmsSystem (<code>F_CharmData</code>):</strong> Centralizes slot types, Mana costs, durations, and UI icons for all 6 charms.</div>
+                </div>
+
+                <div class="comparison-grid">
+                    <div class="media-frame">
+                        <img src="assets/RPG/Tech/BPI_Damage.png" alt="BPI_Damage Blueprint Interface Functions">
+                        <div class="media-caption"><strong>BPI_Damage:</strong> Shared combat interface for melee trace windows and enemy death states.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/RPG/Tech/BPI_Interact.png" alt="BPI_Interact Blueprint Interface Functions">
+                        <div class="media-caption"><strong>BPI_Interact:</strong> Decoupled interaction contract for chests and Level 1 / Level 2 Shrine rituals.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 08. MODULAR CHARM COMPONENT & STAT MATH -->
+            <section id="charm-blueprints" class="content-section">
+                <h2 class="block-title">08. Modular Charm Component &amp; Stat Math</h2>
+                <p class="copy-text">
+                    All charm state and stat math live inside <code>BPC_PlayerCharmSystem</code> on <code>BP_Player</code>. One classic bug in equip systems is <strong>multiplier stacking or stale values</strong> when players swap gear back and forth quickly.
+                </p>
+
+                <div class="callout-box">
+                    <strong>Clean Reset Pattern (<code>UpdatePassiveEffects</code>):</strong> Whenever a charm is equipped or swapped, <code>UpdatePassiveEffects</code> resets <code>DamageReductionMultiplier</code> and <code>ResourceDropRateMultiplier</code> back to <code>1.0</code> first, then reads both active slots fresh. Swapping charms 50 times in a row can never leak or stack stats.
+                </div>
+
+                <div class="media-frame" style="margin-bottom: 1.75rem;">
+                    <img src="assets/RPG/Tech/BPC_CharmSystem_Overview.png" alt="BPC_PlayerCharmSystem Component Functions and Variables">
+                    <div class="media-caption"><strong>BPC_PlayerCharmSystem:</strong> Holds equipped charm enums, combat multipliers, and active buff flags.</div>
+                </div>
+
+                <h3 class="sub-block-title">Interactive Graph 1: Stat Recalculation (<code>UpdatePassiveEffects</code>)</h3>
+                <p class="copy-text">
+                    Resets baseline multipliers to <code>1.0</code> before reading Normal and Fused slot IDs, preventing stat drift during fast loadout swaps.
+                </p>
+
+                <div class="bpue-card">
+                    <div class="bpue-toolbar">
+                        <div class="bpue-title-group">
+                            <span class="bpue-title">
+                                BPC_PlayerCharmSystem &gt; UpdatePassiveEffects
+                                <span class="bpue-badge">UE 5.6 Blueprint</span>
+                            </span>
+                            <span class="bpue-desc">Resets baseline multipliers to 1.0 and recalculates active Normal &amp; Fused slot modifiers.</span>
+                        </div>
+                        <a href="https://blueprintue.com/blueprint/mqru9hwl/" target="_blank" rel="noopener noreferrer" class="bpue-fullscreen-btn">Open Fullscreen ↗</a>
+                    </div>
+                    <div class="bpue-embed">
+                        <iframe src="https://blueprintue.com/render/mqru9hwl/" scrolling="no" allowfullscreen title="UpdatePassiveEffects Blueprint Graph"></iframe>
+                    </div>
+                    <div class="bpue-footer-hint">Right-click drag to pan, scroll wheel to zoom and inspect individual nodes.</div>
+                </div>
+
+                <h3 class="sub-block-title">Interactive Graph 2: Data-Driven Slot Routing (<code>EquipCharm</code>)</h3>
+                <p class="copy-text">
+                    Looks up <code>DT_CharmsSystem</code> by Row Name, breaks <code>F_CharmData</code>, and switches on <code>E_CharmSlotType</code> to route Passive/Active charms into the Normal Slot and Fused charms into the Fused Slot.
+                </p>
+
+                <div class="bpue-card">
+                    <div class="bpue-toolbar">
+                        <div class="bpue-title-group">
+                            <span class="bpue-title">
+                                BPC_PlayerCharmSystem &gt; EquipCharm
+                                <span class="bpue-badge">UE 5.6 Blueprint</span>
+                            </span>
+                            <span class="bpue-desc">Queries DT_CharmsSystem, switches on E_CharmSlotType, and refreshes passive multipliers.</span>
+                        </div>
+                        <a href="https://blueprintue.com/blueprint/s8azmy16/" target="_blank" rel="noopener noreferrer" class="bpue-fullscreen-btn">Open Fullscreen ↗</a>
+                    </div>
+                    <div class="bpue-embed">
+                        <iframe src="https://blueprintue.com/render/s8azmy16/" scrolling="no" allowfullscreen title="EquipCharm Blueprint Graph"></iframe>
+                    </div>
+                    <div class="bpue-footer-hint">Right-click drag to pan, scroll wheel to zoom and inspect individual nodes.</div>
+                </div>
+
+                <h3 class="sub-block-title">Interactive Graph 3: Gated Fused Ability Execution (<code>OnUseCombinedPower</code>)</h3>
+                <p class="copy-text">
+                    Checks two gates before firing Fused powers: first verifying <code>SwordUpgradeLevel &gt;= 1</code>, then checking <code>Mana &gt;= 25</code> before deducting Mana and triggering the ability.
+                </p>
+
+                <div class="bpue-card">
+                    <div class="bpue-toolbar">
+                        <div class="bpue-title-group">
+                            <span class="bpue-title">
+                                BPC_PlayerCharmSystem &gt; OnUseCombinedPower
+                                <span class="bpue-badge">UE 5.6 Blueprint</span>
+                            </span>
+                            <span class="bpue-desc">Validates SwordUpgradeLevel and Mana cost before triggering Fused Charm abilities.</span>
+                        </div>
+                        <a href="https://blueprintue.com/blueprint/343-wo8s/" target="_blank" rel="noopener noreferrer" class="bpue-fullscreen-btn">Open Fullscreen ↗</a>
+                    </div>
+                    <div class="bpue-embed">
+                        <iframe src="https://blueprintue.com/render/343-wo8s/" scrolling="no" allowfullscreen title="OnUseCombinedPower Blueprint Graph"></iframe>
+                    </div>
+                    <div class="bpue-footer-hint">Right-click drag to pan, scroll wheel to zoom and inspect individual nodes.</div>
+                </div>
+            </section>
+
+            <!-- 09. COMBAT ENGINEERING & RESOURCE PIPELINE -->
+            <section id="combat-tech" class="content-section">
+                <h2 class="block-title">09. Combat Engineering &amp; Resource Pipeline</h2>
+                <div class="pillar-grid">
+                    <div class="pillar-card">
+                        <h4>AnimNotify Sword Trace Windows</h4>
+                        <p>Animation notifies fire <code>BeginSwordTrace</code> and <code>EndSwordTrace</code> via <code>BPI_Damage</code>, caching hit actors per swing so one blade arc never hits the same enemy twice.</p>
+                    </div>
+                    <div class="pillar-card">
+                        <h4>0.1s Dodge Roll I-Frames</h4>
+                        <p>Dodge Roll toggles an invulnerability flag for <code>0.1s</code>, ignoring incoming damage during peak roll frames without disabling world collision.</p>
+                    </div>
+                    <div class="pillar-card">
+                        <h4>Single-Swing Buff Consumption</h4>
+                        <p><em>Shatter Strike</em> sets <code>bNextMeleeIsBuffed = true</code> for 15s. On the next landed hit, damage multiplies by <code>1.5x</code> and clears the flag right away.</p>
+                    </div>
+                    <div class="pillar-card">
+                        <h4>Shrine Upgrade Checks</h4>
+                        <p><code>InteractWithShrineLvl1</code> and <code>Lvl2</code> verify Jewel counts (80 / 130), deduct currency, increment <code>SwordUpgradeLevel</code>, swap blade shaders, and unlock the Boss Barrier.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 10. BOSS AI & SHARED ENEMY BEHAVIOR TREES -->
+            <section id="boss-ai-tech" class="content-section">
+                <h2 class="block-title">10. Boss AI Behavior Tree &amp; Shared Enemies</h2>
+                <p class="copy-text">
+                    All three regular enemy tiers (<strong>Varmint</strong>, <strong>Warrior</strong>, and <strong>Elite</strong>) inherit from one parent class (<code>BP_AI_Pawn</code>) sharing a single Behavior Tree (<code>BT_Pawn</code>) and Blackboard (<code>BD_AI_Pawn</code>).
+                </p>
+                <p class="copy-text">
+                    Veyla expands this setup into a dedicated Behavior Tree (<code>BT_Boss</code>) driven by a perception service (<code>BTS_UpdateBossSenses</code>) updating distance, HP percentage, and Mana every tick interval.
+                </p>
+
+                <!-- BOSS AI DECISION & INTERRUPT FLOW INFOGRAPHIC -->
+                <div class="infographic-card">
+                    <span class="infographic-label">AI Logic Flow // BT_Boss Survival &amp; Heal-Interrupt Sequence</span>
+                    <svg viewBox="0 0 820 175" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <marker id="ai-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)"/>
+                            </marker>
+                        </defs>
+
+                        <!-- Step 1 -->
+                        <rect x="12" y="25" width="170" height="58" rx="8" fill="var(--bg-subtle)" stroke="var(--border-light)" stroke-width="1.5"/>
+                        <text x="97" y="48" text-anchor="middle" fill="var(--accent)" font-family="sans-serif" font-size="10" font-weight="700">DECORATOR CHECK</text>
+                        <text x="97" y="66" text-anchor="middle" fill="var(--text-main)" font-family="sans-serif" font-size="11.5" font-weight="700">HP &le; 60% &amp; Mana &ge; 20</text>
+
+                        <line x1="182" y1="54" x2="215" y2="54" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#ai-arrow)"/>
+
+                        <!-- Step 2 -->
+                        <rect x="222" y="25" width="175" height="58" rx="8" fill="var(--bg-subtle)" stroke="var(--border-light)" stroke-width="1.5"/>
+                        <text x="309" y="48" text-anchor="middle" fill="var(--accent)" font-family="sans-serif" font-size="10" font-weight="700">TASK 01</text>
+                        <text x="309" y="66" text-anchor="middle" fill="var(--text-main)" font-family="monospace" font-size="11" font-weight="700">BTT_TeleportSafe</text>
+
+                        <line x1="397" y1="54" x2="430" y2="54" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#ai-arrow)"/>
+
+                        <!-- Step 3 -->
+                        <rect x="437" y="25" width="175" height="58" rx="8" fill="var(--bg-subtle)" stroke="var(--accent)" stroke-width="1.8"/>
+                        <text x="524" y="48" text-anchor="middle" fill="var(--accent)" font-family="sans-serif" font-size="10" font-weight="700">TASK 02 (5s CHANNEL)</text>
+                        <text x="524" y="66" text-anchor="middle" fill="var(--text-main)" font-family="monospace" font-size="11" font-weight="700">BTT_ChannelHeal</text>
+
+                        <!-- Branch to Interrupt vs Full Heal -->
+                        <path d="M 612 42 L 648 42" fill="none" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#ai-arrow)"/>
+                        <rect x="655" y="18" width="152" height="46" rx="8" fill="var(--bg-subtle)" stroke="var(--border-light)" stroke-width="1.5"/>
+                        <text x="731" y="38" text-anchor="middle" fill="var(--text-main)" font-family="sans-serif" font-size="11" font-weight="700">Uninterrupted (5s)</text>
+                        <text x="731" y="53" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="10">Restores Full HP</text>
+
+                        <path d="M 524 83 L 524 134 L 648 134" fill="none" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#ai-arrow)"/>
+                        <rect x="655" y="106" width="152" height="54" rx="8" fill="var(--bg-subtle)" stroke="var(--accent)" stroke-width="1.8"/>
+                        <text x="731" y="128" text-anchor="middle" fill="var(--accent)" font-family="sans-serif" font-size="10.5" font-weight="700">Player Lands Hit!</text>
+                        <text x="731" y="145" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="10">Decorator Aborts &amp; Locks HP</text>
+                    </svg>
+                </div>
+
+                <div class="comparison-grid">
+                    <div class="media-frame">
+                        <img src="assets/RPG/Tech/BT_Boss.png" alt="Unreal Engine 5 BT_Boss Behavior Tree and Blackboard">
+                        <div class="media-caption"><strong>BT_Boss &amp; Blackboard:</strong> Left branch runs &lt;60% HP teleport-heal with Decorator abort safety; right branch picks melee or ranged attacks.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/RPG/Images/Boss_AI.png" alt="Veyla Boss AI Behavior Tree Runtime Overview">
+                        <div class="media-caption"><strong>Runtime AI Execution:</strong> Live view of Veyla's Behavior Tree transitioning between melee pressure and teleport recovery.</div>
+                    </div>
+                </div>
+
+                <h3 class="sub-block-title">Interactive Graph 4: Boss Heal Channel &amp; Interrupt Task (<code>BTT_ChannelHeal</code>)</h3>
+                <p class="copy-text">
+                    Custom Behavior Tree Task handling Veyla's 5-second heal loop, Mana deduction, and instant abort cleanup when <code>IsHealing?</code> flips false on player impact.
+                </p>
+
+                <div class="bpue-card">
+                    <div class="bpue-toolbar">
+                        <div class="bpue-title-group">
+                            <span class="bpue-title">
+                                BT_Boss &gt; BTT_ChannelHeal
+                                <span class="bpue-badge">UE 5.6 Blueprint</span>
+                            </span>
+                            <span class="bpue-desc">Executes timed boss health recovery and handles clean task termination on player interrupt.</span>
+                        </div>
+                        <a href="https://blueprintue.com/blueprint/uih579ce/" target="_blank" rel="noopener noreferrer" class="bpue-fullscreen-btn">Open Fullscreen ↗</a>
+                    </div>
+                    <div class="bpue-embed">
+                        <iframe src="https://blueprintue.com/render/uih579ce/" scrolling="no" allowfullscreen title="BTT_ChannelHeal Blueprint Graph"></iframe>
+                    </div>
+                    <div class="bpue-footer-hint">Right-click drag to pan, scroll wheel to zoom and inspect individual nodes.</div>
+                </div>
+
+                <div class="media-frame">
+                    <img src="assets/RPG/Tech/BT_Pawn.png" alt="Shared Enemy Behavior Tree BT_Pawn">
+                    <div class="media-caption"><strong>Shared Enemy Tree (<code>BP_AI_Pawn</code> &amp; <code>BT_Pawn</code>):</strong> Varmints, Warriors, and Elites all run on one shared Behavior Tree and Blackboard.</div>
+                </div>
+            </section>
+
+            <!-- 11. PAPER PROTOTYPES -->
+            <section id="paper-prototypes" class="content-section">
+                <h2 class="block-title">11. Early Paper Prototypes &amp; Notebook Sketches</h2>
+                <p class="copy-text">
+                    Before opening Unreal Engine 5, I sketched the valley layout, 5-zone progression flow, Jewel upgrade thresholds (80 &amp; 130), and Boss AI range/state rules on paper:
+                </p>
+
+                <div class="comparison-grid">
+                    <div class="media-frame">
+                        <img src="assets/RPG/RAW/14.jpeg" alt="Annotated Top-Down Valley Layout Sketch">
+                        <div class="media-caption"><strong>Annotated Valley Map:</strong> Top-down layout with red-ink notes for movement onboarding (<code>WASD</code>, <code>Shift+W</code>, <code>Alt</code> Dodge), Market economy hub, Farming Area, and Cave path.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/RPG/RAW/13.jpeg" alt="5-Region Valley Blockout Sketch">
+                        <div class="media-caption"><strong>5-Zone Region Blockout:</strong> Maps Zone 1 (Forest start) &rarr; Zone 2 (Priest Temple &amp; Shrine) branching to Zone 3 (Market), Zone 4 (Farming/Mountains), and Zone 5 (Boss Fight).</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/RPG/RAW/11.jpeg" alt="Vertical Progression and Encounter Beat Map">
+                        <div class="media-caption"><strong>Encounter &amp; Charm Beat Flow:</strong> Bottom-to-top progression tracking Shrine sword upgrades (Lv. 1 &amp; Lv. 2) and Passive/Active/Fused Charm unlocks before the Boss Fight.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/RPG/RAW/5.jpeg" alt="Economy Design Notebook Page">
+                        <div class="media-caption"><strong>Economy &amp; Weapon Upgrade Math:</strong> Sets currency drops from enemies and quests and locks the 1st weapon upgrade at <strong>80</strong> and 2nd upgrade at <strong>130</strong>.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/RPG/RAW/10.jpeg" alt="Boss AI Behavior Tree Sketch">
+                        <div class="media-caption"><strong>Boss AI Behavior Tree Sketch:</strong> Early tree layout (<code>Root</code> &rarr; <code>State Selector</code> &rarr; <code>Idle</code> / <code>Chasing Sequence</code>) and Boss ability notes (Cosmic Ray, Healing, Teleport).</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/RPG/RAW/9.jpeg" alt="Boss Combat Range Rings and Heal Interrupt Notes">
+                        <div class="media-caption"><strong>Boss Range Rings &amp; Heal-Interrupt Logic:</strong> Concentric attack zones (<code>Normal Attack</code>, <code>Healing region</code>, <code>Cosmic Ray</code> for 10 Mana) and the <code>&le; 60 HP</code> teleport-heal interrupt rule.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PREVIOUS / NEXT PROJECT PAGINATION -->
+            <div class="project-pagination">
+                <a href="tms.html" class="doc-pill">← Previous: AOA: Space Scrap Smugglers</a>
+                <a href="jumprift.html" class="btn-solid">Next: JumpRift: 3D Platformer →</a>
+            </div>
+        </main>
+
+        <!-- RIGHT-SIDE FLOATING TABLE OF CONTENTS -->
+        <aside class="right-sidebar" aria-label="Page Contents">
+            <h2 class="toc-heading" title="Scroll to top">Contents</h2>
+            <ul class="toc-list">
+                <li class="toc-item"><a href="#overview" class="toc-link">01. Overview &amp; Pillars</a></li>
+                <li class="toc-item"><a href="#combat-loop" class="toc-link">02. Combat &amp; Core Loop</a></li>
+                <li class="toc-item"><a href="#charm-system" class="toc-link">03. Dual-Slot Charm System</a></li>
+                <li class="toc-item"><a href="#economy-gates" class="toc-link">04. Economy &amp; Shrine Gates</a></li>
+                <li class="toc-item"><a href="#enemy-boss-design" class="toc-link">05. Enemy &amp; Boss Design</a></li>
+                <li class="toc-item"><a href="#encounter-pacing" class="toc-link">06. Hub-and-Spoke Pacing</a></li>
+                <li class="toc-item"><a href="#technical-design" class="toc-link" style="color: var(--accent); font-weight: 700;">07. Technical Design</a></li>
+                <li class="toc-item toc-sub"><a href="#charm-blueprints" class="toc-link">08. Charm Component</a></li>
+                <li class="toc-item toc-sub"><a href="#combat-tech" class="toc-link">09. Combat Engineering</a></li>
+                <li class="toc-item toc-sub"><a href="#boss-ai-tech" class="toc-link">10. Boss &amp; Enemy AI</a></li>
+                <li class="toc-item"><a href="#paper-prototypes" class="toc-link">11. Paper Prototypes</a></li>
+            </ul>
+        </aside>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="mailto:gamesbykarunaket@gmail.com">Email</a>
+            <a href="https://www.linkedin.com/in/karunaket/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://karuna-ketan.itch.io/" target="_blank" rel="noopener noreferrer">itch.io</a>
         </div>
-        <p style="font-size: 0.85rem; color: #888;">© 2026 Karuna Ketan.</p>
+        <p class="footer-copy">© 2026 Karuna Ketan.</p>
     </footer>
 
-    <div id="viewer">
-        <div class="controls">
-            <button onclick="closePDF()">✕ CLOSE</button>
-        </div>
-        <iframe id="pdfFrame"></iframe>
-    </div>
-
-    <div id="imageViewer" onclick="closeImage()">
-        <span class="close-img-btn">&times;</span>
-        <img id="fullImage" onclick="event.stopPropagation()"> 
-    </div>
-
     <script src="script.js"></script>
-
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Hamburger Menu
-            const oldMenuBtn = document.querySelector('.menu-toggle');
-            const nav = document.querySelector('.nav-links');
+        (function () {
+            const slider = document.getElementById('scttv-hero-slider');
+            if (!slider) return;
 
-            if (oldMenuBtn && nav) {
-                const menuBtn = oldMenuBtn.cloneNode(true);
-                oldMenuBtn.parentNode.replaceChild(menuBtn, oldMenuBtn);
-                menuBtn.addEventListener('click', (e) => {
+            const slides = Array.from(slider.querySelectorAll('.hero-slide'));
+            const dots = Array.from(slider.querySelectorAll('.slider-dot'));
+            const prevBtn = slider.querySelector('.prev-slide');
+            const nextBtn = slider.querySelector('.next-slide');
+
+            function syncDots(activeIdx) {
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active-dot', i === activeIdx);
+                });
+            }
+
+            function goToSlide(index) {
+                const target = (index + slides.length) % slides.length;
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active-slide', i === target);
+                });
+                syncDots(target);
+            }
+
+            function getCurrentIndex() {
+                const idx = slides.findIndex(s => s.classList.contains('active-slide'));
+                return idx >= 0 ? idx : 0;
+            }
+
+            if (prevBtn) {
+                prevBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    nav.classList.toggle('active');
-                    menuBtn.classList.toggle('active');
-                });
-                document.addEventListener('click', (e) => {
-                    if (!nav.contains(e.target) && !menuBtn.contains(e.target)) {
-                        nav.classList.remove('active');
-                        menuBtn.classList.remove('active');
-                    }
+                    goToSlide(getCurrentIndex() - 1);
                 });
             }
 
-            // Slider Logic (Hero)
-            const heroSlides = document.querySelectorAll('.hero-slide');
-            const dotsContainer = document.getElementById('dotsContainer');
-            let currentHeroSlide = 0;
-            let heroSlideInterval;
-
-            if(heroSlides.length > 0) {
-                // Generate Dots
-                heroSlides.forEach((_, i) => {
-                    const dot = document.createElement('div');
-                    dot.classList.add('dot');
-                    if(i === 0) dot.classList.add('active-dot');
-                    dot.onclick = () => jumpToSlide(i);
-                    dotsContainer.appendChild(dot);
+            if (nextBtn) {
+                nextBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    goToSlide(getCurrentIndex() + 1);
                 });
-
-                const heroDots = document.querySelectorAll('.dot');
-
-                function showHeroSlide(index) {
-                    heroSlides.forEach(s => s.classList.remove('active-slide'));
-                    heroDots.forEach(d => d.classList.remove('active-dot'));
-                    currentHeroSlide = index;
-                    if (currentHeroSlide >= heroSlides.length) currentHeroSlide = 0;
-                    if (currentHeroSlide < 0) currentHeroSlide = heroSlides.length - 1;
-                    heroSlides[currentHeroSlide].classList.add('active-slide');
-                    heroDots[currentHeroSlide].classList.add('active-dot');
-                }
-
-                window.moveSlideManual = function(step) {
-                    clearInterval(heroSlideInterval);
-                    showHeroSlide(currentHeroSlide + step);
-                    heroSlideInterval = setInterval(() => { showHeroSlide(currentHeroSlide + 1); }, 5000);
-                };
-
-                window.jumpToSlide = function(index) {
-                    clearInterval(heroSlideInterval);
-                    showHeroSlide(index);
-                    heroSlideInterval = setInterval(() => { showHeroSlide(currentHeroSlide + 1); }, 5000);
-                };
-
-                heroSlideInterval = setInterval(() => { showHeroSlide(currentHeroSlide + 1); }, 5000);
             }
 
-            // Scrollspy
-            const sections = document.querySelectorAll('.content-section');
-            const navLinks = document.querySelectorAll('.sidebar-link');
-
-            const observerOptions = { root: null, rootMargin: '-150px 0px -60% 0px', threshold: 0 };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        navLinks.forEach(link => {
-                            link.classList.remove('active');
-                            if (link.getAttribute('href').substring(1) === entry.target.id) {
-                                link.classList.add('active');
-                            }
-                        });
-                    }
+            dots.forEach((dot, i) => {
+                dot.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    goToSlide(i);
                 });
-            }, observerOptions);
+            });
 
-            sections.forEach(section => observer.observe(section));
-        });
-
-        // PDF Functions
-        function openPDF(pdfSrc) {
-            document.getElementById('pdfFrame').src = pdfSrc;
-            const viewer = document.getElementById('viewer');
-            viewer.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-        function closePDF() {
-            document.getElementById('viewer').style.display = 'none';
-            document.getElementById('pdfFrame').src = '';
-            document.body.style.overflow = 'auto';
-        }
-
-        // Lightbox Functions
-        function openImage(src) {
-            const viewer = document.getElementById('imageViewer');
-            document.getElementById('fullImage').src = src;
-            viewer.style.display = 'flex';
-            setTimeout(() => { viewer.style.opacity = '1'; }, 10);
-            document.body.style.overflow = 'hidden';
-        }
-        function closeImage() {
-            const viewer = document.getElementById('imageViewer');
-            viewer.style.opacity = '0';
-            setTimeout(() => {
-                viewer.style.display = 'none';
-                document.getElementById('fullImage').src = "";
-                document.body.style.overflow = 'auto';
-            }, 300);
-        }
+            // Keep dots synced even when script.js auto-advances slides
+            const observer = new MutationObserver(() => {
+                syncDots(getCurrentIndex());
+            });
+            slides.forEach(slide => {
+                observer.observe(slide, { attributes: true, attributeFilter: ['class'] });
+            });
+        })();
     </script>
 </body>
 </html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume | Karuna Ketan</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .resume-viewer-wrap {
+            max-width: 1000px;
+            margin: 2.5rem auto 4.5rem auto;
+            padding: 0 1.5rem;
+        }
+        .resume-top-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .resume-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+        }
+        .pdf-stage {
+            width: 100%;
+            height: 82vh;
+            min-height: 680px;
+            border: 1px solid var(--border-light);
+            border-radius: 14px;
+            overflow: hidden;
+            background: var(--bg-surface);
+            box-shadow: var(--shadow-md);
+        }
+        .pdf-stage iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+        @media (max-width: 768px) {
+            .pdf-stage {
+                height: 70vh;
+                min-height: 480px;
+            }
+            .resume-controls,
+            .resume-controls a,
+            .resume-controls button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="minimal-header">
+        <div class="header-content">
+            <a href="index.html" class="logo">KARUNA KETAN.</a>
+            <div class="nav-right">
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="index.html#projects">Projects</a></li>
+                    <li><a href="process.html">Process</a></li>
+                    <li><a href="documents.html">Documents</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="resume.html" class="header-resume-btn active-nav">RESUME</a></li>
+                </ul>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+                <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="resume-viewer-wrap">
+        <div class="resume-top-bar">
+            <div>
+                <span class="section-label" id="resume-role-label">GAME DESIGNER</span>
+                <h1 class="section-title" style="margin-bottom: 0;">Resume Preview</h1>
+            </div>
+            <div class="resume-controls">
+                <button type="button" id="btn-gd" class="btn-solid" onclick="switchResume('gd')">Game Design</button>
+                <button type="button" id="btn-td" class="btn-outline" onclick="switchResume('td')">Technical Design</button>
+                <a id="download-link" href="Karuna_Ketan_Game_Designer_Resume.pdf" download class="btn-outline">Download PDF ↓</a>
+            </div>
+        </div>
+
+        <div class="pdf-stage">
+            <iframe id="pdf-frame" src="Karuna_Ketan_Game_Designer_Resume.pdf#view=FitH" title="Karuna Ketan Resume"></iframe>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="index.html">Portfolio</a>
+            <a href="https://www.linkedin.com/in/karunaket/" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://karuna-ketan.itch.io/" target="_blank" rel="noopener">Itch.io</a>
+            <a href="mailto:gamesbykarunaket@gmail.com">Email</a>
+        </div>
+        <p class="footer-copy">© 2026 Karuna Ketan. Built for Game Design & Technical Design.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        const resumes = {
+            gd: {
+                file: 'Karuna_Ketan_Game_Designer_Resume.pdf',
+                label: 'GAME DESIGNER — SYSTEMS, ECONOMY & LEVEL DESIGN'
+            },
+            td: {
+                file: 'Karuna_Ketan_Technical_Game_Designer_Resume.pdf',
+                label: 'TECHNICAL GAME DESIGNER — SYSTEMS, COMBAT & AI DESIGN'
+            }
+        };
+
+        function switchResume(type) {
+            const selected = resumes[type] || resumes.gd;
+            document.getElementById('pdf-frame').src = selected.file + '#view=FitH';
+            document.getElementById('download-link').href = selected.file;
+            document.getElementById('resume-role-label').textContent = selected.label;
+
+            document.getElementById('btn-gd').className = type === 'gd' ? 'btn-solid' : 'btn-outline';
+            document.getElementById('btn-td').className = type === 'td' ? 'btn-solid' : 'btn-outline';
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('role') === 'tech') {
+            switchResume('td');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="JumpRift: 3D Platformer - Case study by Karuna Ketan. Mobile and PC 3D platformer designed in Unreal Engine 5 and shipped live on the Google Play Store.">
+    <title>JumpRift: 3D Platformer | Karuna Ketan</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23D45B3E'/%3E%3Cpath d='M21 24h22a9 9 0 0 1 8.8 10.9l-2.1 9.5a5.5 5.5 0 0 1-9.4 2.6L36 42.5h-8l-4.3 4.5a5.5 5.5 0 0 1-9.4-2.6l-2.1-9.5A9 9 0 0 1 21 24z' fill='%23FAF9F5'/%3E%3Crect x='20' y='30' width='2.5' height='7' rx='1' fill='%23D45B3E'/%3E%3Crect x='17.75' y='32.25' width='7' height='2.5' rx='1' fill='%23D45B3E'/%3E%3Ccircle cx='42' cy='31.5' r='1.7' fill='%23D45B3E'/%3E%3Ccircle cx='45.5' cy='35' r='1.7' fill='%23D45B3E'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- HERO SLIDER CONTROLLERS (ARROWS & DOTS) --- */
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 6;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(15, 16, 20, 0.65);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #FFFFFF;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+            padding: 0;
+        }
+
+        .slider-arrow:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-50%) scale(1.06);
+        }
+
+        .slider-arrow.prev-slide {
+            left: 1.25rem;
+        }
+
+        .slider-arrow.next-slide {
+            right: 1.25rem;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 6;
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.35rem 0.65rem;
+            border-radius: 999px;
+            background: rgba(15, 16, 20, 0.45);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+
+        .slider-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: none;
+            padding: 0;
+            background: rgba(255, 255, 255, 0.42);
+            cursor: pointer;
+            transition: all 0.22s ease;
+        }
+
+        .slider-dot:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .slider-dot.active-dot {
+            background: #FFFFFF;
+            transform: scale(1.22);
+        }
+
+        @media (max-width: 600px) {
+            .slider-arrow {
+                width: 34px;
+                height: 34px;
+            }
+            .slider-arrow.prev-slide {
+                left: 0.75rem;
+            }
+            .slider-arrow.next-slide {
+                right: 0.75rem;
+            }
+            .slider-dots {
+                bottom: 0.65rem;
+            }
+        }
+
+        .infographic-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: 14px;
+            padding: 1.4rem 1.5rem;
+            margin: 1.5rem 0 2rem 0;
+            box-shadow: var(--shadow-sm);
+            overflow-x: auto;
+        }
+
+        .infographic-label {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent);
+            margin-bottom: 0.9rem;
+            display: block;
+        }
+
+        .infographic-card svg {
+            width: 100%;
+            min-width: 620px;
+            height: auto;
+            display: block;
+        }
+
+        .doc-pill {
+            font-family: var(--font-display);
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: var(--text-main);
+            padding: 0.62rem 1.2rem;
+            border: 1px solid var(--border-light);
+            background: var(--bg-surface);
+            border-radius: 50px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .doc-pill:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .project-pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            padding-top: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid var(--border-light);
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .project-pagination {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .project-pagination a {
+                justify-content: center;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body id="top">
+
+    <header class="minimal-header">
+        <div class="header-content">
+            <a href="index.html" class="logo">KARUNA KETAN.</a>
+            <div class="nav-right">
+                <nav>
+                    <ul class="nav-links" id="nav-links">
+                        <li><a href="index.html" class="active-nav">Projects</a></li>
+                        <li><a href="process.html">Process</a></li>
+                        <li><a href="documents.html">Documents</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="resume.pdf" target="_blank" class="header-resume-btn">RESUME</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Light/Dark Mode" title="Switch Theme">🌙</button>
+                <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle navigation">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- FULL-WIDTH HERO SLIDER WITH ARROWS & PAGINATION DOTS -->
+    <div class="case-hero">
+        <div class="hero-banner">
+            <div class="hero-slider" id="jumprift-hero-slider" data-interval="3800">
+                <div class="hero-slide active-slide"><img src="assets/JumpRift/Thumbnail_HORIZONTAL.png" alt="JumpRift: 3D Platformer Day and Night Modes"></div>
+                <div class="hero-slide"><img src="assets/JumpRift/GIF_Vids/hero_gameplay.gif" alt="JumpRift Core Movement Gameplay"></div>
+                <div class="hero-slide"><img src="assets/JumpRift/GIF_Vids/checkpoints.gif" alt="JumpRift Instant Checkpoint Progression"></div>
+                <div class="hero-slide"><img src="assets/JumpRift/GIF_Vids/thorns_fail.gif" alt="JumpRift Obstacle Hazard Timing"></div>
+
+                <button type="button" class="slider-arrow prev-slide" aria-label="Previous slide">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <button type="button" class="slider-arrow next-slide" aria-label="Next slide">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+
+                <div class="slider-dots" role="tablist" aria-label="Hero media slides">
+                    <button type="button" class="slider-dot active-dot" data-slide="0" aria-label="Slide 1"></button>
+                    <button type="button" class="slider-dot" data-slide="1" aria-label="Slide 2"></button>
+                    <button type="button" class="slider-dot" data-slide="2" aria-label="Slide 3"></button>
+                    <button type="button" class="slider-dot" data-slide="3" aria-label="Slide 4"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="case-layout">
+        <!-- MAIN CONTENT COLUMN -->
+        <main class="case-content">
+            <div class="case-header-block">
+                <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem;">
+                    <span class="section-label" style="margin: 0;">Shipped Mobile &amp; PC Title // Game &amp; Technical Design</span>
+                    <span class="live-badge"><span class="live-dot"></span>Live on Google Play Store</span>
+                </div>
+                <h1 class="case-title">JumpRift: 3D Platformer</h1>
+                <p class="case-subtitle">
+                    A momentum-based 3D platformer built solo in Unreal Engine 5. Tuned through 4 playtest passes for touch controls and obstacle pacing, and shipped live on the Google Play Store and itch.io.
+                </p>
+
+                <div class="meta-strip">
+                    <span><strong>Genre:</strong> 3D Platformer</span>
+                    <span><strong>Role:</strong> Solo Game &amp; Technical Designer</span>
+                    <span><strong>Engine:</strong> Unreal Engine 5 (Blueprints)</span>
+                    <span><strong>Platform:</strong> Android (Google Play) &amp; PC (itch.io)</span>
+                    <span><strong>Status:</strong> Live on Play Store (4 Playtest Passes)</span>
+                </div>
+
+                <div class="tag-pill-row">
+                    <span class="tech-pill">Unreal Engine 5</span>
+                    <span class="tech-pill">Blueprints</span>
+                    <span class="tech-pill">Level Pacing</span>
+                    <span class="tech-pill">Player Psychology</span>
+                    <span class="tech-pill">Mobile Ergonomics</span>
+                    <span class="tech-pill">Google Play Release</span>
+                </div>
+
+                <div class="doc-actions">
+                    <a href="https://karuna-ketan.itch.io/jumprift" target="_blank" rel="noopener noreferrer" class="btn-solid">Play on itch.io ↗</a>
+                    <a href="https://youtu.be/pLcsy0OYSdE" target="_blank" rel="noopener noreferrer" class="btn-outline">Watch Gameplay Walkthrough ↗</a>
+                    <a href="#technical-design" class="btn-outline">↓ Jump to Technical Design</a>
+                    <a href="assets/JumpRift/JumpRift_GDD.pdf" target="_blank" rel="noopener noreferrer" class="doc-pill">GDD (PDF) ↗</a>
+                </div>
+
+                <!-- TERRACOTTA HIGHLIGHTS BOX -->
+                <div class="highlights-box">
+                    <h2 class="highlights-title">★ Key Design &amp; Technical Highlights</h2>
+                    <ul class="highlights-list">
+                        <li>Packaged and shipped a live Android App Bundle (AAB) on the Google Play Store after clearing Closed Alpha testing with 12 testers.</li>
+                        <li>Built a dedicated <strong>Night Mode</strong> alongside Day Mode using high-contrast glowing hazards so jumps stay readable on phone screens.</li>
+                        <li>Set up reusable moving platform actors with local/world movement toggles and Blueprint-callable Google Play checkpoint achievement triggers.</li>
+                        <li>Fixed early difficulty spikes and added high-contrast checkpoint archways after playtesting, turning sightlines into a retention hook.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ==========================================================
+                 ZONE 1: GAME DESIGN
+                 ========================================================== -->
+            <div class="zone-divider">
+                <span class="zone-tag">Zone 01 // Game &amp; Level Design</span>
+                <h2 class="zone-heading">Game Design, Pacing &amp; Playtesting</h2>
+            </div>
+
+            <!-- 01. OVERVIEW & GOAL -->
+            <section id="overview" class="content-section">
+                <h2 class="block-title">01. Overview &amp; Storefront Goal</h2>
+                <p class="copy-text">
+                    While talking with studio recruiters, I kept hearing the same advice: <em>"Your prototypes look solid, but shipping a live game on the Google Play Store proves you can actually finish and release a product."</em>
+                </p>
+                <p class="copy-text">
+                    So I spent over a month of focused solo work turning <strong>JumpRift: 3D Platformer</strong> into a full public mobile release: reworking camera framing for phones, tuning touch controls, building <strong>Night Mode</strong>, fixing mobile frame drops, and handling the Google Play Console pipeline myself.
+                </p>
+
+                <div class="design-snapshot">
+                    <div class="snapshot-card">
+                        <span class="snapshot-tag">Design Goal</span>
+                        <div class="snapshot-val">Build a fast, fair mobile platformer where players read moving obstacles at a glance and recover from falls right away.</div>
+                    </div>
+                    <div class="snapshot-card">
+                        <span class="snapshot-tag">Player Psychology</span>
+                        <div class="snapshot-val">Remove death penalties and loading screens so every fall feels like quick muscle-memory practice.</div>
+                    </div>
+                    <div class="snapshot-card">
+                        <span class="snapshot-tag">Storefront Release</span>
+                        <div class="snapshot-val">Packaged signed Android App Bundles (AAB), cleared Closed Alpha testing, and shipped live on Google Play.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 02. NIGHT MODE & GAMEPLAY -->
+            <section id="night-mode" class="content-section">
+                <h2 class="block-title">02. Night Mode &amp; Full Gameplay</h2>
+                <p class="copy-text">
+                    To give players a fresh challenge after clearing the bright floating islands of <strong>Day Mode</strong>, I built <strong>Night Mode</strong>. Instead of just dimming the sky, I tuned glowing rim lighting and hazard silhouettes so landing zones still pop on small phone screens.
+                </p>
+
+                <div class="video-embed">
+                    <iframe src="https://www.youtube.com/embed/pLcsy0OYSdE" title="JumpRift Night Mode Full Gameplay" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+
+                <div class="comparison-grid">
+                    <div class="media-frame">
+                        <img src="assets/JumpRift/Gameplay_Images/03_JumpRift_Night_Explore_The_Night.png" alt="JumpRift Night Mode Explore The Night">
+                        <div class="media-caption">Night Mode: Glowing platform edges keep landing zones readable in dark environments.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/JumpRift/Gameplay_Images/04_JumpRift_Night_Dodge_The_Danger.png" alt="JumpRift Night Mode Dodge The Danger">
+                        <div class="media-caption">Night Mode: High-contrast hazard silhouettes warn players right away on mobile screens.</div>
+                    </div>
+                </div>
+
+                <div class="comparison-grid">
+                    <div class="media-frame">
+                        <img src="assets/JumpRift/Gameplay_Images/07_JumpRift_Night_Take_The_Leap.png" alt="JumpRift Night Mode Take The Leap">
+                        <div class="media-caption">Late-stage Night Mode rhythmic gauntlet testing jump timing and mid-air correction.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/JumpRift/Gameplay_Images/08_JumpRift_Night_A_World_After_Dark.png" alt="JumpRift Night Mode A World After Dark">
+                        <div class="media-caption">Night Mode summit view giving players clear sightlines of the final climb.</div>
+                    </div>
+                </div>
+
+                <h3 id="day-mode" class="sub-block-title">Day Mode Progression</h3>
+                <p class="copy-text">
+                    Day Mode introduces each obstacle safely on wide starting islands before combining oscillating bridges, rotating sweepers, and tighter summit jumps.
+                </p>
+
+                <div class="comparison-grid">
+                    <div class="media-frame">
+                        <img src="assets/JumpRift/Gameplay_Images/01_JumpRift_Day_Explore_Floating_Worlds.png" alt="Day Mode Explore Floating Worlds">
+                        <div class="media-caption">Day Mode Opening: Wide islands establish safe movement and camera control.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/JumpRift/Gameplay_Images/02_JumpRift_Day_Master_The_Obstacles.png" alt="Day Mode Master The Obstacles">
+                        <div class="media-caption">Mid-course spacing teaches exact jump distance before introducing moving hazards.</div>
+                    </div>
+                </div>
+
+                <div class="comparison-grid">
+                    <div class="media-frame">
+                        <img src="assets/JumpRift/Gameplay_Images/05_JumpRift_Day_Time_Your_Jump.png" alt="Day Mode Time Your Jump">
+                        <div class="media-caption">Synchronized moving platforms let players read rhythm instead of guessing.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/JumpRift/Gameplay_Images/06_JumpRift_Day_Discover_Floating_Worlds.png" alt="Day Mode Discover Floating Worlds">
+                        <div class="media-caption">Vertical landmark framing pulls player attention upward toward the summit.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 03. GAME FEEL & MOBILE CONTROLS -->
+            <section id="game-feel" class="content-section">
+                <h2 class="block-title">03. Game Feel &amp; Mobile Controls</h2>
+                <ul class="clean-list">
+                    <li><strong>Forgiving Jump Windows:</strong> Added subtle coyote time and input buffering so tapping jump a split second early or right after leaving a ledge still registers.</li>
+                    <li><strong>Under-0.5s Respawns:</strong> Hitting a checkpoint saves progress right away, and falling drops you straight back in with zero UI popups.</li>
+                    <li><strong>Thumb-Arc Ergonomics:</strong> Placed the virtual stick and jump button inside natural thumb reach to prevent accidental camera drags mid-jump.</li>
+                    <li><strong>Steady Mobile Frame Pacing:</strong> Kept lighting lightweight so mid-range Android phones hold smooth FPS in both Day and Night modes.</li>
+                </ul>
+
+                <div class="grid-3">
+                    <div class="media-frame">
+                        <img src="assets/JumpRift/GIF_Vids/hero_gameplay.gif" alt="JumpRift Core Movement Loop">
+                        <div class="media-caption">Core movement flow across moving platforms.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/JumpRift/GIF_Vids/checkpoints.gif" alt="JumpRift Instant Checkpoints">
+                        <div class="media-caption">Instant checkpoint activation and fast recovery.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/JumpRift/GIF_Vids/thorns_fail.gif" alt="JumpRift Hazard Feedback">
+                        <div class="media-caption">Clear hazard collision and knockback response.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 04. COURSE PACING & SIGHTLINES -->
+            <section id="level-breakdown" class="content-section">
+                <h2 class="block-title">04. Course Pacing &amp; Sightlines</h2>
+                <p class="copy-text">
+                    Instead of one exhausting gauntlet, the route alternates between <strong>short challenge pockets</strong> and safe resting islands so players get a quick breather before each difficulty spike.
+                </p>
+
+                <div class="comparison-grid">
+                    <div class="media-frame">
+                        <img src="assets/JumpRift/Images/1.jpeg" alt="Sightline &amp; Pacing Layout">
+                        <div class="media-caption">Spatial layout showing clear sightlines from start to summit.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/JumpRift/Images/2.jpeg" alt="Obstacle Rhythm &amp; Safe Zones">
+                        <div class="media-caption">Alternating tension zones and safe checkpoint islands.</div>
+                    </div>
+                </div>
+
+                <div class="grid-3">
+                    <div class="media-frame">
+                        <img src="assets/JumpRift/Images/3.jpeg" alt="Moving Platform Spacing">
+                        <div class="media-caption">Platform travel distance tuned to jump arc peak.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/JumpRift/Images/4.jpeg" alt="Vertical Climb Section">
+                        <div class="media-caption">Vertical climb using landmark framing to prevent disorientation.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/JumpRift/Images/5.jpeg" alt="Final Gauntlet">
+                        <div class="media-caption">Final obstacle combination testing mastered mechanics.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 05. PLAYTESTING & ITERATIONS -->
+            <section id="playtesting" class="content-section">
+                <h2 class="block-title">05. Playtesting &amp; Iterations</h2>
+                <p class="copy-text">
+                    In Version 1, I put a fast-spinning platform right on the opening island and kept checkpoints subtle. Watching friends playtest showed what felt fun in the editor felt unfair in real play:
+                </p>
+
+                <!-- PLAYTEST BEFORE/AFTER INFOGRAPHIC -->
+                <div class="infographic-card">
+                    <span class="infographic-label">Playtest Iteration Breakdown // V1 Friction vs. V2 Retention Fixes</span>
+                    <svg viewBox="0 0 820 190" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <marker id="jr-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)"/>
+                            </marker>
+                        </defs>
+
+                        <!-- Row 1 -->
+                        <rect x="15" y="16" width="340" height="44" rx="8" fill="var(--bg-subtle)" stroke="var(--border-light)" stroke-width="1.5"/>
+                        <text x="185" y="34" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="10" font-weight="700">V1 ISSUE 01</text>
+                        <text x="185" y="50" text-anchor="middle" fill="var(--text-main)" font-family="sans-serif" font-size="11.5" font-weight="600">Fast Spinner on Island 1 &rarr; Early Rage Quits</text>
+
+                        <line x1="355" y1="38" x2="435" y2="38" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#jr-arrow)"/>
+
+                        <rect x="442" y="16" width="363" height="44" rx="8" fill="var(--bg-subtle)" stroke="var(--accent)" stroke-width="1.6"/>
+                        <text x="623" y="34" text-anchor="middle" fill="var(--accent)" font-family="sans-serif" font-size="10" font-weight="700">V2 FIX 01</text>
+                        <text x="623" y="50" text-anchor="middle" fill="var(--text-main)" font-family="sans-serif" font-size="11.5" font-weight="600">Clean Opening Runway &amp; Tighter Island Gaps</text>
+
+                        <!-- Row 2 -->
+                        <rect x="15" y="74" width="340" height="44" rx="8" fill="var(--bg-subtle)" stroke="var(--border-light)" stroke-width="1.5"/>
+                        <text x="185" y="92" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="10" font-weight="700">V1 ISSUE 02</text>
+                        <text x="185" y="108" text-anchor="middle" fill="var(--text-main)" font-family="sans-serif" font-size="11.5" font-weight="600">Subtle Checkpoints &rarr; Falls Felt Punishing</text>
+
+                        <line x1="355" y1="96" x2="435" y2="96" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#jr-arrow)"/>
+
+                        <rect x="442" y="74" width="363" height="44" rx="8" fill="var(--bg-subtle)" stroke="var(--accent)" stroke-width="1.6"/>
+                        <text x="623" y="92" text-anchor="middle" fill="var(--accent)" font-family="sans-serif" font-size="10" font-weight="700">V2 FIX 02</text>
+                        <text x="623" y="108" text-anchor="middle" fill="var(--text-main)" font-family="sans-serif" font-size="11.5" font-weight="600">Blue-Gold Sightline Archways &rarr; "One More Try" Hook</text>
+
+                        <!-- Row 3 -->
+                        <rect x="15" y="132" width="340" height="44" rx="8" fill="var(--bg-subtle)" stroke="var(--border-light)" stroke-width="1.5"/>
+                        <text x="185" y="150" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="10" font-weight="700">V1 ISSUE 03</text>
+                        <text x="185" y="166" text-anchor="middle" fill="var(--text-main)" font-family="sans-serif" font-size="11.5" font-weight="600">Chained Spinners Front-Loaded Too Early</text>
+
+                        <line x1="355" y1="154" x2="435" y2="154" stroke="var(--accent)" stroke-width="1.8" marker-end="url(#jr-arrow)"/>
+
+                        <rect x="442" y="132" width="363" height="44" rx="8" fill="var(--bg-subtle)" stroke="var(--accent)" stroke-width="1.6"/>
+                        <text x="623" y="150" text-anchor="middle" fill="var(--accent)" font-family="sans-serif" font-size="10" font-weight="700">V2 FIX 03</text>
+                        <text x="623" y="166" text-anchor="middle" fill="var(--text-main)" font-family="sans-serif" font-size="11.5" font-weight="600">Moved Triple-Spinner Gauntlets to Late Climb</text>
+                    </svg>
+                </div>
+
+                <div class="grid-3">
+                    <div class="media-frame">
+                        <img src="assets/JumpRift/Images/Playtesting/1.jpeg" alt="Version 1 Early Rotating Platform Issue">
+                        <div class="media-caption">Version 1 (Before): Fast spinner on Island 1 forced a punishing jump right at the start.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/JumpRift/Images/Playtesting/2.jpeg" alt="Version 2 Simplified Early Island">
+                        <div class="media-caption">Version 2 (After): Removed the early spinner for a clean runway into moving platforms.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/JumpRift/Images/Playtesting/3.jpeg" alt="High-Contrast Checkpoint Archway">
+                        <div class="media-caption">Checkpoint Visibility: Added a bright blue-and-gold archway so milestones read at a glance.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/JumpRift/Images/Playtesting/4.jpeg" alt="Checkpoint Framed in Player Sightline">
+                        <div class="media-caption">Sightline Psychology: Framing the checkpoint ahead pulled players to push through gaps.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/JumpRift/Images/Playtesting/5.jpeg" alt="Checkpoint Placed Beside House Landmark">
+                        <div class="media-caption">Landmark Anchoring: Placed the checkpoint gate beside the house island to reward bridge clears.</div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="assets/JumpRift/Images/Playtesting/6.jpeg" alt="Late-Stage Triple Spinner Gauntlet">
+                        <div class="media-caption">Pacing Curve: Saved chained multi-spinner platforms for later stages after rhythm mastery.</div>
+                    </div>
+                </div>
+
+                <h3 id="raw-sketches" class="sub-block-title">06. Raw Design Notebook Sketches</h3>
+                <p class="copy-text">
+                    Before building in Unreal Engine, I sketched platform trajectories, obstacle cycles, and checkpoint spacing on paper:
+                </p>
+
+                <div class="grid-3">
+                    <div class="media-frame"><img src="assets/JumpRift/RAW/1.jpeg" alt="Notebook Sketch 1"><div class="media-caption">Page 1: Core jump arc &amp; distance ratios.</div></div>
+                    <div class="media-frame"><img src="assets/JumpRift/RAW/2.jpeg" alt="Notebook Sketch 2"><div class="media-caption">Page 2: Moving platform cycle timing.</div></div>
+                    <div class="media-frame"><img src="assets/JumpRift/RAW/3.jpeg" alt="Notebook Sketch 3"><div class="media-caption">Page 3: Checkpoint spacing flow.</div></div>
+                    <div class="media-frame"><img src="assets/JumpRift/RAW/4.jpeg" alt="Notebook Sketch 4"><div class="media-caption">Page 4: Hazard placement &amp; safe pockets.</div></div>
+                    <div class="media-frame"><img src="assets/JumpRift/RAW/5.jpeg" alt="Notebook Sketch 5"><div class="media-caption">Page 5: Vertical climb pacing notes.</div></div>
+                    <div class="media-frame"><img src="assets/JumpRift/RAW/6.jpeg" alt="Notebook Sketch 6"><div class="media-caption">Page 6: Playtest adjustment checklist.</div></div>
+                </div>
+            </section>
+
+            <!-- ==========================================================
+                 ZONE 2: TECHNICAL DESIGN (UE5 BLUEPRINTS & GAMEPLAY TOOLS)
+                 ========================================================== -->
+            <div class="zone-divider zone-two">
+                <span class="zone-tag">Zone 02 // Unreal Engine 5 Blueprints &amp; Gameplay Tools</span>
+                <h2 class="zone-heading">Technical Design &amp; Gameplay Systems</h2>
+            </div>
+
+            <!-- 07. TECHNICAL DESIGN -->
+            <section id="technical-design" class="content-section">
+                <h2 class="block-title">07. Technical Design: Designer Tools &amp; Android Services</h2>
+                <p class="copy-text">
+                    To make level tuning fast inside the Unreal Editor and connect checkpoints to Google Play achievements, I set up two small helper classes (<code>AMovingPlatform</code> and <code>UJumpRiftGameInstance</code>) that expose clean sliders and Blueprint nodes for level triggers.
+                </p>
+
+                <!-- SUBSECTION A: MOVING PLATFORM ACTOR -->
+                <h3 id="cpp-platform" class="sub-block-title">08. Designer-Tunable Platform Actor (<code>AMovingPlatform</code>)</h3>
+                <p class="copy-text">
+                    Instead of duplicating Timeline nodes across dozens of bridges and sweepers, I used one base actor (<code>AMovingPlatform</code>) inherited by Blueprint variants (<code>BP_MovingPlatform</code>, <code>BP_RotatingBlocker</code>, <code>BP_UpDownBlocker</code>):
+                </p>
+
+                <ul class="clean-list">
+                    <li><strong>Viewport Tuning:</strong> Exposed <code>PlatformVelocity</code>, <code>MoveDistance</code>, and <code>RotationVelocity</code> in the Details panel so obstacle rhythm can be tuned live while testing jumps.</li>
+                    <li><strong>Local vs. World Space Toggle (<code>bUseLocalSpaceMovement</code>):</strong> Moves angled platforms along their local Forward/Right/Up axes so tilted ramps oscillate cleanly along their slope.</li>
+                    <li><strong>Zero-Drift Endpoint Reversal:</strong> Checks distance from <code>StartLocation</code> and <code>TargetLocation</code> so platforms never drift out of alignment over time on phones.</li>
+                </ul>
+
+                <div class="media-frame">
+                    <img src="assets/JumpRift/Tech/1_Details_Panel.png" alt="BP_MovingPlatform Inheriting MovingPlatform Properties">
+                    <div class="media-caption">BP_MovingPlatform inheriting AMovingPlatform with exposed velocity, distance, and local-space toggles in the Details panel.</div>
+                </div>
+
+                <!-- COLLAPSIBLE SOURCE DRAWER: AMovingPlatform -->
+                <div class="detail-drawer">
+                    <button type="button" class="drawer-header">
+                        <span>+ Inspect Helper Source: MovingPlatform.h &amp; MovingPlatform.cpp</span>
+                        <span class="drawer-icon">+</span>
+                    </button>
+                    <div class="drawer-body">
+                        <span class="code-filename">MovingPlatform.h</span>
+                        <pre class="code-block"><code>#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
+#include "MovingPlatform.generated.h"
+
+UCLASS()
+class OBSTACLEASSAULT_API AMovingPlatform : public AActor
+{
+	GENERATED_BODY()
+
+public:
+	AMovingPlatform();
+	virtual void Tick(float DeltaTime) override;
+
+protected:
+	virtual void BeginPlay() override;
+
+private:
+	UPROPERTY(EditAnywhere, Category = "Moving")
+	FVector PlatformVelocity = FVector(100, 0, 0);
+
+	UPROPERTY(EditAnywhere, Category = "Moving")
+	float MoveDistance = 100;
+
+	UPROPERTY(EditAnywhere, Category = "Rotation")
+	FRotator RotationVelocity;
+
+	UPROPERTY(EditAnywhere, Category = "Moving")
+	bool bUseLocalSpaceMovement = false;
+
+	FVector StartLocation;
+	FVector TargetLocation;
+
+	void MovePlatform(float DeltaTime);
+	void RotatePlatform(float DeltaTime);
+};</code></pre>
+
+                        <span class="code-filename">MovingPlatform.cpp</span>
+                        <pre class="code-block"><code>#include "MovingPlatform.h"
+
+AMovingPlatform::AMovingPlatform()
+{
+	PrimaryActorTick.bCanEverTick = true;
+}
+
+void AMovingPlatform::BeginPlay()
+{
+	Super::BeginPlay();
+	StartLocation = GetActorLocation();
+
+	if (bUseLocalSpaceMovement)
+	{
+		FVector LocalMoveDirection = PlatformVelocity.GetSafeNormal();
+		FVector WorldDirection =
+			GetActorForwardVector() * LocalMoveDirection.X +
+			GetActorRightVector() * LocalMoveDirection.Y +
+			GetActorUpVector() * LocalMoveDirection.Z;
+
+		WorldDirection.Normalize();
+		TargetLocation = StartLocation + WorldDirection * MoveDistance;
+	}
+	else
+	{
+		TargetLocation = StartLocation + PlatformVelocity.GetSafeNormal() * MoveDistance;
+	}
+}
+
+void AMovingPlatform::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	MovePlatform(DeltaTime);
+	RotatePlatform(DeltaTime);
+}
+
+void AMovingPlatform::MovePlatform(float DeltaTime)
+{
+	FVector CurrentLocation = GetActorLocation();
+	FVector CurrentWorldVelocity;
+
+	if (bUseLocalSpaceMovement)
+	{
+		FVector LocalVelocityDirection = PlatformVelocity.GetSafeNormal();
+		CurrentWorldVelocity =
+			GetActorForwardVector() * LocalVelocityDirection.X +
+			GetActorRightVector() * LocalVelocityDirection.Y +
+			GetActorUpVector() * LocalVelocityDirection.Z;
+
+		CurrentWorldVelocity *= PlatformVelocity.Size();
+	}
+	else
+	{
+		CurrentWorldVelocity = PlatformVelocity;
+	}
+
+	CurrentLocation += CurrentWorldVelocity * DeltaTime;
+	SetActorLocation(CurrentLocation);
+
+	float DistanceFromStart = FVector::Dist(StartLocation, CurrentLocation);
+	float DistanceFromTarget = FVector::Dist(TargetLocation, CurrentLocation);
+
+	if (DistanceFromStart &gt;= MoveDistance &amp;&amp; FVector::DotProduct(CurrentWorldVelocity, (CurrentLocation - StartLocation)) &gt; 0)
+	{
+		PlatformVelocity = -PlatformVelocity;
+	}
+	else if (DistanceFromTarget &gt;= MoveDistance &amp;&amp; FVector::DotProduct(CurrentWorldVelocity, (CurrentLocation - TargetLocation)) &gt; 0)
+	{
+		PlatformVelocity = -PlatformVelocity;
+	}
+}
+
+void AMovingPlatform::RotatePlatform(float DeltaTime)
+{
+	AddActorLocalRotation(RotationVelocity * DeltaTime);
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- SUBSECTION B: CHECKPOINT & GOOGLE PLAY SERVICES -->
+                <h3 id="cpp-gpgs" class="sub-block-title">09. Checkpoints &amp; Google Play Achievement Triggers</h3>
+                <p class="copy-text">
+                    On mobile, players often hit their first checkpoint before Google Play Games finishes signing in, which can cause achievement unlocks to fail silently. To prevent lost progress, I exposed a safe unlock node on <code>UJumpRiftGameInstance</code> that queues unlocks until the Google Play cache is ready:
+                </p>
+
+                <!-- CLEAR 3-STEP CHECKPOINT & ACHIEVEMENT PIPELINE -->
+                <div class="infographic-card">
+                    <span class="infographic-label">Achievement Pipeline // How Checkpoints Save Progress &amp; Unlock Achievements Safely</span>
+                    <svg viewBox="0 0 820 195" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <marker id="jr-pipe-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)"/>
+                            </marker>
+                        </defs>
+
+                        <!-- Step 1 -->
+                        <rect x="15" y="20" width="235" height="152" rx="10" fill="var(--bg-subtle)" stroke="var(--border-light)" stroke-width="1.5"/>
+                        <text x="132" y="44" text-anchor="middle" fill="var(--accent)" font-family="sans-serif" font-size="10" font-weight="700">STEP 01 // TRIGGER</text>
+                        <text x="132" y="66" text-anchor="middle" fill="var(--text-main)" font-family="monospace" font-size="12" font-weight="700">BP_Checkpoint</text>
+                        <text x="132" y="92" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="11">Player crosses a checkpoint gate.</text>
+                        <text x="132" y="110" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="11">Updates respawn location right</text>
+                        <text x="132" y="128" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="11">away and requests the unlock.</text>
+
+                        <line x1="250" y1="96" x2="285" y2="96" stroke="var(--accent)" stroke-width="2" marker-end="url(#jr-pipe-arrow)"/>
+
+                        <!-- Step 2 -->
+                        <rect x="292" y="20" width="235" height="152" rx="10" fill="var(--bg-subtle)" stroke="var(--accent)" stroke-width="1.8"/>
+                        <text x="409" y="44" text-anchor="middle" fill="var(--accent)" font-family="sans-serif" font-size="10" font-weight="700">STEP 02 // SAFETY QUEUE</text>
+                        <text x="409" y="66" text-anchor="middle" fill="var(--text-main)" font-family="monospace" font-size="12" font-weight="700">UJumpRiftGameInstance</text>
+                        <text x="409" y="92" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="11">Checks if Google Play is ready.</text>
+                        <text x="409" y="110" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="11">If still loading, holds the unlock</text>
+                        <text x="409" y="128" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="11">in a retry queue so nothing drops.</text>
+
+                        <line x1="527" y1="96" x2="562" y2="96" stroke="var(--accent)" stroke-width="2" marker-end="url(#jr-pipe-arrow)"/>
+
+                        <!-- Step 3 -->
+                        <rect x="569" y="20" width="235" height="152" rx="10" fill="var(--bg-subtle)" stroke="var(--border-light)" stroke-width="1.5"/>
+                        <text x="686" y="44" text-anchor="middle" fill="var(--accent)" font-family="sans-serif" font-size="10" font-weight="700">STEP 03 // SYNCED UNLOCK</text>
+                        <text x="686" y="66" text-anchor="middle" fill="var(--text-main)" font-family="monospace" font-size="12" font-weight="700">Google Play Services</text>
+                        <text x="686" y="92" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="11">Once the player cache is verified,</text>
+                        <text x="686" y="110" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="11">submits 100% completion and</text>
+                        <text x="686" y="128" text-anchor="middle" fill="var(--text-muted)" font-family="sans-serif" font-size="11">blocks duplicate unlock calls.</text>
+                    </svg>
+                </div>
+
+                <ul class="clean-list">
+                    <li><strong>Automatic Play Games Login:</strong> Signs in automatically on Android during startup and notifies UI widgets via <code>OnGooglePlayLoginCompleted</code>.</li>
+                    <li><strong>Early-Checkpoint Protection:</strong> Syncs the player's online ID and polls a short retry queue so early checkpoint unlocks never drop before Google Play finishes loading.</li>
+                </ul>
+
+                <!-- INTERACTIVE BLUEPRINT 1: BP_Checkpoint -->
+                <div class="detail-drawer open">
+                    <button type="button" class="drawer-header">
+                        <span>Interactive Graph: BP_Checkpoint (Respawn Persistence &amp; Unlock Trigger)</span>
+                        <span class="drawer-icon">+</span>
+                    </button>
+                    <div class="drawer-body">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+                            <span style="font-size: 0.88rem;">Drag to pan and scroll to zoom the live UE 5.6 node graph:</span>
+                            <a href="https://blueprintue.com/blueprint/ar792y1o/" target="_blank" rel="noopener noreferrer" class="btn-outline" style="padding: 0.4rem 1rem; font-size: 0.8rem;">Open Fullscreen on BlueprintUE ↗</a>
+                        </div>
+                        <div class="bpue-embed">
+                            <iframe src="https://blueprintue.com/render/ar792y1o/" scrolling="no" allowfullscreen title="BP_Checkpoint Blueprint Graph"></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INTERACTIVE BLUEPRINT 2: BP_AchievementTrigger -->
+                <div class="detail-drawer">
+                    <button type="button" class="drawer-header">
+                        <span>+ Interactive Graph: BP_AchievementTrigger (Reusable Volume Trigger)</span>
+                        <span class="drawer-icon">+</span>
+                    </button>
+                    <div class="drawer-body">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 0.75rem;">
+                            <span style="font-size: 0.88rem;">Passes an instance-editable <code>AchievementName</code> string directly into <code>UJumpRiftGameInstance</code>:</span>
+                            <a href="https://blueprintue.com/blueprint/n_cxoy5_/" target="_blank" rel="noopener noreferrer" class="btn-outline" style="padding: 0.4rem 1rem; font-size: 0.8rem;">Open Fullscreen on BlueprintUE ↗</a>
+                        </div>
+                        <div class="bpue-embed">
+                            <iframe src="https://blueprintue.com/render/n_cxoy5_/" scrolling="no" allowfullscreen title="BP_AchievementTrigger Blueprint Graph"></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COLLAPSIBLE SOURCE DRAWER: UJumpRiftGameInstance -->
+                <div class="detail-drawer">
+                    <button type="button" class="drawer-header">
+                        <span>+ Inspect Helper Source: JumpRiftGameInstance.h &amp; Achievement Cache Queue</span>
+                        <span class="drawer-icon">+</span>
+                    </button>
+                    <div class="drawer-body">
+                        <span class="code-filename">JumpRiftGameInstance.h</span>
+                        <pre class="code-block"><code>#pragma once
+
+#include "CoreMinimal.h"
+#include "Containers/Ticker.h"
+#include "Engine/GameInstance.h"
+#include "JumpRiftGameInstance.generated.h"
+
+class APlayerController;
+class FUniqueNetId;
+struct FOnlineAchievement;
+
+struct FPendingGooglePlayAchievementUnlock
+{
+    FString AchievementName;
+    TSharedPtr&lt;const FUniqueNetId&gt; UserId;
+};
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(
+    FGooglePlayLoginCompletedSignature,
+    bool, bWasSuccessful,
+    const FString&amp;, PlayerId,
+    const FString&amp;, ErrorMessage
+);
+
+UCLASS()
+class OBSTACLEASSAULT_API UJumpRiftGameInstance : public UGameInstance
+{
+    GENERATED_BODY()
+
+public:
+    virtual void Init() override;
+    virtual void Shutdown() override;
+
+    UFUNCTION(BlueprintCallable, Category = "Google Play|Achievements")
+    bool RequestGooglePlayAchievementUnlock(APlayerController* LocalPlayerController, const FString&amp; AchievementName);
+
+    UFUNCTION(BlueprintCallable, Category = "Google Play|Diagnostics")
+    void LogAchievementIdentityDiagnostics(APlayerController* PlayerController);
+
+    UPROPERTY(BlueprintAssignable, Category = "Google Play")
+    FGooglePlayLoginCompletedSignature OnGooglePlayLoginCompleted;
+
+private:
+    void HandleGooglePlayLoginComplete(int32 LocalUserNum, bool bWasSuccessful, const FUniqueNetId&amp; UserId, const FString&amp; Error);
+    void HandleAchievementWriteComplete(const FUniqueNetId&amp; UserId, bool bWasSuccessful, FString AchievementName);
+    bool SubmitCachedAchievementUnlock(const FString&amp; AchievementName, const TSharedPtr&lt;const FUniqueNetId&gt;&amp; UserId, const FOnlineAchievement&amp; CachedAchievement);
+    void StartAchievementCachePolling();
+    void StopAchievementCachePolling();
+    bool PollPendingAchievementUnlocks(float DeltaTime);
+
+    TSet&lt;FString&gt; PendingAchievementUnlocks;
+    TSet&lt;FString&gt; CompletedAchievementUnlocks;
+    TMap&lt;FString, FPendingGooglePlayAchievementUnlock&gt; PendingCacheAchievementUnlocks;
+    FTSTicker::FDelegateHandle AchievementCachePollTickerHandle;
+    FDelegateHandle GooglePlayLoginDelegateHandle;
+};</code></pre>
+
+                        <span class="code-filename">JumpRiftGameInstance.cpp (Cache-Safe Achievement Unlock &amp; Polling)</span>
+                        <pre class="code-block"><code>bool UJumpRiftGameInstance::RequestGooglePlayAchievementUnlock(APlayerController* LocalPlayerController, const FString&amp; AchievementName)
+{
+    if (AchievementName.IsEmpty()) return false;
+
+#if !PLATFORM_ANDROID
+    return false;
+#else
+    const UAndroidRuntimeSettings* AndroidSettings = GetDefault&lt;UAndroidRuntimeSettings&gt;();
+    const FGooglePlayAchievementMapping* Mapping = AndroidSettings
+        ? AndroidSettings-&gt;AchievementMap.FindByPredicate([&amp;AchievementName](const FGooglePlayAchievementMapping&amp; Candidate)
+            {
+                return Candidate.Name.Equals(AchievementName, ESearchCase::CaseSensitive);
+            })
+        : nullptr;
+
+    if (!Mapping || Mapping-&gt;AchievementID.IsEmpty()) return false;
+    if (!IsValid(LocalPlayerController) || !LocalPlayerController-&gt;IsLocalController()) return false;
+
+    IOnlineSubsystem* OnlineSubsystem = IOnlineSubsystem::Get();
+    if (!OnlineSubsystem || OnlineSubsystem-&gt;GetSubsystemName() != FName(TEXT("GOOGLEPLAY"))) return false;
+
+    IOnlineIdentityPtr IdentityInterface = OnlineSubsystem-&gt;GetIdentityInterface();
+    if (!IdentityInterface.IsValid() || IdentityInterface-&gt;GetLoginStatus(0) != ELoginStatus::LoggedIn) return false;
+
+    const FUniqueNetIdPtr OSSUserId = IdentityInterface-&gt;GetUniquePlayerId(0);
+    IOnlineAchievementsPtr Achievements = OnlineSubsystem-&gt;GetAchievementsInterface();
+    if (!OSSUserId.IsValid() || !Achievements.IsValid()) return false;
+
+    const FString RequestKey = MakeAchievementRequestKey(AchievementName, *OSSUserId);
+    if (PendingAchievementUnlocks.Contains(RequestKey) || CompletedAchievementUnlocks.Contains(RequestKey))
+    {
+        return false;
+    }
+
+    FOnlineAchievement CachedAchievement;
+    if (Achievements-&gt;GetCachedAchievement(*OSSUserId, AchievementName, CachedAchievement) != EOnlineCachedResult::Success)
+    {
+        FPendingGooglePlayAchievementUnlock QueuedRequest;
+        QueuedRequest.AchievementName = AchievementName;
+        QueuedRequest.UserId = OSSUserId;
+        PendingCacheAchievementUnlocks.Add(RequestKey, MoveTemp(QueuedRequest));
+        StartAchievementCachePolling();
+        return true;
+    }
+
+    return SubmitCachedAchievementUnlock(AchievementName, OSSUserId, CachedAchievement);
+#endif
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PREVIOUS / NEXT PROJECT PAGINATION -->
+            <div class="project-pagination">
+                <a href="scttv.html" class="doc-pill">← Previous: Shattered Charms: Through The Veil</a>
+                <a href="eof.html" class="btn-solid">Next: Eclipse of Fear →</a>
+            </div>
+        </main>
+
+        <!-- RIGHT-SIDE FLOATING TABLE OF CONTENTS -->
+        <aside class="right-sidebar" aria-label="Page Contents">
+            <h2 class="toc-heading" title="Scroll to top">Contents</h2>
+            <ul class="toc-list">
+                <li class="toc-item"><a href="#overview" class="toc-link">01. Overview &amp; Goal</a></li>
+                <li class="toc-item"><a href="#night-mode" class="toc-link">02. Night Mode &amp; Gameplay</a></li>
+                <li class="toc-item toc-sub"><a href="#day-mode" class="toc-link">Day Mode Progression</a></li>
+                <li class="toc-item"><a href="#game-feel" class="toc-link">03. Game Feel &amp; Controls</a></li>
+                <li class="toc-item"><a href="#level-breakdown" class="toc-link">04. Course Pacing &amp; Sightlines</a></li>
+                <li class="toc-item"><a href="#playtesting" class="toc-link">05. Playtesting &amp; Iterations</a></li>
+                <li class="toc-item toc-sub"><a href="#raw-sketches" class="toc-link">06. Raw Notebook Sketches</a></li>
+                <li class="toc-item"><a href="#technical-design" class="toc-link" style="color: var(--accent); font-weight: 700;">07. Technical Design</a></li>
+                <li class="toc-item toc-sub"><a href="#cpp-platform" class="toc-link">08. Moving Platform Actor</a></li>
+                <li class="toc-item toc-sub"><a href="#cpp-gpgs" class="toc-link">09. Checkpoints &amp; GPGS</a></li>
+            </ul>
+        </aside>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="mailto:gamesbykarunaket@gmail.com">Email</a>
+            <a href="https://www.linkedin.com/in/karunaket/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://karuna-ketan.itch.io/" target="_blank" rel="noopener noreferrer">itch.io</a>
+        </div>
+        <p class="footer-copy">© 2026 Karuna Ketan.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        (function () {
+            const slider = document.getElementById('jumprift-hero-slider');
+            if (!slider) return;
+
+            const slides = Array.from(slider.querySelectorAll('.hero-slide'));
+            const dots = Array.from(slider.querySelectorAll('.slider-dot'));
+            const prevBtn = slider.querySelector('.prev-slide');
+            const nextBtn = slider.querySelector('.next-slide');
+
+            function syncDots(activeIdx) {
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active-dot', i === activeIdx);
+                });
+            }
+
+            function goToSlide(index) {
+                const target = (index + slides.length) % slides.length;
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active-slide', i === target);
+                });
+                syncDots(target);
+            }
+
+            function getCurrentIndex() {
+                const idx = slides.findIndex(s => s.classList.contains('active-slide'));
+                return idx >= 0 ? idx : 0;
+            }
+
+            if (prevBtn) {
+                prevBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    goToSlide(getCurrentIndex() - 1);
+                });
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    goToSlide(getCurrentIndex() + 1);
+                });
+            }
+
+            dots.forEach((dot, i) => {
+                dot.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    goToSlide(i);
+                });
+            });
+
+            // Keep dots synced even when script.js auto-advances slides
+            const observer = new MutationObserver(() => {
+                syncDots(getCurrentIndex());
+            });
+            slides.forEach(slide => {
+                observer.observe(slide, { attributes: true, attributeFilter: ['class'] });
+            });
+        })();
+    </script>
+</body>
+</html>

@@ -3,451 +3,511 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio of Karuna Ketan, a Game Designer specializing in system design, player psychology, and game economy.">
-    <title>Karuna Ketan | Game Designer</title>
-    
+    <meta name="description" content="Karuna Ketan - Game Designer & Technical Game Designer specializing in Player Psychology, Systems Design, Level Design, and Game Economy.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Karuna Ketan | Game Designer & Technical Game Designer">
+    <meta property="og:description" content="Game & Technical Designer specializing in combat systems, AI Behavior Trees, game economy, and level pacing in Unreal Engine 5.">
+    <meta property="og:image" content="assets/profile.jpeg">
+    <title>Karuna Ketan | Game Designer &amp; Technical Game Designer</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23D45B3E'/%3E%3Cpath d='M21 24h22a9 9 0 0 1 8.8 10.9l-2.1 9.5a5.5 5.5 0 0 1-9.4 2.6L36 42.5h-8l-4.3 4.5a5.5 5.5 0 0 1-9.4-2.6l-2.1-9.5A9 9 0 0 1 21 24z' fill='%23FAF9F5'/%3E%3Crect x='20' y='30' width='2.5' height='7' rx='1' fill='%23D45B3E'/%3E%3Crect x='17.75' y='32.25' width='7' height='2.5' rx='1' fill='%23D45B3E'/%3E%3Ccircle cx='42' cy='31.5' r='1.7' fill='%23D45B3E'/%3E%3Ccircle cx='45.5' cy='35' r='1.7' fill='%23D45B3E'/%3E%3C/svg%3E">
     <link rel="stylesheet" href="style.css">
-
     <style>
-        /* --- 1. PREMIUM MINIMALIST PALETTE --- */
-        :root {
-            --bg-page: #FAF9F5; 
-            --text-main: #111111; 
-            --text-muted: #555555;
-            --accent: #D45B3E; 
-            --border-light: rgba(0,0,0,0.08);
-            
-            --font-display: 'Oswald', sans-serif;
-            --font-body: 'Montserrat', sans-serif;
+        /* --- STICKY HEADER & FILTER BAR SUPPORT --- */
+        html, body, main {
+            overflow-x: clip !important;
         }
 
-        body {
-            background-color: var(--bg-page);
-            color: var(--text-main);
-            font-family: var(--font-body);
-            margin: 0;
-            padding: 0;
-            line-height: 1.7;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        /* --- 2. FLOATING EDITORIAL HEADER --- */
         .minimal-header {
-            background: rgba(250, 249, 245, 0.9);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-light);
-            padding: 1.2rem 2rem;
             position: sticky;
             top: 0;
-            z-index: 2000;
+            z-index: 1000;
         }
-        .header-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--text-main); letter-spacing: 2px; text-decoration: none;}
-        
-        .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; margin: 0;}
-        .nav-links a { color: var(--text-muted); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: color 0.3s ease; }
-        .nav-links a:hover { color: var(--accent); }
-        
-        .header-resume-btn {
-            background: var(--text-main);
-            color: #fff !important;
-            padding: 0.6rem 1.8rem;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        .header-resume-btn:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(212, 91, 62, 0.25);}
 
-        /* --- 3. IMMERSIVE HERO SECTION --- */
-        .hero-section {
-            max-width: 1300px;
-            margin: 6rem auto 8rem auto;
+        /* --- ABOUT ME HERO --- */
+        .hero-about {
+            max-width: 1220px;
+            margin: 3.5rem auto 2.5rem auto;
             padding: 0 2rem;
-            display: flex;
+            display: grid;
+            grid-template-columns: 1.45fr 0.55fr;
+            gap: 3.5rem;
             align-items: center;
-            gap: 6rem;
         }
-        .hero-copy { flex: 1.2; }
-        
-        .hero-badge { 
-            font-family: var(--font-body); 
-            color: var(--text-main); 
-            text-transform: uppercase; 
-            letter-spacing: 2px; 
-            font-size: 0.85rem; 
-            margin-bottom: 1rem; 
-            display: block; 
-        }
-        
+
         .hero-title {
             font-family: var(--font-display);
-            font-size: 4.5rem;
-            line-height: 1.1;
+            font-size: clamp(2.15rem, 4.5vw, 3.2rem);
+            font-weight: 700;
+            line-height: 1.08;
+            letter-spacing: -0.6px;
+            margin: 0.25rem 0 1.15rem 0;
             color: var(--text-main);
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
         }
-        
+
         .hero-bio {
-            font-size: 1.1rem;
+            font-size: 1.02rem;
             color: var(--text-muted);
-            line-height: 1.8;
-            max-width: 650px;
-            margin-bottom: 2.5rem;
+            line-height: 1.78;
+            margin: 0 0 1rem 0;
         }
-        .hero-bio strong { color: var(--text-main); font-weight: 700; }
-        
-        /* PERFECTLY ALIGNED BUTTONS */
-        .hero-actions { 
-            display: flex; 
-            gap: 1rem; 
-            align-items: center; 
+
+        .hero-bio strong {
+            color: var(--text-main);
+        }
+
+        .hero-specialty {
+            font-size: 0.96rem;
+            color: var(--text-main);
+            margin: 0 0 1.8rem 0;
+            padding-left: 0.95rem;
+            border-left: 3px solid var(--accent);
+            line-height: 1.65;
+        }
+
+        .hero-specialty span {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .hero-links {
+            display: flex;
             flex-wrap: wrap;
+            gap: 0.85rem;
+            align-items: center;
         }
-        
-        .btn-primary, .btn-ghost {
+
+        .social-pill {
+            font-family: var(--font-display);
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-main);
+            padding: 0.7rem 1.35rem;
+            border: 1px solid var(--border-light);
+            background: var(--bg-surface);
+            border-radius: 50px;
+            transition: all 0.2s ease;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            height: 55px; 
-            padding: 0 2rem;
-            border-radius: 50px;
+        }
+
+        .social-pill:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .hero-photo-wrap {
+            justify-self: center;
+            width: 265px;
+            height: 265px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--bg-surface);
+            box-shadow: var(--shadow-md);
+        }
+
+        .hero-photo-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- STICKY FILTER & QUICK JUMP BAR --- */
+        .control-bar-wrap {
+            position: sticky;
+            top: var(--header-h, 67px);
+            z-index: 900;
+            max-width: 1220px;
+            margin: 0 auto 2.2rem auto;
+            padding: 0.65rem 2rem;
+            background: var(--bg-page);
+            transition: background-color 0.25s ease;
+        }
+
+        .control-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.85rem;
+            padding: 0.75rem 1.2rem;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .filter-group,
+        .jump-group {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.45rem;
+        }
+
+        .bar-label {
             font-family: var(--font-display);
-            font-weight: 600;
+            font-size: 0.75rem;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
-            text-decoration: none;
-            transition: 0.3s;
-            box-sizing: border-box;
-            white-space: nowrap;
-            line-height: 1;
-        }
-        
-        .btn-primary {
-            background: var(--text-main); 
-            color: #fff; 
-            border: 2px solid transparent; 
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
-        .btn-primary:hover { 
-            background: var(--accent); 
-            border-color: var(--accent);
-            transform: translateY(-3px); 
-            box-shadow: 0 10px 25px rgba(212, 91, 62, 0.25); 
-        }
-        
-        .btn-ghost {
-            background: transparent; 
-            color: var(--text-main); 
-            border: 2px solid rgba(0,0,0,0.15);
-        }
-        .btn-ghost:hover { 
-            border-color: var(--text-main); 
-            transform: translateY(-3px);
+            color: var(--text-muted);
+            margin-right: 0.3rem;
         }
 
-        .hero-image {
-            flex: 0.8;
-            position: relative;
-            display: flex;
-            justify-content: center;
-        }
-        .hero-image img {
-            width: 100%;
-            max-width: 400px;
-            aspect-ratio: 1 / 1;
-            border-radius: 50%;
-            object-fit: cover;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-            border: 8px solid #fff;
-        }
-
-        /* --- 4. SIDEBAR & CONTENT LAYOUT --- */
-        .home-layout {
-            max-width: 1300px;
-            margin: 0 auto 6rem auto;
-            padding: 0 2rem;
-            display: flex;
-            gap: 5rem;
-            align-items: flex-start;
-        }
-
-        .home-sidebar {
-            flex: 0 0 220px;
-            position: sticky;
-            top: 120px; 
-            height: fit-content;
-        }
-        .sidebar-nav {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-        }
-        .sidebar-link {
+        .filter-btn {
             font-family: var(--font-display);
-            text-transform: uppercase;
+            font-size: 0.83rem;
+            font-weight: 600;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            background: var(--bg-page);
+            border: 1px solid var(--border-light);
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .filter-btn.active-filter {
+            background: var(--accent);
+            color: #FFFFFF;
+            border-color: var(--accent);
+        }
+
+        .jump-link {
+            font-size: 0.83rem;
             font-weight: 600;
             color: var(--text-muted);
-            text-decoration: none;
-            transition: 0.3s;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            padding-left: 1rem;
-            border-left: 3px solid transparent;
-            display: block;
-        }
-        .sidebar-link:hover, .sidebar-link.active {
-            color: var(--accent);
-            border-left-color: var(--accent);
+            padding: 0.35rem 0.65rem;
+            border-radius: 6px;
+            transition: color 0.2s ease;
         }
 
-        .home-content {
-            flex: 1;
+        .jump-link:hover {
+            color: var(--accent);
+        }
+
+        /* --- PROJECT LIST --- */
+        .projects-wrapper {
+            max-width: 1220px;
+            margin: 0 auto 5.5rem auto;
+            padding: 0 2rem;
+        }
+
+        .category-divider {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 2.6rem 0 1.4rem 0;
+            padding-bottom: 0.55rem;
+            border-bottom: 1px solid var(--border-light);
+            scroll-margin-top: calc(var(--header-h, 67px) + 78px);
+        }
+
+        .category-divider.is-filtered-out,
+        .project-card.is-filtered-out {
+            display: none !important;
+        }
+
+        .project-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: 14px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 0.95fr 1.05fr;
+            align-items: center;
+            margin-bottom: 1.85rem;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.22s ease;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .project-thumb {
+            display: block;
+            padding: 1.25rem 0 1.25rem 1.25rem;
             min-width: 0;
         }
 
-        .scroll-section {
-            scroll-margin-top: 140px; 
-        }
-
-        /* DYNAMIC SECTION TITLES */
-        .section-title {
-            font-family: var(--font-display);
-            font-size: 3.5rem;
-            text-transform: uppercase;
-            margin-bottom: 5rem;
-            color: var(--text-main);
-        }
-        .section-title::after {
-            content: '.';
-            color: var(--accent);
-        }
-
-        /* EDITORIAL CATEGORY TITLES */
-        .thin-section-title {
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 1.8rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: var(--text-main);
-            margin-bottom: 4rem;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .thin-section-title::before {
-            content: '✦';
-            color: var(--accent);
-            font-size: 1.2rem;
-        }
-        .thin-section-title::after {
-            content: '';
-            height: 2px;
-            flex-grow: 1;
-            background: var(--border-light);
-        }
-
-        /* --- 5. PROJECT CARDS --- */
-        .immersive-project {
-            display: flex;
-            align-items: center;
-            gap: 4rem;
-            margin-bottom: 8rem;
-        }
-        .immersive-project:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-
-        .project-media {
-            flex: 1.4;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        /* Continuous Auto-Sliding GIF Reel (No Arrows, No Dots) */
+        .thumb-reel {
             position: relative;
-            background: #000;
-            aspect-ratio: 16/10;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 10px;
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+            background: #0a0a0c;
         }
-        
+
+        .thumb-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.65s ease-in-out;
+            z-index: 1;
+        }
+
+        .thumb-slide.active-slide {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .thumb-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
         .project-info {
-            flex: 1;
+            padding: 2rem 2.3rem;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
+            min-width: 0;
         }
 
-        .p-title { font-family: var(--font-display); font-size: 2.8rem; margin-bottom: 0.5rem; line-height: 1.1; text-transform: uppercase;}
-        
-        .p-details {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            font-weight: 500;
-            margin-bottom: 1.5rem;
-            line-height: 1.5;
-        }
-        .p-details strong { color: var(--text-main); font-weight: 700; }
-
-        .p-desc { color: var(--text-muted); font-size: 1.05rem; line-height: 1.8; margin-bottom: 2rem; }
-        
-        .p-bullets { list-style: none; margin-bottom: 2.5rem; padding: 0; }
-        .p-bullets li { position: relative; padding-left: 1.5rem; margin-bottom: 0.8rem; font-size: 0.95rem; color: var(--text-main); }
-        .p-bullets li::before { content: "✦"; position: absolute; left: 0; color: var(--accent); font-size: 0.8rem; top: 2px;}
-
-        /* HIGH VISIBILITY PROJECT BUTTONS */
-        .btn-outline {
-            display: inline-flex;
+        .project-header {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            height: 55px;
-            padding: 0 2.5rem;
-            background: var(--accent);
-            color: #fff;
-            border-radius: 50px;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .project-name {
             font-family: var(--font-display);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            text-decoration: none;
-            align-self: center; /* Centered under text */
-            transition: 0.3s;
-            box-sizing: border-box;
-            white-space: nowrap;
-            box-shadow: 0 10px 25px rgba(212, 91, 62, 0.3);
-            border: 2px solid transparent;
-        }
-        .btn-outline:hover { 
-            background: var(--text-main); 
-            color: #fff; 
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.25);
+            font-size: clamp(1.45rem, 2.5vw, 1.85rem);
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin: 0.25rem 0 0.75rem 0;
+            line-height: 1.15;
         }
 
-        .gif-cycler img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; transition: opacity 0.8s ease-in-out; }
-        .gif-cycler img:not(.active-gif) { opacity: 0; }
-        .gif-cycler img.active-gif { opacity: 1; z-index: 2; }
-
-        /* --- 6. PROCESS GRID (CENTERED BOTTOM ROW) --- */
-        .process-wrapper {
-            background: #fff;
-            padding: 4rem;
-            border-radius: 16px;
-            border: 1px solid var(--border-light);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
-            margin-bottom: 4rem;
-            margin-top: 4rem;
+        .project-name a {
+            color: var(--text-main);
+            transition: color 0.2s ease;
         }
-        
-        .process-grid {
+
+        .project-name a:hover {
+            color: var(--accent);
+        }
+
+        .meta-specs {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center; /* This perfectly centers the bottom row! */
-            gap: 2rem;
+            gap: 0.5rem 1.3rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            padding: 0.7rem 0;
+            border-top: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
+            margin-bottom: 0.95rem;
         }
-        
-        .process-step { 
-            width: calc(33.333% - 1.34rem); /* 3 cards per row exactly */
-            background: var(--bg-page);
-            padding: 2.5rem 2rem;
-            border-radius: 12px;
-            border: 1px solid rgba(0,0,0,0.03);
-            transition: 0.3s;
-            box-sizing: border-box;
+
+        .meta-specs span strong {
+            color: var(--text-main);
         }
-        
-        .process-step:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.06);
-            border-color: rgba(0,0,0,0.08);
+
+        .project-summary {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin: 0 0 0.9rem 0;
+            line-height: 1.68;
         }
-        
-        .icon-circle {
-            width: 50px; height: 50px;
-            background: rgba(212, 91, 62, 0.1);
+
+        .project-bullets {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.4rem 0;
+        }
+
+        .project-bullets li {
+            position: relative;
+            padding-left: 1.2rem;
+            font-size: 0.91rem;
+            color: var(--text-muted);
+            margin-bottom: 0.45rem;
+            line-height: 1.58;
+            overflow-wrap: break-word;
+        }
+
+        .project-bullets li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
             color: var(--accent);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
+            font-weight: 700;
         }
 
-        .process-step h4 { font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 0.8rem; color: var(--text-main); letter-spacing: 0.5px;}
-        .process-step p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin: 0; }
+        .project-cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+            align-items: center;
+        }
 
-        /* --- BULLETPROOF MOBILE MENU & LAYOUT --- */
-        .menu-toggle { display: none; flex-direction: column; justify-content: space-between; width: 30px; height: 21px; background: transparent; border: none; cursor: pointer; z-index: 2000; position: relative; }
-        .menu-toggle .bar { width: 100%; height: 3px; background-color: var(--text-main); transition: 0.3s ease; border-radius: 2px; }
+        /* --- MY PROCESS --- */
+        .process-section {
+            max-width: 1220px;
+            margin: 0 auto 6rem auto;
+            padding: 0 2rem;
+            scroll-margin-top: calc(var(--header-h, 67px) + 78px);
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.2rem;
+            margin-top: 1.4rem;
+        }
+
+        .process-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 1.55rem;
+            box-shadow: var(--shadow-sm);
+            transition: border-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .process-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .process-icon {
+            font-size: 1.4rem;
+            margin-bottom: 0.55rem;
+            display: block;
+        }
+
+        .process-step-title {
+            font-family: var(--font-display);
+            font-size: 1.18rem;
+            font-weight: 700;
+            margin: 0 0 0.45rem 0;
+            color: var(--text-main);
+        }
+
+        .process-step-desc {
+            font-size: 0.89rem;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.6;
+        }
 
         @media (max-width: 1024px) {
-            .hero-section { flex-direction: column; text-align: center; gap: 4rem; margin-top: 4rem;}
-            .hero-actions { justify-content: center; }
-            .hero-bio { margin: 0 auto 2.5rem auto; }
-            .hero-image img { max-width: 350px; }
-            
-            .home-layout { flex-direction: column; gap: 3rem; }
-            
-            .home-sidebar { 
-                position: sticky; 
-                top: 70px;
-                width: 100%; 
-                background: var(--bg-page);
-                z-index: 1900;
-                border-bottom: 1px solid var(--border-light); 
-                padding: 1rem 0;
+            .hero-about,
+            .project-card {
+                grid-template-columns: 1fr;
             }
-            .sidebar-nav {
-                flex-direction: row;
-                overflow-x: auto;
-                white-space: nowrap;
-                justify-content: flex-start;
-                gap: 2rem;
-                padding-bottom: 0.5rem;
+            .hero-photo-wrap {
+                order: -1;
+                justify-self: center;
+                margin: 0 auto;
+                width: 195px;
+                height: 195px;
             }
-            .sidebar-nav::-webkit-scrollbar { display: none; }
-            .sidebar-nav { -ms-overflow-style: none; scrollbar-width: none; }
-            
-            .sidebar-link {
-                border-left: none;
-                border-bottom: 2px solid transparent;
-                padding-left: 0;
-                padding-bottom: 0.5rem;
+            .project-thumb {
+                padding: 1.25rem 1.25rem 0 1.25rem;
             }
-            .sidebar-link:hover, .sidebar-link.active {
-                border-left-color: transparent;
-                border-bottom-color: var(--accent);
+            .process-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
-
-            .immersive-project, .immersive-project:nth-child(even) { flex-direction: column; gap: 3rem; margin-bottom: 6rem;}
-            .project-media { width: 100%; aspect-ratio: 16/9; }
-            .project-info { padding: 0; align-items: center; text-align: center;}
-            .btn-outline { align-self: center; }
-            .p-bullets li { text-align: left; } 
-            
-            /* Switch to 2 columns on tablets */
-            .process-step { width: calc(50% - 1rem); }
         }
 
         @media (max-width: 768px) {
-            .menu-toggle { display: flex !important; }
-            .nav-links { position: fixed !important; top: 0 !important; right: -100% !important; width: 100% !important; height: 100vh !important; background-color: var(--bg-page) !important; display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: center !important; gap: 2.5rem !important; z-index: 1500 !important; transition: right 0.4s ease-in-out !important; }
-            .nav-links.active { right: 0 !important; }
-            .nav-links a { font-size: 1.5rem !important; color: var(--text-main) !important; }
-            .menu-toggle.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg) !important; }
-            .menu-toggle.active .bar:nth-child(2) { opacity: 0 !important; }
-            .menu-toggle.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg) !important; }
-            
-            .hero-title { font-size: 3.5rem; }
-            .hero-actions { flex-direction: column; width: 100%;}
-            .btn-primary, .btn-ghost, .btn-outline { width: 100%; text-align: center; justify-content: center;}
-            
-            .process-wrapper { padding: 2rem 1.5rem; }
-            .process-grid { gap: 1.5rem;}
-            /* Switch to 1 column on phones */
-            .process-step { width: 100%; } 
+            /* Hide RESUME button inside the mobile hamburger drawer */
+            .nav-links li:has(.header-resume-btn),
+            .header-resume-btn {
+                display: none !important;
+            }
+
+            .hero-about {
+                margin: 2.2rem auto 2rem auto;
+                gap: 1.75rem;
+                text-align: center;
+            }
+            .hero-specialty {
+                text-align: left;
+            }
+            .hero-links {
+                justify-content: center;
+            }
+
+            /* Keep filter & jump bar static on mobile so all pills render cleanly without eating viewport height */
+            .control-bar-wrap {
+                position: static;
+                padding: 0 1.25rem;
+                margin-bottom: 1.75rem;
+            }
+            .control-bar {
+                padding: 0.8rem 0.95rem;
+                gap: 0.65rem;
+            }
+            .filter-group,
+            .jump-group {
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 0.4rem;
+            }
+            .category-divider,
+            .process-section {
+                scroll-margin-top: calc(var(--header-h, 60px) + 20px);
+            }
+            .hero-about,
+            .projects-wrapper,
+            .process-section {
+                padding: 0 1.25rem;
+            }
+            .project-thumb {
+                padding: 1rem 1rem 0 1rem;
+            }
+            .project-info {
+                padding: 1.35rem;
+            }
+        }
+
+        @media (max-width: 540px) {
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-links,
+            .project-cta-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .social-pill,
+            .hero-links .btn-solid,
+            .project-cta-row a {
+                width: 100%;
+                justify-content: center;
+            }
+            .filter-btn {
+                font-size: 0.78rem;
+                padding: 0.36rem 0.82rem;
+            }
+            .jump-link {
+                font-size: 0.78rem;
+                padding: 0.3rem 0.55rem;
+            }
         }
     </style>
 </head>
@@ -456,323 +516,341 @@
     <header class="minimal-header">
         <div class="header-content">
             <a href="index.html" class="logo">KARUNA KETAN.</a>
-            
-            <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Navigation">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-
-            <nav>
-                <ul class="nav-links" id="nav-links">
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="documents.html">Docs</a></li>
-                    <li><a href="#process">Process</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="resume.pdf" target="_blank" class="header-resume-btn">RESUME</a></li>
-                </ul>
-            </nav>
+            <div class="nav-right">
+                <nav>
+                    <ul class="nav-links" id="nav-links">
+                        <li><a href="index.html" class="active-nav">Projects</a></li>
+                        <li><a href="process.html">Process</a></li>
+                        <li><a href="documents.html">Documents</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="resume.html" class="header-resume-btn">RESUME</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Light/Dark Mode" title="Switch Theme">🌙</button>
+                <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle navigation">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
         </div>
     </header>
 
     <main>
-        <section class="hero-section">
-            <div class="hero-copy">
-                <span class="hero-badge"><b>ABOUT ME</b></span>
+        <!-- ABOUT ME HERO -->
+        <section class="hero-about">
+            <div>
+                <span class="section-label">Game Designer &amp; Technical Game Designer</span>
                 <h1 class="hero-title">Hello, I'm Karuna Ketan.</h1>
                 <p class="hero-bio">
-                    I am a Game Designer specializing in <strong>Player Psychology</strong>, <strong>System Design</strong>, <strong>Level Design</strong> and <strong>Game Economy</strong>. Leveraging a strong technical background, I translate creative pillars into actionable Game Design Documents (GDDs) and rapid prototypes. I am driven by crafting balanced gameplay loops, level blockous and spatial layouts that create intentional, deeply engaging player experiences.
+                    From a studio co-op game to shipped mobile and PC releases, I turn rough notebook sketches into clear GDDs, balanced combat math, and playable prototypes. Blending <strong>Game Design</strong> and <strong>Technical Design</strong> with <strong>Player Psychology</strong>, I build tight gameplay loops, fair fights, and clean level layouts that create tense, rewarding player experiences.
                 </p>
-                <div class="hero-actions">
-                    <a href="resume.pdf" target="_blank" class="btn-primary">View Resume</a>
-                    <a href="https://www.linkedin.com/in/karunaket/" target="_blank" class="btn-ghost">LinkedIn ↗</a>
-                    <a href="https://karuna-ketan.itch.io/" target="_blank" class="btn-ghost">Itch.io ↗</a>
+                <p class="hero-specialty">
+                    Focused on <span>gameplay mechanics, combat &amp; enemy AI, game economy, and level design &amp; pacing</span>.
+                </p>
+                <div class="hero-links">
+                    <a href="resume.html" target="_blank" rel="noopener" class="btn-solid">Game Design Resume ↗</a>
+                    <a href="resume.html?role=tech" target="_blank" rel="noopener" class="btn-solid">Technical Design Resume ↗</a>
+                    <a href="https://www.linkedin.com/in/karunaket/" target="_blank" rel="noopener" class="btn-outline">LinkedIn ↗</a>
+                    <a href="https://karuna-ketan.itch.io/" target="_blank" rel="noopener" class="btn-outline">Itch.io ↗</a>
                 </div>
             </div>
-            
-            <div class="hero-image">
-                <img src="assets/profile.jpeg" alt="Karuna Ketan Portrait">
+
+            <div class="hero-photo-wrap">
+                <img src="assets/profile.jpeg" alt="Karuna Ketan">
             </div>
         </section>
 
-        <div class="home-layout">
-            
-            <aside class="home-sidebar">
-                <ul class="sidebar-nav">
-                    <li><a href="#professional" class="sidebar-link active">Professional</a></li>
-                    <li><a href="#personal" class="sidebar-link">Personal</a></li>
-                    <li><a href="#deconstruction" class="sidebar-link">Deconstruction</a></li>
-                    <li><a href="#process" class="sidebar-link">My Process</a></li>
-                </ul>
-            </aside>
-
-            <div class="home-content" id="projects">
-                
-                <h2 class="section-title">Projects: Prototypes & Deconstruction</h2>
-
-                <div id="professional" class="scroll-section">
-                    <h3 class="thin-section-title">Professional Project</h3>
-                    
-                    <article class="immersive-project">
-                        <div class="project-media gif-cycler">
-                            <img src="assets/fcp/GIF_Vids/hero_gameplay.gif" alt="AOA Gameplay" class="active-gif" loading="lazy">
-                            <img src="assets/fcp/GIF_Vids/coop_gravity_beam.gif" alt="AOA Gravity Beam" loading="lazy">
-                        </div>
-                        <div class="project-info">
-                            <h3 class="p-title">AOA: Space Scrap Smugglers</h3>
-                            
-                            <div class="p-details">
-                                <strong>Role:</strong> Contract Game Designer<br>
-                                <strong>Team:</strong> 12+ (FatCatPlay)<br>
-                                <strong>Duration:</strong> 3 Months<br>
-                                <strong>Engine:</strong> Unreal Engine
-                            </div>
-
-                            <p class="p-desc">A physics-driven space mining simulator built for emergent cooperative gameplay. I designed foundational mechanics that brutally enforce team communication and authored the documentation that guided production.</p>
-
-                            <ul class="p-bullets">
-                                <li>Engineered physics-based tool synergies like the Gravity Beam to force cooperative dependencies.</li>
-                                <li>Created top-down graybox layouts for the Hub-and-Spoke tutorial world.</li>
-                                <li>Designed textless onboarding sequences utilizing diegetic visual cues.</li>
-                            </ul>
-
-                            <a href="tms.html" class="btn-outline">View Project</a>
-                        </div>
-                    </article>
+        <!-- STICKY FILTER & SECTION JUMP -->
+        <div class="control-bar-wrap">
+            <div class="control-bar">
+                <div class="filter-group">
+                    <span class="bar-label">Filter:</span>
+                    <button type="button" class="filter-btn active-filter" data-filter="all">All Projects (5)</button>
+                    <button type="button" class="filter-btn" data-filter="game-design">Game Design</button>
+                    <button type="button" class="filter-btn" data-filter="tech-design">Technical Design</button>
                 </div>
 
-                <div id="personal" class="scroll-section">
-                    <h3 class="thin-section-title">Personal Projects</h3>
-                    
-                    <article class="immersive-project">
-                        <div class="project-media gif-cycler">
-                            <img src="assets/OA/GIF_Vids/hero_gameplay.gif" alt="Obstacle Assault Gameplay" class="active-gif" loading="lazy" style="filter: grayscale(20%);">
-                        </div>
-                        <div class="project-info">
-                            <h3 class="p-title">Obstacle Assault</h3>
-                            
-                            <div class="p-details">
-                                <strong>Role:</strong> Game Designer<br>
-                                <strong>Team:</strong> Solo Project<br>
-                                <strong>Duration:</strong> 1 Month<br>
-                                <strong>Engine:</strong> Unreal Engine
-                            </div>
-
-                            <p class="p-desc">A 3D platformer focused on flow state and spatial mastery. I utilized data-driven iteration to balance difficulty, ensuring players feel challenged by the environment rather than the controls.</p>
-
-                            <ul class="p-bullets">
-                                <li>Designed movement-driven levels that teach mechanics through risk-reward routing.</li>
-                                <li>Tuned spatial metrics, jump arcs, and coyote time to minimize player frustration.</li>
-                                <li>Implemented instant-restart loops to prioritize continuous mastery.</li>
-                            </ul>
-
-                            <a href="oa.html" class="btn-outline">View Project</a>
-                        </div>
-                    </article>
-
-                    <article class="immersive-project">
-                        <div class="project-media gif-cycler">
-                            <img src="assets/Horror/GIF_Vids/Minions.gif" alt="Eclipse of Fear" class="active-gif" loading="lazy">
-                            <img src="assets/Horror/GIF_Vids/Boss_Eclipse_Chase.gif" alt="Eclipse Chase" loading="lazy">
-                        </div>
-                        <div class="project-info">
-                            <h3 class="p-title">Eclipse of Fear</h3>
-                            
-                            <div class="p-details">
-                                <strong>Role:</strong> Game Designer<br>
-                                <strong>Team:</strong> 2 Members<br>
-                                <strong>Duration:</strong> 1 Month<br>
-                                <strong>Engine:</strong> Unreal Engine
-                            </div>
-
-                            <p class="p-desc">A systemic survival horror prototype emphasizing psychological tension. I stripped away traditional UI elements to create a highly immersive, vulnerable player experience driven by dynamic AI.</p>
-
-                            <ul class="p-bullets">
-                                <li>Designed the diegetic "Lives as Papers" health system where failing physically burns a quest item.</li>
-                                <li>Scripted a dynamic Intensity Director that scales enemy aggression based on player metrics.</li>
-                                <li>Balanced 4 distinct enemy waves using Data Sheets to tune speed and detection.</li>
-                            </ul>
-
-                            <a href="eof.html" class="btn-outline">View Project</a>
-                        </div>
-                    </article>
-
-                    <article class="immersive-project">
-                        <div class="project-media gif-cycler">
-                            <img src="assets/RPG/GIF_Vids/Combat_Loop.gif" alt="Shattered Charms" class="active-gif" loading="lazy">
-                            <img src="assets/RPG/GIF_Vids/Boss_AI.gif" alt="Boss AI" loading="lazy">
-                        </div>
-                        <div class="project-info">
-                            <h3 class="p-title">Shattered Charms: Through The Veil</h3>
-                            
-                            <div class="p-details">
-                                <strong>Role:</strong> Game Designer<br>
-                                <strong>Team:</strong> Solo Project<br>
-                                <strong>Duration:</strong> 3 Months<br>
-                                <strong>Engine:</strong> Unreal Engine
-                            </div>
-
-                            <p class="p-desc">An Action RPG focused on systemic progression and mathematical balancing. I replaced rigid skill trees with modular systems to heavily incentivize player experimentation.</p>
-
-                            <ul class="p-bullets">
-                                <li>Designed the active "Charm Matrix" progression system for combat synergy.</li>
-                                <li>Mathematically modeled a 3-tier purification economy in Excel to balance drop rates.</li>
-                                <li>Architected a Hub-and-Spoke world layout using lighting cues to control pacing.</li>
-                            </ul>
-
-                            <a href="scttv.html" class="btn-outline">View Project</a>
-                        </div>
-                    </article>
+                <div class="jump-group">
+                    <span class="bar-label">Jump:</span>
+                    <a href="#professional" class="jump-link">Professional</a>
+                    <a href="#personal" class="jump-link">Personal</a>
+                    <a href="#deconstruction" class="jump-link">Deconstruction</a>
+                    <a href="#process" class="jump-link">My Process</a>
                 </div>
-
-                <div id="deconstruction" class="scroll-section">
-                    <h3 class="thin-section-title">Game Deconstruction</h3>
-                    
-                    <article class="immersive-project" style="margin-bottom: 2rem;">
-                        <div class="project-media" style="background: transparent; box-shadow: none;">
-                            <img src="assets/Game Deconstruction/TLOU.png" alt="TLOU Cover" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.08);">
-                        </div>
-                        <div class="project-info">
-                            <h3 class="p-title" style="font-size: 2.4rem;">The Last of Us: Part I</h3>
-                            <p class="p-desc">A deep dive into how Naughty Dog uses resource scarcity, "Pacing Pockets", and environmental storytelling to manipulate player psychology without relying on UI waypoints.</p>
-                            <a href="tlou.html" class="btn-outline">Read Deconstruction</a>
-                        </div>
-                    </article>
-                </div>
-
-                <section id="process" class="process-wrapper scroll-section">
-                    <h2 class="section-title" style="margin-bottom: 3rem; text-align: left; border: none; font-size: 2.5rem;">My Process</h2>
-                    
-                    <div class="process-grid">
-                        <div class="process-step">
-                            <div class="icon-circle">🔍</div>
-                            <h4>Research</h4>
-                            <p>I conduct deep Game Deconstructions to understand design pillars, game loops, and pacing.</p>
-                        </div>
-                        
-                        <div class="process-step">
-                            <div class="icon-circle">📝</div>
-                            <h4>Brief</h4>
-                            <p>Establishing clear Design Pillars early to ensure mechanics align with the core player fantasy.</p>
-                        </div>
-                        
-                        <div class="process-step">
-                            <div class="icon-circle">💡</div>
-                            <h4>Ideation</h4>
-                            <p>From brainstorming to Paper Prototyping. I test math and logic on paper to fail fast before coding.</p>
-                        </div>
-                        
-                        <div class="process-step">
-                            <div class="icon-circle">📖</div>
-                            <h4>Docs</h4>
-                            <p>Creating Live GDDs. I know when to write detailed specs and when to make quick flowcharts.</p>
-                        </div>
-                        
-                        <div class="process-step">
-                            <div class="icon-circle">⚙️</div>
-                            <h4>Prototype</h4>
-                            <p>Jumping into Unreal Engine using Blueprints to build functional mechanics to test Game Feel.</p>
-                        </div>
-                        
-                        <div class="process-step">
-                            <div class="icon-circle">🎮</div>
-                            <h4>Testing</h4>
-                            <p>Regular playtests to tune difficulty curves. Gathering feedback is my bread and butter.</p>
-                        </div>
-                        
-                        <div class="process-step">
-                            <div class="icon-circle">🚀</div>
-                            <h4>Release</h4>
-                            <p>Packaging and shipping builds, ensuring the first-time user experience is frictionless.</p>
-                        </div>
-                        
-                        <div class="process-step">
-                            <div class="icon-circle">📊</div>
-                            <h4>Analysis</h4>
-                            <p>Digging through playtest data and writing Post Mortems to understand what went right and broke.</p>
-                        </div>
-                    </div>
-                </section>
-
             </div>
         </div>
+
+        <!-- PROJECTS: PROTOTYPES & DECONSTRUCTION -->
+        <section class="projects-wrapper">
+            <span class="section-label">Portfolio</span>
+            <h2 class="section-title">Projects: Prototypes &amp; Deconstruction</h2>
+
+            <!-- 1. PROFESSIONAL PROJECT -->
+            <h3 id="professional" class="category-divider" data-section="professional">Professional Project</h3>
+
+            <article class="project-card" data-category="game-design" data-section="professional">
+                <a href="tms.html" class="project-thumb" aria-label="View AOA: Space Scrap Smugglers">
+                    <div class="thumb-reel" data-interval="3400">
+                        <div class="thumb-slide active-slide"><img src="assets/fcp/GIF_Vids/hero_gameplay.gif" alt="AOA: Space Scrap Smugglers Gameplay"></div>
+                        <div class="thumb-slide"><img src="assets/fcp/GIF_Vids/coop_gravity_beam.gif" alt="AOA: Space Scrap Smugglers Co-Op Gravity Beam"></div>
+                    </div>
+                </a>
+                <div class="project-info">
+                    <div>
+                        <div class="project-header">
+                            <span class="section-label" style="margin: 0;">Studio Credit // FatCatPlay</span>
+                        </div>
+                        <h4 class="project-name"><a href="tms.html">AOA: Space Scrap Smugglers</a></h4>
+                        <div class="meta-specs">
+                            <span><strong>Genre:</strong> Co-Op Physics Space Mining</span>
+                            <span><strong>Role:</strong> Contract Game Designer</span>
+                            <span><strong>Team:</strong> 12+ (FatCatPlay)</span>
+                            <span><strong>Duration:</strong> 3 Months</span>
+                            <span><strong>Engine:</strong> Unreal Engine 5</span>
+                        </div>
+                        <p class="project-summary">
+                            A physics-driven co-op space mining game built with a 12+ person studio team. I designed mechanics that naturally push players to work together and wrote visual GDDs for engineering and art.
+                        </p>
+                        <ul class="project-bullets">
+                            <li>Designed the Gravity Beam weight rule so heavy salvage physically requires two players to haul together.</li>
+                            <li>Built textless onboarding inside a Hub-and-Spoke station using visual and audio cues instead of popups.</li>
+                            <li>Specified ship inertia physics, diegetic crosshair cues, and Smelter timer loops used daily by programmers.</li>
+                        </ul>
+                    </div>
+                    <div class="project-cta-row">
+                        <a href="tms.html" class="btn-solid">View Project →</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- PERSONAL PROJECTS -->
+            <h3 id="personal" class="category-divider" data-section="personal">Personal Projects</h3>
+
+            <!-- 2. SHATTERED CHARMS: THROUGH THE VEIL -->
+            <article class="project-card" data-category="game-design tech-design" data-section="personal">
+                <a href="scttv.html" class="project-thumb" aria-label="View Shattered Charms: Through The Veil">
+                    <div class="thumb-reel" data-interval="3400">
+                        <div class="thumb-slide active-slide"><img src="assets/RPG/GIF_Vids/Combat_Loop.gif" alt="Shattered Charms Combat Loop"></div>
+                        <div class="thumb-slide"><img src="assets/RPG/GIF_Vids/Boss_AI.gif" alt="Shattered Charms Veyla Boss AI"></div>
+                        <div class="thumb-slide"><img src="assets/RPG/GIF_Vids/Charm_UI.gif" alt="Shattered Charms Dual-Slot Charm Fusion"></div>
+                        <div class="thumb-slide"><img src="assets/RPG/GIF_Vids/Sword_Upgrade.gif" alt="Shattered Charms Sword Purification"></div>
+                        <div class="thumb-slide"><img src="assets/RPG/GIF_Vids/Level_Transition.gif" alt="Shattered Charms World Exploration"></div>
+                    </div>
+                </a>
+                <div class="project-info">
+                    <div>
+                        <div class="project-header">
+                            <span class="section-label" style="margin: 0;">Action RPG Prototype // itch.io</span>
+                        </div>
+                        <h4 class="project-name"><a href="scttv.html">Shattered Charms: Through The Veil</a></h4>
+                        <div class="meta-specs">
+                            <span><strong>Genre:</strong> Third-Person Action RPG</span>
+                            <span><strong>Role:</strong> Solo Game &amp; Technical Designer</span>
+                            <span><strong>Duration:</strong> 3 Months</span>
+                            <span><strong>Engine:</strong> Unreal Engine 5 (Blueprints)</span>
+                        </div>
+                        <p class="project-summary">
+                            A third-person Action RPG vertical slice built around a Dual-Slot Charm Fusion system, Jewel-gated weapon upgrades, and a multi-phase Behavior Tree boss fight.
+                        </p>
+                        <ul class="project-bullets">
+                            <li>Built a data-driven Charm system (<code>DT_CharmsSystem</code> + <code>BPC_PlayerCharmSystem</code>) with clean multiplier resets.</li>
+                            <li>Used Blueprint Interfaces (<code>BPI_Damage</code>, <code>BPI_Interact</code>) across combat, shrines, and chests with zero hard casts.</li>
+                            <li>Designed Veyla's Boss AI (<code>BT_Boss</code>) where interrupting her mid-heal locks her HP right where it stopped.</li>
+                        </ul>
+                    </div>
+                    <div class="project-cta-row">
+                        <a href="scttv.html" class="btn-solid">View Project →</a>
+                        <a href="https://karuna-ketan.itch.io/shattered-charms-through-the-veil" target="_blank" rel="noopener noreferrer" class="doc-pill">Play on itch.io ↗</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 3. JUMPRIFT: 3D PLATFORMER -->
+            <article class="project-card" data-category="game-design tech-design" data-section="personal">
+                <a href="jumprift.html" class="project-thumb" aria-label="View JumpRift: 3D Platformer">
+                    <div class="thumb-reel" data-interval="3400">
+                        <div class="thumb-slide active-slide"><img src="assets/JumpRift/GIF_Vids/hero_gameplay.gif" alt="JumpRift Platforming Gameplay"></div>
+                        <div class="thumb-slide"><img src="assets/JumpRift/GIF_Vids/thorns_fail.gif" alt="JumpRift Obstacle Hazard Timing"></div>
+                        <div class="thumb-slide"><img src="assets/JumpRift/GIF_Vids/checkpoints.gif" alt="JumpRift Checkpoint Progression"></div>
+                    </div>
+                </a>
+                <div class="project-info">
+                    <div>
+                        <div class="project-header">
+                            <span class="section-label" style="margin: 0;">Android &amp; PC // 3D Platformer // itch.io</span>
+                            <span class="live-badge"><span class="live-dot"></span>Live on Google Play Store</span>
+                        </div>
+                        <h4 class="project-name"><a href="jumprift.html">JumpRift: 3D Platformer</a></h4>
+                        <div class="meta-specs">
+                            <span><strong>Genre:</strong> 3D Momentum Platformer</span>
+                            <span><strong>Role:</strong> Solo Game &amp; Technical Designer</span>
+                            <span><strong>Platform:</strong> Android (Google Play) &amp; PC (itch.io)</span>
+                            <span><strong>Engine:</strong> Unreal Engine 5 (Blueprints)</span>
+                        </div>
+                        <p class="project-summary">
+                            A momentum-based 3D platformer tuned through 4 playtest passes for touch controls and obstacle pacing, featuring Day &amp; Night modes and shipped live on Google Play.
+                        </p>
+                        <ul class="project-bullets">
+                            <li>Designed Night Mode with glowing high-contrast hazards to keep jumps readable on small phone screens.</li>
+                            <li>Built reusable moving platform actors and checkpoint achievement triggers in Unreal Engine 5.</li>
+                            <li>Packaged signed Android builds, ran Closed Alpha testing with 12 testers, and published the live release.</li>
+                        </ul>
+                    </div>
+                    <div class="project-cta-row">
+                        <a href="jumprift.html" class="btn-solid">View Project →</a>
+                        <a href="https://karuna-ketan.itch.io/jumprift" target="_blank" rel="noopener noreferrer" class="doc-pill">Play on itch.io ↗</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 4. ECLIPSE OF FEAR -->
+            <article class="project-card" data-category="game-design tech-design" data-section="personal">
+                <a href="eof.html" class="project-thumb" aria-label="View Eclipse of Fear">
+                    <div class="thumb-reel" data-interval="3400">
+                        <div class="thumb-slide active-slide"><img src="assets/Horror/GIF_Vids/Game_Overview.gif" alt="Eclipse of Fear Campus Atmosphere"></div>
+                        <div class="thumb-slide"><img src="assets/Horror/GIF_Vids/Combat_Minion_Reaction.gif" alt="Eclipse of Fear Pistol Combat"></div>
+                        <div class="thumb-slide"><img src="assets/Horror/GIF_Vids/Paper_Lives_Burn.gif" alt="Eclipse of Fear Lives as Papers"></div>
+                        <div class="thumb-slide"><img src="assets/Horror/GIF_Vids/Boss_Eclipse_Chase.gif" alt="Eclipse of Fear Boss Chase"></div>
+                        <div class="thumb-slide"><img src="assets/Horror/GIF_Vids/Flashlight_Atmosphere.gif" alt="Eclipse of Fear Flashlight Exploration"></div>
+                        <div class="thumb-slide"><img src="assets/Horror/GIF_Vids/Inner_Thoughts_Mechanic.gif" alt="Eclipse of Fear Inner Thoughts"></div>
+                        <div class="thumb-slide"><img src="assets/Horror/GIF_Vids/Minions.gif" alt="Eclipse of Fear Minion Patrol"></div>
+                    </div>
+                </a>
+                <div class="project-info">
+                    <div>
+                        <div class="project-header">
+                            <span class="section-label" style="margin: 0;">Action-Adventure Horror Prototype // itch.io</span>
+                        </div>
+                        <h4 class="project-name"><a href="eof.html">Eclipse of Fear</a></h4>
+                        <div class="meta-specs">
+                            <span><strong>Genre:</strong> Survival Horror</span>
+                            <span><strong>Role:</strong> Game &amp; Technical Designer</span>
+                            <span><strong>Team:</strong> 2 Members</span>
+                            <span><strong>Duration:</strong> 1 Month</span>
+                            <span><strong>Engine:</strong> Unreal Engine 5 (Blueprints)</span>
+                        </div>
+                        <p class="project-summary">
+                            An action-adventure survival horror prototype built around psychological tension. Stripped away traditional health bars so players stay vulnerable and read enemy behavior directly.
+                        </p>
+                        <ul class="project-bullets">
+                            <li>Designed the diegetic "Lives as Papers" system where getting caught physically burns a quest page.</li>
+                            <li>Built "Inner Thoughts" audio/text cues and "Fear Lockdown" encounter pacing without UI clutter.</li>
+                            <li>Tuned enemy patrol and chase AI in Unreal Engine using Data Sheets for speed and detection balance.</li>
+                        </ul>
+                    </div>
+                    <div class="project-cta-row">
+                        <a href="eof.html" class="btn-solid">View Project →</a>
+                        <a href="https://karuna-ketan.itch.io/eclipse-of-fear" target="_blank" rel="noopener noreferrer" class="doc-pill">Play on itch.io ↗</a>
+                    </div>
+                </div>
+            </article>
+
+            <!-- GAME DECONSTRUCTION -->
+            <h3 id="deconstruction" class="category-divider" data-section="deconstruction">Game Deconstruction</h3>
+
+            <article class="project-card" data-category="game-design" data-section="deconstruction">
+                <a href="tlou.html" class="project-thumb" aria-label="View The Last of Us: Part I">
+                    <div class="thumb-reel" data-interval="3600">
+                        <div class="thumb-slide active-slide"><img src="assets/Game Deconstruction/TLOU.png" alt="The Last of Us Part I"></div>
+                        <div class="thumb-slide"><img src="assets/Game Deconstruction/Images/1.webp" alt="Resource Scarcity & Inventory Analysis" onerror="this.parentElement.remove()"></div>
+                        <div class="thumb-slide"><img src="assets/Game Deconstruction/Images/GameplayLoop.webp" alt="Micro, Meso & Macro Gameplay Loops" onerror="this.parentElement.remove()"></div>
+                        <div class="thumb-slide"><img src="assets/Game Deconstruction/Images/Tension.webp" alt="Layered Tension Architecture" onerror="this.parentElement.remove()"></div>
+                    </div>
+                </a>
+                <div class="project-info">
+                    <div>
+                        <div class="project-header">
+                            <span class="section-label" style="margin: 0;">Published Analysis // Medium</span>
+                        </div>
+                        <h4 class="project-name"><a href="tlou.html">The Last of Us: Part I</a></h4>
+                        <div class="meta-specs">
+                            <span><strong>Genre:</strong> Action-Adventure / Survival</span>
+                            <span><strong>Type:</strong> Game Deconstruction</span>
+                            <span><strong>Studio:</strong> Naughty Dog</span>
+                            <span><strong>Format:</strong> 3,000+ Word Breakdown &amp; Diagrams</span>
+                        </div>
+                        <p class="project-summary">
+                            A deep dive into how Naughty Dog uses resource scarcity, "Pacing Pockets", and environmental storytelling to guide players without relying on UI waypoints.
+                        </p>
+                    </div>
+                    <div class="project-cta-row">
+                        <a href="tlou.html" class="btn-solid">Read Deconstruction →</a>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- MY PROCESS -->
+        <section id="process" class="process-section">
+            <span class="section-label">Workflow</span>
+            <h2 class="section-title">My Process</h2>
+
+            <div class="process-grid">
+                <div class="process-card">
+                    <span class="process-icon">🔍</span>
+                    <h3 class="process-step-title">Research</h3>
+                    <p class="process-step-desc">Breaking down games to see what makes their core loops, combat feel, and pacing click.</p>
+                </div>
+                <div class="process-card">
+                    <span class="process-icon">📝</span>
+                    <h3 class="process-step-title">Brief</h3>
+                    <p class="process-step-desc">Setting clear Design Pillars early so every mechanic supports the core player fantasy.</p>
+                </div>
+                <div class="process-card">
+                    <span class="process-icon">💡</span>
+                    <h3 class="process-step-title">Ideation</h3>
+                    <p class="process-step-desc">Sketching maps and math on paper first to fail fast before touching the engine.</p>
+                </div>
+                <div class="process-card">
+                    <span class="process-icon">📖</span>
+                    <h3 class="process-step-title">Docs</h3>
+                    <p class="process-step-desc">Writing visual GDDs and state diagrams that programmers can actually build from.</p>
+                </div>
+                <div class="process-card">
+                    <span class="process-icon">⚙️</span>
+                    <h3 class="process-step-title">Prototype</h3>
+                    <p class="process-step-desc">Building playable systems in Unreal Engine 5 Blueprints to test feel right away.</p>
+                </div>
+                <div class="process-card">
+                    <span class="process-icon">🎮</span>
+                    <h3 class="process-step-title">Testing</h3>
+                    <p class="process-step-desc">Watching players break things in playtests and tuning curves based on real behavior.</p>
+                </div>
+                <div class="process-card">
+                    <span class="process-icon">🚀</span>
+                    <h3 class="process-step-title">Release</h3>
+                    <p class="process-step-desc">Packaging builds, fixing performance bottlenecks, and making the first 5 minutes smooth.</p>
+                </div>
+                <div class="process-card">
+                    <span class="process-icon">📊</span>
+                    <h3 class="process-step-title">Analysis</h3>
+                    <p class="process-step-desc">Reviewing playtest feedback and writing post-mortems on what worked and what broke.</p>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <footer style="background: var(--text-main); color: var(--bg-page); padding: 4rem 2rem; text-align: center;">
-        <div style="display: flex; gap: 2rem; justify-content: center; margin-bottom: 2rem; font-family: var(--font-display); text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">
-            <a href="mailto:gamesbykarunaket@gmail.com" style="color: var(--bg-page); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#D45B3E'" onmouseout="this.style.color='#FAF9F5'">Email</a>
-            <a href="https://www.linkedin.com/in/karunaket/" target="_blank" style="color: var(--bg-page); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#D45B3E'" onmouseout="this.style.color='#FAF9F5'">LinkedIn</a>
-            <a href="https://karuna-ketan.itch.io/" target="_blank" style="color: var(--bg-page); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#D45B3E'" onmouseout="this.style.color='#FAF9F5'">itch.io</a>
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="mailto:gamesbykarunaket@gmail.com">Email</a>
+            <a href="https://www.linkedin.com/in/karunaket/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://karuna-ketan.itch.io/" target="_blank" rel="noopener noreferrer">itch.io</a>
         </div>
-        <p style="font-size: 0.85rem; color: #888;">© 2026 Karuna Ketan.</p>
+        <p class="footer-copy">© 2026 Karuna Ketan.</p>
     </footer>
 
+    <script src="script.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // 1. HAMBURGER MENU LOGIC
-            const oldMenuBtn = document.querySelector('.menu-toggle');
-            const nav = document.querySelector('.nav-links');
-
-            if (oldMenuBtn && nav) {
-                const menuBtn = oldMenuBtn.cloneNode(true);
-                oldMenuBtn.parentNode.replaceChild(menuBtn, oldMenuBtn);
-
-                menuBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    nav.classList.toggle('active');
-                    menuBtn.classList.toggle('active');
-                });
-
-                document.addEventListener('click', (e) => {
-                    if (!nav.contains(e.target) && !menuBtn.contains(e.target)) {
-                        nav.classList.remove('active');
-                        menuBtn.classList.remove('active');
-                    }
-                });
-            }
-
-            // 2. GIF CROSSFADER LOGIC
-            const cyclers = document.querySelectorAll('.gif-cycler');
-            cyclers.forEach(cycler => {
-                const images = cycler.querySelectorAll('img');
-                if (images.length > 1) {
-                    let currentIndex = 0;
-                    setInterval(() => {
-                        images[currentIndex].classList.remove('active-gif');
-                        currentIndex = (currentIndex + 1) % images.length;
-                        images[currentIndex].classList.add('active-gif');
-                    }, 4000); 
-                }
-            });
-
-            // 3. SCROLLSPY FOR HOMEPAGE SIDEBAR
-            const sections = document.querySelectorAll('.scroll-section');
-            const navLinks = document.querySelectorAll('.sidebar-link');
-
-            const observerOptions = {
-                root: null,
-                rootMargin: '-150px 0px -60% 0px',
-                threshold: 0
+        (function () {
+            const header = document.querySelector('.minimal-header');
+            if (!header) return;
+            const syncHeaderOffset = () => {
+                document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
             };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        navLinks.forEach(link => {
-                            link.classList.remove('active');
-                            if (link.getAttribute('href').substring(1) === entry.target.id) {
-                                link.classList.add('active');
-                            }
-                        });
-                    }
-                });
-            }, observerOptions);
-
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-        });
+            syncHeaderOffset();
+            window.addEventListener('resize', syncHeaderOffset);
+        })();
     </script>
 </body>
 </html>

@@ -3,313 +3,404 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Technical Documentation Library of Karuna Ketan.">
-    <title>Docs Library | Karuna Ketan</title>
-    
+    <meta name="description" content="Game Design Documents, Level Design Documents, and Balancing Sheets by Karuna Ketan.">
+    <title>Documents | Karuna Ketan</title>
     <link rel="stylesheet" href="style.css">
-    
     <style>
-        /* --- 1. MASTER PALETTE --- */
-        :root {
-            --bg-page: #FAF9F5; 
-            --text-main: #111111; 
-            --text-muted: #555555;
-            --accent: #D45B3E; 
-            --border-light: rgba(0,0,0,0.08);
-            
-            --font-display: 'Oswald', sans-serif;
-            --font-body: 'Montserrat', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-page);
-            color: var(--text-main);
-            font-family: var(--font-body);
-            margin: 0; padding: 0;
-            line-height: 1.7;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        /* --- 2. HEADER --- */
-        .minimal-header {
-            background: rgba(250, 249, 245, 0.9);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-light);
-            padding: 1.2rem 2rem;
-            position: sticky; top: 0; z-index: 2000;
-        }
-        .header-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--text-main); letter-spacing: 2px; text-decoration: none;}
-        .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; margin: 0;}
-        .nav-links a { color: var(--text-muted); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: 0.3s; }
-        .nav-links a:hover { color: var(--accent); }
-        .header-resume-btn { background: var(--text-main); color: #fff !important; padding: 0.6rem 1.8rem; border-radius: 50px; font-weight: 600; transition: all 0.3s ease; }
-        .header-resume-btn:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(212, 91, 62, 0.25);}
-
-        /* --- 3. INTRO --- */
         .docs-intro {
-            max-width: 1200px;
-            margin: 6rem auto 2rem auto;
+            max-width: 1220px;
+            margin: 3.5rem auto 2.5rem auto;
             padding: 0 2rem;
         }
-        .docs-intro h1 { font-family: var(--font-display); font-size: 4rem; text-transform: uppercase; line-height: 1; margin-bottom: 1.5rem; }
-        .docs-intro h1::after { content: '.'; color: var(--accent); }
-        .docs-intro p { font-size: 1.2rem; color: var(--text-muted); max-width: 700px; }
 
-        /* --- 4. SECTION TITLES --- */
-        .thin-section-title {
+        .docs-title {
             font-family: var(--font-display);
+            font-size: clamp(2.15rem, 4.5vw, 3.2rem);
             font-weight: 700;
-            font-size: 1.8rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+            line-height: 1.08;
+            letter-spacing: -0.5px;
+            margin: 0.25rem 0 1rem 0;
             color: var(--text-main);
-            margin: 5rem 0 3rem 0;
-            display: flex;
-            align-items: center;
-            gap: 15px;
         }
-        .thin-section-title::before { content: '✦'; color: var(--accent); font-size: 1.2rem; }
-        .thin-section-title::after { content: ''; height: 2px; flex-grow: 1; background: var(--border-light); }
 
-        /* --- 5. DOCS GRID & CARDS --- */
-        .docs-section { max-width: 1300px; margin: 0 auto 8rem auto; padding: 0 2rem; }
-        
-        .docs-grid {
+        .docs-lead {
+            font-size: 1.03rem;
+            color: var(--text-muted);
+            max-width: 780px;
+            line-height: 1.75;
+            margin: 0;
+        }
+
+        .docs-wrapper {
+            max-width: 1220px;
+            margin: 0 auto 6rem auto;
+            padding: 0 2rem;
+        }
+
+        .category-header {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center; /* Centers orphan items like Project Singularity */
-            gap: 2.5rem;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 0.5rem 1rem;
+            margin: 2.8rem 0 1.4rem 0;
+            padding-bottom: 0.55rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .category-divider {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        .category-link {
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.35rem;
         }
 
         .doc-card {
-            background: #fff;
-            border-radius: 12px;
+            background: var(--bg-surface);
             border: 1px solid var(--border-light);
-            width: calc(33.333% - 1.7rem);
-            min-width: 320px;
+            border-radius: 14px;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+            box-shadow: var(--shadow-sm);
             cursor: pointer;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
         .doc-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
             border-color: var(--accent);
-            box-shadow: 0 15px 35px rgba(212, 91, 62, 0.1);
+            box-shadow: var(--shadow-md);
         }
 
         .doc-thumb {
             width: 100%;
-            height: 220px;
+            height: 195px;
             position: relative;
-            background: #000;
+            background: #111;
             overflow: hidden;
         }
-        .doc-thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: 0.5s; }
-        .doc-card:hover .doc-thumb img { transform: scale(1.05); opacity: 1; }
+
+        .doc-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.35s ease;
+        }
+
+        .doc-card:hover .doc-thumb img {
+            transform: scale(1.04);
+        }
 
         .type-badge {
-            position: absolute; top: 15px; left: 15px;
-            background: #fff; color: #111; padding: 5px 12px;
-            border-radius: 4px; font-family: var(--font-display);
-            font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--bg-surface);
+            color: var(--text-main);
+            border: 1px solid var(--border-light);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-family: var(--font-display);
+            font-size: 0.74rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
         }
 
         .format-badge {
-            position: absolute; top: 15px; right: 15px;
-            background: var(--accent); color: #fff; padding: 5px 10px;
-            border-radius: 4px; font-family: var(--font-display);
-            font-size: 0.75rem; font-weight: 700;
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--accent);
+            color: #fff;
+            padding: 4px 9px;
+            border-radius: 6px;
+            font-family: var(--font-display);
+            font-size: 0.74rem;
+            font-weight: 700;
         }
 
-        .doc-content { padding: 2rem; display: flex; flex-direction: column; flex-grow: 1; }
-        .doc-project-name { font-family: var(--font-body); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 600; }
-        .doc-title { font-family: var(--font-display); font-size: 1.6rem; color: var(--text-main); text-transform: uppercase; margin-bottom: 1rem; line-height: 1.2; }
-        .doc-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 2rem; flex-grow: 1; }
-
-        .doc-btn {
-            display: inline-flex; align-items: center; justify-content: center;
-            height: 50px; padding: 0 2rem; border-radius: 50px;
-            background: var(--accent); color: #fff; text-decoration: none;
-            font-family: var(--font-display); font-weight: 600; text-transform: uppercase;
-            letter-spacing: 1.5px; font-size: 0.9rem; transition: 0.3s;
-            box-shadow: 0 8px 20px rgba(212, 91, 62, 0.2);
+        .doc-body {
+            padding: 1.45rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
         }
-        .doc-card:hover .doc-btn { background: var(--text-main); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+
+        .doc-project {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent);
+            margin-bottom: 0.3rem;
+        }
+
+        .doc-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0 0 0.55rem 0;
+        }
+
+        .doc-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin: 0 0 1.35rem 0;
+            flex-grow: 1;
+        }
 
         /* --- PDF MODAL --- */
         #viewer {
-            display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.92); z-index: 9999; flex-direction: column; align-items: center;
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 9999;
+            flex-direction: column;
+            align-items: center;
         }
-        .controls { width: 100%; display: flex; justify-content: center; align-items: center; padding: 16px 20px; z-index: 10001; }
-        .controls button { padding: 10px 28px; background: #D45B3E; color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: 700; font-family: var(--font-display); letter-spacing: 2px; text-transform: uppercase; transition: 0.2s; box-shadow: 0 4px 20px rgba(212, 91, 62, 0.4); }
-        #pdfFrame { width: 100%; flex-grow: 1; border: none; background: transparent; }
 
-        /* --- MOBILE --- */
-        @media (max-width: 768px) {
-            .menu-toggle { display: flex !important; }
-            .nav-links { position: fixed; top: 0; right: -100%; width: 100%; height: 100vh; background: #fff; flex-direction: column; justify-content: center; align-items: center; gap: 2.5rem; transition: 0.4s; z-index: 1500; }
-            .nav-links.active { right: 0; }
-            .docs-intro h1 { font-size: 2.5rem; }
-            .doc-card { width: 100%; }
+        .viewer-controls {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 14px 20px;
+        }
+
+        .viewer-controls button {
+            padding: 9px 24px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            font-family: var(--font-display);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        #pdfFrame {
+            width: 100%;
+            flex-grow: 1;
+            border: none;
+        }
+
+        @media (max-width: 960px) {
+            .docs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .docs-intro,
+            .docs-wrapper {
+                padding: 0 1.25rem;
+            }
+
+            .docs-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
+<body id="top">
 
-<body>
     <header class="minimal-header">
         <div class="header-content">
             <a href="index.html" class="logo">KARUNA KETAN.</a>
-            <button class="menu-toggle" id="mobile-menu-btn"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
-            <nav><ul class="nav-links" id="nav-links">
-                <li><a href="index.html#projects">Projects</a></li>
-                <li><a href="documents.html" style="color: var(--accent);">Docs</a></li>
-                <li><a href="index.html#process">Process</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="resume.pdf" target="_blank" class="header-resume-btn">RESUME</a></li>
-            </ul></nav>
+            <div class="nav-right">
+                <nav>
+                    <ul class="nav-links" id="nav-links">
+                        <li><a href="index.html">Projects</a></li>
+                        <li><a href="process.html">Process</a></li>
+                        <li><a href="documents.html" class="active-nav">Documents</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="resume.html" target="_blank" class="header-resume-btn">RESUME</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Light/Dark Mode" title="Switch Theme">🌙</button>
+                <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle navigation">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
         </div>
     </header>
 
     <main>
         <section class="docs-intro">
-            <h1>Documentation Archive</h1>
-            <p>A comprehensive library of technical specifications and systemic breakdowns. These documents bridge the gap between creative vision and engine implementation.</p>
+            <span class="section-label">Design Specs &amp; Spreadsheets</span>
+            <h1 class="docs-title">Documentation Archive</h1>
+            <p class="docs-lead">
+                A collection of Game Design Documents (GDDs), Level Design Documents (LDDs), feature specs, and balancing data sheets written to guide production and keep combat math clear. Click any card to open the full PDF directly in the viewer.
+            </p>
         </section>
 
-        <section class="docs-section">
-            <h2 class="thin-section-title">Eclipse of Fear (Horror)</h2>
-            <div class="docs-grid">
-                <article class="doc-card" onclick="openPDF('assets/Horror/EOF_GDD.pdf')">
-                    <div class="doc-thumb">
-                        <img src="assets/Horror/Images/1.png" alt="GDD Thumbnail">
-                        <div class="type-badge">GDD</div><div class="format-badge">PDF</div>
-                    </div>
-                    <div class="doc-content">
-                        <span class="doc-project-name">Eclipse of Fear</span>
-                        <h3 class="doc-title">Design Document</h3>
-                        <p class="doc-desc">Master blueprint covering core loops, "Lives as Papers" mechanics, and AI stalker behavior trees.</p>
-                        <span class="doc-btn">View Document</span>
-                    </div>
-                </article>
+        <section class="docs-wrapper">
 
-                <article class="doc-card" onclick="openPDF('assets/Horror/EOF_Datas.pdf')">
-                    <div class="doc-thumb">
-                        <img src="assets/Horror/Images/11.jpg" alt="Data Sheet Thumbnail">
-                        <div class="type-badge">Data Sheet</div><div class="format-badge">PDF</div>
-                    </div>
-                    <div class="doc-content">
-                        <span class="doc-project-name">Eclipse of Fear</span>
-                        <h3 class="doc-title">Technical Data Sheets</h3>
-                        <p class="doc-desc">Raw balancing tables for player speeds, weapon fire rates, and enemy damage scaling.</p>
-                        <span class="doc-btn">View Document</span>
-                    </div>
-                </article>
-
-                <article class="doc-card" onclick="openPDF('assets/Horror/Feature Document_Fear Lockdown.pdf')">
-                    <div class="doc-thumb">
-                        <img src="assets/Horror/Images/14.jpg" alt="Feature Spec Thumbnail">
-                        <div class="type-badge">Feature Spec</div><div class="format-badge">PDF</div>
-                    </div>
-                    <div class="doc-content">
-                        <span class="doc-project-name">Eclipse of Fear</span>
-                        <h3 class="doc-title">Fear Lockdown</h3>
-                        <p class="doc-desc">Specific breakdown of the cut mechanic detailing how the environment shifts states post-objective.</p>
-                        <span class="doc-btn">View Document</span>
-                    </div>
-                </article>
+            <!-- SHATTERED CHARMS -->
+            <div class="category-header">
+                <h2 class="category-divider">Shattered Charms: Through The Veil (Action RPG)</h2>
+                <a href="scttv.html" class="category-link">View Project →</a>
             </div>
-
-            <h2 class="thin-section-title">Shattered Charms (RPG)</h2>
             <div class="docs-grid">
                 <article class="doc-card" onclick="openPDF('assets/RPG/SCTTV_GDD.pdf')">
                     <div class="doc-thumb">
-                        <img src="assets/RPG/Images/1.png" alt="RPG GDD">
-                        <div class="type-badge">GDD</div><div class="format-badge">PDF</div>
+                        <img src="assets/RPG/Images/1.png" alt="Shattered Charms GDD">
+                        <span class="type-badge">GDD</span>
+                        <span class="format-badge">PDF</span>
                     </div>
-                    <div class="doc-content">
-                        <span class="doc-project-name">Shattered Charms</span>
-                        <h3 class="doc-title">Design Document</h3>
-                        <p class="doc-desc">Deep dive into "Charm Matrix" mathematics, economy tuning, and narrative branching logic.</p>
-                        <span class="doc-btn">View Document</span>
+                    <div class="doc-body">
+                        <span class="doc-project">Shattered Charms</span>
+                        <h3 class="doc-title">Game Design Document</h3>
+                        <p class="doc-desc">Covers the Dual-Slot Charm Fusion system, combat rules, enemy tiers, and Shrine progression gates.</p>
+                        <span class="btn-solid">View Document ↗</span>
                     </div>
                 </article>
 
                 <article class="doc-card" onclick="openPDF('assets/RPG/SCTTV_LDD.pdf')">
                     <div class="doc-thumb">
-                        <img src="assets/RPG/Images/LD.png" alt="RPG LDD">
-                        <div class="type-badge">LDD</div><div class="format-badge">PDF</div>
+                        <img src="assets/RPG/Images/LD.png" alt="Shattered Charms LDD">
+                        <span class="type-badge">LDD</span>
+                        <span class="format-badge">PDF</span>
                     </div>
-                    <div class="doc-content">
-                        <span class="doc-project-name">Shattered Charms</span>
-                        <h3 class="doc-title">Level Design</h3>
-                        <p class="doc-desc">Breakdown of Hub-and-Spoke layout, encounter pacing curves, and blocked-out map flows.</p>
-                        <span class="doc-btn">View Document</span>
+                    <div class="doc-body">
+                        <span class="doc-project">Shattered Charms</span>
+                        <h3 class="doc-title">Level Design Document</h3>
+                        <p class="doc-desc">Breaks down the Hub-and-Spoke valley layout, encounter pacing beats, and sightline landmarks.</p>
+                        <span class="btn-solid">View Document ↗</span>
                     </div>
                 </article>
 
                 <article class="doc-card" onclick="openPDF('assets/RPG/SCTTV - Datas.pdf')">
                     <div class="doc-thumb">
-                        <img src="assets/RPG/Images/8.jpg" alt="RPG Data">
-                        <div class="type-badge">Data Sheet</div><div class="format-badge">PDF</div>
+                        <img src="assets/RPG/Images/8.jpg" alt="Shattered Charms Balancing Sheet">
+                        <span class="type-badge">Data Sheet</span>
+                        <span class="format-badge">PDF</span>
                     </div>
-                    <div class="doc-content">
-                        <span class="doc-project-name">Shattered Charms</span>
-                        <h3 class="doc-title">Purification Economy</h3>
-                        <p class="doc-desc">Raw balancing tables covering weapon scaling formulas and specific Jewel drop rates.</p>
-                        <span class="doc-btn">View Document</span>
+                    <div class="doc-body">
+                        <span class="doc-project">Shattered Charms</span>
+                        <h3 class="doc-title">Economy &amp; Combat Math</h3>
+                        <p class="doc-desc">Balancing tables for sword upgrade costs (80 and 130 Jewels), enemy HP/damage, and charm multipliers.</p>
+                        <span class="btn-solid">View Document ↗</span>
                     </div>
                 </article>
             </div>
 
-            <h2 class="thin-section-title">Action-Adventure Projects</h2>
+            <!-- ECLIPSE OF FEAR -->
+            <div class="category-header">
+                <h2 class="category-divider">Eclipse of Fear (Survival Horror)</h2>
+                <a href="eof.html" class="category-link">View Project →</a>
+            </div>
             <div class="docs-grid">
-                <article class="doc-card" onclick="openPDF('assets/Action-adv/PS_GDD.pdf')">
+                <article class="doc-card" onclick="openPDF('assets/Horror/EOF_GDD.pdf')">
                     <div class="doc-thumb">
-                        <img src="assets/Action-adv/PS.png" alt="PS GDD">
-                        <div class="type-badge">GDD</div><div class="format-badge">PDF</div>
+                        <img src="assets/Horror/Images/1.png" alt="Eclipse of Fear GDD">
+                        <span class="type-badge">GDD</span>
+                        <span class="format-badge">PDF</span>
                     </div>
-                    <div class="doc-content">
-                        <span class="doc-project-name">Project Singularity</span>
+                    <div class="doc-body">
+                        <span class="doc-project">Eclipse of Fear</span>
                         <h3 class="doc-title">Game Design Document</h3>
-                        <p class="doc-desc">Technical specification for combat AI, design pillars, and systemic gameplay loops.</p>
-                        <span class="doc-btn">View Document</span>
+                        <p class="doc-desc">Full design spec covering the 3-act campus arc, "Lives as Papers" health mechanic, and 4 enemy waves.</p>
+                        <span class="btn-solid">View Document ↗</span>
+                    </div>
+                </article>
+
+                <article class="doc-card" onclick="openPDF('assets/Horror/EOF_Datas.pdf')">
+                    <div class="doc-thumb">
+                        <img src="assets/Horror/Images/11.jpg" alt="Eclipse of Fear Data Sheets">
+                        <span class="type-badge">Data Sheet</span>
+                        <span class="format-badge">PDF</span>
+                    </div>
+                    <div class="doc-body">
+                        <span class="doc-project">Eclipse of Fear</span>
+                        <h3 class="doc-title">AI &amp; Pacing Data Sheets</h3>
+                        <p class="doc-desc">Tuning tables for player walk/sprint speeds, weapon fire rates, and wave-by-wave enemy aggression.</p>
+                        <span class="btn-solid">View Document ↗</span>
+                    </div>
+                </article>
+
+                <article class="doc-card" onclick="openPDF('assets/Horror/Feature Document_Fear Lockdown.pdf')">
+                    <div class="doc-thumb">
+                        <img src="assets/Horror/Images/14.jpg" alt="Fear Lockdown Feature Document">
+                        <span class="type-badge">Feature Spec</span>
+                        <span class="format-badge">PDF</span>
+                    </div>
+                    <div class="doc-body">
+                        <span class="doc-project">Eclipse of Fear</span>
+                        <h3 class="doc-title">Fear Lockdown Feature Spec</h3>
+                        <p class="doc-desc">Original feature spec detailing dynamic campus lockdowns and lighting shifts after objective completion.</p>
+                        <span class="btn-solid">View Document ↗</span>
                     </div>
                 </article>
             </div>
+
+            <!-- JUMPRIFT -->
+            <div class="category-header">
+                <h2 class="category-divider">JumpRift: 3D Platformer (Android &amp; PC)</h2>
+                <a href="jumprift.html" class="category-link">View Project →</a>
+            </div>
+            <div class="docs-grid">
+                <article class="doc-card" onclick="openPDF('assets/JumpRift/JumpRift_GDD.pdf')">
+                    <div class="doc-thumb">
+                        <img src="assets/JumpRift/Thumbnail_HORIZONTAL.png" alt="JumpRift Game Design Document">
+                        <span class="type-badge">GDD</span>
+                        <span class="format-badge">PDF</span>
+                    </div>
+                    <div class="doc-body">
+                        <span class="doc-project">JumpRift: 3D Platformer</span>
+                        <h3 class="doc-title">Game Design Document</h3>
+                        <p class="doc-desc">Covers Night/Day mode progression, platform hazard mechanics, jump metrics, and checkpoint pacing across Android and PC.</p>
+                        <span class="btn-solid">View Document ↗</span>
+                    </div>
+                </article>
+            </div>
+
         </section>
     </main>
 
-    <footer style="background: var(--text-main); color: var(--bg-page); padding: 4rem 2rem; text-align: center;">
-        <div style="display: flex; gap: 2rem; justify-content: center; margin-bottom: 2rem; font-family: var(--font-display); text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">
-            <a href="mailto:gamesbykarunaket@gmail.com" style="color: #fff; text-decoration: none;">Email</a>
-            <a href="https://www.linkedin.com/in/karunaket/" target="_blank" style="color: #fff; text-decoration: none;">LinkedIn</a>
-            <a href="https://karuna-ketan.itch.io/" target="_blank" style="color: #fff; text-decoration: none;">itch.io</a>
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="mailto:gamesbykarunaket@gmail.com">Email</a>
+            <a href="https://www.linkedin.com/in/karunaket/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://karuna-ketan.itch.io/" target="_blank" rel="noopener noreferrer">itch.io</a>
         </div>
-        <p style="font-size: 0.85rem; color: #888;">© 2026 Karuna Ketan.</p>
+        <p class="footer-copy">© 2026 Karuna Ketan.</p>
     </footer>
 
+    <!-- PDF VIEWER MODAL -->
     <div id="viewer">
-        <div class="controls"><button onclick="closePDF()">✕ CLOSE</button></div>
-        <iframe id="pdfFrame"></iframe>
+        <div class="viewer-controls">
+            <button type="button" onclick="closePDF()">✕ Close Document</button>
+        </div>
+        <iframe id="pdfFrame" title="Document Viewer"></iframe>
     </div>
 
+    <script src="script.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuBtn = document.getElementById('mobile-menu-btn');
-            const navLinks = document.getElementById('nav-links');
-            menuBtn.addEventListener('click', () => {
-                menuBtn.classList.toggle('active');
-                navLinks.classList.toggle('active');
-            });
-        });
-
         function openPDF(src) {
             document.getElementById('pdfFrame').src = src;
             document.getElementById('viewer').style.display = 'flex';

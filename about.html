@@ -3,360 +3,439 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Professional background and expertise of Karuna Ketan, Game Designer.">
+    <meta name="description" content="Experience, skills, and education of Karuna Ketan, Game Designer and Technical Game Designer.">
     <title>About | Karuna Ketan</title>
-    
     <link rel="stylesheet" href="style.css">
-
     <style>
-        /* --- 1. MASTER PALETTE --- */
-        :root {
-            --bg-page: #FAF9F5; 
-            --text-main: #111111; 
-            --text-muted: #555555;
-            --accent: #D45B3E; 
-            --border-light: rgba(0,0,0,0.08);
-            
-            --font-display: 'Oswald', sans-serif;
-            --font-body: 'Montserrat', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-page);
-            color: var(--text-main);
-            font-family: var(--font-body);
-            margin: 0; padding: 0;
-            line-height: 1.7;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        /* --- 2. HEADER --- */
-        .minimal-header {
-            background: rgba(250, 249, 245, 0.9);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-light);
-            padding: 1.2rem 2rem;
-            position: sticky; top: 0; z-index: 2000;
-        }
-        .header-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--text-main); letter-spacing: 2px; text-decoration: none;}
-        .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; margin: 0;}
-        .nav-links a { color: var(--text-muted); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: 0.3s; }
-        .nav-links a:hover { color: var(--accent); }
-        .header-resume-btn { background: var(--text-main); color: #fff !important; padding: 0.6rem 1.8rem; border-radius: 50px; font-weight: 600; transition: all 0.3s ease; }
-        .header-resume-btn:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(212, 91, 62, 0.25);}
-
-        /* --- 3. PAGE TITLE --- */
-        .page-intro {
-            max-width: 1300px;
-            margin: 6rem auto 4rem auto;
+        .about-intro {
+            max-width: 1220px;
+            margin: 3.5rem auto 2.5rem auto;
             padding: 0 2rem;
         }
-        .page-intro h1 { 
-            font-family: var(--font-display); 
-            font-size: 4rem; 
-            text-transform: uppercase; 
+
+        .about-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.15rem, 4.5vw, 3.2rem);
+            font-weight: 700;
+            line-height: 1.08;
+            letter-spacing: -0.5px;
+            margin: 0.25rem 0 1rem 0;
+            color: var(--text-main);
+        }
+
+        .about-lead {
+            font-size: 1.03rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            line-height: 1.75;
+            margin: 0 0 1.65rem 0;
+        }
+
+        .about-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.85rem;
+            align-items: center;
+        }
+
+        .social-pill {
+            font-family: var(--font-display);
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-main);
+            padding: 0.7rem 1.35rem;
+            border: 1px solid var(--border-light);
+            background: var(--bg-surface);
+            border-radius: 50px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-pill:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* --- TIMELINE --- */
+        .timeline-list {
+            position: relative;
+            padding-left: 1.65rem;
+            border-left: 2px solid var(--border-light);
+            margin-top: 1.4rem;
+        }
+
+        .timeline-item {
+            position: relative;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 1.5rem 1.65rem;
+            margin-bottom: 1.45rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.12rem;
+            top: 1.7rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--bg-page);
+        }
+
+        .timeline-top {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 0.5rem 1rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .timeline-role {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
             margin: 0;
         }
-        .page-intro h1::after { content: '.'; color: var(--accent); }
 
-        /* --- 4. ABOUT LAYOUT --- */
-        .about-layout {
-            max-width: 1300px;
-            margin: 0 auto 8rem auto;
-            padding: 0 2rem;
-            display: flex;
-            gap: 5rem;
-            align-items: flex-start;
-        }
-
-        .about-sidebar {
-            flex: 0 0 220px;
-            position: sticky;
-            top: 120px;
-        }
-        .sidebar-nav {
-            list-style: none; padding: 0; margin: 0;
-            display: flex; flex-direction: column; gap: 1.2rem;
-        }
-        .sidebar-link {
+        .timeline-date {
             font-family: var(--font-display);
+            font-size: 0.78rem;
+            font-weight: 700;
             text-transform: uppercase;
-            font-weight: 600; color: var(--text-muted);
-            text-decoration: none; transition: 0.3s;
-            font-size: 1.1rem; letter-spacing: 1px;
-            padding-left: 1rem; border-left: 3px solid transparent;
-            display: block;
-        }
-        .sidebar-link:hover, .sidebar-link.active {
+            letter-spacing: 0.8px;
             color: var(--accent);
-            border-left-color: var(--accent);
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-border);
+            padding: 0.22rem 0.7rem;
+            border-radius: 999px;
         }
 
-        .about-content { flex: 1; min-width: 0; }
-
-        .content-section {
-            margin-bottom: 8rem;
-            scroll-margin-top: 140px;
-        }
-
-        .section-title {
-            font-family: var(--font-display);
-            font-size: 2.5rem;
-            text-transform: uppercase;
+        .timeline-company {
+            font-weight: 600;
+            font-size: 0.95rem;
             color: var(--text-main);
-            margin-bottom: 3rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--text-main);
-            display: inline-block;
+            display: block;
+            margin-bottom: 0.75rem;
         }
 
-        /* --- 5. COMPONENTS --- */
+        .timeline-bullets {
+            margin: 0;
+            padding-left: 1.2rem;
+            color: var(--text-muted);
+            font-size: 0.93rem;
+            line-height: 1.68;
+        }
+
+        .timeline-bullets li {
+            margin-bottom: 0.45rem;
+        }
+
+        .timeline-bullets li:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-bullets strong {
+            color: var(--text-main);
+        }
+
+        /* --- SKILLS & TOOLS GRID --- */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fill, minmax(205px, 1fr));
+            gap: 0.85rem;
+            margin-top: 1.25rem;
         }
-        .skill-item {
-            background: #fff; padding: 1rem 1.5rem; border-radius: 8px;
-            border: 1px solid var(--border-light); font-weight: 600;
-            text-align: center; font-size: 0.95rem; color: var(--text-main);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02); transition: 0.3s;
+
+        .skill-chip {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            padding: 0.92rem 1.1rem;
+            font-family: var(--font-display);
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--text-main);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: border-color 0.2s ease, transform 0.2s ease;
         }
-        .skill-item:hover { border-color: var(--accent); transform: translateY(-2px); }
 
-        .exp-item {
-            margin-bottom: 4rem;
-            position: relative;
-            padding-left: 2.5rem;
-            border-left: 2px solid var(--border-light);
+        .skill-chip:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
         }
-        .exp-item::before {
-            content: ''; position: absolute; left: -8px; top: 5px;
-            width: 14px; height: 14px; border-radius: 50%;
-            background: var(--accent); box-shadow: 0 0 0 4px var(--bg-page);
+
+        /* --- PROCESS CARDS --- */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.15rem;
+            margin-top: 1.25rem;
         }
-        .exp-role { font-family: var(--font-display); font-size: 2rem; color: var(--text-main); line-height: 1.1; text-transform: uppercase; margin-bottom: 0.3rem; }
-        .exp-company { font-weight: 700; color: var(--accent); font-size: 1.2rem; margin-bottom: 0.5rem; display: block; }
-        .exp-date { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1.5rem; display: inline-block; background: #fff; padding: 4px 12px; border-radius: 4px; border: 1px solid var(--border-light); font-weight: 600; }
-        .exp-desc { color: var(--text-muted); font-size: 1.05rem; line-height: 1.8; }
-        .exp-desc strong { color: var(--text-main); }
 
-        .process-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-        .process-step { background: #fff; padding: 2.5rem; border-radius: 12px; border: 1px solid var(--border-light); transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
-        .process-step:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.06); border-color: var(--accent); }
-        .icon-circle { width: 45px; height: 45px; background: rgba(212, 91, 62, 0.1); color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: 1.2rem; }
-        .process-step h4 { font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 0.8rem; color: var(--text-main); letter-spacing: 0.5px; text-transform: uppercase; }
+        .process-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 1.4rem;
+            box-shadow: var(--shadow-sm);
+        }
 
-        /* --- 6. MOBILE --- */
-        .menu-toggle { display: none; flex-direction: column; justify-content: space-between; width: 30px; height: 21px; background: transparent; border: none; cursor: pointer; z-index: 2000; position: relative; }
-        .menu-toggle .bar { width: 100%; height: 3px; background-color: var(--text-main); transition: 0.3s ease; border-radius: 2px; }
+        .process-icon {
+            font-size: 1.35rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
 
-        @media (max-width: 1024px) {
-            .about-layout { flex-direction: column; gap: 3rem; }
-            .about-sidebar { position: static; width: 100%; border-bottom: 1px solid var(--border-light); padding-bottom: 1.5rem; }
-            .sidebar-nav { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 1.5rem; }
-            .sidebar-link { border-left: none; border-bottom: 2px solid transparent; padding-left: 0; padding-bottom: 0.5rem; }
-            .sidebar-link:hover, .sidebar-link.active { border-left-color: transparent; border-bottom-color: var(--accent); }
+        .process-card h4 {
+            font-family: var(--font-display);
+            font-size: 1.08rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0 0 0.4rem 0;
+        }
+
+        .process-card p {
+            font-size: 0.89rem;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.6;
         }
 
         @media (max-width: 768px) {
-            .menu-toggle { display: flex !important; }
-            .nav-links { position: fixed !important; top: 0 !important; right: -100% !important; width: 100% !important; height: 100vh !important; background-color: var(--bg-page) !important; display: flex !important; flex-direction: column !important; justify-content: center !important; align-items: center !important; gap: 2.5rem !important; z-index: 1500 !important; transition: right 0.4s ease-in-out !important; }
-            .nav-links.active { right: 0 !important; }
-            .page-intro h1 { font-size: 2.8rem; }
+            .about-intro {
+                padding: 0 1.25rem;
+                margin: 2.2rem auto 2rem auto;
+            }
+
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
-<body>
+<body id="top">
 
     <header class="minimal-header">
         <div class="header-content">
             <a href="index.html" class="logo">KARUNA KETAN.</a>
-            <button class="menu-toggle" id="mobile-menu-btn"><span class="bar"></span><span class="bar"></span><span class="bar"></span></button>
-            <nav>
-                <ul class="nav-links" id="nav-links">
-                    <li><a href="index.html#projects">Projects</a></li>
-                    <li><a href="documents.html">Docs</a></li>
-                    <li><a href="index.html#process">Process</a></li>
-                    <li><a href="about.html" style="color: var(--accent);">About</a></li>
-                    <li><a href="resume.pdf" target="_blank" class="header-resume-btn">RESUME</a></li>
-                </ul>
-            </nav>
+            <div class="nav-right">
+                <nav>
+                    <ul class="nav-links" id="nav-links">
+                        <li><a href="index.html">Projects</a></li>
+                        <li><a href="process.html">Process</a></li>
+                        <li><a href="documents.html">Documents</a></li>
+                        <li><a href="about.html" class="active-nav">About</a></li>
+                        <li><a href="resume.html" target="_blank" class="header-resume-btn">RESUME</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Light/Dark Mode" title="Switch Theme">🌙</button>
+                <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle navigation">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
         </div>
     </header>
 
     <main>
-        <section class="page-intro">
-            <h1>Curriculum Vitae</h1>
+        <section class="about-intro">
+            <span class="section-label">Curriculum Vitae</span>
+            <h1 class="about-title">Background &amp; Experience</h1>
+            <p class="about-lead">
+                From a studio co-op title to shipped Android and PC releases, I turn rough notebook sketches into clear visual GDDs, balanced combat spreadsheets, and playable prototypes. With a B.E. in Computer Science and Engineering, I bridge creative systems design with hands-on technical implementation.
+            </p>
+            <div class="about-actions">
+                <a href="resume.pdf" target="_blank" class="btn-solid">Download Resume (PDF)</a>
+                <a href="documents.html" class="social-pill">Documents Archive ↗</a>
+                <a href="https://www.linkedin.com/in/karunaket/" target="_blank" rel="noopener noreferrer" class="social-pill">LinkedIn ↗</a>
+                <a href="https://karuna-ketan.itch.io/" target="_blank" rel="noopener noreferrer" class="social-pill">Itch.io ↗</a>
+            </div>
         </section>
 
-        <div class="about-layout">
-            <aside class="about-sidebar">
-                <ul class="sidebar-nav">
-                    <li><a href="#experience" class="sidebar-link active">Experience</a></li>
-                    <li><a href="#skills" class="sidebar-link">Core Skills</a></li>
-                    <li><a href="#tools" class="sidebar-link">Tools</a></li>
-                    <li><a href="#process" class="sidebar-link">My Process</a></li>
-                    <li><a href="#education" class="sidebar-link">Education</a></li>
-                </ul>
-            </aside>
+        <div class="case-layout">
+            <div class="case-content">
 
-            <div class="about-content">
-                
+                <!-- 01. EXPERIENCE -->
                 <section id="experience" class="content-section">
-                    <h2 class="section-title">Experience</h2>
+                    <h2 class="block-title">01. Experience</h2>
 
-                    <div class="exp-item">
-                        <h3 class="exp-role">Contract Game Designer</h3>
-                        <span class="exp-company">FatCatPlay Game Studio</span>
-                        <span class="exp-date">Dec 2025 - Feb 2026</span>
-                        <p class="exp-desc">
-                            Spearheaded technical documentation and system architecture for <strong>AOA: Space Scrap Smugglers</strong>, engineering physics-based cooperative synergies. Designed the core gameplay loops and enemy AI behaviors for <strong>MegaDrift</strong>, which were successfully showcased at IGDC 2024 & 2025.
-                        </p>
-                    </div>
+                    <div class="timeline-list">
+                        <div class="timeline-item">
+                            <div class="timeline-top">
+                                <h3 class="timeline-role">Contract Game Designer</h3>
+                                <span class="timeline-date">Dec 2025 - Feb 2026</span>
+                            </div>
+                            <span class="timeline-company">FatCatPlay Game Studio</span>
+                            <ul class="timeline-bullets">
+                                <li>Authored visual GDDs, state flowcharts, and physics-based co-op mechanics for <strong>AOA: Space Scrap Smugglers</strong> across a 12+ person studio team.</li>
+                                <li>Designed core gameplay loops, risk-reward scrap hauling rules, and enemy AI patrol behaviors for <strong>MegaDrift</strong>, showcased at <strong>IGDC 2024 and 2025</strong>.</li>
+                                <li>Collaborated directly with gameplay programmers and level artists to align co-op tether physics and environmental lighting cues with player readability goals.</li>
+                            </ul>
+                        </div>
 
-                    <div class="exp-item">
-                        <h3 class="exp-role">Freelance Game Designer</h3>
-                        <span class="exp-company">Independent Projects</span>
-                        <span class="exp-date">2023 - 2025</span>
-                        <p class="exp-desc">
-                            Partnered with indie developers and small teams to translate creative concepts into actionable <strong>System Blueprints</strong>. Specializing in balancing <strong>In-Game Economies</strong> and mathematical modeling in Excel to ensure sustainable progression. Conducted comprehensive <strong>Game Deconstructions</strong> to identify market trends and optimize player retention hooks for mobile and PC prototypes.
-                        </p>
-                    </div>
+                        <div class="timeline-item">
+                            <div class="timeline-top">
+                                <h3 class="timeline-role">Freelance Game Designer</h3>
+                                <span class="timeline-date">2023 - 2025</span>
+                            </div>
+                            <span class="timeline-company">Independent Projects</span>
+                            <ul class="timeline-bullets">
+                                <li>Partnered with indie developers and small teams to translate early concepts into structured GDDs, LDDs, and playable prototypes.</li>
+                                <li>Built and balanced <strong>game economies</strong>, combat DPS curves, and progression tables in Microsoft Excel to prevent mid-game pacing stalls.</li>
+                                <li>Published in-depth <strong>game deconstructions</strong> analyzing resource scarcity, encounter pacing pockets, and player psychology.</li>
+                            </ul>
+                        </div>
 
-                    <div class="exp-item">
-                        <h3 class="exp-role">President</h3>
-                        <span class="exp-company">Game Development Club (College)</span>
-                        <span class="exp-date">Jan 2024 - Sep 2025</span>
-                        <p class="exp-desc">
-                            Directed a community of 200+ aspiring developers. Established a curriculum for 10+ workshops focused on <strong>System Design</strong>, Rapid Prototyping, and Unreal Engine fundamentals, resulting in 5 completed student prototypes.
-                        </p>
-                    </div>
+                        <div class="timeline-item">
+                            <div class="timeline-top">
+                                <h3 class="timeline-role">President</h3>
+                                <span class="timeline-date">Jan 2024 - Sep 2025</span>
+                            </div>
+                            <span class="timeline-company">Game Development Club (College)</span>
+                            <ul class="timeline-bullets">
+                                <li>Led a student developer community of 200+ aspiring designers, programmers, and artists.</li>
+                                <li>Organized and taught 10+ hands-on workshops covering <strong>Game Design</strong>, rapid paper prototyping, and game engine fundamentals, resulting in 5 completed student games.</li>
+                            </ul>
+                        </div>
 
-                    <div class="exp-item">
-                        <h3 class="exp-role">Game Design Intern</h3>
-                        <span class="exp-company">Akiyam Solutions</span>
-                        <span class="exp-date">Jan 2024 - Jul 2024</span>
-                        <p class="exp-desc">
-                            Optimized design-to-production pipelines by 20% through the implementation of technical flowcharts. Engineered level blockouts and tuned spatial metrics to improve diegetic player navigation.
-                        </p>
+                        <div class="timeline-item">
+                            <div class="timeline-top">
+                                <h3 class="timeline-role">Game Design Intern</h3>
+                                <span class="timeline-date">Jan 2024 - Jul 2024</span>
+                            </div>
+                            <span class="timeline-company">Akiyam Solutions</span>
+                            <ul class="timeline-bullets">
+                                <li>Improved design-to-production handoffs by 20% using visual flowcharts, state diagrams, and concise feature specs.</li>
+                                <li>Built level blockouts and tuned spatial spacing and sightlines to guide player navigation without extra UI prompts.</li>
+                            </ul>
+                        </div>
                     </div>
                 </section>
 
+                <!-- 02. CORE SKILLS -->
                 <section id="skills" class="content-section">
-                    <h2 class="section-title">Core Skills</h2>
+                    <h2 class="block-title">02. Core Skills</h2>
                     <div class="skills-grid">
-                        <div class="skill-item">System Design</div>
-                        <div class="skill-item">Economy Balancing</div>
-                        <div class="skill-item">Level Design</div>
-                        <div class="skill-item">Player Psychology</div>
-                        <div class="skill-item">Mechanic Deconstruction</div>
-                        <div class="skill-item">Rapid Prototyping</div>
-                        <div class="skill-item">Documentation (GDD/LDD)</div>
+                        <div class="skill-chip">Game &amp; Systems Design</div>
+                        <div class="skill-chip">Technical Design</div>
+                        <div class="skill-chip">Level Design &amp; Pacing</div>
+                        <div class="skill-chip">Player Psychology</div>
+                        <div class="skill-chip">Combat &amp; Enemy AI</div>
+                        <div class="skill-chip">Economy &amp; Math Balancing</div>
+                        <div class="skill-chip">Rapid Prototyping</div>
+                        <div class="skill-chip">Documentation (GDD / LDD)</div>
                     </div>
                 </section>
 
+                <!-- 03. TOOLS -->
                 <section id="tools" class="content-section">
-                    <h2 class="section-header" style="font-family: var(--font-display); font-size: 2.2rem; text-transform: uppercase; margin-bottom: 2rem;">Tools & Prototyping</h2>
+                    <h2 class="block-title">03. Tools &amp; Workflow</h2>
                     <div class="skills-grid">
-                        <div class="skill-item">Unreal Engine (Blueprints)</div>
-                        <div class="skill-item">Unity</div>
-                        <div class="skill-item">Microsoft Excel</div>
-                        <div class="skill-item">Git / Perforce</div>
-                        <div class="skill-item">Miro / Figma</div>
-                        <div class="skill-item">Notion</div>
+                        <div class="skill-chip">Unreal Engine 5 (Blueprints)</div>
+                        <div class="skill-chip">Behavior Trees &amp; Blackboard</div>
+                        <div class="skill-chip">Unity</div>
+                        <div class="skill-chip">Microsoft Excel</div>
+                        <div class="skill-chip">Git / Diversion</div>
+                        <div class="skill-chip">Miro / Figma / Notion</div>
                     </div>
                 </section>
 
+                <!-- 04. MY PROCESS -->
                 <section id="process" class="content-section">
-                    <h2 class="section-title">My Process</h2>
+                    <h2 class="block-title">04. How I Work</h2>
                     <div class="process-grid">
-                        <div class="process-step">
-                            <div class="icon-circle">🔍</div>
+                        <div class="process-card">
+                            <span class="process-icon">🔍</span>
                             <h4>Research</h4>
-                            <p>Deep deconstruction of pillars and loops.</p>
+                            <p>Breaking down reference titles to understand what makes their core loops, combat feel, and pacing click.</p>
                         </div>
-                        <div class="process-step">
-                            <div class="icon-circle">📝</div>
-                            <h4>Brief</h4>
-                            <p>Defining pillars and the core player fantasy.</p>
+                        <div class="process-card">
+                            <span class="process-icon">📝</span>
+                            <h4>Design Pillars</h4>
+                            <p>Setting clear experience goals early so every mechanic, UI element, and enemy role supports the core vision.</p>
                         </div>
-                        <div class="process-step">
-                            <div class="icon-circle">💡</div>
-                            <h4>Ideation</h4>
-                            <p>Paper prototyping math and logic before code.</p>
+                        <div class="process-card">
+                            <span class="process-icon">💡</span>
+                            <h4>Paper Ideation</h4>
+                            <p>Sketching level maps, state trees, and progression curves on paper first to validate ideas before opening the engine.</p>
                         </div>
-                        <div class="process-step">
-                            <div class="icon-circle">📖</div>
-                            <h4>Docs</h4>
-                            <p>Authoring live GDDs and technical flowcharts.</p>
+                        <div class="process-card">
+                            <span class="process-icon">📖</span>
+                            <h4>Visual Docs</h4>
+                            <p>Writing concise, diagram-driven GDDs and data sheets that programmers and artists can implement directly.</p>
                         </div>
-                        <div class="process-step">
-                            <div class="icon-circle">⚙️</div>
-                            <h4>Prototype</h4>
-                            <p>Unreal Engine Blueprints for rapid game feel testing.</p>
+                        <div class="process-card">
+                            <span class="process-icon">⚙️</span>
+                            <h4>Rapid Prototype</h4>
+                            <p>Building playable mechanics and AI behaviors in engine to test controls, pacing, and game feel fast.</p>
                         </div>
-                        <div class="process-step">
-                            <div class="icon-circle">📊</div>
-                            <h4>Analysis</h4>
-                            <p>Playtest data iteration and Post-Mortems.</p>
+                        <div class="process-card">
+                            <span class="process-icon">📊</span>
+                            <h4>Playtest &amp; Tune</h4>
+                            <p>Observing blind playtests and refining difficulty curves, pacing pockets, and timings based on real player behavior.</p>
                         </div>
                     </div>
                 </section>
 
+                <!-- 05. EDUCATION -->
                 <section id="education" class="content-section" style="margin-bottom: 0;">
-                    <h2 class="section-title">Education</h2>
-                    <div class="exp-item" style="border: none; padding-bottom: 0;">
-                        <h3 class="exp-role">B.E. Computer Science and Engineering</h3>
-                        <span class="exp-company">KPR Institute of Engineering & Technology</span>
-                        <span class="exp-date">2022 - 2026</span>
-                        <p class="exp-desc">Tamil Nadu, India</p>
+                    <h2 class="block-title">05. Education</h2>
+                    <div class="timeline-list" style="margin-bottom: 0;">
+                        <div class="timeline-item">
+                            <div class="timeline-top">
+                                <h3 class="timeline-role">KPR Institute of Engineering and Technology</h3>
+                                <span class="timeline-date">Nov 2022 - Apr 2026</span>
+                            </div>
+                            <span class="timeline-company" style="margin-bottom: 0;">Computer Science and Engineering</span>
+                            <p style="font-size: 0.92rem; color: var(--text-muted); margin: 0;">Tamil Nadu, India</p>
+                        </div>
+
+                        <div class="timeline-item" style="margin-bottom: 0;">
+                            <div class="timeline-top">
+                                <h3 class="timeline-role">Arniko College</h3>
+                                <span class="timeline-date">Jul 2020 - Jul 2022</span>
+                            </div>
+                            <span class="timeline-company" style="margin-bottom: 0;">High School, Computer Science</span>
+                                                        <p style="font-size: 0.92rem; color: var(--text-muted); margin: 0;">Biratnagar, Nepal</p>
+                        </div>
                     </div>
                 </section>
 
             </div>
+
+            <!-- RIGHT-SIDE FLOATING TABLE OF CONTENTS -->
+            <aside class="right-sidebar" aria-label="Page Contents">
+                <h2 class="toc-heading" title="Scroll to top">Contents</h2>
+                <ul class="toc-list">
+                    <li class="toc-item"><a href="#experience" class="toc-link">01. Experience</a></li>
+                    <li class="toc-item"><a href="#skills" class="toc-link">02. Core Skills</a></li>
+                    <li class="toc-item"><a href="#tools" class="toc-link">03. Tools &amp; Workflow</a></li>
+                    <li class="toc-item"><a href="#process" class="toc-link">04. How I Work</a></li>
+                    <li class="toc-item"><a href="#education" class="toc-link">05. Education</a></li>
+                </ul>
+            </aside>
         </div>
     </main>
 
-    <footer style="background: var(--text-main); color: var(--bg-page); padding: 4rem 2rem; text-align: center;">
-        <div style="display: flex; gap: 2rem; justify-content: center; margin-bottom: 2rem; font-family: var(--font-display); text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">
-            <a href="mailto:gamesbykarunaket@gmail.com" style="color: #fff; text-decoration: none;">Email</a>
-            <a href="https://www.linkedin.com/in/karunaket/" target="_blank" style="color: #fff; text-decoration: none;">LinkedIn</a>
-            <a href="https://karuna-ketan.itch.io/" target="_blank" style="color: #fff; text-decoration: none;">itch.io</a>
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="mailto:gamesbykarunaket@gmail.com">Email</a>
+            <a href="https://www.linkedin.com/in/karunaket/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://karuna-ketan.itch.io/" target="_blank" rel="noopener noreferrer">itch.io</a>
         </div>
-        <p style="font-size: 0.85rem; color: #888;">© 2026 Karuna Ketan.</p>
+        <p class="footer-copy">© 2026 Karuna Ketan.</p>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuBtn = document.getElementById('mobile-menu-btn');
-            const nav = document.getElementById('nav-links');
-            
-            menuBtn.addEventListener('click', () => {
-                nav.classList.toggle('active');
-                menuBtn.classList.toggle('active');
-            });
-
-            const sections = document.querySelectorAll('.content-section');
-            const navLinks = document.querySelectorAll('.sidebar-link');
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        navLinks.forEach(link => {
-                            link.classList.remove('active');
-                            if (link.getAttribute('href').substring(1) === entry.target.id) {
-                                link.classList.add('active');
-                            }
-                        });
-                    }
-                });
-            }, { rootMargin: '-150px 0px -60% 0px' });
-
-            sections.forEach(s => observer.observe(s));
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
