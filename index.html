@@ -450,7 +450,7 @@
                 justify-content: center;
             }
 
-            /* Keep filter & jump bar static on mobile so all pills render cleanly without eating viewport height */
+            /* Keep filter & jump bar static on mobile so all pills render cleanly */
             .control-bar-wrap {
                 position: static;
                 padding: 0 1.25rem;
@@ -589,7 +589,7 @@
             <!-- 1. PROFESSIONAL PROJECT -->
             <h3 id="professional" class="category-divider" data-section="professional">Professional Project</h3>
 
-            <article class="project-card" data-category="game-design" data-section="professional">
+            <article class="project-card" data-category="game-design tech-design" data-section="professional">
                 <a href="tms.html" class="project-thumb" aria-label="View AOA: Space Scrap Smugglers">
                     <div class="thumb-reel" data-interval="3400">
                         <div class="thumb-slide active-slide"><img src="assets/fcp/GIF_Vids/hero_gameplay.gif" alt="AOA: Space Scrap Smugglers Gameplay"></div>
@@ -844,12 +844,71 @@
     <script>
         (function () {
             const header = document.querySelector('.minimal-header');
-            if (!header) return;
-            const syncHeaderOffset = () => {
-                document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
-            };
-            syncHeaderOffset();
-            window.addEventListener('resize', syncHeaderOffset);
+            if (header) {
+                const syncHeaderOffset = () => {
+                    document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+                };
+                syncHeaderOffset();
+                window.addEventListener('resize', syncHeaderOffset);
+            }
+
+            function applyRoleMode() {
+                const role = new URLSearchParams(window.location.search).get('role');
+                if (!role) return;
+
+                const label = document.querySelector('.hero-about .section-label');
+                const bio = document.querySelector('.hero-bio');
+                const specialty = document.querySelector('.hero-specialty');
+                const links = document.querySelector('.hero-links');
+
+                if (role === 'design') {
+                    if (label) label.textContent = 'Game Designer - Systems, Economy & Level Design';
+                    if (bio) {
+                        bio.innerHTML = 'From a studio co-op game to shipped mobile and PC releases, I turn rough notebook sketches into clear GDDs, balanced Excel progression models, and playable graybox levels. Blending <strong>Systems Design</strong>, <strong>Game Economy</strong>, and <strong>Player Psychology</strong>, I build tight gameplay loops, fair risk-reward choices, and clear spatial layouts.';
+                    }
+                    if (specialty) {
+                        specialty.innerHTML = 'Focused on <span>gameplay systems, economy balancing, level blockouts &amp; pacing, and diegetic onboarding</span>.';
+                    }
+                    if (links) {
+                        links.innerHTML = `
+                            <a href="resume.html" target="_blank" rel="noopener" class="btn-solid">Game Design Resume ↗</a>
+                            <a href="https://www.linkedin.com/in/karunaket/" target="_blank" rel="noopener" class="btn-outline">LinkedIn ↗</a>
+                            <a href="https://karuna-ketan.itch.io/" target="_blank" rel="noopener" class="btn-outline">Itch.io ↗</a>
+                        `;
+                    }
+                    setTimeout(() => {
+                        const gdBtn = document.querySelector('.filter-btn[data-filter="game-design"]');
+                        if (gdBtn) gdBtn.click();
+                    }, 50);
+                }
+
+                if (role === 'tech') {
+                    if (label) label.textContent = 'Technical Game Designer - Systems, Combat & AI Design';
+                    if (bio) {
+                        bio.innerHTML = 'With a Computer Science Engineering background and studio experience in Unreal Engine 5, I turn gameplay concepts into modular Blueprint systems, Data Table tuning sheets, and responsive combat prototypes. Combining <strong>Systems Architecture</strong> with <strong>Combat &amp; AI Design</strong>, I build decoupled mechanics and enemy behaviors that stay fast to tune during playtests.';
+                    }
+                    if (specialty) {
+                        specialty.innerHTML = 'Focused on <span>Unreal Engine 5 Blueprints, Behavior Tree AI, combat hit windows, and data-driven systems</span>.';
+                    }
+                    if (links) {
+                        links.innerHTML = `
+                            <a href="resume.html?role=tech" target="_blank" rel="noopener" class="btn-solid">Technical Design Resume ↗</a>
+                            <a href="https://www.linkedin.com/in/karunaket/" target="_blank" rel="noopener" class="btn-outline">LinkedIn ↗</a>
+                            <a href="https://karuna-ketan.itch.io/" target="_blank" rel="noopener" class="btn-outline">Itch.io ↗</a>
+                        `;
+                    }
+                    setTimeout(() => {
+                        const tdBtn = document.querySelector('.filter-btn[data-filter="tech-design"]');
+                        if (tdBtn) tdBtn.click();
+                    }, 50);
+                }
+            }
+
+            if (document.readyState === 'loading') {
+                window.addEventListener('DOMContentLoaded', applyRoleMode);
+            } else {
+                applyRoleMode();
+            }
         })();
     </script>
 </body>
